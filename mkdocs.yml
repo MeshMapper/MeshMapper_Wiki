@@ -1,0 +1,38 @@
+# Site Information
+site_name: MeshMapper Wiki
+site_url: https://meshmapper.net
+repo_name: MeshMapper_Wiki
+repo_url:  https://github.com/MeshMapper/MeshMapper_Wiki
+
+# Navigation Structure
+nav:
+  - Home:  index.md
+
+  - Mapping:
+      - Layers: docs/layers.md
+
+# Theme Configuration
+theme:
+  name:  material
+  logo: assets/wardrive.png
+  favicon: assets/wardrive.png
+  palette:
+    scheme: slate
+
+# Markdown Extensions
+markdown_extensions:
+  - attr_list
+  - admonition
+  - md_in_html
+  - pymdownx.blocks.caption
+  - toc:
+      permalink: true
+
+# Plugins
+plugins:
+  - search
+  - macros
+  - glightbox:
+      touchNavigation: true
+
+
