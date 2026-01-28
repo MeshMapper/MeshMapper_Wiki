@@ -11,6 +11,7 @@ Access to the Admin Portal is strictly controlled. It is not available to genera
 ## Dashboard & Active Sessions
 
 Upon logging in, the dashboard presents a live view of **Active Sessions**.
+
   - **Real-time Monitoring:** See who is currently wardriving in your region.
   - **Capacity Management:** Displays the current slot usage (e.g., 2/5 slots).
   - **Kick User:** Admins can forcibly end a session if a user is stuck or consuming a slot unnecessarily.
@@ -21,6 +22,7 @@ The portal is divided into several tabs for managing different data types.
 
 ### Coverage
 This tab allows granular control over individual data points (pings).
+
   - **Search:** Find pings by User, Time, or Repeater ID.
   - **Edit:** Correct erroneous data (e.g., if a user forgot to flag "External Antenna" or entered the wrong power level).
   - **Delete:** Remove individual bad data points.
@@ -28,6 +30,7 @@ This tab allows granular control over individual data points (pings).
 
 ### Repeaters
 Manage the infrastructure database.
+
   - **Add/Edit:** Manually register repeaters or update their details (Name, Location, Power).
   - **Status Control:**
     - **Active:** Normal operation.
@@ -37,6 +40,7 @@ Manage the infrastructure database.
 
 ### Contacts
 Manage the "Phonebook" of known nodes.
+
   - **Identity:** Map a Public ID (e.g., `12345678...`) to a human-readable Name.
   - **Blocking:** Set a contact's status to **Blocked** to prevent them from uploading data to the map.
 
