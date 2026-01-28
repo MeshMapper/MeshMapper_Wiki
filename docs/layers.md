@@ -44,7 +44,7 @@ Clicking the **Options** button (tune icon) next to the search bar opens the Adv
   - **Ext. Ant.**: Toggle to show only data points collected with an external antenna.
   - **User**: Filter pings by the username of the wardriver (if enabled for the region).
   - **Repeater Name / ID**: Search for specific repeaters by name or the first 2 characters of its Public ID.
-  - **Ping contains ID**: Find pings that routed through (Via) or heard its repeat from a specific repeater ID.
+  - **Ping contains repeater name or ID**: Find pings that routed through (Via) or were heard from a specific repeater by its name or ID. This filter automatically excludes pings associated with duplicate repeater IDs (e.g., IDs with a '?' or known collisions) and displays a warning message when this occurs.
   - **SNR Range**: Filter pings based on Signal-to-Noise Ratio (Min/Max).
   - **Distance Range**: Filter pings based on distance from the heard repeater (Min/Max meters).
   - **Date Range**: Specify a custom start and end date for the data.
