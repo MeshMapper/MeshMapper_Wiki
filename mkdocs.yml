@@ -51,15 +51,12 @@ theme:
   features:
     - navigation.instant
     - navigation.tracking
-    - navigation.tabs
     - navigation.sections
     - navigation.expand
     - navigation.top
-    - navigation.footer
     - search.suggest
     - search.highlight
     - content.code.copy
-    - content.action.edit
 
 # Markdown Extensions
 markdown_extensions:
