@@ -1058,30 +1058,40 @@
 <li><strong>How to get access:</strong> You must reach out to <strong>MrAldersOn</strong> or <strong>CSP-Tom</strong> on Discord to request an account for your region.</li>
 </ul>
 <h2 id="dashboard-active-sessions">Dashboard &amp; Active Sessions<a class="headerlink" href="#dashboard-active-sessions" title="Permanent link">¶</a></h2>
-<p>Upon logging in, the dashboard presents a live view of <strong>Active Sessions</strong>.
-  - <strong>Real-time Monitoring:</strong> See who is currently wardriving in your region.
-  - <strong>Capacity Management:</strong> Displays the current slot usage (e.g., 2/5 slots).
-  - <strong>Kick User:</strong> Admins can forcibly end a session if a user is stuck or consuming a slot unnecessarily.</p>
+<p>Upon logging in, the dashboard presents a live view of <strong>Active Sessions</strong>.</p>
+<ul>
+<li><strong>Real-time Monitoring:</strong> See who is currently wardriving in your region.</li>
+<li><strong>Capacity Management:</strong> Displays the current slot usage (e.g., 2/5 slots).</li>
+<li><strong>Kick User:</strong> Admins can forcibly end a session if a user is stuck or consuming a slot unnecessarily.</li>
+</ul>
 <h2 id="data-management">Data Management<a class="headerlink" href="#data-management" title="Permanent link">¶</a></h2>
 <p>The portal is divided into several tabs for managing different data types.</p>
 <h3 id="coverage">Coverage<a class="headerlink" href="#coverage" title="Permanent link">¶</a></h3>
-<p>This tab allows granular control over individual data points (pings).
-  - <strong>Search:</strong> Find pings by User, Time, or Repeater ID.
-  - <strong>Edit:</strong> Correct erroneous data (e.g., if a user forgot to flag "External Antenna" or entered the wrong power level).
-  - <strong>Delete:</strong> Remove individual bad data points.
-  - <strong>Debug:</strong> If "Debug Mode" was enabled during the drive, a <strong>Debug</strong> button appears, allowing admins to inspect the raw JSON payload received from the device.</p>
+<p>This tab allows granular control over individual data points (pings).</p>
+<ul>
+<li><strong>Search:</strong> Find pings by User, Time, or Repeater ID.</li>
+<li><strong>Edit:</strong> Correct erroneous data (e.g., if a user forgot to flag "External Antenna" or entered the wrong power level).</li>
+<li><strong>Delete:</strong> Remove individual bad data points.</li>
+<li><strong>Debug:</strong> If "Debug Mode" was enabled during the drive, a <strong>Debug</strong> button appears, allowing admins to inspect the raw JSON payload received from the device.</li>
+</ul>
 <h3 id="repeaters">Repeaters<a class="headerlink" href="#repeaters" title="Permanent link">¶</a></h3>
-<p>Manage the infrastructure database.
-  - <strong>Add/Edit:</strong> Manually register repeaters or update their details (Name, Location, Power).
-  - <strong>Status Control:</strong>
-    - <strong>Active:</strong> Normal operation.
-    - <strong>Disabled:</strong> Hidden from map but kept in DB.
-    - <strong>Excluded:</strong> Flagged as a duplicate or bad node. Data from this node is ignored.
-  - <strong>Ping Calc:</strong> A tool to recalculate the total number of pings a repeater has handled.</p>
+<p>Manage the infrastructure database.</p>
+<ul>
+<li><strong>Add/Edit:</strong> Manually register repeaters or update their details (Name, Location, Power).</li>
+<li><strong>Status Control:</strong><ul>
+<li><strong>Active:</strong> Normal operation.</li>
+<li><strong>Disabled:</strong> Hidden from map but kept in DB.</li>
+<li><strong>Excluded:</strong> Flagged as a duplicate or bad node. Data from this node is ignored.</li>
+</ul>
+</li>
+<li><strong>Ping Calc:</strong> A tool to recalculate the total number of pings a repeater has handled.</li>
+</ul>
 <h3 id="contacts">Contacts<a class="headerlink" href="#contacts" title="Permanent link">¶</a></h3>
-<p>Manage the "Phonebook" of known nodes.
-  - <strong>Identity:</strong> Map a Public ID (e.g., <code>12345678...</code>) to a human-readable Name.
-  - <strong>Blocking:</strong> Set a contact's status to <strong>Blocked</strong> to prevent them from uploading data to the map.</p>
+<p>Manage the "Phonebook" of known nodes.</p>
+<ul>
+<li><strong>Identity:</strong> Map a Public ID (e.g., <code>12345678...</code>) to a human-readable Name.</li>
+<li><strong>Blocking:</strong> Set a contact's status to <strong>Blocked</strong> to prevent them from uploading data to the map.</li>
+</ul>
 <h3 id="sessions">Sessions<a class="headerlink" href="#sessions" title="Permanent link">¶</a></h3>
 <p>A historical log of all wardriving sessions.
   - <strong>Metadata:</strong> View details about the device used (App Version, Hardware Model, etc.).

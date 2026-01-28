@@ -774,15 +774,19 @@
 <p><strong>MeshMapper</strong> is a community-driven visualization and analytics platform designed for the <strong>MeshCore</strong> LoRa mesh network. It provides real-time mapping of network coverage and repeater performance, helping communities build more robust and efficient mesh networks.</p>
 <h2 id="what-is-meshmapper">What is MeshMapper?<a class="headerlink" href="#what-is-meshmapper" title="Permanent link">¶</a></h2>
 <p>At its core, MeshMapper is a web-based map that aggregates data collected by users "wardriving" (or "warwalking", etc.) their local area. Unlike simple node maps that just show where a device is, MeshMapper visualizes <strong>actual RF coverage</strong>.</p>
-<p>It answers critical questions for mesh operators:
-  - <em>"Can I reach the mesh from here?"</em>
-  - <em>"Which repeater is providing the best coverage?"</em>
-  - <em>"Where are the dead zones in our city?"</em></p>
+<p>It answers critical questions for mesh operators:</p>
+<ul>
+<li><em>"Can I reach the mesh from here?"</em></li>
+<li><em>"Which repeater is providing the best coverage?"</em></li>
+<li><em>"Where are the dead zones in our city?"</em></li>
+</ul>
 <h2 id="core-principals">Core Principals<a class="headerlink" href="#core-principals" title="Permanent link">¶</a></h2>
-<p>MeshMapper was desiged to provide realistically reliable data without making assumptions
-  - <strong>Duplicate Repeaters:</strong> If a repeater with duplicate ID is detected on the mesh (see "Duplicate Repeater IDs" on the left), coverage data is never directly associated with these repeaters.  Mapping tools will make suggestions on which repeater was actually involved, but no concrete link will ever be made.
-  - <strong>Association:</strong> For every data point, repeaters involved in its transmission are associated based on their GPS coordinates.  <strong>If a repeater is ever relocated, all links to its coverage data are broken</strong> to ensure actual coverage is not skewed.
-  - <strong>Authentication:</strong> Every wardriving session is validated against known mesh nodes.</p>
+<p>MeshMapper was desiged to provide realistically reliable data without making assumptions</p>
+<ul>
+<li><strong>Duplicate Repeaters:</strong> If a repeater with duplicate ID is detected on the mesh (see "Duplicate Repeater IDs" on the left), coverage data is never directly associated with these repeaters.  Mapping tools will make suggestions on which repeater was actually involved, but no concrete link will ever be made.</li>
+<li><strong>Association:</strong> For every data point, repeaters involved in its transmission are associated based on their GPS coordinates.  <strong>If a repeater is ever relocated, all links to its coverage data are broken</strong> to ensure actual coverage is not skewed.</li>
+<li><strong>Authentication:</strong> Every wardriving session is validated against known mesh nodes.</li>
+</ul>
 <p>MeshMapper believes in the ownership and control of how a regions data is presented lies with the region itself.  If a region chooses to bypass logic to limit false or misleading data, that is their choice, and visitors to their map will be warned as such.</p>
 <h2 id="the-wardriving-app">The Wardriving App<a class="headerlink" href="#the-wardriving-app" title="Permanent link">¶</a></h2>
 <p>Data is collected using the <strong>MeshMapper Wardriver</strong> app (currently available as a webapp with native iOS and Android apps in beta testing).</p>
@@ -807,7 +811,7 @@
 <h3 id="3-hardware-validation">3. Hardware Validation<a class="headerlink" href="#3-hardware-validation" title="Permanent link">¶</a></h3>
 <p>The map provides objective data on hardware performance. You can see exactly how far a specific repeater can be heard, or compare the performance of different antennas in real-world conditions.</p>
 <h2 id="developers">Developers<a class="headerlink" href="#developers" title="Permanent link">¶</a></h2>
-<p>MeshMapper is developed by <strong>MrAlders0n</strong> and <strong>CSP-Tom</strong> of the Greater Ottawa Mesh Radio Enthusiasts.  While MeshMapper is 100% free to use, your support helps us cover the backend resources and development time needed to keep up with the rapid global growth. If MeshMapper has helped you, feel free to buy us a coffee: https://buymeacoffee.com/meshmapper</p>
+<p>MeshMapper is developed by <strong>MrAlders0n</strong> and <strong>CSP-Tom</strong> of the Greater Ottawa Mesh Radio Enthusiasts.  While MeshMapper is 100% free to use, your support helps us cover the backend resources and development time needed to keep up with the rapid global growth. If MeshMapper has helped you, <a href="https://buymeacoffee.com/meshmapper">feel free to buy us a coffee</a>!</p>
 <h2 id="and-more">And More!<a class="headerlink" href="#and-more" title="Permanent link">¶</a></h2>
 <p>There's much more to learn and explore.  Click the links to the left to navigate to different articles.</p>
 
