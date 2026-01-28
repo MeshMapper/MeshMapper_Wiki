@@ -6,6 +6,10 @@ repo_name: MeshMapper/MeshMapper_Wiki
 repo_url: https://github.com/MeshMapper/MeshMapper_Wiki
 edit_uri: edit/main/docs/
 
+# Build settings
+use_directory_urls: true
+strict: false
+
 # Navigation Structure
 nav:
   - Home: index.md
@@ -30,8 +34,8 @@ nav:
 # Theme Configuration
 theme:
   name: material
-  logo: ../assets/wardrive.png
-  favicon: ../assets/wardrive.png
+  logo: assets/wardrive.png
+  favicon: assets/wardrive.png
   palette:
     # Light mode
     - scheme: default
@@ -50,12 +54,15 @@ theme:
   
   features:
     - navigation.instant
+    - navigation.instant.prefetch
     - navigation.tracking
     - navigation.sections
     - navigation.expand
     - navigation.top
+    - navigation.indexes
     - search.suggest
     - search.highlight
+    - search.share
     - content.code.copy
 
 # Markdown Extensions
