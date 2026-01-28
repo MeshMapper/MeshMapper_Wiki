@@ -11,27 +11,27 @@ nav:
   - Home: index.md
   
   - Getting Started:
-      - Onboarding New Regions: onboarding.md
+    - Onboarding New Regions: onboarding.md
   
   - Using the Map:
-      - Map Layers & Filters: layers.md
-      - Understanding Visuals: visuals.md
-      - Duplicate Repeater IDs: duplicaterepeaterid.md
+    - Map Layers & Filters: layers.md
+    - Understanding Visuals: visuals.md
+    - Duplicate Repeater IDs: duplicaterepeaterid.md
   
   - Community:
-      - Leaderboards & Statistics: leaderboards.md
+    - Leaderboards & Statistics: leaderboards.md
   
   - Administration:
-      - Admin Portal: admins.md
+    - Admin Portal: admins.md
   
   - Support:
-      - Report Bugs & Features: reportbugs.md
+    - Report Bugs & Features: reportbugs.md
 
 # Theme Configuration
 theme:
   name: material
-  logo: assets/wardrive.png
-  favicon: assets/wardrive.png
+  logo: ../assets/wardrive.png
+  favicon: ../assets/wardrive.png
   palette:
     # Light mode
     - scheme: default
@@ -93,6 +93,14 @@ plugins:
       height: auto
       zoomable: true
       draggable: true
+
+# Extra directories
+extra_css: []
+extra_javascript: []
+
+# Custom directory for assets
+docs_dir: docs
+site_dir: site
 
 # Extra
 extra:
