@@ -12,8 +12,8 @@ body:
     id: doc_url
     attributes:
       label: Documentation URL (or path)
-      description: Paste the exact page URL (e.g., https://ottawamesh.ca/docs/<page>) or repo path.
-      placeholder: "https://ottawamesh.ca/docs/install/router-setup"
+      description: Paste the exact page URL (e.g., https://wiki.meshmapper.net/<page>) or repo path.
+      placeholder: "https://wiki.meshmapper.net/<page>"
     validations:
       required: true
 

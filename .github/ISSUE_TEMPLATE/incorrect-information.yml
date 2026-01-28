@@ -12,7 +12,7 @@ body:
     id: doc_url
     attributes:
       label: Documentation URL (or path)
-      placeholder: "https://ottawamesh.ca/docs/..."
+      placeholder: "https://wiki.meshmapper.net/<page>"
     validations:
       required: true
 
