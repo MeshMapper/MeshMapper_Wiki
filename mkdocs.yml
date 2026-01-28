@@ -30,8 +30,8 @@ nav:
 # Theme Configuration
 theme:
   name:  material
-  logo: assets/logo-GOME-mkdocs.png
-  favicon: assets/favicon-GOME-mkdocs.png
+  logo: assets/wardrive.png
+  favicon: assets/wardrive.png
   palette:
     scheme: slate
 
