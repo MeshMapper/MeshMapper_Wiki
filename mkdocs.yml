@@ -6,10 +6,6 @@ repo_name: MeshMapper/MeshMapper_Wiki
 repo_url: https://github.com/MeshMapper/MeshMapper_Wiki
 edit_uri: edit/main/docs/
 
-# Build settings
-use_directory_urls: true
-strict: false
-
 # Navigation Structure
 nav:
   - Home: index.md
@@ -33,86 +29,26 @@ nav:
 
 # Theme Configuration
 theme:
-  name: material
-  logo: assets/wardrive.png
-  favicon: assets/wardrive.png
+  name:  material
+  logo: assets/logo-GOME-mkdocs.png
+  favicon: assets/favicon-GOME-mkdocs.png
   palette:
-    # Light mode
-    - scheme: default
-      primary: indigo
-      accent: indigo
-      toggle:
-        icon: material/brightness-7
-        name: Switch to dark mode
-    # Dark mode
-    - scheme: slate
-      primary: indigo
-      accent: indigo
-      toggle:
-        icon: material/brightness-4
-        name: Switch to light mode
-  
-  features:
-    - navigation.instant
-    - navigation.instant.prefetch
-    - navigation.tracking
-    - navigation.sections
-    - navigation.expand
-    - navigation.top
-    - navigation.indexes
-    - search.suggest
-    - search.highlight
-    - search.share
-    - content.code.copy
+    scheme: slate
 
 # Markdown Extensions
 markdown_extensions:
   - attr_list
   - admonition
   - md_in_html
-  - pymdownx.details
-  - pymdownx.superfences
-  - pymdownx.tabbed:
-      alternate_style: true
-  - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.blocks.caption
-  - tables
   - toc:
       permalink: true
-      toc_depth: 3
 
 # Plugins
 plugins:
-  - search:
-      lang: en
+  - search
   - macros
   - glightbox:
       touchNavigation: true
-      loop: false
-      effect: zoom
-      slide_effect: slide
-      width: 100%
-      height: auto
-      zoomable: true
-      draggable: true
-
-# Extra directories
-extra_css: []
-extra_javascript: []
-
-# Custom directory for assets
-docs_dir: docs
-site_dir: site
-
-# Extra
-extra:
-  social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/MeshMapper
-      name: MeshMapper on GitHub
-  
-  generator: false
 
 
