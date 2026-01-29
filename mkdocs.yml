@@ -2,8 +2,6 @@
 site_name: MeshMapper Wiki
 site_url: https://meshmapper.net
 site_description: Community-driven visualization and analytics platform for MeshCore LoRa mesh networks
-repo_name: MeshMapper/MeshMapper_Wiki
-repo_url: https://github.com/MeshMapper/MeshMapper_Wiki
 edit_uri: edit/main/docs/
 
 # Navigation Structure
@@ -51,4 +49,8 @@ plugins:
   - glightbox:
       touchNavigation: true
 
+extra_css:
+  - stylesheets/extra.css
 
+extra_javascript:
+  - javascripts/extra.js

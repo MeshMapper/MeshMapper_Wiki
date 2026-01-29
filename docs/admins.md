@@ -46,6 +46,7 @@ Manage the "Phonebook" of known nodes.
 
 ### Sessions
 A historical log of all wardriving sessions.
+
   - **Metadata:** View details about the device used (App Version, Hardware Model, etc.).
   - **Cleanup:** Options to delete just the pings from a session (keeping the record) or wipe the session entirely.
 
