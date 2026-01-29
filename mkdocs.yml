@@ -2,7 +2,7 @@
 site_name: MeshMapper Wiki
 site_url: https://meshmapper.net
 site_description: Community-driven visualization and analytics platform for MeshCore LoRa mesh networks
-edit_uri: edit/main/docs/
+edit_uri: ""
 
 # Navigation Structure
 nav:
