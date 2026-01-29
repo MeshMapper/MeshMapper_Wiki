@@ -56,6 +56,7 @@ If both repeaters are active and legitimate (a true collision between two live d
 *MeshCore does not have to use 2-character IDs*.  This is a limitation that can be, albeit with a lot of work and coordination from the MeshCore developers, resolved by implementing 4-character (or more) IDs.
 
 Please post your concerns on the discussion here:
-https://github.com/meshcore-dev/MeshCore/issues/1083
+
+<https://github.com/meshcore-dev/MeshCore/issues/1083>
 
 With 4-character HEX IDs, a region can have up to **65,536** different repeaters without ID collisions.
