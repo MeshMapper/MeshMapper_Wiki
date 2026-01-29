@@ -48,3 +48,16 @@ Clicking the **Options** button (tune icon) next to the search bar opens the Adv
   - **SNR Range**: Filter pings based on Signal-to-Noise Ratio (Min/Max).
   - **Distance Range**: Filter pings based on distance from the heard repeater (Min/Max meters).
   - **Date Range**: Specify a custom start and end date for the data.
+
+## Coverage Only Mode
+
+For users on older hardware, mobile devices with limited resources, or slow internet connections, MeshMapper offers a **Coverage Only Mode**.
+
+  - **How it works**: Instead of loading thousands of individual data points and rendering them in the browser (which can be CPU intensive), this mode loads pre-rendered image tiles from the server.
+  - **Performance**: This significantly reduces memory usage and load times, making the map usable on almost any device regardless of processing power.
+  - **Limitations**:
+    - **No interactivity**: You cannot click on grid squares to see pings or repeater paths.
+    - **No filtering**: Advanced filters (Time, Power, User) are disabled.
+    - **Simplified View**: Only the coverage grid is shown; repeaters and lines are hidden.
+  - **How to access**:
+    - A "Switch to Coverage Only" button will appear on the loading screen.
