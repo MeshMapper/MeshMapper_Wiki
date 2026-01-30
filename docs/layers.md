@@ -27,6 +27,7 @@ These layers display the actual mesh network data. You can toggle them on or off
 | **DROP** | **Red** grid squares showing failed pings (no route, no repeats). |
 | **Repeaters** | The icons representing repeater nodes. |
 | **Repeater Coverage** | When a repeater is clicked, this layer draws dashed blue lines to all locations where that repeater was heard. Useful for visualizing the effective footprint of a specific repeater. |
+| **Adv. Repeater Coverage** | Similar to standard Repeater Coverage, but color-codes the lines and grid squares based on the connection type (Green=BIDIR, Orange=TX, etc.) instead of using a uniform blue. |
 | **Repeater Neighbours** | Draws lines between repeaters that have heard each other directly. <br> - **Green Dashed**: Heard recently (< 2 weeks). <br> - **Orange Dashed**: Heard 2-4 weeks ago. <br> - **Red Solid**: Stale link (> 4 weeks). |
 | **Noise Heatmap** | A visual heatmap representing the noise floor reported by radios. **Red** areas indicate high interference, while **Blue** areas are quieter. |
 | **Neighbor Zones** | Small pins showing the location of nearby MeshMapper regions. Clicking them will take you to that map. |
@@ -61,3 +62,11 @@ For users on older hardware, mobile devices with limited resources, or slow inte
     - **Simplified View**: Only the coverage grid is shown; repeaters and lines are hidden.
   - **How to access**:
     - A "Switch to Coverage Only" button will appear on the loading screen.
+
+## Private Repeaters
+
+Operators can opt-out of location sharing by appending the "no entry" emoji (🚫) to the end of their repeater's name.
+
+  - **Map**: The Name, Location, and ID are removed from the map and the **Repeaters** layer.
+  - **Pings**: Coverage pings are kept and visible in the grid layers, but the repeater details are masked.
+  - **Leaderboards**: The name is replaced with "(private repeater)", but stats are still calculated.

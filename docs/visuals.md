@@ -51,6 +51,7 @@ Here is a detailed breakdown of the different coverage statuses:
 Clicking on a grid square opens a popup with detailed information.
 
 ### 1. Summary View
+
 If a grid square contains multiple pings, the popup opens in **Summary View** first.
   - **Counts**: Shows the total number of pings for each type (BIDIR, TX, etc.) in that square.
   - **Averages**: Displays the Average SNR (Signal-to-Noise Ratio) and Average Noise Floor.
@@ -58,6 +59,7 @@ If a grid square contains multiple pings, the popup opens in **Summary View** fi
 
 ### 2. Detail View
 You can cycle through individual pings using the **<** and **>** buttons at the bottom of the popup, arranged by the newest data first.
+
   - **Identity**: Who sent the ping (if not hidden via region settings).
   - **Time**: Date and time of the ping.
   - **Telemetry**:
@@ -69,6 +71,35 @@ You can cycle through individual pings using the **<** and **>** buttons at the 
 
 ### 3. Visual Lines
 When a popup is open, MeshMapper draws lines on the map to visualize the connection:
+
   - **Solid Colored Line**: Represents the signal your radio **Heard** from a repeater. The color indicates signal strength (Green = Good, Orange = Okay, Red = Weak).
   - **Blue Dashed Line**: Represents the one-way **Via** path.
   - **Red Dashed Line**: Indicates a connection to a **Duplicate/Excluded** repeater.
+
+### 4. Sharing
+
+Every popup includes a **Link Icon** (chain link) in the top-right corner. Clicking this copies a direct URL to that specific grid square or ping to your clipboard, allowing you to share exact locations with others.
+
+## Repeater Popups
+
+Clicking on a repeater icon opens a popup with details:
+
+  - **Status Indicators**:
+    - **Online (Green)**: The repeater has been heard from recently.
+    - **New (Orange)**: First seen within the last 14 days.
+    - **Stale (Grey)**: Has not been heard from in a specific timeframe set by the region administrator (e.g., 24 hours).
+    - **Excluded (Red)**: Flagged as a duplicate or problematic node.
+  - **Details**:
+    - **ID**: The repeaters identifier.
+    - **Last Heard**: The exact time the repeater was last seen by the mesh.
+    - **Max Range**: The furthest distance a user has successfully connected to this repeater from.
+  - **Neighbours**: A list of other repeaters this node has directly communicated with recently.
+  - **Copy Link**: A link icon in the top right allows you to copy a direct URL to this repeater.
+
+## Private Repeaters
+
+If a repeater's name ends with the "no entry" emoji (🚫), it is treated as a **Private Repeater**:
+
+  - **Map**: The repeater's Name, Location, and ID are completely removed from the map.
+  - **Pings**: Coverage data is still kept and displayed on the grid, but the repeater's identity in the popup is masked as `(hidden)`.
+  - **Leaderboards**: The repeater's name is replaced with "(private repeater)", though its statistics are still calculated and ranked.
