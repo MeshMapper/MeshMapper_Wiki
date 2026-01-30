@@ -493,6 +493,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#private-repeaters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Private Repeaters
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -898,6 +909,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#private-repeaters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Private Repeaters
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -969,6 +991,10 @@
 <td>When a repeater is clicked, this layer draws dashed blue lines to all locations where that repeater was heard. Useful for visualizing the effective footprint of a specific repeater.</td>
 </tr>
 <tr>
+<td><strong>Adv. Repeater Coverage</strong></td>
+<td>Similar to standard Repeater Coverage, but color-codes the lines and grid squares based on the connection type (Green=BIDIR, Orange=TX, etc.) instead of using a uniform blue.</td>
+</tr>
+<tr>
 <td><strong>Repeater Neighbours</strong></td>
 <td>Draws lines between repeaters that have heard each other directly. <br> - <strong>Green Dashed</strong>: Heard recently (&lt; 2 weeks). <br> - <strong>Orange Dashed</strong>: Heard 2-4 weeks ago. <br> - <strong>Red Solid</strong>: Stale link (&gt; 4 weeks).</td>
 </tr>
@@ -1016,6 +1042,13 @@
 <li>A "Switch to Coverage Only" button will appear on the loading screen.</li>
 </ul>
 </li>
+</ul>
+<h2 id="private-repeaters">Private Repeaters<a class="headerlink" href="#private-repeaters" title="Permanent link">¶</a></h2>
+<p>Operators can opt-out of location sharing by appending the "no entry" emoji (🚫) to the end of their repeater's name.</p>
+<ul>
+<li><strong>Map</strong>: The Name, Location, and ID are removed from the map and the <strong>Repeaters</strong> layer.</li>
+<li><strong>Pings</strong>: Coverage pings are kept and visible in the grid layers, but the repeater details are masked.</li>
+<li><strong>Leaderboards</strong>: The name is replaced with "(private repeater)", but stats are still calculated.</li>
 </ul>
 
 
