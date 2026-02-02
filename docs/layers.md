@@ -33,6 +33,10 @@ These layers display the actual mesh network data. You can toggle them on or off
 | **Neighbor Zones** | Small pins showing the location of nearby MeshMapper regions. Clicking them will take you to that map. |
 | **Region Boundary** | A black outline showing the official area covered by the current map zone. |
 
+### Legacy Data Layer
+
+Regions with imported historical data will have a **Legacy** layer available. This layer displays data points uploaded via CSV but does not show connection lines or contribute to repeater statistics due to the lack of verifiable repeater association. See [Data Upload](https://wiki.meshmapper.net/dataupload/) for more details.
+
 ## Search & Filters
 
 The search functionality combines quick lookups with powerful filtering options.

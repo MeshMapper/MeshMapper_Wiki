@@ -47,3 +47,7 @@ Once you submit the form:
   - 3. **Activation**: Once verified, the region is approved. A new subdomain (e.g., `new.meshmapper.net`) is provisioned, and the database structures are automatically generated.
 
 You will be contacted via the provided method (Discord/Email) once the map is live or if further configuration is needed.
+
+## Legacy Data
+
+If you have historical coverage data from other systems, it can be imported into MeshMapper. This data will appear on a separate layer and is not included in leaderboard statistics. See [Data Upload](https://wiki.meshmapper.net/dataupload/) for format requirements.

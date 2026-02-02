@@ -21,6 +21,7 @@ nav:
   
   - Administration:
     - Admin Portal: admins.md
+    - Data Upload: dataupload.md
   
   - Support:
     - Report Bugs & Features: reportbugs.md
