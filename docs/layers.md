@@ -13,6 +13,18 @@ You can switch between different underlying map styles using the **Layer Control
 
 *Note: Your selected base layer is saved in your browser and will be remembered the next time you visit.*
 
+## Settings & Preferences
+
+The **Settings** menu (gear icon in the navigation bar) provides global options for the interface:
+
+*   **Theme**: Toggle between **Light Mode** and **Dark Mode**.
+    *   *Note: Switching to Dark Mode will automatically change the Base Layer to the "Dark Mode" map style.*
+*   **Units**: Switch between **Metric** (m/km) and **Imperial** (ft/mi). This setting applies to:
+    *   Distance measurements on connection lines.
+    *   Maximum range calculation.
+    *   Leaderboard statistics.
+    *   Advanced Search distance filters.
+
 ## Overlay Layers
 
 These layers display the actual mesh network data. You can toggle them on or off individually to reduce clutter.
