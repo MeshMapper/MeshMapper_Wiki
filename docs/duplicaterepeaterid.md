@@ -48,7 +48,7 @@ If both repeaters are active and legitimate (a true collision between two live d
   - If the administrator knows the the collision has been cleared, they may manually reinstate the remaining repeater and delete the old. If the collision has not been cleared, both repeaters will enter excluded state again on next advert. 
 
 !!! warning "Note"
-   As long as two (or more) repeaters with the same first 2 characters of the public ID exist in a region, regardless of current status, pings will not get accociated to a repeater with that ID.
+    As long as two (or more) repeaters with the same first 2 characters of the public ID exist in a region, regardless of current status, pings will not get accociated to a repeater with that ID.
 
 ## Summary Table
 
