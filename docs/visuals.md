@@ -80,6 +80,15 @@ When a popup is open, MeshMapper draws lines on the map to visualize the connect
 
 Every popup includes a **Link Icon** (chain link) in the top-right corner. Clicking this copies a direct URL to that specific grid square or ping to your clipboard, allowing you to share exact locations with others.
 
+## Repeater Icons
+
+The icons representing repeaters on the map change colour based on their status:
+
+  - **Pink**: **Active**. The repeater is active and online.
+  - **Orange**: **New**. The repeater was discovered by MeshMapper within the last 14 days.
+  - **Grey**: **Stale**. The repeater has not sent an advert within the predetermined timeframe (set by the regional administrators).
+  - **Red**: **Excluded**. The repeater is flagged as a duplicate or has been manually flagged as excluded.
+
 ## Repeater Popups
 
 Clicking on a repeater icon opens a popup with details:
