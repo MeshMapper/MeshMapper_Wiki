@@ -26,6 +26,7 @@ When a new repeater appears on the network with a Short ID that is already in us
   - **Leaderboards**: Both repeaters are immediately removed from all Leaderboards (Best Repeaters, Max Range, etc.) both on the local region and globally to prevent skewed statistics.
 
 ### 3. Impact on Collected Data
+
   - **Ambiguity**: If a ping is ingested containing a repeater that has a collision (e.g., via `A1`), MeshMapper cannot attribute that hop to a specific location with certainty.
   - **Data Integrity**: This data is forever flagged as being ambiguous, and will never associate with a repeater (even after the collision is resolved).
 
@@ -35,14 +36,19 @@ Collisions are typically resolved in one of two ways:
 
 ### Automatic Cleanup (Stale Data)
 Often, a collision occurs because an old, offline repeater is still in the database when a new one comes online.
-  - MeshMapper runs a cleanup routine (typically every few days).
+
+  - MeshMapper runs a cleanup routine every day. 
   - If one of the colliding repeaters has not been heard from in **3 days**, it is considered "Stale" and is automatically deleted.
   - **The Survivor**: Once the stale duplicate is removed, the remaining active repeater is automatically restored to **Active** status. Its icon will turn back to normal, it will reappear on Leaderboards, and new incoming pings will properly associate themselves with this repeater again.
 
 ### Manual Resolution
 If both repeaters are active and legitimate (a true collision between two live devices):
+
   - Region administrators receive an alert regarding the collision.  If able, it is suggested that the administrator resolve the issue by asking the owner of the new repeater to generate a new ID.
-  - If the administrator knows the the collision has been cleared, they may manually reinstate the remaining repeater
+  - If the administrator knows the the collision has been cleared, they may manually reinstate the remaining repeater and delete the old. If the collision has not been cleared, both repeaters will enter excluded state again on next advert. 
+
+!!! warning "Note"
+   As long as two (or more) repeaters with the same first 2 characters of the public ID exist in a region, regardless of current status, pings will not get accociated to a repeater with that ID.
 
 ## Summary Table
 
