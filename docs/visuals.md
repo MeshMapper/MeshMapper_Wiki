@@ -46,6 +46,8 @@ Here is a detailed breakdown of the different coverage statuses:
     - You sent a message, but no repeaters heard it, and no route was established.
     - Indicates a dead zone or lack of coverage.
 
+![Diagram](https://meshmapper.net/img/pingtypes.png)
+
 ## Popups & Data
 
 Clicking on a grid square opens a popup with detailed information.
