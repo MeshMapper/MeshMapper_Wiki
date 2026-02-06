@@ -1130,9 +1130,10 @@
 <ul>
 <li><strong>Max Session Capacity</strong>: Limit the number of simultaneous wardrivers to prevent mesh congestion.</li>
 <li><strong>Hide Contact Names</strong>: Toggle privacy mode for the public map.</li>
-<li><strong>Single Observer Mode</strong>: Enable this if your region relies on a single MQTT ingestor to prevent repeaters from being flagged as "Stale" too quickly.</li>
+<li><strong>Single Observer Mode</strong>: Enable this if your region relies on a single MQTT ingestor to prevent repeaters from being flagged as "Stale" too quickly. This option prevents the repeater from displaying as stale and ultimately getting disabled at 30 days without an advert.</li>
 <li><strong>Public Channels</strong>: Define which channels are treated as public traffic.</li>
 <li><strong>MQTT Observers</strong>: Configure the list of letsmesh observers to ingest from.</li>
+<li><strong>Subscribe to all local observers</strong>: This gives a region the option to either define which observers make up their mesh and exclude everything else (when off), or by toggling this on, listen for packets from any connected observer in the IATA. Turning this off and defining which observers to use could be helpful in cases where someone has fired up an observer and connected it with an IATA, but in reality its far away from the actual region and not contributing to the mesh.</li>
 </ul>
 <h2 id="alerts-history">Alerts &amp; History<a class="headerlink" href="#alerts-history" title="Permanent link">¶</a></h2>
 <ul>
