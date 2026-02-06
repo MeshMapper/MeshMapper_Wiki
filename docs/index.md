@@ -28,7 +28,7 @@ MeshMapper believes in the ownership and control of how a regions data is presen
 
 Data is collected using the **MeshMapper Wardriver** app (currently available as a webapp with native iOS and Android apps in beta testing).
 
-  - **Companion Mode**: The app connects to your Meshtastic radio via Bluetooth (BLE).
+  - **Companion Mode**: The app connects to your MeshCode radio via Bluetooth (BLE).
   - **Passive Collection**: As you drive, walk, or cycle, the app periodically sends "pings" through your radio into the mesh network.
   - **Telemetry**: It records GPS coordinates, signal strength (SNR/RSSI), and the path the message took (which repeaters heard it).
   - **Upload**: When an internet connection is available, the app uploads this data to the MeshMapper server for comparison.  The combination of data received through the mesh and sent by the wardriving app determines the level of coverage an area has.
