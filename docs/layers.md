@@ -24,6 +24,7 @@ The **Settings** menu (gear icon in the navigation bar) provides global options 
     *   Maximum range calculation.
     *   Leaderboard statistics.
     *   Advanced Search distance filters.
+*   **Detailed/Simnplified Mode**: Switch between **Detailed** and **Simplified** modes to display grid squares in more or less detail and show repeaters clustered at wide zoom levels.  Simplified mode greatly increases map loading time.
 
 ## Overlay Layers
 
