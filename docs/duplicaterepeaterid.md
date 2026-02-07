@@ -2,6 +2,11 @@
 
 As a regions mesh network grows, the likelihood of two repeaters sharing the same short identifier increases. MeshMapper has a robust system for detecting, handling, and resolving these "collisions" to ensure data integrity.
 
+!!! tip "Override Available"
+    Regions now have the ability to override MeshMapper's default duplicate ID detection logic if they prefer to visualize all data regardless of ambiguity.
+    
+    [Learn how to override duplicate detection](https://wiki.meshmapper.net/overrideduplicates/)
+
 ## The "2-Char" Limitation
 
 MeshCore repeaters are identified by a **Short ID** consisting of the first two characters of its Public ID (e.g., `A1`, `4F`, `09`).  As a message travels across different repeaters in a mesh to its destination, these repeaters append their 2 character ID to the message as a "hop".  MeshMapper operates using these 2 character ID's to associate coverage information with which repeaters were involved in that ping.

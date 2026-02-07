@@ -15,6 +15,7 @@ nav:
     - Map Layers & Filters: layers.md
     - Understanding Visuals: visuals.md
     - Duplicate Repeater IDs: duplicaterepeaterid.md
+    - Override Duplicate IDs: overrideduplicates.md
   
   - Community:
     - Leaderboards & Statistics: leaderboards.md

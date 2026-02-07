@@ -84,6 +84,9 @@ Configure how the map behaves for your region.
   - **Public Channels**: Define which channels are treated as public traffic.
   - **MQTT Observers**: Configure the list of letsmesh observers to ingest from.
   - **Subscribe to all local observers**: This gives a region the option to either define which observers make up their mesh and exclude everything else (when off), or by toggling this on, listen for packets from any connected observer in the IATA. Turning this off and defining which observers to use could be helpful in cases where someone has fired up an observer and connected it with an IATA, but in reality its far away from the actual region and not contributing to the mesh.
+  - **Disable Duplicate ID Detection Logic**: Allows the region to opt-out of MeshMapper's strict duplicate ID collision handling. When enabled, repeaters with colliding IDs will remain active, and pings will associate with all matching repeaters.
+    - *Warning:* This compromises data accuracy. A warning badge will be displayed on the public map, and the region will be excluded from global leaderboards.
+    - [Learn more about overriding duplicate detection](https://wiki.meshmapper.net/overrideduplicates/)
   
 ## Alerts & History
 
