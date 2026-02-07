@@ -1081,13 +1081,24 @@
 <p>Manage the infrastructure database.</p>
 <ul>
 <li><strong>Add/Edit:</strong> Manually register repeaters or update their details (Name, Location, Power).</li>
-<li><strong>Status Control:</strong><ul>
-<li><strong>Active:</strong> Normal operation.</li>
-<li><strong>Disabled:</strong> Hidden from map but kept in DB.</li>
-<li><strong>Excluded:</strong> Flagged as a duplicate or bad node. Data from this node is ignored.</li>
+<li>
+<p><strong>Status Control:</strong></p>
+<ul>
+<li><strong>Active:</strong> The default state. The repeater is visible on the map, included in leaderboards, and actively associating with coverage pings.</li>
+<li><strong>Disabled:</strong> The repeater is hidden from the public map and leaderboards but remains in the database for historical purposes.</li>
+<li><strong>Inactive:</strong> The repeater hasn't sent an advert in the last 30 days and has been removed from from the map.</li>
+<li><strong>Excluded:</strong> The repeater is flagged as a duplicate. It appears as a <strong>Red</strong> icon on the map. Coverage data is <strong>not</strong> associated with this repeater to prevent skewing statistics (with the exception of <strong>DISCOVERY</strong> type pings).</li>
 </ul>
+<div class="admonition warning">
+<p class="admonition-title">Duplicate Repeater Persistence</p>
+<p><strong>You cannot force a repeater with a colliding ID to remain Active.</strong></p>
+<p>If a repeater is flagged as <strong>Excluded</strong> due to an ID collision, manually setting it back to <strong>Active</strong> is futile. The moment MeshMapper receives a new advert or ping from that repeater, the collision detection logic will trigger again, and it will immediately revert to <strong>Excluded</strong>.  In addition, setting a repeaters status to <strong>Disabled</strong> does not bypass collision detection logic.</p>
+<p>This is a safety mechanism designed to protect the integrity of the map's data. To resolve this, one of the colliding repeaters must change its ID.  If a repeater that was once a duplicate is no longer physically on the mesh, deleting the repeater will ensure collision detection logic will not trigger for surviving repeaters.</p>
+</div>
 </li>
-<li><strong>Ping Calc:</strong> A tool to recalculate the total number of pings a repeater has handled.</li>
+<li>
+<p><strong>Ping Calc:</strong> A tool to recalculate the total number of pings a repeater has handled.</p>
+</li>
 </ul>
 <h3 id="contacts">Contacts<a class="headerlink" href="#contacts" title="Permanent link">¶</a></h3>
 <p>Manage the "Phonebook" of known nodes.</p>
