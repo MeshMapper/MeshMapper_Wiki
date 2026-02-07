@@ -995,11 +995,11 @@
 
 <h1 id="overriding-duplicate-id-detection">Overriding Duplicate ID Detection<a class="headerlink" href="#overriding-duplicate-id-detection" title="Permanent link">¶</a></h1>
 <p>MeshMapper's default behavior is to aggressively quarantine repeaters and pings with colliding ID's to ensure map accuracy (see <a href="https://wiki.meshmapper.net/duplicaterepeaterid/">Duplicate Repeater IDs</a>). However, some regions may prefer to visualize all repeaters and connections, even if the data attribution is technically ambiguous.</p>
-<p>The <strong>Disable Duplicate ID Detection Logic</strong> setting allows region administrators to bypass these safety checks.</p>
+<p>The <strong>Disable Duplicate ID Detection Logic</strong> setting allows regions to bypass these safety checks.</p>
 <div class="admonition danger">
 <p class="admonition-title">Data Integrity Warning</p>
 <p>Enabling this setting compromises the accuracy of the map and data.</p>
-<p>Because the system cannot distinguish between two repeaters sharing the same ID (e.g., <code>A1</code>), coverage lines may be drawn to the wrong location, and "Max Range" statistics may be falsely inflated (e.g., if a packet hops between two colliding repeaters on opposite sides of the city, it may be interpreted as a single massive link).</p>
+<p>Because the system cannot distinguish between two repeaters sharing the same ID (e.g., <code>A1</code>), coverage lines may be drawn to the wrong location, and "Max Range" statistics may be falsely inflated.</p>
 </div>
 <h2 id="how-to-enable">How to Enable<a class="headerlink" href="#how-to-enable" title="Permanent link">¶</a></h2>
 <ol>
