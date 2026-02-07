@@ -2,12 +2,12 @@
 
 MeshMapper's default behavior is to aggressively quarantine repeaters and pings with colliding ID's to ensure map accuracy (see [Duplicate Repeater IDs](https://wiki.meshmapper.net/duplicaterepeaterid/)). However, some regions may prefer to visualize all repeaters and connections, even if the data attribution is technically ambiguous.
 
-The **Disable Duplicate ID Detection Logic** setting allows region administrators to bypass these safety checks.
+The **Disable Duplicate ID Detection Logic** setting allows regions to bypass these safety checks.
 
 !!! danger "Data Integrity Warning"
     Enabling this setting compromises the accuracy of the map and data.
     
-    Because the system cannot distinguish between two repeaters sharing the same ID (e.g., `A1`), coverage lines may be drawn to the wrong location, and "Max Range" statistics may be falsely inflated (e.g., if a packet hops between two colliding repeaters on opposite sides of the city, it may be interpreted as a single massive link).
+    Because the system cannot distinguish between two repeaters sharing the same ID (e.g., `A1`), coverage lines may be drawn to the wrong location, and "Max Range" statistics may be falsely inflated.
 
 ## How to Enable
 
