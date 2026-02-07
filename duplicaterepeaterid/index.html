@@ -13,7 +13,7 @@
         <link rel="prev" href="../visuals/">
       
       
-        <link rel="next" href="../leaderboards/">
+        <link rel="next" href="../overrideduplicates/">
       
       
         
@@ -619,6 +619,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overrideduplicates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Override Duplicate IDs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1067,6 +1095,11 @@
 
 <h1 id="duplicate-repeater-ids">Duplicate Repeater IDs<a class="headerlink" href="#duplicate-repeater-ids" title="Permanent link">¶</a></h1>
 <p>As a regions mesh network grows, the likelihood of two repeaters sharing the same short identifier increases. MeshMapper has a robust system for detecting, handling, and resolving these "collisions" to ensure data integrity.</p>
+<div class="admonition tip">
+<p class="admonition-title">Override Available</p>
+<p>Regions now have the ability to override MeshMapper's default duplicate ID detection logic if they prefer to visualize all data regardless of ambiguity.</p>
+<p><a href="https://wiki.meshmapper.net/overrideduplicates/">Learn how to override duplicate detection</a></p>
+</div>
 <h2 id="the-2-char-limitation">The "2-Char" Limitation<a class="headerlink" href="#the-2-char-limitation" title="Permanent link">¶</a></h2>
 <p>MeshCore repeaters are identified by a <strong>Short ID</strong> consisting of the first two characters of its Public ID (e.g., <code>A1</code>, <code>4F</code>, <code>09</code>).  As a message travels across different repeaters in a mesh to its destination, these repeaters append their 2 character ID to the message as a "hop".  MeshMapper operates using these 2 character ID's to associate coverage information with which repeaters were involved in that ping.</p>
 <p>Since this Short ID is only two hexadecimal digits long, there are only <strong>254 possible combinations</strong> (01 to FE...00 and FF are reserved in the MeshCore firmware). As the number of repeaters in a region increases, it becomes statistically inevitable that two completely different devices will end up generating with the same Short ID.</p>

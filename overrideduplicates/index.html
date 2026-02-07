@@ -7,13 +7,13 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/admins/">
+        <link rel="canonical" href="https://meshmapper.net/overrideduplicates/">
       
       
-        <link rel="prev" href="../leaderboards/">
+        <link rel="prev" href="../duplicaterepeaterid/">
       
       
-        <link rel="next" href="../dataupload/">
+        <link rel="next" href="../leaderboards/">
       
       
         
@@ -24,7 +24,7 @@
     
     
       
-        <title>Admin Portal - MeshMapper Wiki</title>
+        <title>Override Duplicate IDs - MeshMapper Wiki</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#admin-portal" class="md-skip">
+        <a href="#overriding-duplicate-id-detection" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Admin Portal
+              Override Duplicate IDs
             
           </span>
         </div>
@@ -321,18 +321,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -353,7 +355,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -452,10 +454,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../overrideduplicates/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Override Duplicate IDs
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -471,6 +500,98 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-enable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Enable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#changes-to-system-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changes to System Behavior
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Changes to System Behavior">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-map-visualization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Map Visualization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-data-ingestion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Data Ingestion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-leaderboards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Leaderboards
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-of-differences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary of Differences
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -569,20 +690,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
@@ -603,7 +722,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -618,37 +737,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Admin Portal
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../admins/" class="md-nav__link">
         
   
   
@@ -664,142 +756,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#access-permissions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Access &amp; Permissions
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dashboard-active-sessions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Dashboard &amp; Active Sessions
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#data-management" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Data Management
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Data Management">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#coverage" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Coverage
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#repeaters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Repeaters
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#contacts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Contacts
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sessions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Sessions
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#maintenance-tools" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Maintenance Tools
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#system-settings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        System Settings
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#alerts-history" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Alerts &amp; History
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -949,10 +905,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#access-permissions" class="md-nav__link">
+  <a href="#how-to-enable" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Access &amp; Permissions
+        How to Enable
       
     </span>
   </a>
@@ -960,33 +916,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#dashboard-active-sessions" class="md-nav__link">
+  <a href="#changes-to-system-behavior" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dashboard &amp; Active Sessions
+        Changes to System Behavior
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#data-management" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Data Management
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Data Management">
+    <nav class="md-nav" aria-label="Changes to System Behavior">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#coverage" class="md-nav__link">
+  <a href="#1-map-visualization" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coverage
+        1. Map Visualization
       
     </span>
   </a>
@@ -994,10 +939,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#repeaters" class="md-nav__link">
+  <a href="#2-data-ingestion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Repeaters
+        2. Data Ingestion
       
     </span>
   </a>
@@ -1005,21 +950,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#contacts" class="md-nav__link">
+  <a href="#3-leaderboards" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Contacts
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sessions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Sessions
+        3. Leaderboards
       
     </span>
   </a>
@@ -1032,32 +966,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#maintenance-tools" class="md-nav__link">
+  <a href="#summary-of-differences" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Maintenance Tools
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#system-settings" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        System Settings
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#alerts-history" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Alerts &amp; History
+        Summary of Differences
       
     </span>
   </a>
@@ -1081,109 +993,78 @@
 
 
 
-<h1 id="admin-portal">Admin Portal<a class="headerlink" href="#admin-portal" title="Permanent link">¶</a></h1>
-<p>The <strong>MeshMapper Admin Portal</strong> is a restricted area designed for region maintainers to manage data integrity, configure system settings, and monitor the health of a regions map.</p>
-<h2 id="access-permissions">Access &amp; Permissions<a class="headerlink" href="#access-permissions" title="Permanent link">¶</a></h2>
-<p>Access to the Admin Portal is strictly controlled. It is not available to general users.</p>
-<ul>
-<li><strong>How to get access:</strong> You must reach out to <strong>MrAldersOn</strong> or <strong>CSP-Tom</strong> on Discord to request an account for your region.</li>
-</ul>
-<h2 id="dashboard-active-sessions">Dashboard &amp; Active Sessions<a class="headerlink" href="#dashboard-active-sessions" title="Permanent link">¶</a></h2>
-<p>Upon logging in, the dashboard presents a live view of <strong>Active Sessions</strong>.</p>
-<ul>
-<li><strong>Real-time Monitoring:</strong> See who is currently wardriving in your region.</li>
-<li><strong>Capacity Management:</strong> Displays the current slot usage (e.g., 2/5 slots).</li>
-<li><strong>Kick User:</strong> Admins can forcibly end a session if a user is stuck or consuming a slot unnecessarily.</li>
-</ul>
-<h2 id="data-management">Data Management<a class="headerlink" href="#data-management" title="Permanent link">¶</a></h2>
-<p>The portal is divided into several tabs for managing different data types.</p>
-<h3 id="coverage">Coverage<a class="headerlink" href="#coverage" title="Permanent link">¶</a></h3>
-<p>This tab allows granular control over individual data points (pings).</p>
-<ul>
-<li><strong>Search:</strong> Find pings by User, Time, or Repeater ID.</li>
-<li><strong>Edit:</strong> Correct erroneous data (e.g., if a user forgot to flag "External Antenna" or entered the wrong power level).</li>
-<li><strong>Delete:</strong> Remove individual bad data points.</li>
-<li><strong>Debug:</strong> If "Debug Mode" was enabled during the drive, a <strong>Debug</strong> button appears, allowing admins to inspect the raw JSON payload received from the device.</li>
-</ul>
-<h3 id="repeaters">Repeaters<a class="headerlink" href="#repeaters" title="Permanent link">¶</a></h3>
-<p>Manage the infrastructure database.</p>
-<ul>
-<li><strong>Add/Edit:</strong> Manually register repeaters or update their details (Name, Location, Power).</li>
-<li>
-<p><strong>Status Control:</strong></p>
-<ul>
-<li><strong>Active:</strong> The default state. The repeater is visible on the map, included in leaderboards, and actively associating with coverage pings.</li>
-<li><strong>Disabled:</strong> The repeater is hidden from the public map and leaderboards but remains in the database for historical purposes.</li>
-<li><strong>Inactive:</strong> The repeater hasn't sent an advert in the last 30 days and has been removed from from the map.</li>
-<li><strong>Excluded:</strong> The repeater is flagged as a duplicate. It appears as a <strong>Red</strong> icon on the map. Coverage data is <strong>not</strong> associated with this repeater to prevent skewing statistics (with the exception of <strong>DISCOVERY</strong> type pings).</li>
-</ul>
-<div class="admonition warning">
-<p class="admonition-title">Duplicate Repeater Persistence</p>
-<p><strong>You cannot force a repeater with a colliding ID to remain Active.</strong></p>
-<p>If a repeater is flagged as <strong>Excluded</strong> due to an ID collision, manually setting it back to <strong>Active</strong> is futile. The moment MeshMapper receives a new advert or ping from that repeater, the collision detection logic will trigger again, and it will immediately revert to <strong>Excluded</strong>.  In addition, setting a repeaters status to <strong>Disabled</strong> does not bypass collision detection logic.</p>
-<p>This is a safety mechanism designed to protect the integrity of the map's data. To resolve this, one of the colliding repeaters must change its ID.  If a repeater that was once a duplicate is no longer physically on the mesh, deleting the repeater will ensure collision detection logic will not trigger for surviving repeaters.</p>
+<h1 id="overriding-duplicate-id-detection">Overriding Duplicate ID Detection<a class="headerlink" href="#overriding-duplicate-id-detection" title="Permanent link">¶</a></h1>
+<p>MeshMapper's default behavior is to aggressively quarantine repeaters and pings with colliding ID's to ensure map accuracy (see <a href="https://wiki.meshmapper.net/duplicaterepeaterid/">Duplicate Repeater IDs</a>). However, some regions may prefer to visualize all repeaters and connections, even if the data attribution is technically ambiguous.</p>
+<p>The <strong>Disable Duplicate ID Detection Logic</strong> setting allows region administrators to bypass these safety checks.</p>
+<div class="admonition danger">
+<p class="admonition-title">Data Integrity Warning</p>
+<p>Enabling this setting compromises the accuracy of the map and data.</p>
+<p>Because the system cannot distinguish between two repeaters sharing the same ID (e.g., <code>A1</code>), coverage lines may be drawn to the wrong location, and "Max Range" statistics may be falsely inflated (e.g., if a packet hops between two colliding repeaters on opposite sides of the city, it may be interpreted as a single massive link).</p>
 </div>
-</li>
-<li>
-<p><strong>Ping Calc:</strong> A tool to recalculate the total number of pings a repeater has handled.</p>
-</li>
-</ul>
-<h3 id="contacts">Contacts<a class="headerlink" href="#contacts" title="Permanent link">¶</a></h3>
-<p>Manage the "Phonebook" of known nodes.</p>
+<h2 id="how-to-enable">How to Enable<a class="headerlink" href="#how-to-enable" title="Permanent link">¶</a></h2>
+<ol>
+<li>Region administrators can log in to the <strong>Admin Portal</strong>.</li>
+<li>Navigate to the <strong>Settings</strong> tab.</li>
+<li>Check the box for <strong>Disable Duplicate ID Detection Logic</strong>.</li>
+<li>Click <strong>Save Settings</strong>.</li>
+</ol>
+<p><em>Note: If your region is part of a Multi-Region Group, this setting must be enabled by a Master or Global Administrator.</em></p>
+<h2 id="changes-to-system-behavior">Changes to System Behavior<a class="headerlink" href="#changes-to-system-behavior" title="Permanent link">¶</a></h2>
+<p>When this mode is active, the system alters its logic in the following ways:</p>
+<h3 id="1-map-visualization">1. Map Visualization<a class="headerlink" href="#1-map-visualization" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong>Identity:</strong> Map a Public ID (e.g., <code>12345678...</code>) to a human-readable Name.</li>
-<li><strong>Blocking:</strong> Set a contact's status to <strong>Blocked</strong> to prevent them from uploading data to the map.</li>
+<li><strong>Icons:</strong> Repeaters involved in a collision will no longer display the red <strong>Excluded</strong> icon. They will appear as standard Active repeaters (Orange/Grey/Green).</li>
+<li><strong>Coverage Lines:</strong> The map will draw connection lines from pings to <em>all</em> repeaters that match the ID, even if the ping data is ambiguous.</li>
+<li><strong>Neighbor Lines:</strong> Neighbor lines will be drawn for every repeater sharing a colliding ID.</li>
+<li><strong>Public Warning:</strong> A warning icon will appear on the public map interface (below the Help button) to inform visitors that the region has opted out of standard validation logic.</li>
 </ul>
-<h3 id="sessions">Sessions<a class="headerlink" href="#sessions" title="Permanent link">¶</a></h3>
-<p>A historical log of all wardriving sessions.</p>
+<h3 id="2-data-ingestion">2. Data Ingestion<a class="headerlink" href="#2-data-ingestion" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong>Metadata:</strong> View details about the device used (App Version, Hardware Model, etc.).</li>
-<li><strong>Cleanup:</strong> Options to delete just the pings from a session (keeping the record) or wipe the session entirely.</li>
+<li><strong>Persistence:</strong> The system will no longer automatically force existing repeaters into "Excluded" status when a collision is detected. If you manually set a duplicate repeater to <strong>Active</strong>, it will remain Active.</li>
+<li><strong>New Collisions:</strong> To ensure admins are still aware of issues, <em>newly discovered</em> repeaters that cause a collision will still default to "Excluded" initially. However, unlike the standard mode, you can manually change them to "Active" without the system reverting your change on the next ping.  Regardless of being "Excluded", the repeater will still function as being "Active".</li>
 </ul>
-<h2 id="maintenance-tools">Maintenance Tools<a class="headerlink" href="#maintenance-tools" title="Permanent link">¶</a></h2>
-<p>The <strong>Tools</strong> tab contains powerful utilities for bulk operations. <strong>Use with caution.</strong></p>
+<h3 id="3-leaderboards">3. Leaderboards<a class="headerlink" href="#3-leaderboards" title="Permanent link">¶</a></h3>
 <ul>
-<li>
-<p><strong>Replace Repeater</strong>:</p>
-<ul>
-<li>Useful when a repeater changes its ID or is replaced by new hardware.</li>
-<li>Scans the entire database and updates all historical pings to point to the new ID.</li>
+<li><strong>Local Leaderboard:</strong> Duplicate repeaters will be included in the regional "Best Repeaters" and "Max Range" tables.</li>
+<li><strong>Global Leaderboard:</strong> To protect the integrity of the global rankings, regions with this setting enabled are <strong>excluded</strong> from the Global Leaderboard. Your repeaters will not appear.</li>
 </ul>
-</li>
-<li>
-<p><strong>Bulk Delete Pings</strong>:</p>
-<ul>
-<li>Remove all data for a specific user or session within a specific time range.</li>
-</ul>
-</li>
-<li>
-<p><strong>Bulk Update</strong>:</p>
-<ul>
-<li>Mass-edit attributes for a set of pings.</li>
-<li><em>Example:</em> Change all pings from user "Tom" on "Dec 25th" to have "External Antenna = YES".</li>
-</ul>
-</li>
-</ul>
-<h2 id="system-settings">System Settings<a class="headerlink" href="#system-settings" title="Permanent link">¶</a></h2>
-<p>Configure how the map behaves for your region.</p>
-<ul>
-<li><strong>Max Session Capacity</strong>: Limit the number of simultaneous wardrivers to prevent mesh congestion.</li>
-<li><strong>Hide Contact Names</strong>: Toggle privacy mode for the public map.</li>
-<li><strong>Single Observer Mode</strong>: Enable this if your region relies on a single MQTT ingestor to prevent repeaters from being flagged as "Stale" too quickly. This option prevents the repeater from displaying as stale and ultimately getting disabled at 30 days without an advert.</li>
-<li><strong>Public Channels</strong>: Define which channels are treated as public traffic.</li>
-<li><strong>MQTT Observers</strong>: Configure the list of letsmesh observers to ingest from.</li>
-<li><strong>Subscribe to all local observers</strong>: This gives a region the option to either define which observers make up their mesh and exclude everything else (when off), or by toggling this on, listen for packets from any connected observer in the IATA. Turning this off and defining which observers to use could be helpful in cases where someone has fired up an observer and connected it with an IATA, but in reality its far away from the actual region and not contributing to the mesh.</li>
-<li><strong>Disable Duplicate ID Detection Logic</strong>: Allows the region to opt-out of MeshMapper's strict duplicate ID collision handling. When enabled, repeaters with colliding IDs will remain active, and pings will associate with all matching repeaters.<ul>
-<li><em>Warning:</em> This compromises data accuracy. A warning badge will be displayed on the public map, and the region will be excluded from global leaderboards.</li>
-<li><a href="https://wiki.meshmapper.net/overrideduplicates/">Learn more about overriding duplicate detection</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="alerts-history">Alerts &amp; History<a class="headerlink" href="#alerts-history" title="Permanent link">¶</a></h2>
-<ul>
-<li><strong>Alerts</strong>: Automatically detects configuration issues, such as <strong>Duplicate Repeater IDs</strong> (Collisions).</li>
-<li><strong>History</strong>: An audit log of all administrative actions (who edited what and when), ensuring accountability.</li>
-</ul>
+<h2 id="summary-of-differences">Summary of Differences<a class="headerlink" href="#summary-of-differences" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;">Standard Mode</th>
+<th style="text-align: left;">Override Mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Duplicate Repeater Status</strong></td>
+<td style="text-align: left;">Forced to "Excluded" (Red)</td>
+<td style="text-align: left;">Can be manually set to "Active"</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ambiguous Pings</strong></td>
+<td style="text-align: left;">Ignored / Not drawn</td>
+<td style="text-align: left;">Drawn to all matching candidates</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Neighbor Lines</strong></td>
+<td style="text-align: left;">Drawn only for unique IDs</td>
+<td style="text-align: left;">Drawn for all colliding IDs</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Max Range Stats</strong></td>
+<td style="text-align: left;">Calculated only for verified unique IDs</td>
+<td style="text-align: left;">Calculated for all IDs (may be inaccurate)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Global Leaderboard</strong></td>
+<td style="text-align: left;">Included</td>
+<td style="text-align: left;"><strong>Excluded</strong></td>
+</tr>
+</tbody>
+</table>
 
 
 
