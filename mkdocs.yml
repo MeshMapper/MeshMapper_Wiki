@@ -21,6 +21,7 @@ nav:
     - Leaderboards & Statistics: leaderboards.md
   
   - Administration:
+    - Administrator List: administratorlist.md
     - Admin Portal: admins.md
     - Data Upload: dataupload.md
   
