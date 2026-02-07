@@ -33,9 +33,18 @@ Manage the infrastructure database.
 
   - **Add/Edit:** Manually register repeaters or update their details (Name, Location, Power).
   - **Status Control:**
-    - **Active:** Normal operation.
-    - **Disabled:** Hidden from map but kept in DB.
-    - **Excluded:** Flagged as a duplicate or bad node. Data from this node is ignored.
+    - **Active:** The default state. The repeater is visible on the map, included in leaderboards, and actively associating with coverage pings.
+    - **Disabled:** The repeater is hidden from the public map and leaderboards but remains in the database for historical purposes.
+    - **Inactive:** The repeater hasn't sent an advert in the last 30 days and has been removed from from the map.
+    - **Excluded:** The repeater is flagged as a duplicate. It appears as a **Red** icon on the map. Coverage data is **not** associated with this repeater to prevent skewing statistics (with the exception of **DISCOVERY** type pings).
+
+    !!! warning "Duplicate Repeater Persistence"
+        **You cannot force a repeater with a colliding ID to remain Active.**
+        
+        If a repeater is flagged as **Excluded** due to an ID collision, manually setting it back to **Active** is futile. The moment MeshMapper receives a new advert or ping from that repeater, the collision detection logic will trigger again, and it will immediately revert to **Excluded**.  In addition, setting a repeaters status to **Disabled** does not bypass collision detection logic.
+        
+        This is a safety mechanism designed to protect the integrity of the map's data. To resolve this, one of the colliding repeaters must change its ID.  If a repeater that was once a duplicate is no longer physically on the mesh, deleting the repeater will ensure collision detection logic will not trigger for surviving repeaters.
+
   - **Ping Calc:** A tool to recalculate the total number of pings a repeater has handled.
 
 ### Contacts
