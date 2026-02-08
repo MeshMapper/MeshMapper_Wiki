@@ -489,10 +489,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-2-char-limitation" class="md-nav__link">
+  <a href="#the-1-byte-limitation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The "2-Char" Limitation
+        The 1-byte Limitation
       
     </span>
   </a>
@@ -983,10 +983,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-2-char-limitation" class="md-nav__link">
+  <a href="#the-1-byte-limitation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The "2-Char" Limitation
+        The 1-byte Limitation
       
     </span>
   </a>
@@ -1128,14 +1128,14 @@
 <p>Regions now have the ability to override MeshMapper's default duplicate ID detection logic if they prefer to visualize all data regardless of ambiguity.</p>
 <p><a href="https://wiki.meshmapper.net/overrideduplicates/">Learn how to override duplicate detection</a></p>
 </div>
-<h2 id="the-2-char-limitation">The "2-Char" Limitation<a class="headerlink" href="#the-2-char-limitation" title="Permanent link">¶</a></h2>
-<p>MeshCore repeaters are identified by a <strong>Short ID</strong> consisting of the first two characters of its Public ID (e.g., <code>A1</code>, <code>4F</code>, <code>09</code>).  As a message travels across different repeaters in a mesh to its destination, these repeaters append their 2 character ID to the message as a "hop".  MeshMapper operates using these 2 character ID's to associate coverage information with which repeaters were involved in that ping.</p>
-<p>Since this Short ID is only two hexadecimal digits long, there are only <strong>254 possible combinations</strong> (01 to FE...00 and FF are reserved in the MeshCore firmware). As the number of repeaters in a region increases, it becomes statistically inevitable that two completely different devices will end up generating with the same Short ID.</p>
+<h2 id="the-1-byte-limitation">The 1-byte Limitation<a class="headerlink" href="#the-1-byte-limitation" title="Permanent link">¶</a></h2>
+<p>MeshCore repeaters are identified in packets using 1-byte consisting of the first two characters of its Public ID (e.g., <code>A1</code>, <code>4F</code>, <code>09</code>).  As a message travels across different repeaters in a mesh to its destination, these repeaters append their 2 character ID to the message as a "hop".  MeshMapper operates using these 2 character ID's to associate coverage information with which repeaters were involved in that ping.</p>
+<p>Since this is only two hexadecimal digits long, there are only <strong>254 possible combinations</strong> (01 to FE...00 and FF are reserved in the MeshCore firmware). As the number of repeaters in a region increases, it becomes statistically inevitable that two completely different devices will end up generating with the same Short ID.</p>
 <p>When this happens, it is called a <strong>Collision</strong>.</p>
 <h2 id="how-meshmapper-handles-collisions">How MeshMapper Handles Collisions<a class="headerlink" href="#how-meshmapper-handles-collisions" title="Permanent link">¶</a></h2>
 <p>MeshMapper prioritizes data accuracy. If two repeaters share the ID <code>A1</code>, and a message repeat is heard by or is received via <code>A1</code>, the system has no way of knowing <em>which</em> physical repeater was actually involved. To prevent potentially inaccurate data from being represented on the map, MeshMapper enters a "Quarantine" mode for the affected devices.</p>
 <h3 id="1-detection-quarantine">1. Detection &amp; Quarantine<a class="headerlink" href="#1-detection-quarantine" title="Permanent link">¶</a></h3>
-<p>When a new repeater appears on the network with a Short ID that is already in use by a different device:
+<p>When a new repeater appears on the network with an ID that is already in use by a different device:
   - <strong>Both</strong> repeaters (the existing one and the new one) are immediately flagged as <strong>Excluded</strong>.
   - The system assigns the new repeater a temporary internal ID (e.g., <code>X1</code>) to differentiate it in the database and map, but it remains linked to the collision.
   - Both repeaters are excluded from regional or global leaderboards and statistics (like maximum distance reached)</p>
@@ -1198,10 +1198,12 @@
 </tbody>
 </table>
 <h2 id="permanent-solution">Permanent Solution<a class="headerlink" href="#permanent-solution" title="Permanent link">¶</a></h2>
-<p><em>MeshCore does not have to use 2-character IDs</em>.  This is a limitation that can be, albeit with a lot of work and coordination from the MeshCore developers, resolved by implementing 4-character (or more) IDs.</p>
+<p><em>MeshCore does not have to use 1-byte to identify repeaters in hops</em>.  This is a limitation that can be, albeit with a lot of work and coordination from the MeshCore developers, resolved by representing repeaters using 2-bytes or more.</p>
 <p>Please post your concerns on the discussion here:</p>
-<p><a href="https://github.com/meshcore-dev/MeshCore/issues/1083">https://github.com/meshcore-dev/MeshCore/issues/1083</a></p>
-<p>With 4-character HEX IDs, a region can have up to <strong>65,536</strong> different repeaters without ID collisions.</p>
+<p><a href="https://github.com/meshcore-dev/MeshCore/issues/1083">https://github.com/meshcore-dev/MeshCore/issues/1083</a>
+and
+<a href="https://github.com/meshcore-dev/MeshCore/discussions/1613">https://github.com/meshcore-dev/MeshCore/discussions/1613</a></p>
+<p>With 2-byte IDs, a region can have up to <strong>65,536</strong> different repeaters without ID collisions.</p>
 
 
 
