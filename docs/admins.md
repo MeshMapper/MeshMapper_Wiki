@@ -59,6 +59,12 @@ A historical log of all wardriving sessions.
   - **Metadata:** View details about the device used (App Version, Hardware Model, etc.).
   - **Cleanup:** Options to delete just the pings from a session (keeping the record) or wipe the session entirely.
 
+### Users
+Manage user identities to group multiple contacts.
+
+  - **Leaderboard Grouping:** Associate multiple contacts/companions under a single User identity. This ensures that all contributions from these devices are aggregated together on the leaderboards.  The name that will display on the leaderboards is that of the selected Main Contact.
+  - **Future Functionality:** Currently, this feature is for administrative grouping only. However, plans are in place to expand this into a full Contributor Portal, allowing users to log in, view their personal statistics, and manage the data they have contributed to MeshMapper.  There are some fields (like Username) that exist for this purpose but are not yet implemented.
+
 ## Maintenance Tools
 
 The **Tools** tab contains powerful utilities for bulk operations. **Use with caution.**
