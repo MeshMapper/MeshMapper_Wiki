@@ -28,6 +28,19 @@ nav:
   - Support:
     - Report Bugs & Features: reportbugs.md
 
+  - Release Notes:
+    - February 9, 2026: release-notes/260209.md
+    - February 7, 2026: release-notes/260207.md
+    - February 5, 2026: release-notes/260205_2.md
+    - February 5, 2026: release-notes/260205.md
+    - February 4, 2026: release-notes/260204.md
+    - February 3, 2026: release-notes/260203_2.md
+    - February 3, 2026: release-notes/260203.md
+    - January 31, 2026: release-notes/260131_2.md
+    - January 31, 2026: release-notes/260131.md
+    - January 30, 2026: release-notes/260130.md
+    - January 29, 2026: release-notes/260129.md
+
 # Theme Configuration
 theme:
   name:  material
