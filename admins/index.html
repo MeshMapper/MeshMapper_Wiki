@@ -1546,7 +1546,7 @@
 <li><strong>Debug:</strong> If "Debug Mode" was enabled during the drive, a <strong>Debug</strong> button appears, allowing admins to inspect the raw JSON payload received from the device.</li>
 </ul>
 <h3 id="repeaters">Repeaters<a class="headerlink" href="#repeaters" title="Permanent link">¶</a></h3>
-<p>Manage the infrastructure database.</p>
+<p>Manage the repeaters database.</p>
 <ul>
 <li><strong>Add/Edit:</strong> Manually register repeaters or update their details (Name, Location, Power).</li>
 <li>
@@ -1567,12 +1567,18 @@
 <li>
 <p><strong>Ping Calc:</strong> A tool to recalculate the total number of pings a repeater has handled.</p>
 </li>
+<li><strong>Notes:</strong> Clicking the note icon will allow you to optionally add a note to the repeater.  On multiregion admin panels, if a repeater belongs to multiple single regions, notes will be combined and edits will be saved to the individual regions.</li>
+<li><strong>Lock GPS Coordinates:</strong> Enabling this setting will prevent new adverts from a repeater from updating its location.  This can be used in instances where the GPS coordinates set on the repeater are incorrect and need to be manually overridden.</li>
 </ul>
+<p>!!! warning "Data Inaccuracy Warning"</p>
+<pre><code>  Enabling "Lock GPS Coordinates" for a repeater that can or will physically move locations will result in inaccurate data.  Use with caution.
+</code></pre>
 <h3 id="contacts">Contacts<a class="headerlink" href="#contacts" title="Permanent link">¶</a></h3>
-<p>Manage the "Phonebook" of known nodes.</p>
+<p>Manage the "Phonebook" of known companions.</p>
 <ul>
 <li><strong>Identity:</strong> Map a Public ID (e.g., <code>12345678...</code>) to a human-readable Name.</li>
 <li><strong>Blocking:</strong> Set a contact's status to <strong>Blocked</strong> to prevent them from uploading data to the map.</li>
+<li><strong>Notes:</strong> Clicking the note icon will allow you to optionally add a note to the contact.  On multiregion admin panels, if a repeater belongs to multiple single regions, notes will be combined and edits will be saved to the individual regions.</li>
 </ul>
 <h3 id="sessions">Sessions<a class="headerlink" href="#sessions" title="Permanent link">¶</a></h3>
 <p>A historical log of all wardriving sessions.</p>
