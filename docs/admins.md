@@ -49,9 +49,9 @@ Manage the repeaters database.
   - **Notes:** Clicking the note icon will allow you to optionally add a note to the repeater.  On multiregion admin panels, if a repeater belongs to multiple single regions, notes will be combined and edits will be saved to the individual regions.
   - **Lock GPS Coordinates:** Enabling this setting will prevent new adverts from a repeater from updating its location.  This can be used in instances where the GPS coordinates set on the repeater are incorrect and need to be manually overridden.
 
-  !!! warning "Data Inaccuracy Warning"
+    !!! warning "Data Inaccuracy Warning"
 
-      Enabling "Lock GPS Coordinates" for a repeater that can or will physically move locations will result in inaccurate data.  Use with caution.
+        Enabling "Lock GPS Coordinates" for a repeater that can or will physically move locations will result in inaccurate data.  Use with caution.
 
 ### Contacts
 Manage the "Phonebook" of known companions.
