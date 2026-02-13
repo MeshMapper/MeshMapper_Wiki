@@ -29,7 +29,7 @@ This tab allows granular control over individual data points (pings).
   - **Debug:** If "Debug Mode" was enabled during the drive, a **Debug** button appears, allowing admins to inspect the raw JSON payload received from the device.
 
 ### Repeaters
-Manage the infrastructure database.
+Manage the repeaters database.
 
   - **Add/Edit:** Manually register repeaters or update their details (Name, Location, Power).
   - **Status Control:**
@@ -46,12 +46,19 @@ Manage the infrastructure database.
         This is a safety mechanism designed to protect the integrity of the map's data. To resolve this, one of the colliding repeaters must change its ID.  If a repeater that was once a duplicate is no longer physically on the mesh, deleting the repeater will ensure collision detection logic will not trigger for surviving repeaters.
 
   - **Ping Calc:** A tool to recalculate the total number of pings a repeater has handled.
+  - **Notes:** Clicking the note icon will allow you to optionally add a note to the repeater.  On multiregion admin panels, if a repeater belongs to multiple single regions, notes will be combined and edits will be saved to the individual regions.
+  - **Lock GPS Coordinates:** Enabling this setting will prevent new adverts from a repeater from updating its location.  This can be used in instances where the GPS coordinates set on the repeater are incorrect and need to be manually overridden.
+
+  !!! warning "Data Inaccuracy Warning"
+
+      Enabling "Lock GPS Coordinates" for a repeater that can or will physically move locations will result in inaccurate data.  Use with caution.
 
 ### Contacts
-Manage the "Phonebook" of known nodes.
+Manage the "Phonebook" of known companions.
 
   - **Identity:** Map a Public ID (e.g., `12345678...`) to a human-readable Name.
   - **Blocking:** Set a contact's status to **Blocked** to prevent them from uploading data to the map.
+  - **Notes:** Clicking the note icon will allow you to optionally add a note to the contact.  On multiregion admin panels, if a repeater belongs to multiple single regions, notes will be combined and edits will be saved to the individual regions.
 
 ### Sessions
 A historical log of all wardriving sessions.
