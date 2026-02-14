@@ -53,12 +53,12 @@ Manage the repeaters database.
 
         Enabling "Lock GPS Coordinates" for a repeater that can or will physically move locations will result in inaccurate data.  Use with caution.
 
-### Contacts
+### Companions
 Manage the "Phonebook" of known companions.
 
   - **Identity:** Map a Public ID (e.g., `12345678...`) to a human-readable Name.
-  - **Blocking:** Set a contact's status to **Blocked** to prevent them from uploading data to the map.
-  - **Notes:** Clicking the note icon will allow you to optionally add a note to the contact.  On multiregion admin panels, if a repeater belongs to multiple single regions, notes will be combined and edits will be saved to the individual regions.
+  - **Blocking:** Set a companion's status to **Blocked** to prevent them from uploading data to the map.
+  - **Notes:** Clicking the note icon will allow you to optionally add a note to the companion.  On multiregion admin panels, if a repeater belongs to multiple single regions, notes will be combined and edits will be saved to the individual regions.
 
 ### Sessions
 A historical log of all wardriving sessions.
@@ -69,7 +69,7 @@ A historical log of all wardriving sessions.
 ### Users
 Manage user identities to group multiple contacts.
 
-  - **Leaderboard Grouping:** Associate multiple contacts/companions under a single User identity. This ensures that all contributions from these devices are aggregated together on the leaderboards.  The name that will display on the leaderboards is that of the selected Main Contact.
+  - **Leaderboard Grouping:** Associate multiple contacts/companions under a single User identity. This ensures that all contributions from these devices are aggregated together on the leaderboards.  The name that will display on the leaderboards is that of the selected Main Companion.
   - **Future Functionality:** Currently, this feature is for administrative grouping only. However, plans are in place to expand this into a full Contributor Portal, allowing users to log in, view their personal statistics, and manage the data they have contributed to MeshMapper.  There are some fields (like Username) that exist for this purpose but are not yet implemented.
 
 ## Maintenance Tools
@@ -81,18 +81,18 @@ The **Tools** tab contains powerful utilities for bulk operations. **Use with ca
     - Scans the entire database and updates all historical pings to point to the new ID.
   
   - **Bulk Delete Pings**:
-    - Remove all data for a specific user or session within a specific time range.
+    - Remove all data for a specific companion or session within a specific time range.
 
   - **Bulk Update**:
     - Mass-edit attributes for a set of pings.
-    - *Example:* Change all pings from user "Tom" on "Dec 25th" to have "External Antenna = YES".
+    - *Example:* Change all pings from companion "Tom_Mobile" on "Dec 25th" to have "External Antenna = YES".
 
 ## System Settings
 
 Configure how the map behaves for your region.
 
   - **Max Session Capacity**: Limit the number of simultaneous wardrivers to prevent mesh congestion.
-  - **Hide Contact Names**: Toggle privacy mode for the public map.
+  - **Hide Companion Names**: Toggle privacy mode for the public map.
   - **Single Observer Mode**: Enable this if your region relies on a single MQTT ingestor to prevent repeaters from being flagged as "Stale" too quickly. This option prevents the repeater from displaying as stale and ultimately getting disabled at 30 days without an advert.
   - **Public Channels**: Define which channels are treated as public traffic.
   - **Region Message**: Optionally add a message here that will display to map visitors when they click the "Administration" option.  Direct guests to your Discord server, website, etc.  Field is plain-text and will automatically convert URLs to clickable links.
