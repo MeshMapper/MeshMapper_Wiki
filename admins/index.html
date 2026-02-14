@@ -765,10 +765,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#contacts" class="md-nav__link">
+  <a href="#companions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Contacts
+        Companions
       
     </span>
   </a>
@@ -1434,10 +1434,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#contacts" class="md-nav__link">
+  <a href="#companions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Contacts
+        Companions
       
     </span>
   </a>
@@ -1576,12 +1576,12 @@
 </div>
 </li>
 </ul>
-<h3 id="contacts">Contacts<a class="headerlink" href="#contacts" title="Permanent link">¶</a></h3>
+<h3 id="companions">Companions<a class="headerlink" href="#companions" title="Permanent link">¶</a></h3>
 <p>Manage the "Phonebook" of known companions.</p>
 <ul>
 <li><strong>Identity:</strong> Map a Public ID (e.g., <code>12345678...</code>) to a human-readable Name.</li>
-<li><strong>Blocking:</strong> Set a contact's status to <strong>Blocked</strong> to prevent them from uploading data to the map.</li>
-<li><strong>Notes:</strong> Clicking the note icon will allow you to optionally add a note to the contact.  On multiregion admin panels, if a repeater belongs to multiple single regions, notes will be combined and edits will be saved to the individual regions.</li>
+<li><strong>Blocking:</strong> Set a companion's status to <strong>Blocked</strong> to prevent them from uploading data to the map.</li>
+<li><strong>Notes:</strong> Clicking the note icon will allow you to optionally add a note to the companion.  On multiregion admin panels, if a repeater belongs to multiple single regions, notes will be combined and edits will be saved to the individual regions.</li>
 </ul>
 <h3 id="sessions">Sessions<a class="headerlink" href="#sessions" title="Permanent link">¶</a></h3>
 <p>A historical log of all wardriving sessions.</p>
@@ -1592,7 +1592,7 @@
 <h3 id="users">Users<a class="headerlink" href="#users" title="Permanent link">¶</a></h3>
 <p>Manage user identities to group multiple contacts.</p>
 <ul>
-<li><strong>Leaderboard Grouping:</strong> Associate multiple contacts/companions under a single User identity. This ensures that all contributions from these devices are aggregated together on the leaderboards.  The name that will display on the leaderboards is that of the selected Main Contact.</li>
+<li><strong>Leaderboard Grouping:</strong> Associate multiple contacts/companions under a single User identity. This ensures that all contributions from these devices are aggregated together on the leaderboards.  The name that will display on the leaderboards is that of the selected Main Companion.</li>
 <li><strong>Future Functionality:</strong> Currently, this feature is for administrative grouping only. However, plans are in place to expand this into a full Contributor Portal, allowing users to log in, view their personal statistics, and manage the data they have contributed to MeshMapper.  There are some fields (like Username) that exist for this purpose but are not yet implemented.</li>
 </ul>
 <h2 id="maintenance-tools">Maintenance Tools<a class="headerlink" href="#maintenance-tools" title="Permanent link">¶</a></h2>
@@ -1608,14 +1608,14 @@
 <li>
 <p><strong>Bulk Delete Pings</strong>:</p>
 <ul>
-<li>Remove all data for a specific user or session within a specific time range.</li>
+<li>Remove all data for a specific companion or session within a specific time range.</li>
 </ul>
 </li>
 <li>
 <p><strong>Bulk Update</strong>:</p>
 <ul>
 <li>Mass-edit attributes for a set of pings.</li>
-<li><em>Example:</em> Change all pings from user "Tom" on "Dec 25th" to have "External Antenna = YES".</li>
+<li><em>Example:</em> Change all pings from companion "Tom_Mobile" on "Dec 25th" to have "External Antenna = YES".</li>
 </ul>
 </li>
 </ul>
@@ -1623,7 +1623,7 @@
 <p>Configure how the map behaves for your region.</p>
 <ul>
 <li><strong>Max Session Capacity</strong>: Limit the number of simultaneous wardrivers to prevent mesh congestion.</li>
-<li><strong>Hide Contact Names</strong>: Toggle privacy mode for the public map.</li>
+<li><strong>Hide Companion Names</strong>: Toggle privacy mode for the public map.</li>
 <li><strong>Single Observer Mode</strong>: Enable this if your region relies on a single MQTT ingestor to prevent repeaters from being flagged as "Stale" too quickly. This option prevents the repeater from displaying as stale and ultimately getting disabled at 30 days without an advert.</li>
 <li><strong>Public Channels</strong>: Define which channels are treated as public traffic.</li>
 <li><strong>Region Message</strong>: Optionally add a message here that will display to map visitors when they click the "Administration" option.  Direct guests to your Discord server, website, etc.  Field is plain-text and will automatically convert URLs to clickable links.</li>
