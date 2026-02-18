@@ -26,19 +26,19 @@ MeshMapper believes in the ownership and control of how a regions data is presen
 
 ## The Wardriving App
 
-Data is collected using the **MeshMapper Wardriver** app (currently available as a webapp with native iOS and Android apps in beta testing).
+Data is collected using the **MeshMapper Wardriver** app, available for both iOS and Android.
 
-  - **Companion Mode**: The app connects to your MeshCode radio via Bluetooth (BLE).
-  - **Passive Collection**: As you drive, walk, or cycle, the app periodically sends "pings" through your radio into the mesh network.
-  - **Telemetry**: It records GPS coordinates, signal strength (SNR/RSSI), and the path the message took (which repeaters heard it).
-  - **Upload**: When an internet connection is available, the app uploads this data to the MeshMapper server for comparison.  The combination of data received through the mesh and sent by the wardriving app determines the level of coverage an area has.
+[Download on the App Store](https://apps.apple.com/us/app/meshmapper/id6758073991) | [Get it on Google Play](https://play.google.com/store/apps/details?id=net.meshmapper.app)
 
-## How It Works
+## The Basics
 
-  - **The Ping**: The wardriving app connected to your companion sends automated messages out to your mesh at set intervals.
+  - **The Session**: Before collecting data, the app authenticates with the region and acquires a **Wardriving Session**. Regions have a limited number of active slots (set by that regions administrators) to prevent mesh congestion.
+  - **The Ping**: Once a session is active, the app sends automated messages (pings) through your radio into the mesh at set intervals as you drive, walk, etc.
   - **The Mesh**: Repeaters in the area receive and re-broadcast your packet.
-  - **The Ingest**: Specialized "Observer" nodes connected to the map server (via MQTT) listen for these packets.
-  - **The Map**: If an Observer hears your packet, it confirms that a link exists between your location and the mesh. The map updates a **100m x 100m grid square** at your location to show the connection type.
+  - **The Ingest**: Specialized "Observer" nodes connected to the map server (via MQTT) listen for these packets and reports them to MeshMapper.
+  - **The Map**: Data from the app and data from what was heard on the mesh get compared on the backend and display on the map in near-real-time.  [See the different levels of coverage MeshMapper can detect.](https://meshmapper.net/img/pingtypes.png)
+
+[Check out the YOW - Ottawa map](https://yow.meshmapper.net) and adjust the map layers to see just how powerful MeshMapper is!
 
 ## Purpose & Goals
 

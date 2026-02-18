@@ -95,7 +95,8 @@ Configure how the map behaves for your region.
   - **Hide Companion Names**: Toggle privacy mode for the public map.
   - **Single Observer Mode**: Enable this if your region relies on a single MQTT ingestor to prevent repeaters from being flagged as "Stale" too quickly. This option prevents the repeater from displaying as stale and ultimately getting disabled at 30 days without an advert.
   - **Public Channels**: Define which channels are treated as public traffic.
-  - **Region Message**: Optionally add a message here that will display to map visitors when they click the "Administration" option.  Direct guests to your Discord server, website, etc.  Field is plain-text and will automatically convert URLs to clickable links.
+  - **Region Message**: Optionally add a message here that will display to map visitors when they click the "Region Info" option.  Direct guests to your Discord server, website, etc.  Field is plain-text and will automatically convert URLs to clickable links.
+  - **Social Media Links**: Optionally add any number of social media or website links that will display on the "Region Info" window on your regions map.
   - **MQTT Observers**: Configure the list of letsmesh observers to ingest from.
   - **Subscribe to all local observers**: This gives a region the option to either define which observers make up their mesh and exclude everything else (when off), or by toggling this on, listen for packets from any connected observer in the IATA. Turning this off and defining which observers to use could be helpful in cases where someone has fired up an observer and connected it with an IATA, but in reality its far away from the actual region and not contributing to the mesh.
   - **Disable Duplicate ID Detection Logic**: Allows the region to opt-out of MeshMapper's strict duplicate ID collision handling. When enabled, repeaters with colliding IDs will remain active, and pings will associate with all matching repeaters.
