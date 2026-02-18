@@ -14,6 +14,10 @@ It answers critical questions for mesh operators:
   - *"Which repeater is providing the best coverage?"*
   - *"Where are the dead zones in our city?"*
 
+## Administration
+
+Powerful administration options allow regions (or multiregion groups) to manage their own map and its data.  [See more about administration here.](https://wiki.meshmapper.net/admins/)
+
 ## Core Principals
 
 MeshMapper was desiged to provide realistically reliable data without making assumptions
