@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="assets/wardrive.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
     
     
       
@@ -1238,20 +1238,17 @@
 </ul>
 <p>MeshMapper believes in the ownership and control of how a regions data is presented lies with the region itself.  If a region chooses to bypass logic to limit false or misleading data, that is their choice, and visitors to their map will be warned as such.</p>
 <h2 id="the-wardriving-app">The Wardriving App<a class="headerlink" href="#the-wardriving-app" title="Permanent link">¶</a></h2>
-<p>Data is collected using the <strong>MeshMapper Wardriver</strong> app (currently available as a webapp with native iOS and Android apps in beta testing).</p>
+<p>Data is collected using the <strong>MeshMapper Wardriver</strong> app, available for both iOS and Android.</p>
+<p><a href="https://apps.apple.com/us/app/meshmapper/id6758073991">Download on the App Store</a> | <a href="https://play.google.com/store/apps/details?id=net.meshmapper.app">Get it on Google Play</a></p>
+<h2 id="the-basics">The Basics<a class="headerlink" href="#the-basics" title="Permanent link">¶</a></h2>
 <ul>
-<li><strong>Companion Mode</strong>: The app connects to your MeshCode radio via Bluetooth (BLE).</li>
-<li><strong>Passive Collection</strong>: As you drive, walk, or cycle, the app periodically sends "pings" through your radio into the mesh network.</li>
-<li><strong>Telemetry</strong>: It records GPS coordinates, signal strength (SNR/RSSI), and the path the message took (which repeaters heard it).</li>
-<li><strong>Upload</strong>: When an internet connection is available, the app uploads this data to the MeshMapper server for comparison.  The combination of data received through the mesh and sent by the wardriving app determines the level of coverage an area has.</li>
-</ul>
-<h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">¶</a></h2>
-<ul>
-<li><strong>The Ping</strong>: The wardriving app connected to your companion sends automated messages out to your mesh at set intervals.</li>
+<li><strong>The Session</strong>: Before collecting data, the app authenticates with the region and acquires a <strong>Wardriving Session</strong>. Regions have a limited number of active slots (set by that regions administrators) to prevent mesh congestion.</li>
+<li><strong>The Ping</strong>: Once a session is active, the app sends automated messages (pings) through your radio into the mesh at set intervals as you drive, walk, etc.</li>
 <li><strong>The Mesh</strong>: Repeaters in the area receive and re-broadcast your packet.</li>
-<li><strong>The Ingest</strong>: Specialized "Observer" nodes connected to the map server (via MQTT) listen for these packets.</li>
-<li><strong>The Map</strong>: If an Observer hears your packet, it confirms that a link exists between your location and the mesh. The map updates a <strong>100m x 100m grid square</strong> at your location to show the connection type.</li>
+<li><strong>The Ingest</strong>: Specialized "Observer" nodes connected to the map server (via MQTT) listen for these packets and reports them to MeshMapper.</li>
+<li><strong>The Map</strong>: Data from the app and data from what was heard on the mesh get compared on the backend and display on the map in near-real-time.  <a href="https://meshmapper.net/img/pingtypes.png">See the different levels of coverage MeshMapper can detect.</a></li>
 </ul>
+<p><a href="https://yow.meshmapper.net">Check out the YOW - Ottawa map</a> and adjust the map layers to see just how powerful MeshMapper is!</p>
 <h2 id="purpose-goals">Purpose &amp; Goals<a class="headerlink" href="#purpose-goals" title="Permanent link">¶</a></h2>
 <h3 id="1-network-optimization">1. Network Optimization<a class="headerlink" href="#1-network-optimization" title="Permanent link">¶</a></h3>
 <p>By visualizing signal paths and dead zones, repeater operators can adjust antenna placement, upgrade hardware, or deploy new repeaters in areas that actually need them.</p>
