@@ -107,3 +107,11 @@ Configure how the map behaves for your region.
 
   - **Alerts**: Automatically detects configuration issues, such as **Duplicate Repeater IDs** (Collisions).
   - **History**: An audit log of all administrative actions (who edited what and when), ensuring accountability.
+
+## Notifications
+
+Link your Discord to MeshMapper to receive DM's from the MeshMapper bot.
+
+  - **Alert on Duplicate Repeater ID**: Notifies you when a repeater has sent an advert, but its ID collides with another, putting both repeaters into Excluded status.  [See Duplicate Repeater ID](https://wiki.meshmapper.net/duplicaterepeaterid)
+  - **Allow Messages From Visitors**: When enabled, a map visitor can send a message to you directly from the "Region Info" page of your regions map.
+  - **Alert on Offline Observer**: Once a day (around 0800 EST/EDT) MeshMapper will review all data received via your regions MQTT observers (pings, repeater adverts, companion adverts) for the past 7 days.  If a particular observer has sent data within that time, but not within the "Stale Repeater Age" time configured for your region, then this observer is potentially offline.  Receive an alert when this is the case.
