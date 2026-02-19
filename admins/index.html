@@ -835,6 +835,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#notifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notifications
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1504,6 +1515,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#notifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notifications
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1640,6 +1662,13 @@
 <ul>
 <li><strong>Alerts</strong>: Automatically detects configuration issues, such as <strong>Duplicate Repeater IDs</strong> (Collisions).</li>
 <li><strong>History</strong>: An audit log of all administrative actions (who edited what and when), ensuring accountability.</li>
+</ul>
+<h2 id="notifications">Notifications<a class="headerlink" href="#notifications" title="Permanent link">¶</a></h2>
+<p>Link your Discord to MeshMapper to receive DM's from the MeshMapper bot.</p>
+<ul>
+<li><strong>Alert on Duplicate Repeater ID</strong>: Notifies you when a repeater has sent an advert, but its ID collides with another, putting both repeaters into Excluded status.  <a href="https://wiki.meshmapper.net/duplicaterepeaterid">See Duplicate Repeater ID</a></li>
+<li><strong>Allow Messages From Visitors</strong>: When enabled, a map visitor can send a message to you directly from the "Region Info" page of your regions map.</li>
+<li><strong>Alert on Offline Observer</strong>: Once a day (around 0800 EST/EDT) MeshMapper will review all data received via your regions MQTT observers (pings, repeater adverts, companion adverts) for the past 7 days.  If a particular observer has sent data within that time, but not within the "Stale Repeater Age" time configured for your region, then this observer is potentially offline.  Receive an alert when this is the case.</li>
 </ul>
 
 
