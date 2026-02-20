@@ -95,6 +95,9 @@ Configure how the map behaves for your region.
   - **Hide Companion Names**: Toggle privacy mode for the public map.
   - **Single Observer Mode**: Enable this if your region relies on a single MQTT ingestor to prevent repeaters from being flagged as "Stale" too quickly. This option prevents the repeater from displaying as stale and ultimately getting disabled at 30 days without an advert.
   - **Public Channels**: Define which channels are treated as public traffic.
+  - **Regions/Scopes**: If your region uses MeshCore Regions/Scopes, define it here.  If not, leave the default scope of "*".
+  - **Enforce Hybrid Mode**: Disables Active mode for wardrivers in your region.  If your regions mesh has an issue with dropped packets due to high mesh traffic or many wardrivers, consider enabling this option.
+  - **Minimum Active/Hybrid Mode Interval**: Optionally set the number of seconds between mesh pings for wardrivers in your region.  If your regions mesh has an issue with dropped packets due to high mesh traffic or many wardrivers, consider setting a higher minimum interval.
   - **Region Message**: Optionally add a message here that will display to map visitors when they click the "Region Info" option.  Direct guests to your Discord server, website, etc.  Field is plain-text and will automatically convert URLs to clickable links.
   - **Social Media Links**: Optionally add any number of social media or website links that will display on the "Region Info" window on your regions map.
   - **MQTT Observers**: Configure the list of letsmesh observers to ingest from.
