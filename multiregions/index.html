@@ -1577,9 +1577,9 @@
 <li>When repeater adverts or wardriving traffic in one region would not be heard by repeaters or observers in another.  Combining two regions that cannot physically share mesh traffic can result in repeaters unnecessarily entering a collision/duplicate state.</li>
 </ul>
 <h2 id="why">Why?<a class="headerlink" href="#why" title="Permanent link">¶</a></h2>
-<p>The primary reason to create multiregion groups is <strong>data accuracy</strong>.  Use this example below:
-<a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://meshmapper.net/img/upload_20260223_072127_2dd1a584.png" data-desc-position="bottom"><img alt="Image" src="https://meshmapper.net/img/upload_20260223_072127_2dd1a584.png"></a>
-In this example, you have a car wardriving around the border of region <code>AAA</code>.  Nearby is region <code>BBB</code>.</p>
+<p>The primary reason to create multiregion groups is <strong>data accuracy</strong>.  Use this example below:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://meshmapper.net/img/upload_20260223_081630_ea15ff3e.jpg" data-desc-position="bottom"><img alt="Image" src="https://meshmapper.net/img/upload_20260223_081630_ea15ff3e.jpg"></a></p>
+<p>In this example, you have a car wardriving around the border of region <code>AAA</code>.  Nearby is region <code>BBB</code>.</p>
 <p>The wardrivers companion sends out a ping.  Region <code>AAA</code>'s repeater <code>AA</code> is too far away to hear the ping.  Region <code>BBB</code>'s repeater <code>AA</code> is close enough and rebroadcasts that ping.  The wardrivers companion hears this repeat.  The ping propagates through the mesh network is is picked up by an observer in region <code>AAA</code>.  MeshMapper's backend processes both data points and determines successful bidirectional communication...</p>
 <ul>
 <li>❌ <strong>When the regions ARE NOT grouped</strong>: ...but incorrectly associates it with region <code>AAA</code>'s repeater <code>AA</code> (it is the only <code>AA</code> it knows of).  A link from that grid square to the incorrect repeater is made.</li>
