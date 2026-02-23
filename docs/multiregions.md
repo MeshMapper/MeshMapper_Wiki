@@ -27,9 +27,7 @@ Multiregion groups are designed for specific scenarios where one regions mesh tr
 ## Why?
 
 The primary reason to create multiregion groups is **data accuracy**.  Use this example below:
-
 ![Image](https://meshmapper.net/img/upload_20260223_072127_2dd1a584.png)
-
 In this example, you have a car wardriving around the border of region `AAA`.  Nearby is region `BBB`.
 
 The wardrivers companion sends out a ping.  Region `AAA`'s repeater `AA` is too far away to hear the ping.  Region `BBB`'s repeater `AA` is close enough and rebroadcasts that ping.  The wardrivers companion hears this repeat.  The ping propagates through the mesh network is is picked up by an observer in region `AAA`.  MeshMapper's backend processes both data points and determines successful bidirectional communication...
