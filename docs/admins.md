@@ -53,6 +53,9 @@ Manage the repeaters database.
 
         Enabling "Lock GPS Coordinates" for a repeater that can or will physically move locations will result in inaccurate data.  Use with caution.
 
+!!! info "Blank Name Adverts"
+    If a repeater advert is received with a blank or missing name, MeshMapper will silently reject it — no record will be created or updated. This is a data quality safeguard. If a repeater is not appearing on the map despite being active on the mesh, verify that its name is set correctly on the device.
+
 ### Companions
 Manage the "Phonebook" of known companions.
 
@@ -93,6 +96,7 @@ Configure how the map behaves for your region.
 
   - **Max Session Capacity**: Limit the number of simultaneous wardrivers to prevent mesh congestion.
   - **Hide Companion Names**: Toggle privacy mode for the public map.
+  - **Stale Repeater Age**: Set how many hours without an advert before a repeater is considered stale and visually flagged on the map (default: 24 hours). This threshold also drives the automatic duplicate cleanup routine — a colliding repeater that has not been heard in **3× this value** is eligible for automatic deletion. For example, with a 12-hour stale age, stale duplicates are removed after 36 hours of silence. [See Duplicate Repeater IDs](https://wiki.meshmapper.net/duplicaterepeaterid/)
   - **Single Observer Mode**: Enable this if your region relies on a single MQTT ingestor to prevent repeaters from being flagged as "Stale" too quickly. This option prevents the repeater from displaying as stale and ultimately getting disabled at 30 days without an advert.
   - **Public Channels**: Define which channels are treated as public traffic.
   - **Regions/Scopes**: If your region uses MeshCore Regions/Scopes, define it here.  If not, leave the default scope of "*".

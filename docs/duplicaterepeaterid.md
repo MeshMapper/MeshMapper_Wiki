@@ -39,12 +39,12 @@ When a new repeater appears on the network with an ID that is already in use by 
 
 Collisions are typically resolved in one of two ways:
 
-### Automatic Cleanup (Stale Data)
+### Automatic Cleanup
 Often, a collision occurs because an old, offline repeater is still in the database when a new one comes online.
 
-  - MeshMapper runs a cleanup routine every day. 
-  - If one of the colliding repeaters has not been heard from in **3 days**, it is considered "Stale" and is automatically deleted.
-  - **The Survivor**: Once the stale duplicate is removed, the remaining active repeater is automatically restored to **Active** status. Its icon will turn back to normal, it will reappear on Leaderboards, and new incoming pings will properly associate themselves with this repeater again.
+  - MeshMapper runs a cleanup routine every day.
+  - If one of the colliding repeaters has not been heard from in **3× the region's configured Stale Repeater Age** (e.g., 72 hours at the default 24-hour setting), it is considered gone and is automatically deleted.
+  - **The Survivor**: Once the duplicate ID is removed, the remaining active repeater is automatically restored to **Active** status. Its icon will turn back to normal, it will reappear on Leaderboards, and new incoming pings will properly associate themselves with this repeater again.
 
 ### Manual Resolution
 If both repeaters are active and legitimate (a true collision between two live devices):
