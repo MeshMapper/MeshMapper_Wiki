@@ -590,10 +590,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#automatic-cleanup-stale-data" class="md-nav__link">
+  <a href="#automatic-cleanup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Automatic Cleanup (Stale Data)
+        Automatic Cleanup
       
     </span>
   </a>
@@ -1530,10 +1530,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#automatic-cleanup-stale-data" class="md-nav__link">
+  <a href="#automatic-cleanup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Automatic Cleanup (Stale Data)
+        Automatic Cleanup
       
     </span>
   </a>
@@ -1627,12 +1627,12 @@
 </ul>
 <h2 id="resolution">Resolution<a class="headerlink" href="#resolution" title="Permanent link">¶</a></h2>
 <p>Collisions are typically resolved in one of two ways:</p>
-<h3 id="automatic-cleanup-stale-data">Automatic Cleanup (Stale Data)<a class="headerlink" href="#automatic-cleanup-stale-data" title="Permanent link">¶</a></h3>
+<h3 id="automatic-cleanup">Automatic Cleanup<a class="headerlink" href="#automatic-cleanup" title="Permanent link">¶</a></h3>
 <p>Often, a collision occurs because an old, offline repeater is still in the database when a new one comes online.</p>
 <ul>
-<li>MeshMapper runs a cleanup routine every day. </li>
-<li>If one of the colliding repeaters has not been heard from in <strong>3 days</strong>, it is considered "Stale" and is automatically deleted.</li>
-<li><strong>The Survivor</strong>: Once the stale duplicate is removed, the remaining active repeater is automatically restored to <strong>Active</strong> status. Its icon will turn back to normal, it will reappear on Leaderboards, and new incoming pings will properly associate themselves with this repeater again.</li>
+<li>MeshMapper runs a cleanup routine every day.</li>
+<li>If one of the colliding repeaters has not been heard from in <strong>3× the region's configured Stale Repeater Age</strong> (e.g., 72 hours at the default 24-hour setting), it is considered gone and is automatically deleted.</li>
+<li><strong>The Survivor</strong>: Once the duplicate ID is removed, the remaining active repeater is automatically restored to <strong>Active</strong> status. Its icon will turn back to normal, it will reappear on Leaderboards, and new incoming pings will properly associate themselves with this repeater again.</li>
 </ul>
 <h3 id="manual-resolution">Manual Resolution<a class="headerlink" href="#manual-resolution" title="Permanent link">¶</a></h3>
 <p>If both repeaters are active and legitimate (a true collision between two live devices):</p>
