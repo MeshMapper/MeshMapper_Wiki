@@ -44,6 +44,7 @@ These layers display the actual mesh network data. You can toggle them on or off
 | **Repeater Neighbours** | Draws lines between repeaters that have heard each other directly. <br> - **Green Dashed**: Heard recently (< 2 weeks). <br> - **Orange Dashed**: Heard 2-4 weeks ago. <br> - **Red Solid**: Stale link (> 4 weeks). |
 | **Noise Heatmap** | A visual heatmap representing the noise floor reported by radios. **Red** areas indicate high interference, while **Blue** areas are quieter. |
 | **Neighbor Zones** | Small pins showing the location of nearby MeshMapper regions. Clicking them will take you to that map. |
+| **Neighbour Zone Boundaries** | Draws a dashed outline showing the official boundary (polygon or radius) of each neighbouring region. Requires **Neighbor Zones** to be enabled — it will be automatically turned off when Neighbor Zones is disabled, and restored when it is re-enabled. |
 | **Region Boundary** | A black outline showing the official area covered by the current map zone. |
 
 ### Legacy Data Layer
