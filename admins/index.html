@@ -834,6 +834,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Administrators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-a-new-administrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding a New Administrator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Registration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1636,6 +1664,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Administrators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-a-new-administrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding a New Administrator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Registration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1784,15 +1840,30 @@
 <li><strong>Future Functionality:</strong> Currently, this feature is for administrative grouping only. However, plans are in place to expand this into a full Contributor Portal, allowing users to log in, view their personal statistics, and manage the data they have contributed to MeshMapper.  There are some fields (like Username) that exist for this purpose but are not yet implemented.</li>
 </ul>
 <h3 id="administrators">Administrators<a class="headerlink" href="#administrators" title="Permanent link">¶</a></h3>
-<p>The <strong>Administrators</strong> tab provides a read-only view of all admin accounts that have been granted access to your region.</p>
+<p>The <strong>Administrators</strong> tab displays all admin accounts that have been granted access to your region and allows you to invite new administrators.</p>
 <ul>
 <li><strong>Name:</strong> The username of the administrator account.</li>
 <li><strong>Contact:</strong> The contact information on file for the administrator (e.g., Discord handle, email).</li>
-<li><strong>Region(s):</strong> On multiregion admin panels, each administrator's entry will display which sub-regions they have been granted access to.</li>
+<li><strong>Zone:</strong> On multiregion admin panels, each administrator's entry will display which sub-regions they have been granted access to.</li>
+<li><strong>Status:</strong> Indicates whether the administrator has completed registration.<ul>
+<li><strong>Active:</strong> The administrator has claimed their account and set a key.</li>
+<li><strong>Pending Registration:</strong> The administrator has been invited but has not yet claimed their account.</li>
 </ul>
-<div class="admonition info">
-<p class="admonition-title">Making Changes to Administrators</p>
-<p>This tab is informational only. To add a new administrator, remove access, or update an existing administrator's details, please reach out to a <a href="https://wiki.meshmapper.net/administratorlist/">Global Administrator</a>.</p>
+</li>
+</ul>
+<h4 id="adding-a-new-administrator">Adding a New Administrator<a class="headerlink" href="#adding-a-new-administrator" title="Permanent link">¶</a></h4>
+<p>Region admins can invite new administrators directly from this tab by clicking <strong>+ Add Administrator</strong>.</p>
+<ol>
+<li><strong>Username</strong> <em>(required)</em>: Choose a username for the new administrator. This must be unique.</li>
+<li><strong>Contact Info</strong> <em>(required)</em>: Enter the new administrator's contact information (e.g., Discord handle or email) so they can be reached if needed.</li>
+<li><strong>Zone Assignment</strong> <em>(required)</em>: Select which zone the new administrator should have access to. On multiregion admin panels, you can assign the administrator to the multi-region group or to an individual sub-region.</li>
+</ol>
+<p>Once created, a message will display with a registration link and the username. Share both with the new administrator.</p>
+<h4 id="registration">Registration<a class="headerlink" href="#registration" title="Permanent link">¶</a></h4>
+<p>New administrators claim their account by visiting <a href="https://register.meshmapper.net">register.meshmapper.net</a> and entering the username provided to them. If the account exists and has not yet been registered, a <strong>temporary key</strong> will be generated and displayed.</p>
+<div class="admonition warning">
+<p class="admonition-title">Temporary Key</p>
+<p>The temporary key is shown <strong>only once</strong> during registration. The new administrator must copy it immediately. After logging in for the first time, they should change their key from the <strong>User Settings</strong> tab.</p>
 </div>
 <h2 id="maintenance-tools">Maintenance Tools<a class="headerlink" href="#maintenance-tools" title="Permanent link">¶</a></h2>
 <p>The <strong>Tools</strong> tab contains powerful utilities for bulk operations. <strong>Use with caution.</strong></p>
