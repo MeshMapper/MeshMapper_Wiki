@@ -1357,29 +1357,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#98-the-heard-repeaters-panel-now-scrolls-and-dynamically-expands-to-accommodate-larger-lists-of-heard-repeaters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        98: The heard repeaters panel now scrolls and dynamically expands to accommodate larger lists of heard repeaters
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#95-fixed-the-iata-popup-panel-being-hidden-behind-the-android-navigation-bar" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        95: Fixed the IATA popup panel being hidden behind the Android navigation bar
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="95: Fixed the IATA popup panel being hidden behind the Android navigation bar">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#improvements" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1387,11 +1364,6 @@
       
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1412,10 +1384,12 @@
 
 
 
+  <h1>260226</h1>
+
 <p>🎉 <strong>MeshMapper App v1.1.0</strong></p>
 <h3 id="new-features">New Features<a class="headerlink" href="#new-features" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong>Regional Flood Scoping:</strong> Active Mode pings are now scoped to your region's flood zone. Regional Admins set a scope in the admin panel, so only repeaters in your region forward your pings. Discovery pings are unaffected. If no scope is assigned, pings flood globally as before.</li>
+<li><strong>Regional Flood Scoping:</strong> Active Mode pings can now be scoped to your region's flood zone. Regional Admins set a scope in the admin panel, so only repeaters in your region forward your pings. Discovery pings are unaffected. If no scope is assigned, pings flood globally as before.</li>
 <li><strong>Scope Indicator:</strong> The Regional Configuration card on the Connection tab now shows your active scope (e.g., <code>#ottawa</code>) or "Global" when no scope is set.</li>
 <li><strong>Anonymous Mode:</strong> New privacy option in Settings that renames your device to "Anonymous" for all mesh pings. Other mesh users can no longer see your companion name in wardrive broadcasts. Your device's public key still authenticates your session with the MeshMapper API (geo-auth), but your sessions and pings are not stored with your public key on the server. Toggling while connected automatically disconnects and reconnects with the new identity, switching to the Connection tab so you can see progress. On proper disconnect, the original device name is restored. Persisted across app restarts.</li>
 <li><strong>Auto Tile Refresh:</strong> Map tiles now refresh automatically after a successful upload, so new coverage appears near real-time (around 15s after a ping).</li>
@@ -1433,12 +1407,8 @@
 <li>Fixed resource cleanup gaps causing listener leaks from undisposed stream subscriptions and timers</li>
 <li>Fixed tile refresh race condition causing half-rendered and ghost tiles at certain zoom levels</li>
 <li>Fixed Light (OSM) and Satellite (ArcGIS) tiles not loading at low zoom on iOS retina displays</li>
-<li>
-<h1 id="98-the-heard-repeaters-panel-now-scrolls-and-dynamically-expands-to-accommodate-larger-lists-of-heard-repeaters">98: The heard repeaters panel now scrolls and dynamically expands to accommodate larger lists of heard repeaters<a class="headerlink" href="#98-the-heard-repeaters-panel-now-scrolls-and-dynamically-expands-to-accommodate-larger-lists-of-heard-repeaters" title="Permanent link">¶</a></h1>
-</li>
-<li>
-<h1 id="95-fixed-the-iata-popup-panel-being-hidden-behind-the-android-navigation-bar">95: Fixed the IATA popup panel being hidden behind the Android navigation bar<a class="headerlink" href="#95-fixed-the-iata-popup-panel-being-hidden-behind-the-android-navigation-bar" title="Permanent link">¶</a></h1>
-</li>
+<li>GITHUB 98: The heard repeaters panel now scrolls and dynamically expands to accommodate larger lists of heard repeaters</li>
+<li>GITHUB 95: Fixed the IATA popup panel being hidden behind the Android navigation bar</li>
 <li>Fixed a bug where a stale BLE device name was used instead of the current one</li>
 <li>CARpeater filter order of operations corrected</li>
 <li>Fixed RX CARpeater detection checking the wrong hop position. On RX packets, the CARpeater is co-located with the wardriver so it only appears as the last hop (delivery repeater), not the first. The check now correctly evaluates the last hop.</li>
