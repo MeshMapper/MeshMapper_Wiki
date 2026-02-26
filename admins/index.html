@@ -1738,6 +1738,7 @@
 <li><strong>Active:</strong> The default state. The repeater is visible on the map, included in leaderboards, and actively associating with coverage pings.</li>
 <li><strong>Disabled:</strong> The repeater is hidden from the public map and leaderboards but remains in the database for historical purposes.</li>
 <li><strong>Inactive:</strong> The repeater hasn't sent an advert in the last 30 days and has been removed from from the map.</li>
+<li><strong>Pending:</strong> The repeater has been discovered but is awaiting approval. Pending repeaters are <strong>not</strong> visible on the map and do not associate with coverage data. This state is only used when the "New Repeaters Enter Pending State" setting is enabled for the region. Admins can approve a pending repeater by editing it and setting its status to <strong>Active</strong>. Pending repeaters that have existed for 3× the stale timer will be automatically approved if still actively being heard, or deleted if not.</li>
 <li><strong>Excluded:</strong> The repeater is flagged as a duplicate. It appears as a <strong>Red</strong> icon on the map. Coverage data is <strong>not</strong> associated with this repeater to prevent skewing statistics (with the exception of <strong>DISCOVERY</strong> type pings).</li>
 </ul>
 <div class="admonition warning">
@@ -1823,7 +1824,16 @@
 <li><strong>Max Session Capacity</strong>: Limit the number of simultaneous wardrivers to prevent mesh congestion.</li>
 <li><strong>Hide Companion Names</strong>: Toggle privacy mode for the public map.</li>
 <li><strong>Stale Repeater Age</strong>: Set how many hours without an advert before a repeater is considered stale and visually flagged on the map (default: 24 hours). This threshold also drives the automatic duplicate cleanup routine — a colliding repeater that has not been heard in <strong>3× this value</strong> is eligible for automatic deletion. For example, with a 12-hour stale age, stale duplicates are removed after 36 hours of silence. <a href="https://wiki.meshmapper.net/duplicaterepeaterid/">See Duplicate Repeater IDs</a></li>
-<li><strong>Single Observer Mode</strong>: Enable this if your region relies on a single MQTT ingestor to prevent repeaters from being flagged as "Stale" too quickly. This option prevents the repeater from displaying as stale and ultimately getting disabled at 30 days without an advert.</li>
+<li>
+<p><strong>New Repeaters Enter Pending State</strong>: When enabled, newly discovered repeaters will enter a <strong>Pending</strong> state instead of <strong>Active</strong>. Pending repeaters are hidden from the map until an admin reviews and approves them. After 3× the stale timer, pending repeaters are automatically approved if still actively being heard, or deleted if not. In multiregion mode, this setting is configured per-region under Region-Specific Settings.</p>
+<div class="admonition warning">
+<p class="admonition-title">Data Inaccuracy Warning</p>
+<p>New repeaters will not display on the map until approved. This can cause data inaccuracies. Use with caution.</p>
+</div>
+</li>
+<li>
+<p><strong>Single Observer Mode</strong>: Enable this if your region relies on a single MQTT ingestor to prevent repeaters from being flagged as "Stale" too quickly. This option prevents the repeater from displaying as stale and ultimately getting disabled at 30 days without an advert.</p>
+</li>
 <li><strong>Public Channels</strong>: Define which channels are treated as public traffic.</li>
 <li><strong>Regions/Scopes</strong>: If your region uses MeshCore Regions/Scopes, define it here.  If not, leave the default scope of "*".</li>
 <li><strong>Enforce Hybrid Mode</strong>: Disables Active mode for wardrivers in your region.  If your regions mesh has an issue with dropped packets due to high mesh traffic or many wardrivers, consider enabling this option.  <em>(Mobile app functionality will be available with v1.1.0)</em></li>
@@ -1840,13 +1850,14 @@
 </ul>
 <h2 id="alerts-history">Alerts &amp; History<a class="headerlink" href="#alerts-history" title="Permanent link">¶</a></h2>
 <ul>
-<li><strong>Alerts</strong>: Automatically detects configuration issues, such as <strong>Duplicate Repeater IDs</strong> (Collisions).</li>
+<li><strong>Alerts</strong>: Automatically detects configuration issues, such as <strong>Duplicate Repeater IDs</strong> (Collisions) and <strong>Pending Repeaters</strong> awaiting approval.</li>
 <li><strong>History</strong>: An audit log of all administrative actions (who edited what and when), ensuring accountability.</li>
 </ul>
 <h2 id="notifications">Notifications<a class="headerlink" href="#notifications" title="Permanent link">¶</a></h2>
 <p>Link your Discord to MeshMapper to receive DM's from the MeshMapper bot.</p>
 <ul>
 <li><strong>Alert on Duplicate Repeater ID</strong>: Notifies you when a repeater has sent an advert, but its ID collides with another, putting both repeaters into Excluded status.  <a href="https://wiki.meshmapper.net/duplicaterepeaterid">See Duplicate Repeater ID</a></li>
+<li><strong>Alert on Pending Repeater</strong>: Once a day, receive a notification if your region has repeaters in <strong>Pending</strong> state that are awaiting review.  This notification is only relevant if "New Repeaters Enter Pending State" is enabled for the region.</li>
 <li><strong>Allow Messages From Visitors</strong>: When enabled, a map visitor can send a message to you directly from the "Region Info" page of your regions map.</li>
 <li><strong>Alert on Offline Observer</strong>: Once a day (around 0800 EST/EDT) MeshMapper will review all data received via your regions MQTT observers (pings, repeater adverts, companion adverts) for the past 7 days.  If a particular observer has sent data within that time, but not within the "Stale Repeater Age" time configured for your region, then this observer is potentially offline.  Receive an alert when this is the case.</li>
 </ul>
