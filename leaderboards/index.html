@@ -646,6 +646,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="User Leaderboards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#top-explorers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Top Explorers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -673,6 +690,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global Leaderboard
+      
+    </span>
+  </a>
   
 </li>
       
@@ -1498,6 +1526,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="User Leaderboards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#top-explorers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Top Explorers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1525,6 +1570,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global Leaderboard
+      
+    </span>
+  </a>
   
 </li>
       
@@ -1573,6 +1629,7 @@
 </li>
 <li><strong>Active Repeaters</strong>: The count of repeaters currently online and trusted. <strong>Note:</strong> Repeaters flagged as "Duplicate" or "Excluded" are not counted here.</li>
 <li><strong>Estimated Coverage</strong>: A percentage representing how much of the mapped grid contains valid coverage (BIDIR, TX, DISC, RX).</li>
+<li><strong>Total Grid Squares</strong>: The total number of unique ~300m grid squares that have been mapped by at least one user (matching "Simplified Mode" on the map).</li>
 </ul>
 <h2 id="user-leaderboards">User Leaderboards<a class="headerlink" href="#user-leaderboards" title="Permanent link">¶</a></h2>
 <p>User rankings are based on the number of valid data points contributed. 1 Ping = 1 Point.</p>
@@ -1580,6 +1637,8 @@
 <li><strong>Top Contributors (7 Days)</strong>: A rolling window of activity over the last week. This is useful for seeing who is currently active in the community.</li>
 <li><strong>All Time Legends</strong>: The total accumulation of contributions since the region was onboarded.</li>
 </ul>
+<h3 id="top-explorers">Top Explorers<a class="headerlink" href="#top-explorers" title="Permanent link">¶</a></h3>
+<p>This leaderboard rewards <strong>exploration</strong> — covering new ground rather than re-driving the same routes. It counts the number of unique ~300m grid squares (matching "Simplified Mode" on the map) where each user placed the <strong>first-ever ping</strong>. If a grid square has been pinged 100 times by 10 different users, only the user who mapped it first gets credit. All coverage types count (BIDIR, TX, RX, DISC, DEAD, DROP).</p>
 <table>
 <thead>
 <tr>
@@ -1612,6 +1671,15 @@
 <li><strong>RX (Purple)</strong>: Max distance where the user heard the repeater (but didn't transmit). This indicates the repeater has a strong transmit signal.</li>
 </ul>
 <p><em>Tip: You can click the headers (BIDIR, TX, RX) to sort the table by that specific metric.</em></p>
+<h2 id="global-leaderboard">Global Leaderboard<a class="headerlink" href="#global-leaderboard" title="Permanent link">¶</a></h2>
+<p>The <a href="https://meshmapper.net/global_leaderboard.php">Global Leaderboard</a> aggregates data from all active regions into a single view. It is generated periodically by a scheduled task and includes:</p>
+<ul>
+<li><strong>Global Stats</strong>: Combined totals across all regions — data points, ping breakdowns, repeater count, contributors, and total grid squares.</li>
+<li><strong>Top Contributors (7 Days)</strong> and <strong>All Time Legends</strong>: Cross-region user rankings with each user's primary region shown.</li>
+<li><strong>Top Explorers</strong>: Aggregated first-mapper grid square counts across all regions.</li>
+<li><strong>Best Repeaters (Ping Count)</strong> and <strong>Best Repeaters (Max Range)</strong>: Repeater rankings drawn from every region, with links back to the originating regional map.</li>
+</ul>
+<p>Each user's <strong>primary region</strong> is determined by where they have contributed the most data points.</p>
 <h2 id="contests">Contests<a class="headerlink" href="#contests" title="Permanent link">¶</a></h2>
 <p>During special events (e.g., <strong>Holiday Wardrive Contest</strong>), a special leaderboard card will appear at the top of the page.</p>
 <ul>
