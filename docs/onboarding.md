@@ -68,7 +68,7 @@ Once you submit the form:
   - 2. **Review**: Admins will verify the Observer IDs and ensure they are successfully transmitting data to the MQTT broker.
   - 3. **Activation**: Once verified, the region is approved. A new subdomain (e.g., `new.meshmapper.net`) is provisioned, and the database structures are automatically generated.
 
-You will be contacted via the provided method (Discord/Email) once the map is live or if further configuration is needed.
+If you associated your Discord account during the onboarding process, you will receive automatic messages from MeshMapper with onboarding status.
 
 ## Legacy Data
 
