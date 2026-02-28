@@ -62,7 +62,7 @@ The table below is a list of currently available awards to be earned:
                     : '<img src="https://meshmapper.net/img/default-award.svg" alt="Default" style="width:48px;height:48px;object-fit:contain;">';
                 var cat = a.category || 'general';
                 var desc = a.description || '—';
-                html += '<tr><td style="text-align:center;">' + icon + '</td><td><strong>' + a.name + '</strong></td><td>' + cat.charAt(0).toUpperCase() + cat.slice(1) + '</td><td>' + desc + '</td></tr>';
+                html += '<tr><td style="text-align:center;vertical-align:middle;">' + icon + '</td><td style="vertical-align:middle;"><strong>' + a.name + '</strong></td><td style="vertical-align:middle;">' + cat.charAt(0).toUpperCase() + cat.slice(1) + '</td><td style="vertical-align:middle;">' + desc + '</td></tr>';
             });
             html += '</tbody></table>';
             container.innerHTML = html;
@@ -96,7 +96,6 @@ Use the form below to request a missing award or suggest a new award type for th
   <div id="companion-id-field" style="margin-bottom:1rem;">
     <label for="award_companion_id" style="font-weight:600;">Companion ID</label><br>
     <input type="text" id="award_companion_id" placeholder="Public ID of the companion" style="width:100%;padding:8px;border:1px solid #555;border-radius:4px;background:#2b2b2b;color:#fff;box-sizing:border-box;">
-    <small style="color:#aaa;">The hex ID of the companion who should receive the award.</small>
   </div>
 
   <div style="margin-bottom:1rem;">
