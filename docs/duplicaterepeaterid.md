@@ -32,10 +32,18 @@ When a new repeater appears on the network with an ID that is already in use by 
   - **Both** repeaters (the existing one and the new one) are immediately flagged as **Excluded**.
   - The system assigns the new repeater a temporary internal ID (e.g., `X1`) to differentiate it in the database and map, but it remains linked to the collision.
   - Both repeaters are excluded from regional or global leaderboards and statistics (like maximum distance reached)
+
+## Workarounds
+Wardrivers can choose to collect data in **Passive** or **Hybrid** modes, which utilize **Discovery**, or **DISC**, packets.  You can think of these packets as broadcasting "Hello, who's out there?", and any repeater within hearing distance (and with compatible firmware) will respond with their full Public ID.  As we're not relying on only 2 hex characters to make the association to the repeater, associations can be made even if the first 2 characters of that particular repeater is in collision with another.
+
+!!! tip "Enforcce Hybrid Mode"
+    If a region is large and contains many duplicate ID's, region administrators can choose to "Enforce Hybrid Mode" for their region.  This will prevent any **Active** wardriving from occuring in the region by automatically enabling Hybrid mode for wardrivers.  The option is available in the regional admin panel.
+
 ### 2. Map Appearance
-  - **Red Icons**: Both repeaters will appear on the map with **Red** icons (instead of the standard Orange or Grey).
-  - **Popups**: Clicking on the repeater may show its status as "Excluded" or "Duplicate" and will list the repeaters that are in collision.
-  - **Pings**: Clicking a grid square on the map that has a repeater involved in an active collision will draw red dashed lines to each repeater in the collision group (and list distance in KM).
+
+  - **Red Icons**: Both repeaters will appear on the map with **Red** icons (instead of the standard Pink, Orange or Grey).
+  - **Popups**: Clicking on the repeater will show its status as "Duplicate" and will list the repeaters that are in collision with it.
+  - **Pings**: Clicking a grid square on the map that has a repeater involved in an active collision will draw red dashed lines to each repeater in the collision group (and list distance), allowing the viewer to make their own assumption on which repeater was actually involved.
   - **Leaderboards**: Both repeaters are immediately removed from all Leaderboards (Best Repeaters, Max Range, etc.) both on the local region and globally to prevent skewed statistics.
 
 ### 3. Impact on Collected Data
@@ -61,7 +69,7 @@ If both repeaters are active and legitimate (a true collision between two live d
   - If the administrator knows the the collision has been cleared, they may manually reinstate the remaining repeater and delete the old. If the collision has not been cleared, both repeaters will enter excluded state again on next advert. 
 
 !!! warning "Note"
-    As long as two (or more) repeaters with the same first 2 characters of the public ID exist in a region, regardless of current status, pings will not get accociated to a repeater with that ID.
+    As long as two (or more) repeaters with the same first 2 characters of the public ID exist in a region, regardless of current status, pings will not get accociated to a repeater with that ID, unless those pings are of **DISC** type (which associate using the full Public ID of the repeater)
 
 ## Summary Table
 
