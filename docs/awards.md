@@ -35,8 +35,8 @@ These are granted automatically by the system based on wardriving milestones:
 | **Explorer 3** | Map 10,000 or more unique grid squares |
 | **Global Leader** | Rank in the top 10 on the global leaderboard (all-time, weekly, or top explorers) |
 
-!!! info "Assignment Interval"
-    MeshMapper processes the auto assignment of awards once every 24-hours.  Check back later if you've earned an award but don't yet see it.
+!!! info "Update Interval"
+    MeshMapper processes the aggregration of companion/user statistics, and auto assignment of awards, once every 24-hours.  Check back later if you've earned an award but don't yet see it.
 
 ### Manual Awards
 
