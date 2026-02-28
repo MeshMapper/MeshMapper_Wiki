@@ -7,13 +7,13 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/release-notes/260226/">
+        <link rel="canonical" href="https://meshmapper.net/release-notes/260227/">
       
       
-        <link rel="prev" href="../260227/">
+        <link rel="prev" href="../../wardriving-app/">
       
       
-        <link rel="next" href="../260225/">
+        <link rel="next" href="../260226/">
       
       
         
@@ -24,7 +24,7 @@
     
     
       
-        <title>February 26, 2026 - MeshMapper Wiki</title>
+        <title>February 27, 2026 - MeshMapper Wiki</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#new-features" class="md-skip">
+        <a href="#meshmapper-update-february-27-2026" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              February 26, 2026
+              February 27, 2026
             
           </span>
         </div>
@@ -921,34 +921,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../260227/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    February 27, 2026
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -958,6 +930,8 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -966,7 +940,7 @@
   <span class="md-ellipsis">
     
   
-    February 26, 2026
+    February 27, 2026
   
 
     
@@ -984,7 +958,7 @@
   <span class="md-ellipsis">
     
   
-    February 26, 2026
+    February 27, 2026
   
 
     
@@ -1000,6 +974,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1011,7 +987,7 @@
   <a href="#new-features" class="md-nav__link">
     <span class="md-ellipsis">
       
-        New Features
+        ✨ New Features
       
     </span>
   </a>
@@ -1022,18 +998,7 @@
   <a href="#bug-fixes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Bug Fixes
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#improvements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Improvements
+        🐛 Bug Fixes
       
     </span>
   </a>
@@ -1044,6 +1009,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../260226/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    February 26, 2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1520,6 +1513,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1531,7 +1526,7 @@
   <a href="#new-features" class="md-nav__link">
     <span class="md-ellipsis">
       
-        New Features
+        ✨ New Features
       
     </span>
   </a>
@@ -1542,18 +1537,7 @@
   <a href="#bug-fixes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Bug Fixes
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#improvements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Improvements
+        🐛 Bug Fixes
       
     </span>
   </a>
@@ -1577,46 +1561,33 @@
 
 
 
-  <h1>February 26, 2026</h1>
-
-<p>🎉 <strong>MeshMapper App v1.1.0</strong></p>
-<h3 id="new-features">New Features<a class="headerlink" href="#new-features" title="Permanent link">¶</a></h3>
+<h1 id="meshmapper-update-february-27-2026">🚀 MeshMapper Update (February 27, 2026)<a class="headerlink" href="#meshmapper-update-february-27-2026" title="Permanent link">¶</a></h1>
+<h3 id="new-features">✨ New Features<a class="headerlink" href="#new-features" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong>Regional Flood Scoping:</strong> If a region has configured scopes on their repeaters, a MeshMapper regional admin can now set the scope of Active/Hybrid Mode TX pings. This limits flood messages to a specific channel, stopping wardriving pings from flooding past boundaries defined by the local mesh. Discovery pings are unaffected.</li>
-<li><strong>Scope Indicator:</strong> The Regional Configuration card on the Connection tab now shows your active scope (e.g., <code>#ottawa</code>) or "Global" when no scope is set.</li>
-<li><strong>Anonymous Mode:</strong> New privacy option in Settings that renames your device to "Anonymous" for all mesh pings. Other mesh users can no longer see your companion name in wardrive broadcasts. Your device's public key still authenticates your session with the MeshMapper API (geo-auth), but your sessions and pings are not stored with your public key on the server. Toggling while connected automatically disconnects and reconnects with the new identity, switching to the Connection tab so you can see progress. On proper disconnect, the original device name is restored. Persisted across app restarts.</li>
-<li><strong>Auto Tile Refresh:</strong> Map tiles now refresh automatically after a successful upload, so new coverage appears near real-time (around 15s after a ping).</li>
-<li><strong>Faster Uploads:</strong> TX and discovery pings now upload on a predictable 5-second timer, replacing the old batch system (up to 20s worst case).</li>
-<li><strong>CARpeater Filter Toggle:</strong> Disable the RSSI CARpeater filter in Wardrive Settings (with a stern confirmation warning about data integrity consequences).</li>
-<li><strong>Multi-hop CARpeater Handling:</strong> Multi-hop CARpeater packets now strip the CARpeater hop and report coverage from the underlying repeater with null SNR/RSSI, instead of being dropped entirely. Single-hop packets and discovery responses are still dropped. The -30 dBm failsafe is bypassed for packets matching your CARpeater prefix but stays active for everything else.</li>
-<li><strong>Offline Mode:</strong> Option now displayed when zone check fails due to no internet. Start wardriving immediately instead of waiting for connectivity.</li>
-<li><strong>Admin: Enforced Hybrid Mode:</strong> Regional admins can now enforce hybrid mode per-zone through the API. When enabled, hybrid mode is automatically activated and the toggle is locked on the Settings screen with a "Forced Enabled by Regional Admin" label.</li>
-<li><strong>Admin: Minimum Ping Interval:</strong> Regional admins can set a minimum auto-ping interval per-zone. Interval options below the threshold are greyed out in Settings with a "Disabled by Regional Admin" label. If your saved interval is below the new minimum, it gets automatically bumped up on connect.</li>
+<li><strong>AI MeshMapper Bot</strong> — The AI-powered MeshMapper assistant is now public! Have a question?  Start a chat from the help icon on any regional map, or tag <strong>@MeshMapper</strong> in the MeshMapper Discord. The bot is continuously learning and improving (and knows only about Meshmapper).</li>
 </ul>
-<h3 id="bug-fixes">Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permanent link">¶</a></h3>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://meshmapper.net/img/upload_20260227_213104_f11b4c73.jpg" data-desc-position="bottom"><img alt="Image" src="https://meshmapper.net/img/upload_20260227_213104_f11b4c73.jpg"></a></p>
 <ul>
-<li>Fixed API queue race condition that could cause missed or double-processed items</li>
-<li>Fixed ping race condition where rapid double-taps could trigger concurrent pings</li>
-<li>Fixed resource cleanup gaps causing listener leaks from undisposed stream subscriptions and timers</li>
-<li>Fixed tile refresh race condition causing half-rendered and ghost tiles at certain zoom levels</li>
-<li>Fixed Light (OSM) and Satellite (ArcGIS) tiles not loading at low zoom on iOS retina displays</li>
-<li>GITHUB 98: The heard repeaters panel now scrolls and dynamically expands to accommodate larger lists of heard repeaters</li>
-<li>GITHUB 95: Fixed the IATA popup panel being hidden behind the Android navigation bar</li>
-<li>Fixed a bug where a stale BLE device name was used instead of the current one</li>
-<li>CARpeater filter order of operations corrected</li>
-<li>Fixed RX CARpeater detection checking the wrong hop position. On RX packets, the CARpeater is co-located with the wardriver so it only appears as the last hop (delivery repeater), not the first. The check now correctly evaluates the last hop.</li>
+<li><strong>Profiles &amp; Awards</strong> — Companion/user profiles and an awards system have been added to MeshMapper! View any profile by clicking a name on a leaderboard or using the "Profiles" search button. Awards are granted automatically for milestones (data points, grid squares, leaderboard rank) or manually by administrators. See the full details and what awards are available to be earned on the <a href="https://wiki.meshmapper.net/awards/">Profiles &amp; Awards</a> wiki page.</li>
 </ul>
-<h3 id="improvements">Improvements<a class="headerlink" href="#improvements" title="Permanent link">¶</a></h3>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://meshmapper.net/img/upload_20260227_213703_e8faf1bf.jpg" data-desc-position="bottom"><img alt="Image" src="https://meshmapper.net/img/upload_20260227_213703_e8faf1bf.jpg"></a></p>
 <ul>
-<li>In-memory log and map pin lists are now capped (500 for logs/pins, 200 for errors) to prevent memory bloat during long wardriving sessions</li>
-<li>Replaced force unwraps with safe null checks across connection, ping, and debug services to prevent crashes</li>
-<li>Empty catch blocks now log errors with descriptive tags instead of silently swallowing exceptions</li>
-<li>Added a warning dialog before submitting debug logs alerting you that logs contain approximate GPS location history</li>
-<li>Documented AES-ECB as a MeshCore protocol requirement</li>
-<li>Removed deprecated method in channel_service</li>
-<li>Listen windows reduced from 7s to 5s across the board</li>
-<li>Map zoom range adjusted to 3-17</li>
-<li>Disconnect now uploads immediately with no delay</li>
+<li>
+<p><strong>Pending Repeater Approval</strong> — Regional administrators can now enable a flag that has new repeaters enter in a "Pending" state, needing approval by a regional administrator before appearing on the map. Pending repeaters have 3x the regions Stale Repeater Timer before being automatically activated, or are deleted if no advert is received within 1x the regions Stale Repeater Timer.  A new Discord notification type has been created that will notify regional administrators once a day if the region has any pending repeaters.  This is an anti-abuse measure and should be used with caution, as it can cause inaccurate map data.  <a href="https://wiki.meshmapper.net/admins/#system-settings">Read about it more here.</a></p>
+</li>
+<li>
+<p><strong>New Administrators</strong> — Regional administrators can now create new regional administrator accounts.  Create the account and send the new administrator the registration link to complete their registration.  <a href="https://wiki.meshmapper.net/admins/#adding-a-new-administrator">Read about it more here.</a></p>
+</li>
+<li>
+<p><strong>Top Explorers (Regional)</strong> — The Top Explorers leaderboard, which awards a point for being the first to wardrive a grid square, has been added to regional leaderboards. (Thanks ded)</p>
+</li>
+<li>
+<p><strong>Global Leaderboard Additions</strong> — The global leaderboard now includes rankings for Most Repeaters, Most Grid Squares, Most Contributors, and Most Data Points across all regions.</p>
+</li>
+</ul>
+<h3 id="bug-fixes">🐛 Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permanent link">¶</a></h3>
+<ul>
+<li>Fixed an issue where the map legend was layered above the help button. (Thanks Alex The Emperor Penguin)</li>
 </ul>
 
 
