@@ -1722,30 +1722,31 @@
 <ul>
 <li><strong>The Map Tool</strong>: The form includes an interactive map with drawing tools.</li>
 <li><strong>Draw Polygon</strong>: You must use the <strong>Polygon Tool</strong> (pentagon icon) to draw a precise shape around your coverage area.</li>
+<li><strong>Region Center</strong>: Drag the pin to a point within your region.  This will determine where your region appears on the global map.</li>
 <li><strong>Purpose</strong>: This polygon is used to:<ul>
-<li>Filter out stray pings from outside the region.</li>
+<li>Define where wardriving activities in your region can occur.</li>
 <li>Determine if a user is "In Zone" for authentication purposes.</li>
 <li>Render the region border on the global map.</li>
 </ul>
 </li>
 </ul>
-<p><em>Note: Keep the boundary reasonable. You can always request an expansion later as your network grows.</em></p>
+<p><em>Note: Keep the boundary reasonable. You can always expand it later as your network grows.</em></p>
 <h2 id="submission-approval">Submission &amp; Approval<a class="headerlink" href="#submission-approval" title="Permanent link">¶</a></h2>
 <p>Once you submit the form:</p>
 <ul>
 <li>
 <ol>
-<li><strong>Notification</strong>: A webhook immediately notifies the MeshMapper administrators of the new request.</li>
+<li><strong>Notification</strong>: Administrators will receive a notification of the onboarding request.</li>
 </ol>
 </li>
 <li>
 <ol>
-<li><strong>Review</strong>: Admins will verify the Observer IDs and ensure they are successfully transmitting data to the MQTT broker.</li>
+<li><strong>Review</strong>: Admins will verify the Observer IDs and ensure they are successfully transmitting data to the MQTT broker at letsmesh.net.</li>
 </ol>
 </li>
 <li>
 <ol>
-<li><strong>Activation</strong>: Once verified, the region is approved. A new subdomain (e.g., <code>new.meshmapper.net</code>) is provisioned, and the database structures are automatically generated.</li>
+<li><strong>Activation</strong>: Once verified, the region is approved and will become available for wardriving.  It can take up to 5 minutes after deployment for the MeshMapper MQTT engine to start pulling in local data.</li>
 </ol>
 </li>
 </ul>
