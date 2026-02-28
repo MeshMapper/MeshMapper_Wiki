@@ -1721,6 +1721,18 @@
 <td><strong>Ping Leader</strong></td>
 <td>Rank #1 on a regional leaderboard</td>
 </tr>
+<tr>
+<td><strong>Explorer 1</strong></td>
+<td>Map 1,000 or more unique grid squares</td>
+</tr>
+<tr>
+<td><strong>Explorer 2</strong></td>
+<td>Map 5,000 or more unique grid squares</td>
+</tr>
+<tr>
+<td><strong>Explorer 3</strong></td>
+<td>Map 10,000 or more unique grid squares</td>
+</tr>
 </tbody>
 </table>
 <h3 id="manual-awards">Manual Awards<a class="headerlink" href="#manual-awards" title="Permanent link">¶</a></h3>
@@ -1731,7 +1743,22 @@
   <p><em>Loading awards...</em></p>
 </div>
 
+<div id="award-img-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:9999;cursor:pointer;justify-content:center;align-items:center;" onclick="this.style.display='none'">
+  <div style="position:relative;max-width:90vw;max-height:90vh;text-align:center;">
+    <a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="" data-desc-position="bottom"><img id="award-img-modal-src" src="" alt="" style="max-width:400px;max-height:80vh;object-fit:contain;border-radius:8px;"></a>
+    <div id="award-img-modal-name" style="color:#fff;font-size:1.2rem;font-weight:600;margin-top:0.75rem;"></div>
+  </div>
+</div>
+
 <script>
+function openAwardImage(src, name) {
+    var modal = document.getElementById('award-img-modal');
+    document.getElementById('award-img-modal-src').src = src;
+    document.getElementById('award-img-modal-src').alt = name;
+    document.getElementById('award-img-modal-name').textContent = name;
+    modal.style.display = 'flex';
+}
+
 (function() {
     var container = document.getElementById('awards-table-container');
     fetch('https://meshmapper.net/profile_api.php?action=awards')
@@ -1745,9 +1772,11 @@
             html += '<thead><tr><th style="width:64px;">Icon</th><th>Award</th><th>Description</th><th>Awarded</th></tr></thead>';
             html += '<tbody>';
             awards.forEach(function(a) {
-                var icon = a.image_path
-                    ? '<img src="https://meshmapper.net/' + a.image_path + '" alt="' + a.name + '" style="width:128px;height:128px;object-fit:contain;">'
-                    : '<img src="https://meshmapper.net/img/default-award.svg" alt="Default" style="width:48px;height:48px;object-fit:contain;">';
+                var imgSrc = a.image_path
+                    ? 'https://meshmapper.net/' + a.image_path
+                    : 'https://meshmapper.net/img/default-award.svg';
+                var escapedName = a.name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                var icon = '<img src="' + imgSrc + '" alt="' + a.name + '" style="width:128px;height:128px;object-fit:contain;cursor:pointer;" onclick="openAwardImage(\'' + imgSrc.replace(/'/g, "\\'") + '\', \'' + escapedName + '\')">';
                 var desc = a.description || '—';
                 var count = a.grant_count || 0;
                 html += '<tr><td style="text-align:center;vertical-align:middle;">' + icon + '</td><td style="vertical-align:middle;"><strong>' + a.name + '</strong></td><td style="vertical-align:middle;">' + desc + '</td><td style="text-align:center;vertical-align:middle;">' + count + '</td></tr>';
