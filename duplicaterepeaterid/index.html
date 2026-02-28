@@ -1786,7 +1786,7 @@
 <div class="admonition success">
 <p class="admonition-title">Change is comining!</p>
 <p>With multi-byte repeater path functionality being actively developed by the MeshCore team, the below information will, thankfully, soon become irrelevant.</p>
-<p>Until such a time, duplicate repeater ID's can be managed using the below methods, or by driving in Passive or Hybrid modes where <strong>Discovery</strong> packets are used.  <strong>Discovery</strong>, or <strong>DISC</strong>, packets associate with repeaters using their full Public ID.</p>
+<p>Until such a time, duplicate repeater ID's can be managed using the below methods, or by driving in <strong>Hybrid</strong> mode where <strong>Discovery</strong> packets are used.  <strong>Discovery</strong>, or <strong>DISC</strong>, packets associate with repeaters using their full Public ID.  <a href="#workarounds">Read more about this here.</a></p>
 </div>
 <h1 id="duplicate-repeater-ids">Duplicate Repeater IDs<a class="headerlink" href="#duplicate-repeater-ids" title="Permanent link">¶</a></h1>
 <p>As a regions mesh network grows, the likelihood of two repeaters sharing the same short identifier increases. MeshMapper has a robust system for detecting, handling, and resolving these "collisions" to ensure data integrity.</p>
@@ -1822,7 +1822,7 @@
 <li><strong>Data Integrity</strong>: This data is forever flagged as being ambiguous, and will never associate with a repeater (even after the collision is resolved).</li>
 </ul>
 <h2 id="workarounds">Workarounds<a class="headerlink" href="#workarounds" title="Permanent link">¶</a></h2>
-<p>Wardrivers can choose to collect data in <strong>Passive</strong> or <strong>Hybrid</strong> modes, which utilize <strong>Discovery</strong>, or <strong>DISC</strong>, packets.  You can think of these packets as broadcasting "Hello, who's out there?", and any repeater within hearing distance (and with compatible firmware) will respond with their full Public ID.  As we're not relying on only 2 hex characters to make the association to the repeater, associations can be made even if the first 2 characters of that particular repeater is in collision with another.</p>
+<p>Wardrivers can choose to collect data in <strong>Hybrid</strong> mode, which utilizes <strong>Discovery</strong>, or <strong>DISC</strong>, packets.  You can think of these packets as broadcasting "Hello, who's out there?", and any repeater within hearing distance (and with compatible firmware) will respond with their full Public ID.  As we're not relying on only 2 hex characters to make the association to the repeater, associations can be made even if the first 2 characters of that particular repeater is in collision with another.</p>
 <div class="admonition tip">
 <p class="admonition-title">Enforce Hybrid Mode</p>
 <p>If a region is large and contains many duplicate ID's, region administrators can choose to "Enforce Hybrid Mode" for their region.  This will prevent any <strong>Active</strong> wardriving from occuring in the region by automatically enabling Hybrid mode for wardrivers.  The option is available in the regional admin panel.</p>
