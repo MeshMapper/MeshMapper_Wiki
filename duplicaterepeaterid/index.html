@@ -1781,10 +1781,12 @@
 <h2 id="how-meshmapper-handles-collisions">How MeshMapper Handles Collisions<a class="headerlink" href="#how-meshmapper-handles-collisions" title="Permanent link">¶</a></h2>
 <p>MeshMapper prioritizes data accuracy. If two repeaters share the ID <code>A1</code>, and a message repeat is heard by or is received via <code>A1</code>, the system has no way of knowing <em>which</em> physical repeater was actually involved. To prevent potentially inaccurate data from being represented on the map, MeshMapper enters a "Quarantine" mode for the affected devices.</p>
 <h3 id="1-detection-quarantine">1. Detection &amp; Quarantine<a class="headerlink" href="#1-detection-quarantine" title="Permanent link">¶</a></h3>
-<p>When a new repeater appears on the network with an ID that is already in use by a different device:
-  - <strong>Both</strong> repeaters (the existing one and the new one) are immediately flagged as <strong>Excluded</strong>.
-  - The system assigns the new repeater a temporary internal ID (e.g., <code>X1</code>) to differentiate it in the database and map, but it remains linked to the collision.
-  - Both repeaters are excluded from regional or global leaderboards and statistics (like maximum distance reached)</p>
+<p>When a new repeater appears on the network with an ID that is already in use by a different device:</p>
+<ul>
+<li><strong>Both</strong> repeaters (the existing one and the new one) are immediately flagged as <strong>Excluded</strong>.</li>
+<li>The system assigns the new repeater a temporary internal ID (e.g., <code>X1</code>) to differentiate it in the database and map, but it remains linked to the collision.</li>
+<li>Both repeaters are excluded from regional or global leaderboards and statistics (like maximum distance reached)</li>
+</ul>
 <h3 id="2-map-appearance">2. Map Appearance<a class="headerlink" href="#2-map-appearance" title="Permanent link">¶</a></h3>
 <ul>
 <li><strong>Red Icons</strong>: Both repeaters will appear on the map with <strong>Red</strong> icons (instead of the standard Orange or Grey).</li>
