@@ -48,7 +48,7 @@ When a new repeater appears on the network with an ID that is already in use by 
 ## Workarounds
 Wardrivers can choose to collect data in **Passive** or **Hybrid** modes, which utilize **Discovery**, or **DISC**, packets.  You can think of these packets as broadcasting "Hello, who's out there?", and any repeater within hearing distance (and with compatible firmware) will respond with their full Public ID.  As we're not relying on only 2 hex characters to make the association to the repeater, associations can be made even if the first 2 characters of that particular repeater is in collision with another.
 
-!!! tip "Enforcce Hybrid Mode"
+!!! tip "Enforce Hybrid Mode"
     If a region is large and contains many duplicate ID's, region administrators can choose to "Enforce Hybrid Mode" for their region.  This will prevent any **Active** wardriving from occuring in the region by automatically enabling Hybrid mode for wardrivers.  The option is available in the regional admin panel.
 
 ## Resolution
