@@ -550,6 +550,23 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workarounds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workarounds
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workarounds">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
   <a href="#2-map-appearance" class="md-nav__link">
     <span class="md-ellipsis">
@@ -1656,6 +1673,23 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workarounds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workarounds
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workarounds">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
   <a href="#2-map-appearance" class="md-nav__link">
     <span class="md-ellipsis">
@@ -1787,11 +1821,17 @@
 <li>The system assigns the new repeater a temporary internal ID (e.g., <code>X1</code>) to differentiate it in the database and map, but it remains linked to the collision.</li>
 <li>Both repeaters are excluded from regional or global leaderboards and statistics (like maximum distance reached)</li>
 </ul>
+<h2 id="workarounds">Workarounds<a class="headerlink" href="#workarounds" title="Permanent link">¶</a></h2>
+<p>Wardrivers can choose to collect data in <strong>Passive</strong> or <strong>Hybrid</strong> modes, which utilize <strong>Discovery</strong>, or <strong>DISC</strong>, packets.  You can think of these packets as broadcasting "Hello, who's out there?", and any repeater within hearing distance (and with compatible firmware) will respond with their full Public ID.  As we're not relying on only 2 hex characters to make the association to the repeater, associations can be made even if the first 2 characters of that particular repeater is in collision with another.</p>
+<div class="admonition tip">
+<p class="admonition-title">Enforcce Hybrid Mode</p>
+<p>If a region is large and contains many duplicate ID's, region administrators can choose to "Enforce Hybrid Mode" for their region.  This will prevent any <strong>Active</strong> wardriving from occuring in the region by automatically enabling Hybrid mode for wardrivers.  The option is available in the regional admin panel.</p>
+</div>
 <h3 id="2-map-appearance">2. Map Appearance<a class="headerlink" href="#2-map-appearance" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong>Red Icons</strong>: Both repeaters will appear on the map with <strong>Red</strong> icons (instead of the standard Orange or Grey).</li>
-<li><strong>Popups</strong>: Clicking on the repeater may show its status as "Excluded" or "Duplicate" and will list the repeaters that are in collision.</li>
-<li><strong>Pings</strong>: Clicking a grid square on the map that has a repeater involved in an active collision will draw red dashed lines to each repeater in the collision group (and list distance in KM).</li>
+<li><strong>Red Icons</strong>: Both repeaters will appear on the map with <strong>Red</strong> icons (instead of the standard Pink, Orange or Grey).</li>
+<li><strong>Popups</strong>: Clicking on the repeater will show its status as "Duplicate" and will list the repeaters that are in collision with it.</li>
+<li><strong>Pings</strong>: Clicking a grid square on the map that has a repeater involved in an active collision will draw red dashed lines to each repeater in the collision group (and list distance), allowing the viewer to make their own assumption on which repeater was actually involved.</li>
 <li><strong>Leaderboards</strong>: Both repeaters are immediately removed from all Leaderboards (Best Repeaters, Max Range, etc.) both on the local region and globally to prevent skewed statistics.</li>
 </ul>
 <h3 id="3-impact-on-collected-data">3. Impact on Collected Data<a class="headerlink" href="#3-impact-on-collected-data" title="Permanent link">¶</a></h3>
@@ -1816,7 +1856,7 @@
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Note</p>
-<p>As long as two (or more) repeaters with the same first 2 characters of the public ID exist in a region, regardless of current status, pings will not get accociated to a repeater with that ID.</p>
+<p>As long as two (or more) repeaters with the same first 2 characters of the public ID exist in a region, regardless of current status, pings will not get accociated to a repeater with that ID, unless those pings are of <strong>DISC</strong> type (which associate using the full Public ID of the repeater)</p>
 </div>
 <h2 id="summary-table">Summary Table<a class="headerlink" href="#summary-table" title="Permanent link">¶</a></h2>
 <table>
