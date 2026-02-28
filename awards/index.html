@@ -1742,15 +1742,15 @@
                 return;
             }
             var html = '<table>';
-            html += '<thead><tr><th style="width:64px;">Icon</th><th>Award</th><th>Category</th><th>Description</th></tr></thead>';
+            html += '<thead><tr><th style="width:64px;">Icon</th><th>Award</th><th>Description</th><th>Awarded</th></tr></thead>';
             html += '<tbody>';
             awards.forEach(function(a) {
                 var icon = a.image_path
                     ? '<img src="https://meshmapper.net/' + a.image_path + '" alt="' + a.name + '" style="width:128px;height:128px;object-fit:contain;">'
                     : '<img src="https://meshmapper.net/img/default-award.svg" alt="Default" style="width:48px;height:48px;object-fit:contain;">';
-                var cat = a.category || 'general';
                 var desc = a.description || '—';
-                html += '<tr><td style="text-align:center;vertical-align:middle;">' + icon + '</td><td style="vertical-align:middle;"><strong>' + a.name + '</strong></td><td style="vertical-align:middle;">' + cat.charAt(0).toUpperCase() + cat.slice(1) + '</td><td style="vertical-align:middle;">' + desc + '</td></tr>';
+                var count = a.grant_count || 0;
+                html += '<tr><td style="text-align:center;vertical-align:middle;">' + icon + '</td><td style="vertical-align:middle;"><strong>' + a.name + '</strong></td><td style="vertical-align:middle;">' + desc + '</td><td style="text-align:center;vertical-align:middle;">' + count + '</td></tr>';
             });
             html += '</tbody></table>';
             container.innerHTML = html;
