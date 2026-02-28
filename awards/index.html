@@ -1746,7 +1746,7 @@
             html += '<tbody>';
             awards.forEach(function(a) {
                 var icon = a.image_path
-                    ? '<img src="https://meshmapper.net/' + a.image_path + '" alt="' + a.name + '" style="width:48px;height:48px;object-fit:contain;">'
+                    ? '<img src="https://meshmapper.net/' + a.image_path + '" alt="' + a.name + '" style="width:128px;height:128px;object-fit:contain;">'
                     : '<img src="https://meshmapper.net/img/default-award.svg" alt="Default" style="width:48px;height:48px;object-fit:contain;">';
                 var cat = a.category || 'general';
                 var desc = a.description || '—';
@@ -1776,18 +1776,18 @@
 
   <div style="margin-bottom:1rem;">
     <label for="award_name" style="font-weight:600;">Your Name</label><br>
-    <input type="text" id="award_name" placeholder="Your name or callsign" style="width:100%;padding:8px;border:1px solid #555;border-radius:4px;background:#2b2b2b;color:#fff;box-sizing:border-box;">
+    <input type="text" id="award_name" placeholder="Your name" style="width:100%;padding:8px;border:1px solid #555;border-radius:4px;background:#2b2b2b;color:#fff;box-sizing:border-box;">
   </div>
 
   <div id="companion-id-field" style="margin-bottom:1rem;">
     <label for="award_companion_id" style="font-weight:600;">Companion ID</label><br>
-    <input type="text" id="award_companion_id" placeholder="Hex ID of the companion (e.g. !a1b2c3d4)" style="width:100%;padding:8px;border:1px solid #555;border-radius:4px;background:#2b2b2b;color:#fff;box-sizing:border-box;">
+    <input type="text" id="award_companion_id" placeholder="Public ID of the companion" style="width:100%;padding:8px;border:1px solid #555;border-radius:4px;background:#2b2b2b;color:#fff;box-sizing:border-box;">
     <small style="color:#aaa;">The hex ID of the companion who should receive the award.</small>
   </div>
 
   <div style="margin-bottom:1rem;">
     <label for="award_details" style="font-weight:600;">Details</label><br>
-    <textarea id="award_details" rows="4" placeholder="Which award and why, or describe your award suggestion..." style="width:100%;padding:8px;border:1px solid #555;border-radius:4px;background:#2b2b2b;color:#fff;box-sizing:border-box;resize:vertical;"></textarea>
+    <textarea id="award_details" rows="4" style="width:100%;padding:8px;border:1px solid #555;border-radius:4px;background:#2b2b2b;color:#fff;box-sizing:border-box;resize:vertical;"></textarea>
   </div>
 
   <button onclick="submitAwardRequest()" id="award-submit-btn" style="background:#00d2ff;color:#111;border:none;padding:10px 24px;border-radius:6px;font-weight:600;cursor:pointer;font-size:14px;">Submit</button>
