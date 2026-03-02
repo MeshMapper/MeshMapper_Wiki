@@ -61,13 +61,13 @@ Because different radios and antennas report different absolute noise values, Me
 
 MeshMapper automatically calibrates each user's baseline:
 
-1. After enough data has been collected (at least 5 readings), MeshMapper calculates the user's **10th percentile** noise floor — essentially the quietest conditions that user typically experiences.
-2. This becomes the user's personal **baseline**.
+1. After enough data has been collected (at least 5 readings), MeshMapper calculates the companions's **10th percentile** noise floor — essentially the quietest conditions that companion typically experiences.
+2. This becomes the companions's personal **baseline**.
 3. Every data point is then scored as a **delta** (difference) from that baseline.
 
-For example, if your baseline is **-110 dBm** and you submit a reading of **-90 dBm**, the delta is **+20** — meaning that location is 20 dB noisier than your typical quiet conditions.
+For example, if your companion's baseline is **-110 dBm** and you submit a reading of **-90 dBm**, the delta is **+20** — meaning that location is 20 dB noisier than your typical quiet conditions.
 
-This per-companion calibration ensures that readings from different hardware/setups are comparable on the same map.
+This per-companion calibration ensures that readings from different hardware/setups are comparable on the same map.  All readings for a single location are averaged and displayed accordingly.
 
 #### Reading the Colors
 
@@ -75,7 +75,7 @@ The heatmap uses a gradient from cool to warm colors:
 
 | Color | Meaning |
 | --- | --- |
-| **Blue** | Quiet — at or near the user's baseline noise level. |
+| **Blue** | Quiet — at or near the companions's baseline noise level. |
 | **Green / Lime** | Moderate — some elevated noise above baseline. |
 | **Red** | Loud — significantly above baseline, indicating high interference. |
 
