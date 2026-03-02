@@ -1923,6 +1923,7 @@
 <li>After enough data has been collected (at least 5 readings), MeshMapper calculates the companions's <strong>10th percentile</strong> noise floor — essentially the quietest conditions that companion typically experiences.</li>
 <li>This becomes the companions's personal <strong>baseline</strong>.</li>
 <li>Every data point is then scored as a <strong>delta</strong> (difference) from that baseline.</li>
+<li>Every day a new calibration is done to update that companions noise delta.</li>
 </ol>
 <p>For example, if your companion's baseline is <strong>-110 dBm</strong> and you submit a reading of <strong>-90 dBm</strong>, the delta is <strong>+20</strong> — meaning that location is 20 dB noisier than your typical quiet conditions.</p>
 <p>This per-companion calibration ensures that readings from different hardware/setups are comparable on the same map.  All readings for a single location are averaged and displayed accordingly.</p>
