@@ -42,10 +42,48 @@ These layers display the actual mesh network data. You can toggle them on or off
 | **Repeater Coverage** | When a repeater is clicked, this layer draws dashed blue lines to all locations where that repeater was heard. Useful for visualizing the effective footprint of a specific repeater. |
 | **Adv. Repeater Coverage** | Similar to standard Repeater Coverage, but color-codes the lines and grid squares based on the connection type (Green=BIDIR, Orange=TX, etc.) instead of using a uniform blue. |
 | **Repeater Neighbours** | Draws lines between repeaters that have heard each other directly. <br> - **Green Dashed**: Heard recently (< 2 weeks). <br> - **Orange Dashed**: Heard 2-4 weeks ago. <br> - **Red Solid**: Stale link (> 4 weeks). |
-| **Noise Heatmap** | A visual heatmap representing the noise floor reported by radios. **Red** areas indicate high interference, while **Blue** areas are quieter. |
+| **Noise Heatmap** | A visual heatmap representing the RF noise environment. **Red** areas indicate high interference, while **Blue** areas are quieter. See [Noise Heatmap](#noise-heatmap) below for details. |
 | **Neighbor Zones** | Small pins showing the location of nearby MeshMapper regions. Clicking them will take you to that map. |
 | **Neighbour Zone Boundaries** | Draws a dashed outline showing the official boundary (polygon or radius) of each neighbouring region. Requires **Neighbor Zones** to be enabled — it will be automatically turned off when Neighbor Zones is disabled, and restored when it is re-enabled. |
 | **Region Boundary** | A black outline showing the official area covered by the current map zone. |
+
+### Noise Heatmap
+
+The **Noise Heatmap** is an optional overlay that visualizes the RF noise environment across the map. It helps identify areas with high interference versus quiet areas with clean signal conditions.
+
+#### What It Shows
+
+Every companion reports a **noise floor** reading (in dBm) with each ping it submits. The noise floor represents the level of background RF interference the radio is experiencing at that location. A reading closer to 0 dBm is "loud" (lots of interference), while a very negative value like -120 dBm is "quiet."
+
+Because different radios and antennas report different absolute noise values, MeshMapper doesn't display the raw readings directly. Instead, it calculates a **noise delta** — how much louder or quieter a location is compared to that user's personal baseline.
+
+#### How Calibration Works
+
+MeshMapper automatically calibrates each user's baseline:
+
+1. After enough data has been collected (at least 5 readings), MeshMapper calculates the user's **10th percentile** noise floor — essentially the quietest conditions that user typically experiences.
+2. This becomes the user's personal **baseline**.
+3. Every data point is then scored as a **delta** (difference) from that baseline.
+
+For example, if your baseline is **-110 dBm** and you submit a reading of **-90 dBm**, the delta is **+20** — meaning that location is 20 dB noisier than your typical quiet conditions.
+
+This per-companion calibration ensures that readings from different hardware/setups are comparable on the same map.
+
+#### Reading the Colors
+
+The heatmap uses a gradient from cool to warm colors:
+
+| Color | Meaning |
+| --- | --- |
+| **Blue** | Quiet — at or near the user's baseline noise level. |
+| **Green / Lime** | Moderate — some elevated noise above baseline. |
+| **Red** | Loud — significantly above baseline, indicating high interference. |
+
+!!! tip
+    The Noise Heatmap is **off by default**. Enable it from the Layer Control (stack icon) in the top-right corner of the map. It works best when zoomed in to a neighborhood or specific area of interest.
+
+!!! note
+    For privacy, heatmap coordinates are rounded to approximately 100-meter precision, so the heatmap shows general area trends rather than exact locations.
 
 ### Legacy Data Layer
 
