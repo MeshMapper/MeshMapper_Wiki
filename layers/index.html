@@ -1918,7 +1918,7 @@
 <p>Every companion reports a <strong>noise floor</strong> reading (in dBm) with each ping it submits. The noise floor represents the level of background RF interference the radio is experiencing at that location. A reading closer to 0 dBm is "loud" (lots of interference), while a very negative value like -120 dBm is "quiet."</p>
 <p>Because different radios and antennas report different absolute noise values, MeshMapper doesn't display the raw readings directly. Instead, it calculates a <strong>noise delta</strong> — how much louder or quieter a location is compared to that user's personal baseline.</p>
 <h4 id="how-calibration-works">How Calibration Works<a class="headerlink" href="#how-calibration-works" title="Permanent link">¶</a></h4>
-<p>MeshMapper automatically calibrates each user's baseline:</p>
+<p>MeshMapper automatically calibrates each companion's baseline:</p>
 <ol>
 <li>After enough data has been collected (at least 5 readings), MeshMapper calculates the companions's <strong>10th percentile</strong> noise floor — essentially the quietest conditions that companion typically experiences.</li>
 <li>This becomes the companions's personal <strong>baseline</strong>.</li>
