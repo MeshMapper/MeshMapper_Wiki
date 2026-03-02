@@ -1920,12 +1920,12 @@
 <h4 id="how-calibration-works">How Calibration Works<a class="headerlink" href="#how-calibration-works" title="Permanent link">¶</a></h4>
 <p>MeshMapper automatically calibrates each user's baseline:</p>
 <ol>
-<li>After enough data has been collected (at least 5 readings), MeshMapper calculates the user's <strong>10th percentile</strong> noise floor — essentially the quietest conditions that user typically experiences.</li>
-<li>This becomes the user's personal <strong>baseline</strong>.</li>
+<li>After enough data has been collected (at least 5 readings), MeshMapper calculates the companions's <strong>10th percentile</strong> noise floor — essentially the quietest conditions that companion typically experiences.</li>
+<li>This becomes the companions's personal <strong>baseline</strong>.</li>
 <li>Every data point is then scored as a <strong>delta</strong> (difference) from that baseline.</li>
 </ol>
-<p>For example, if your baseline is <strong>-110 dBm</strong> and you submit a reading of <strong>-90 dBm</strong>, the delta is <strong>+20</strong> — meaning that location is 20 dB noisier than your typical quiet conditions.</p>
-<p>This per-companion calibration ensures that readings from different hardware/setups are comparable on the same map.</p>
+<p>For example, if your companion's baseline is <strong>-110 dBm</strong> and you submit a reading of <strong>-90 dBm</strong>, the delta is <strong>+20</strong> — meaning that location is 20 dB noisier than your typical quiet conditions.</p>
+<p>This per-companion calibration ensures that readings from different hardware/setups are comparable on the same map.  All readings for a single location are averaged and displayed accordingly.</p>
 <h4 id="reading-the-colors">Reading the Colors<a class="headerlink" href="#reading-the-colors" title="Permanent link">¶</a></h4>
 <p>The heatmap uses a gradient from cool to warm colors:</p>
 <table>
@@ -1938,7 +1938,7 @@
 <tbody>
 <tr>
 <td><strong>Blue</strong></td>
-<td>Quiet — at or near the user's baseline noise level.</td>
+<td>Quiet — at or near the companions's baseline noise level.</td>
 </tr>
 <tr>
 <td><strong>Green / Lime</strong></td>
