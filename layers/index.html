@@ -495,6 +495,56 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#noise-heatmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Noise Heatmap
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Noise Heatmap">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-it-shows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What It Shows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-calibration-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Calibration Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reading-the-colors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading the Colors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#legacy-data-layer" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1635,6 +1685,56 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#noise-heatmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Noise Heatmap
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Noise Heatmap">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-it-shows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What It Shows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-calibration-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Calibration Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reading-the-colors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading the Colors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#legacy-data-layer" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1796,7 +1896,7 @@
 </tr>
 <tr>
 <td><strong>Noise Heatmap</strong></td>
-<td>A visual heatmap representing the noise floor reported by radios. <strong>Red</strong> areas indicate high interference, while <strong>Blue</strong> areas are quieter.</td>
+<td>A visual heatmap representing the RF noise environment. <strong>Red</strong> areas indicate high interference, while <strong>Blue</strong> areas are quieter. See <a href="#noise-heatmap">Noise Heatmap</a> below for details.</td>
 </tr>
 <tr>
 <td><strong>Neighbor Zones</strong></td>
@@ -1812,6 +1912,52 @@
 </tr>
 </tbody>
 </table>
+<h3 id="noise-heatmap">Noise Heatmap<a class="headerlink" href="#noise-heatmap" title="Permanent link">¶</a></h3>
+<p>The <strong>Noise Heatmap</strong> is an optional overlay that visualizes the RF noise environment across the map. It helps identify areas with high interference versus quiet areas with clean signal conditions.</p>
+<h4 id="what-it-shows">What It Shows<a class="headerlink" href="#what-it-shows" title="Permanent link">¶</a></h4>
+<p>Every companion reports a <strong>noise floor</strong> reading (in dBm) with each ping it submits. The noise floor represents the level of background RF interference the radio is experiencing at that location. A reading closer to 0 dBm is "loud" (lots of interference), while a very negative value like -120 dBm is "quiet."</p>
+<p>Because different radios and antennas report different absolute noise values, MeshMapper doesn't display the raw readings directly. Instead, it calculates a <strong>noise delta</strong> — how much louder or quieter a location is compared to that user's personal baseline.</p>
+<h4 id="how-calibration-works">How Calibration Works<a class="headerlink" href="#how-calibration-works" title="Permanent link">¶</a></h4>
+<p>MeshMapper automatically calibrates each user's baseline:</p>
+<ol>
+<li>After enough data has been collected (at least 5 readings), MeshMapper calculates the user's <strong>10th percentile</strong> noise floor — essentially the quietest conditions that user typically experiences.</li>
+<li>This becomes the user's personal <strong>baseline</strong>.</li>
+<li>Every data point is then scored as a <strong>delta</strong> (difference) from that baseline.</li>
+</ol>
+<p>For example, if your baseline is <strong>-110 dBm</strong> and you submit a reading of <strong>-90 dBm</strong>, the delta is <strong>+20</strong> — meaning that location is 20 dB noisier than your typical quiet conditions.</p>
+<p>This per-companion calibration ensures that readings from different hardware/setups are comparable on the same map.</p>
+<h4 id="reading-the-colors">Reading the Colors<a class="headerlink" href="#reading-the-colors" title="Permanent link">¶</a></h4>
+<p>The heatmap uses a gradient from cool to warm colors:</p>
+<table>
+<thead>
+<tr>
+<th>Color</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Blue</strong></td>
+<td>Quiet — at or near the user's baseline noise level.</td>
+</tr>
+<tr>
+<td><strong>Green / Lime</strong></td>
+<td>Moderate — some elevated noise above baseline.</td>
+</tr>
+<tr>
+<td><strong>Red</strong></td>
+<td>Loud — significantly above baseline, indicating high interference.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The Noise Heatmap is <strong>off by default</strong>. Enable it from the Layer Control (stack icon) in the top-right corner of the map. It works best when zoomed in to a neighborhood or specific area of interest.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For privacy, heatmap coordinates are rounded to approximately 100-meter precision, so the heatmap shows general area trends rather than exact locations.</p>
+</div>
 <h3 id="legacy-data-layer">Legacy Data Layer<a class="headerlink" href="#legacy-data-layer" title="Permanent link">¶</a></h3>
 <p>Regions with imported historical data will have a <strong>Legacy</strong> layer available. This layer displays data points uploaded via CSV but does not show connection lines or contribute to repeater statistics due to the lack of verifiable repeater association. See <a href="https://wiki.meshmapper.net/dataupload/">Data Upload</a> for more details.</p>
 <h2 id="search-filters">Search &amp; Filters<a class="headerlink" href="#search-filters" title="Permanent link">¶</a></h2>
