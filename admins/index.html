@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../assets/wardrive.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.4">
     
     
       
@@ -920,6 +920,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#user-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Settings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#alerts-history" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1140,6 +1151,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/260304/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    March 4, 2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -1833,6 +1872,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#user-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Settings
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#alerts-history" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1919,8 +1969,13 @@
 <p><strong>Ping Calc:</strong> A tool to recalculate the total number of pings a repeater has handled.</p>
 </li>
 <li><strong>Notes:</strong> Clicking the note icon will allow you to optionally add a note to the repeater.  On multiregion admin panels, if a repeater belongs to multiple single regions, notes will be combined and edits will be saved to the individual regions.</li>
+<li><strong>Lock GPS Coordinates:</strong> Enabling this setting will prevent new adverts from a repeater from updating its location.  This can be used in instances where the GPS coordinates set on the repeater are incorrect and need to be manually overridden.</li>
 <li>
-<p><strong>Lock GPS Coordinates:</strong> Enabling this setting will prevent new adverts from a repeater from updating its location.  This can be used in instances where the GPS coordinates set on the repeater are incorrect and need to be manually overridden.</p>
+<p><strong>Bulk Select &amp; Edit/Delete:</strong> Use the checkboxes on each row (or the "Select All" checkbox in the header) to select multiple repeaters. A toolbar will appear at the bottom of the screen with options to <strong>Edit Selected</strong> or <strong>Delete Selected</strong>. Bulk edit allows you to change Status, Power, Lock GPS, and Notes for all selected repeaters at once — each field has an "Apply" checkbox so you only change the fields you intend to. Works across multi-region admin panels.</p>
+<div class="admonition warning">
+<p class="admonition-title">Bulk Notes</p>
+<p>Bulk editing the Notes field will <strong>overwrite</strong> existing notes for all selected repeaters.</p>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Data Inaccuracy Warning</p>
 <p>Enabling "Lock GPS Coordinates" for a repeater that can or will physically move locations will result in inaccurate data.  Use with caution.</p>
@@ -1937,6 +1992,7 @@
 <li><strong>Identity:</strong> Map a Public ID (e.g., <code>12345678...</code>) to a human-readable Name.</li>
 <li><strong>Blocking:</strong> Set a companion's status to <strong>Blocked</strong> to prevent them from uploading data to the map.</li>
 <li><strong>Notes:</strong> Clicking the note icon will allow you to optionally add a note to the companion.  On multiregion admin panels, if a repeater belongs to multiple single regions, notes will be combined and edits will be saved to the individual regions.</li>
+<li><strong>Bulk Select &amp; Edit/Delete:</strong> Same multi-select functionality as repeaters. Bulk edit allows you to change Status and Notes for all selected companions at once.</li>
 </ul>
 <h3 id="sessions">Sessions<a class="headerlink" href="#sessions" title="Permanent link">¶</a></h3>
 <p>A historical log of all wardriving sessions.</p>
@@ -1965,11 +2021,11 @@
 <h4 id="adding-a-new-administrator">Adding a New Administrator<a class="headerlink" href="#adding-a-new-administrator" title="Permanent link">¶</a></h4>
 <p>Region admins can invite new administrators directly from this tab by clicking <strong>+ Add Administrator</strong>.</p>
 <ol>
-<li><strong>Username</strong> <em>(required)</em>: Choose a username for the new administrator. This must be unique.</li>
-<li><strong>Contact Info</strong> <em>(required)</em>: Enter the new administrator's contact information (e.g., Discord handle or email) so they can be reached if needed.</li>
+<li><strong>Username</strong> <em>(required)</em>: Choose a username for the new administrator. As you type, the system will check if the username already exists. If the administrator already has an account, a notice will appear and the form will switch to "Grant Access" mode — submitting will add your region to their existing access instead of creating a new account.</li>
+<li><strong>Contact Info</strong> <em>(required)</em>: Enter the new administrator's contact information (e.g., Discord handle or email) so they can be reached if needed. If the username already exists, this field will auto-populate with their current contact info.</li>
 <li><strong>Region Assignment</strong> <em>(required)</em>: Select which region the new administrator should have access to. On multiregion admin panels, you can assign the administrator to the multi-region group or to an individual sub-region.</li>
 </ol>
-<p>Once created, a message will display with a registration link and the username. Share both with the new administrator.</p>
+<p>For <strong>new administrators</strong>, a message will display with a registration link and the username. Share both with the new administrator. For <strong>existing administrators</strong>, a confirmation will display that access to the region has been granted — no registration link is needed.</p>
 <h4 id="registration">Registration<a class="headerlink" href="#registration" title="Permanent link">¶</a></h4>
 <p>New administrators claim their account by visiting <a href="https://register.meshmapper.net">register.meshmapper.net</a> and entering the username provided to them. If the account exists and has not yet been registered, a <strong>temporary key</strong> will be generated and displayed.</p>
 <div class="admonition warning">
@@ -1998,6 +2054,18 @@
 <li>Mass-edit attributes for a set of pings.</li>
 <li><em>Example:</em> Change all pings from companion "Tom_Mobile" on "Dec 25th" to have "External Antenna = YES".</li>
 </ul>
+</li>
+<li>
+<p><strong>Reassociate Repeater</strong>:</p>
+<ul>
+<li>Reassociate pings to a repeater that was missing from the map at the time of ingestion, or whose GPS coordinates were incorrect.</li>
+<li>Select a repeater and click "Analyze &amp; Preview" to see how many pings would be affected. The tool detects ID collisions automatically — if the repeater's short ID collides with another active repeater, only DISC pings (matched by full public key) will be processed.</li>
+<li>Pings that already have the correct coordinates (within ~100m) are skipped.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Use With Caution</p>
+<p>Reassociating pings to the wrong repeater location will result in misrepresented data. Always verify the repeater's GPS coordinates are correct before running this tool.</p>
+</div>
 </li>
 </ul>
 <h2 id="system-settings">System Settings<a class="headerlink" href="#system-settings" title="Permanent link">¶</a></h2>
@@ -2029,6 +2097,12 @@
 <li><a href="https://wiki.meshmapper.net/overrideduplicates/">Learn more about overriding duplicate detection</a></li>
 </ul>
 </li>
+</ul>
+<h2 id="user-settings">User Settings<a class="headerlink" href="#user-settings" title="Permanent link">¶</a></h2>
+<p>The <strong>User Settings</strong> tab allows administrators to manage their own account.</p>
+<ul>
+<li><strong>Change Key</strong>: Update your admin login key.</li>
+<li><strong>Contact Info</strong>: Update your contact information (e.g., Discord handle, email). This is displayed to all users.</li>
 </ul>
 <h2 id="alerts-history">Alerts &amp; History<a class="headerlink" href="#alerts-history" title="Permanent link">¶</a></h2>
 <ul>

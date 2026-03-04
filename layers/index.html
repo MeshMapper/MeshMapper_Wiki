@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../assets/wardrive.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.4">
     
     
       
@@ -1121,6 +1121,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../release-notes/260304/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    March 4, 2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../release-notes/260227/" class="md-nav__link">
         
   
@@ -1888,11 +1916,19 @@
 </tr>
 <tr>
 <td><strong>Adv. Repeater Coverage</strong></td>
-<td>Similar to standard Repeater Coverage, but color-codes the lines and grid squares based on the connection type (Green=BIDIR, Orange=TX, etc.) instead of using a uniform blue.</td>
+<td>Similar to standard Repeater Coverage, but color-codes the lines and grid squares based on the connection type (Green=BIDIR, Orange=TX, etc.) instead of using a uniform blue. Lines are labelled as <strong>In</strong> or <strong>Out</strong> to indicate whether the ping originated inside or outside the region boundary.</td>
 </tr>
 <tr>
 <td><strong>Repeater Neighbours</strong></td>
-<td>Draws lines between repeaters that have heard each other directly. <br> - <strong>Green Dashed</strong>: Heard recently (&lt; 2 weeks). <br> - <strong>Orange Dashed</strong>: Heard 2-4 weeks ago. <br> - <strong>Red Solid</strong>: Stale link (&gt; 4 weeks).</td>
+<td>Draws lines between repeaters that have heard each other directly. When enabled, coverage pings fade into the background to make the neighbour lines easier to trace. <br> - <strong>Green Dashed</strong>: Heard recently (&lt; 2 weeks). <br> - <strong>Orange Dashed</strong>: Heard 2-4 weeks ago. <br> - <strong>Red Solid</strong>: Stale link (&gt; 4 weeks).</td>
+</tr>
+<tr>
+<td><strong>Effective Coverage</strong></td>
+<td>Filters the map to show only locations with confirmed reliable connectivity, removing noise and edge-case pings for a cleaner view of where the mesh truly delivers. Each ping type is given a numerical value (BIDIR being the highest and DROP being the lowest) and these values are averaged across each grid square.</td>
+</tr>
+<tr>
+<td><strong>Signal Strength</strong></td>
+<td>Color-codes coverage grid squares by signal strength (SNR), making it easy to identify strong and weak zones across the map at a glance. ≤ -1 dB displays in red and ≥ 5 dB in green, with everything else in between.</td>
 </tr>
 <tr>
 <td><strong>Noise Heatmap</strong></td>
