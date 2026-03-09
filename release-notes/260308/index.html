@@ -1791,16 +1791,21 @@
 <li>
 <p><strong>Per-Repeater Hop Byte Tracking</strong> — MeshMapper now tracks hop bytes on a per-repeater basis. When a repeater is heard with a longer ID than previously seen, its hop bytes value is automatically updated. This allows regions to transition gradually from 1-byte to multi-byte firmware.</p>
 </li>
+</ul>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://meshmapper.net/img/upload_20260308_220621_5fd29fd8.jpg" data-desc-position="bottom"><img alt="Image" src="https://meshmapper.net/img/upload_20260308_220621_5fd29fd8.jpg"></a></p>
+<ul>
 <li>
 <p><strong>Smart Collision Detection</strong> — Collision detection now uses per-repeater hop bytes to determine if two repeaters are truly in conflict. Two repeaters are only considered colliding if they are indistinguishable at the longer of their two hop byte lengths. For example, <code>AB</code> (1-byte) and <code>AB12</code> (2-byte) are no longer flagged as duplicates.</p>
 </li>
 <li>
 <p><strong>Hop Bytes Advanced Filter</strong> — A new "Hop Bytes" dropdown has been added to the advanced search panel on the map, allowing users to filter repeater markers by their hop byte value (1, 2, or 3).</p>
 </li>
-<li>
-<p><strong>Repeater List Grid Update</strong> — The Repeater List grid in Region Info now filters out multi-byte repeaters from 1-byte cells to avoid false "taken" indicators.  New 1-byte, 2-byte, and 3-byte repeater lists are available to help regions in coordinating firmware upgrades.</p>
-</li>
 </ul>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://meshmapper.net/img/upload_20260308_220131_00782f1c.jpg" data-desc-position="bottom"><img alt="Image" src="https://meshmapper.net/img/upload_20260308_220131_00782f1c.jpg"></a></p>
+<ul>
+<li><strong>Repeater List Grid Update</strong> — The Repeater List grid in Region Info now filters out multi-byte repeaters from 1-byte cells to avoid false "taken" indicators.  New 1-byte, 2-byte, and 3-byte repeater lists are available to help regions in coordinating firmware upgrades.</li>
+</ul>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://meshmapper.net/img/upload_20260308_220051_17760b14.jpg" data-desc-position="bottom"><img alt="Image" src="https://meshmapper.net/img/upload_20260308_220051_17760b14.jpg"></a></p>
 
 
 
