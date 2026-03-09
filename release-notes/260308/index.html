@@ -1776,6 +1776,9 @@
 <li>
 <p><strong>GPS subscription leak fix</strong> — <code>startWatching()</code> wasn't cancelling the existing position subscription before creating a new one. On startup, two callers would race within ~40ms of each other, orphaning the first listener and doubling every GPS event. Effects included 2x position events, 4x "First GPS lock" triggers, 3x zone rechecks, and errno 24 (too many open files) from the cascading resource pressure. Fixed with a 3-line cancel guard in <code>gps_service.dart</code>.</p>
 </li>
+<li>
+<p><strong>Hive corruption no longer silently drops ping data</strong> — If the api_queue Hive box fails to open, pings now fall back to an in-memory queue instead of being silently dropped. Previously, a corrupted Hive box could cause an entire wardrive session to upload nothing but heartbeats. The memory fallback is drained alongside Hive on every upload batch.</p>
+</li>
 </ul>
 <hr>
 <h2 id="server-map">🌐 Server &amp; Map<a class="headerlink" href="#server-map" title="Permanent link">¶</a></h2>
