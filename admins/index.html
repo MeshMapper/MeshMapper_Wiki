@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../assets/wardrive.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.4">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
     
     
       
@@ -2139,8 +2139,9 @@
 </div>
 </li>
 <li>
-<p><strong>Single Observer Mode</strong>: Enable this if your region relies on a single MQTT ingestor to prevent repeaters from being flagged as "Stale" too quickly. This option prevents the repeater from displaying as stale and ultimately getting disabled at 30 days without an advert.</p>
+<p><strong>Hop Bytes</strong>: Configure the region's repeater identification byte length — 1-byte (256 IDs), 2-byte (65K IDs), or 3-byte (16M IDs). When set to 2 or 3-byte, companion devices connecting to wardrive sessions are automatically configured to use the enforced hop byte length. In 1-byte regions, MeshMapper passively detects which repeaters support multi-byte by watching packets and only confirmed repeaters will show multi-byte IDs on the map. Collision detection, coverage mapping, and leaderboards all respect the configured hop byte length. Requires MeshCore firmware v1.14.0+.</p>
 </li>
+<li><strong>Single Observer Mode</strong>: Enable this if your region relies on a single MQTT ingestor to prevent repeaters from being flagged as "Stale" too quickly. This option prevents the repeater from displaying as stale and ultimately getting disabled at 30 days without an advert.</li>
 <li><strong>Public Channels</strong>: Define which channels are treated as public traffic.</li>
 <li><strong>Regions/Scopes</strong>: If your region uses MeshCore Regions/Scopes, define it here.  If not, leave the default scope of "*".</li>
 <li><strong>Enforce Hybrid Mode</strong>: Disables Active mode for wardrivers in your region.  If your regions mesh has an issue with dropped packets due to high mesh traffic or many wardrivers, consider enabling this option.  <em>(Mobile app functionality will be available with v1.1.0)</em></li>
