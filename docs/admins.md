@@ -145,6 +145,7 @@ Configure how the map behaves for your region.
     !!! warning "Data Inaccuracy Warning"
         New repeaters will not display on the map until approved. This can cause data inaccuracies. Use with caution.
 
+  - **Hop Bytes**: Configure the region's repeater identification byte length — 1-byte (256 IDs), 2-byte (65K IDs), or 3-byte (16M IDs). When set to 2 or 3-byte, companion devices connecting to wardrive sessions are automatically configured to use the enforced hop byte length. In 1-byte regions, MeshMapper passively detects which repeaters support multi-byte by watching packets and only confirmed repeaters will show multi-byte IDs on the map. Collision detection, coverage mapping, and leaderboards all respect the configured hop byte length. Requires MeshCore firmware v1.14.0+.
   - **Single Observer Mode**: Enable this if your region relies on a single MQTT ingestor to prevent repeaters from being flagged as "Stale" too quickly. This option prevents the repeater from displaying as stale and ultimately getting disabled at 30 days without an advert.
   - **Public Channels**: Define which channels are treated as public traffic.
   - **Regions/Scopes**: If your region uses MeshCore Regions/Scopes, define it here.  If not, leave the default scope of "*".
