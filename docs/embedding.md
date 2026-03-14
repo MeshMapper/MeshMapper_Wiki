@@ -88,3 +88,47 @@ https://yow.meshmapper.net/embed.php?lat=45.4034&lon=-75.7258&geofence=0
 - The embed is **read-only** — there are no interactive popups, layer toggles, or controls.
 - A small "Open on **MeshMapper**" link appears in the bottom-left corner, linking viewers to the full map.
 - When `lat` and `lon` are provided, the embed automatically geofences data to a 5 km radius for faster loading. Use `geofence=0` to override this.
+
+---
+
+## Repeater ID Grid
+
+You can also embed the Repeater ID Usage grid — a 16×16 visual showing which first-byte repeater IDs are taken, available, or reserved in a region.
+
+### Embed URL
+
+```
+https://[IATA].meshmapper.net/embed_repeaters.php
+```
+
+### Basic Usage
+
+```html
+<iframe
+  src="https://yow.meshmapper.net/embed_repeaters.php"
+  width="100%"
+  height="500"
+  style="border: none;"
+  loading="lazy">
+</iframe>
+```
+
+### URL Parameters
+
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `mode` | `light` or `dark` | `light` | Sets the initial color scheme. Users can also toggle between modes using the button in the header. |
+
+### Example
+
+**Embed the repeater grid in dark mode:**
+
+```
+https://yow.meshmapper.net/embed_repeaters.php?mode=dark
+```
+
+### Notes
+
+- Clicking a grid cell opens a popup showing whether the ID prefix is available, reserved, or which repeater(s) occupy it.
+- A "View on **MeshMapper**" link at the bottom opens the full repeater list on the region's map.
+- The grid is only available for regions using 1-byte repeater IDs. Multibyte regions will see a "Coming Soon" message instead.
