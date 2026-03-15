@@ -158,7 +158,16 @@ Configure how the map behaves for your region.
   - **Disable Duplicate ID Detection Logic**: Allows the region to opt-out of MeshMapper's strict duplicate ID collision handling. When enabled, repeaters with colliding IDs will remain active, and pings will associate with all matching repeaters.
     - *Warning:* This compromises data accuracy. A warning badge will be displayed on the public map, and the region will be excluded from global leaderboards.
     - [Learn more about overriding duplicate detection](https://wiki.meshmapper.net/overrideduplicates/)
-  
+
+### Region Boundary
+
+The **Region Boundary** section allows you to view and edit the geographic boundary of your region.
+
+  - **Draw Polygon**: Use the **Polygon Tool** to draw or redraw the region boundary directly on the map.
+  - **Import GeoJSON**: Click the **Import GeoJSON** button to paste GeoJSON data from an external source (e.g., [geojson.io](https://geojson.io)). Supported formats include `Polygon`, `MultiPolygon`, `Feature`, and `FeatureCollection`.
+  - **Center Pin**: The center pin automatically moves to the center of the polygon when one is drawn or imported. You can also drag it manually. This determines where the region appears on the global map.
+  - **Lat / Lon / Radius**: The latitude, longitude, and radius fields are used as a fallback if no polygon is defined. If a polygon is drawn, it takes precedence over the radius.
+
 ## User Settings
 
 The **User Settings** tab allows administrators to manage their own account.

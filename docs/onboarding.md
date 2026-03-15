@@ -53,7 +53,8 @@ One of the most important steps is defining the geographic boundary of your regi
 
   - **The Map Tool**: The form includes an interactive map with drawing tools.
   - **Draw Polygon**: You must use the **Polygon Tool** (pentagon icon) to draw a precise shape around your coverage area.
-  - **Region Center**: Drag the pin to a point within your region.  This will determine where your region appears on the global map.
+  - **Import GeoJSON**: Alternatively, click the **Import GeoJSON** button to paste GeoJSON data directly. This is useful if you already have a boundary defined in another tool (e.g., [geojson.io](https://geojson.io)). Supported formats include `Polygon`, `MultiPolygon`, `Feature`, and `FeatureCollection`.
+  - **Region Center**: The center pin automatically moves to the center of the polygon when one is drawn or imported. You can also drag the pin manually if needed. This determines where your region appears on the global map.
   - **Purpose**: This polygon is used to:
     - Define where wardriving activities in your region can occur.
     - Determine if a user is "In Zone" for authentication purposes.
