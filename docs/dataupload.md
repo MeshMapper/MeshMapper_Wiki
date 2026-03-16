@@ -30,6 +30,7 @@ The `status` column should contain an integer representing the coverage type, co
 | **3** | **DEAD** | **Grey** | **Dead** - Repeater heard the ping, but it did not make it into the wider mesh. |
 | **5** | **RX** | **Purple** | **Receive** - Heard traffic while in RX mode. |
 | **6** | **DISC** | **Cyan** | **Discovery** - Discovery packet sent and reply heard. |
+| **7** | **TRACE** | **Cyan** | **Trace** - Targeted trace request sent and reply heard from a specific repeater. |
 
 ## Visualization & Limitations
 

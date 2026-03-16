@@ -49,7 +49,7 @@ These layers display the actual mesh network data. You can toggle them on or off
 | **BIDIR** | **Green** grid squares showing confirmed two-way coverage. |
 | **TX** | **Orange** grid squares where packets were sent but no confirmation was received. |
 | **RX** | **Purple** grid squares where packets were heard but no transmission occurred. |
-| **DISC** | **Cyan** grid squares showing Node Discovery packets. |
+| **DISC / TRACE** | **Cyan** grid squares showing Node Discovery and Trace packets. |
 | **DEAD** | **Grey** grid squares where a repeater heard the ping, but it didn't route further. |
 | **DROP** | **Red** grid squares showing failed pings (no route, no repeats). |
 | **Repeaters** | The icons representing repeater nodes. |
