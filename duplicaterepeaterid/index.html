@@ -2118,6 +2118,10 @@
 <p class="admonition-title">Note</p>
 <p>As long as two (or more) repeaters are indistinguishable at their hop byte length, regardless of current status, pings will not get associated to a repeater with that ID, unless those pings are of <strong>DISC</strong> type (which associate using the full Public ID of the repeater).</p>
 </div>
+<div class="admonition info">
+<p class="admonition-title">TRACE vs DISC for Collisions</p>
+<p>Unlike <strong>DISC</strong> packets which use the full Public ID to uniquely associate with a repeater, <strong>TRACE</strong> packets only carry the short repeater hop ID. This means TRACE data is subject to the same prefix-based collision detection as standard BIDIR/TX/DEAD pings. In regions with active duplicate IDs, TRACE data for those repeaters will be quarantined just like other ping types.</p>
+</div>
 <h2 id="summary-table">Summary Table<a class="headerlink" href="#summary-table" title="Permanent link">¶</a></h2>
 <table>
 <thead>
