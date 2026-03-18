@@ -3,7 +3,7 @@
 An **MQTT observer** is a MeshCore node that acts as the "ears" of MeshMapper — it listens for mesh traffic and publishes it to an MQTT broker, where MeshMapper picks it up for processing. Each region requires at least one observer connected to either the **LetsMesh** or **MeshMapper** broker (or both for redundancy).
 
 !!! info ""
-    These instructions are for the community [meshcore-packet-capture](https://github.com/agessaman/meshcore-packet-capture) project from agessaman/HerculesMulligan.
+    These instructions are for the community [meshcore-packet-capture](https://github.com/agessaman/meshcore-packet-capture) project from agessaman/HerculesMulligan.  A single observer can connect to both the LetsMesh and MeshMapper brokers.
 
 ## Prerequisites
 
