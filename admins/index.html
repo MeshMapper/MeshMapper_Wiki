@@ -882,6 +882,45 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#observers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Observers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#summary-cards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary Cards
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table Columns
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#administrators" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1935,6 +1974,45 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#observers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Observers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#summary-cards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary Cards
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table Columns
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#administrators" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2153,6 +2231,39 @@
 <li><strong>Leaderboard Grouping:</strong> Associate multiple contacts/companions under a single User identity. This ensures that all contributions from these devices are aggregated together on the leaderboards.  The name that will display on the leaderboards is that of the selected Main Companion.</li>
 <li><strong>Future Functionality:</strong> Currently, this feature is for administrative grouping only. However, plans are in place to expand this into a full Contributor Portal, allowing users to log in, view their personal statistics, and manage the data they have contributed to MeshMapper.  There are some fields (like Username) that exist for this purpose but are not yet implemented.</li>
 </ul>
+<h3 id="observers">Observers<a class="headerlink" href="#observers" title="Permanent link">¶</a></h3>
+<p>Monitor the MQTT observers that are feeding data into your region.</p>
+<h4 id="summary-cards">Summary Cards<a class="headerlink" href="#summary-cards" title="Permanent link">¶</a></h4>
+<p>Four metric cards are displayed at the top of the tab:</p>
+<ul>
+<li><strong>Total</strong>: The total number of unique observers seen.</li>
+<li><strong>Online</strong>: Observers that have reported data within the stale threshold (configured in Settings).</li>
+<li><strong>Stale</strong>: Observers that have reported within the last 7 days but are beyond the stale threshold.</li>
+<li><strong>Offline</strong>: Observers with no activity in the last 7 days.</li>
+</ul>
+<h4 id="table-columns">Table Columns<a class="headerlink" href="#table-columns" title="Permanent link">¶</a></h4>
+<ul>
+<li><strong>Observer ID</strong>: The unique identifier of the observer node.</li>
+<li><strong>Region</strong>: <em>(Multi-region groups only)</em> Which sub-region(s) the observer belongs to.</li>
+<li><strong>Status</strong>: The observer's current state — <strong>Online</strong> (green), <strong>Stale</strong> (orange), or <strong>Offline</strong> (red).</li>
+<li><strong>Last Heard</strong>: How long ago the observer last reported data.</li>
+<li><strong>Pings</strong>: The number of coverage pings submitted through this observer.</li>
+<li><strong>Repeaters</strong>: The number of repeater adverts heard by this observer.</li>
+<li><strong>Companions</strong>: The number of companion adverts observed.</li>
+<li><strong>LetsMesh MQTT</strong>: Indicates whether this observer has contributed data via the LetsMesh broker.</li>
+<li><strong>MeshMapper MQTT</strong>: Indicates whether this observer has contributed data via the MeshMapper in-house broker.</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">MQTT Brokers</p>
+<p>Only 1 broker per observer is required to submit data to MeshMapper.  Data received from both brokers will aggregate.</p>
+</div>
+<ul>
+<li><strong>Notifications</strong>: A toggle to mute or unmute offline Discord notifications for this observer. Muting suppresses notifications only — data collection is unaffected.</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Observer Data Source</p>
+<p>Observer data is aggregated from coverage, repeater, and companion records over the last 30 days. Observers will appear here automatically once they begin reporting data.</p>
+</div>
 <h3 id="administrators">Administrators<a class="headerlink" href="#administrators" title="Permanent link">¶</a></h3>
 <p>The <strong>Administrators</strong> tab displays all admin accounts that have been granted access to your region and allows you to invite new administrators.</p>
 <ul>
