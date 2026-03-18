@@ -82,6 +82,39 @@ Manage user identities to group multiple contacts.
   - **Leaderboard Grouping:** Associate multiple contacts/companions under a single User identity. This ensures that all contributions from these devices are aggregated together on the leaderboards.  The name that will display on the leaderboards is that of the selected Main Companion.
   - **Future Functionality:** Currently, this feature is for administrative grouping only. However, plans are in place to expand this into a full Contributor Portal, allowing users to log in, view their personal statistics, and manage the data they have contributed to MeshMapper.  There are some fields (like Username) that exist for this purpose but are not yet implemented.
 
+### Observers
+
+Monitor the MQTT observers that are feeding data into your region.
+
+#### Summary Cards
+
+Four metric cards are displayed at the top of the tab:
+
+  - **Total**: The total number of unique observers seen.
+  - **Online**: Observers that have reported data within the stale threshold (configured in Settings).
+  - **Stale**: Observers that have reported within the last 7 days but are beyond the stale threshold.
+  - **Offline**: Observers with no activity in the last 7 days.
+
+#### Table Columns
+
+  - **Observer ID**: The unique identifier of the observer node.
+  - **Region**: *(Multi-region groups only)* Which sub-region(s) the observer belongs to.
+  - **Status**: The observer's current state — **Online** (green), **Stale** (orange), or **Offline** (red).
+  - **Last Heard**: How long ago the observer last reported data.
+  - **Pings**: The number of coverage pings submitted through this observer.
+  - **Repeaters**: The number of repeater adverts heard by this observer.
+  - **Companions**: The number of companion adverts observed.
+  - **LetsMesh MQTT**: Indicates whether this observer has contributed data via the LetsMesh broker.
+  - **MeshMapper MQTT**: Indicates whether this observer has contributed data via the MeshMapper in-house broker.
+
+!!! info "MQTT Brokers"
+    Only 1 broker per observer is required to submit data to MeshMapper.  Data received from both brokers will aggregate.
+
+  - **Notifications**: A toggle to mute or unmute offline Discord notifications for this observer. Muting suppresses notifications only — data collection is unaffected.
+
+!!! info "Observer Data Source"
+    Observer data is aggregated from coverage, repeater, and companion records over the last 30 days. Observers will appear here automatically once they begin reporting data.
+
 ### Administrators
 
 The **Administrators** tab displays all admin accounts that have been granted access to your region and allows you to invite new administrators.
