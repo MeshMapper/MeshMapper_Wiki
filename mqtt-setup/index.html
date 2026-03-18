@@ -7,13 +7,13 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/embedding/">
+        <link rel="canonical" href="https://meshmapper.net/mqtt-setup/">
       
       
-        <link rel="prev" href="../awards/">
+        <link rel="prev" href="../onboarding/">
       
       
-        <link rel="next" href="../administratorlist/">
+        <link rel="next" href="../multiregions/">
       
       
         
@@ -24,7 +24,7 @@
     
     
       
-        <title>Map Embedding - MeshMapper Wiki</title>
+        <title>MeshMapper MQTT Setup - MeshMapper Wiki</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#map-embedding" class="md-skip">
+        <a href="#meshmapper-mqtt-setup" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Map Embedding
+              MeshMapper MQTT Setup
             
           </span>
         </div>
@@ -239,18 +239,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -271,7 +273,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -314,10 +316,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../mqtt-setup/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MeshMapper MQTT Setup
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -333,6 +362,225 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#available-brokers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Available Brokers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-flash-a-companion-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Flash a Companion Device
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-install-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Install Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-install-the-meshcore-decoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Install the MeshCore Decoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-run-the-meshcore-packet-capture-installer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Run the meshcore-packet-capture Installer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-device-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Device Connection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-iata-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. IATA Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-jwt-token-configuration-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. JWT Token Configuration (Optional)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-mqtt-broker-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. MQTT Broker Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. MQTT Broker Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#letsmesh-broker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LetsMesh Broker
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meshmapper-broker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MeshMapper Broker
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-installation-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Installation Method
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-the-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Managing the Service
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resource-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resource Limits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifying-your-observer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verifying Your Observer
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -543,20 +791,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked="">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -577,7 +823,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -648,37 +894,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Map Embedding
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../embedding/" class="md-nav__link">
         
   
   
@@ -694,192 +913,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-      
-        <li class="md-nav__item">
-  <a href="#embed-url" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Embed URL
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#basic-usage" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Basic Usage
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#url-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        URL Parameters
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="URL Parameters">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#map-position" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Map Position
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#layer-visibility" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Layer Visibility
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#other-options" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Other Options
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Examples
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Notes
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#repeater-id-grid" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Repeater ID Grid
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Repeater ID Grid">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#embed-url_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Embed URL
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#basic-usage_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Basic Usage
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#url-parameters_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        URL Parameters
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#notes_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Notes
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1835,10 +1868,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#embed-url" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Embed URL
+        Prerequisites
       
     </span>
   </a>
@@ -1846,10 +1879,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#basic-usage" class="md-nav__link">
+  <a href="#available-brokers" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Basic Usage
+        Available Brokers
       
     </span>
   </a>
@@ -1857,22 +1890,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#url-parameters" class="md-nav__link">
+  <a href="#installation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        URL Parameters
+        Installation
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="URL Parameters">
+    <nav class="md-nav" aria-label="Installation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#map-position" class="md-nav__link">
+  <a href="#1-flash-a-companion-device" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Map Position
+        1. Flash a Companion Device
       
     </span>
   </a>
@@ -1880,10 +1913,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#layer-visibility" class="md-nav__link">
+  <a href="#2-install-dependencies" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Layer Visibility
+        2. Install Dependencies
       
     </span>
   </a>
@@ -1891,10 +1924,104 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#other-options" class="md-nav__link">
+  <a href="#3-install-the-meshcore-decoder" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Other Options
+        3. Install the MeshCore Decoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-run-the-meshcore-packet-capture-installer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Run the meshcore-packet-capture Installer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-device-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Device Connection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-iata-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. IATA Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-jwt-token-configuration-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. JWT Token Configuration (Optional)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-mqtt-broker-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. MQTT Broker Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. MQTT Broker Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#letsmesh-broker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LetsMesh Broker
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#meshmapper-broker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MeshMapper Broker
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-installation-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Installation Method
       
     </span>
   </a>
@@ -1907,10 +2034,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
+  <a href="#managing-the-service" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Examples
+        Managing the Service
       
     </span>
   </a>
@@ -1918,10 +2045,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#notes" class="md-nav__link">
+  <a href="#resource-limits" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Notes
+        Resource Limits
       
     </span>
   </a>
@@ -1929,74 +2056,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#repeater-id-grid" class="md-nav__link">
+  <a href="#verifying-your-observer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Repeater ID Grid
+        Verifying Your Observer
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Repeater ID Grid">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#embed-url_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Embed URL
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#basic-usage_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Basic Usage
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#url-parameters_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        URL Parameters
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#notes_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Notes
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -2017,191 +2083,210 @@
 
 
 
-<h1 id="map-embedding">Map Embedding<a class="headerlink" href="#map-embedding" title="Permanent link">¶</a></h1>
-<p>MeshMapper provides an embeddable, read-only version of the map that you can place on your own website, forum, or dashboard. The embed is a lightweight view with no controls or popups — just the map, coverage grid, and repeater markers.</p>
-<h2 id="embed-url">Embed URL<a class="headerlink" href="#embed-url" title="Permanent link">¶</a></h2>
-<p>The base URL for any region's embed is:</p>
-<pre><code>https://[IATA].meshmapper.net/embed.php
-</code></pre>
-<p>For example, to embed the <strong>YOW</strong> region:</p>
-<pre><code>https://yow.meshmapper.net/embed.php
-</code></pre>
-<h2 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">¶</a></h2>
-<p>Add the embed to your site using an HTML <code>&lt;iframe&gt;</code>:</p>
-<pre><code class="language-html">&lt;iframe
-  src="https://yow.meshmapper.net/embed.php"
-  width="100%"
-  height="400"
-  style="border: none;"
-  loading="lazy"&gt;
-&lt;/iframe&gt;
-</code></pre>
-<h2 id="url-parameters">URL Parameters<a class="headerlink" href="#url-parameters" title="Permanent link">¶</a></h2>
-<p>All parameters are optional and appended as query strings (e.g., <code>?lat=45.4&amp;lon=-75.7&amp;zoom=14</code>).</p>
-<h3 id="map-position">Map Position<a class="headerlink" href="#map-position" title="Permanent link">¶</a></h3>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>lat</code></td>
-<td>float</td>
-<td>Region center</td>
-<td>Latitude to center the map on.</td>
-</tr>
-<tr>
-<td><code>lon</code></td>
-<td>float</td>
-<td>Region center</td>
-<td>Longitude to center the map on.</td>
-</tr>
-<tr>
-<td><code>zoom</code></td>
-<td>integer</td>
-<td><code>12</code></td>
-<td>Map zoom level (1–19). Ignored if <code>meters</code> is set.</td>
-</tr>
-<tr>
-<td><code>meters</code></td>
-<td>integer</td>
-<td>—</td>
-<td>Sets the zoom level so that the given number of meters fits across the map width. Overrides <code>zoom</code>.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="layer-visibility">Layer Visibility<a class="headerlink" href="#layer-visibility" title="Permanent link">¶</a></h3>
-<p>Toggle layers on or off with <code>1</code> (show) or <code>0</code> (hide).</p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Layer</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>cov_grid</code></td>
-<td>Bidirectional coverage (green)</td>
-<td><code>1</code> (on)</td>
-</tr>
-<tr>
-<td><code>part_grid</code></td>
-<td>TX Only coverage (orange)</td>
-<td><code>1</code> (on)</td>
-</tr>
-<tr>
-<td><code>rx_grid</code></td>
-<td>RX coverage (purple)</td>
-<td><code>1</code> (on)</td>
-</tr>
-<tr>
-<td><code>disc_grid</code></td>
-<td>Discovery coverage (cyan)</td>
-<td><code>1</code> (on)</td>
-</tr>
-<tr>
-<td><code>drop_grid</code></td>
-<td>Dead coverage (grey)</td>
-<td><code>1</code> (on)</td>
-</tr>
-<tr>
-<td><code>fail_grid</code></td>
-<td>Dropped packets (red)</td>
-<td><code>0</code> (off)</td>
-</tr>
-<tr>
-<td><code>repeaters</code></td>
-<td>Repeater markers</td>
-<td><code>1</code> (on)</td>
-</tr>
-</tbody>
-</table>
-<h3 id="other-options">Other Options<a class="headerlink" href="#other-options" title="Permanent link">¶</a></h3>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>geofence</code></td>
-<td><code>0</code> or <code>1</code></td>
-<td>Auto</td>
-<td>Limits loaded data to a 5 km radius around the center. Automatically enabled when <code>lat</code>/<code>lon</code> are provided. Set <code>geofence=0</code> to load all region data instead.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
-<p><strong>Center on a specific location at zoom 14:</strong></p>
-<pre><code>https://yow.meshmapper.net/embed.php?lat=45.4034&amp;lon=-75.7258&amp;zoom=14
-</code></pre>
-<p><strong>Show a 2 km wide view with only bidirectional coverage:</strong></p>
-<pre><code>https://yow.meshmapper.net/embed.php?lat=45.4034&amp;lon=-75.7258&amp;meters=2000&amp;part_grid=0&amp;rx_grid=0&amp;disc_grid=0&amp;drop_grid=0
-</code></pre>
-<p><strong>Load all region data (no geofence) centered on a point:</strong></p>
-<pre><code>https://yow.meshmapper.net/embed.php?lat=45.4034&amp;lon=-75.7258&amp;geofence=0
-</code></pre>
-<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">¶</a></h2>
+<h1 id="meshmapper-mqtt-setup">MeshMapper MQTT Setup<a class="headerlink" href="#meshmapper-mqtt-setup" title="Permanent link">¶</a></h1>
+<p>An <strong>MQTT observer</strong> is a MeshCore node that acts as the "ears" of MeshMapper — it listens for mesh traffic and publishes it to an MQTT broker, where MeshMapper picks it up for processing. Each region requires at least one observer connected to either the <strong>LetsMesh</strong> or <strong>MeshMapper</strong> broker (or both for redundancy).</p>
+<div class="admonition info">
+<p>These instructions are for the community <a href="https://github.com/agessaman/meshcore-packet-capture">meshcore-packet-capture</a> project from agessaman/HerculesMulligan.</p>
+</div>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
 <ul>
-<li>The embed is <strong>read-only</strong> — there are no interactive popups, layer toggles, or controls.</li>
-<li>A small "Open on <strong>MeshMapper</strong>" link appears in the bottom-left corner, linking viewers to the full map.</li>
-<li>When <code>lat</code> and <code>lon</code> are provided, the embed automatically geofences data to a 5 km radius for faster loading. Use <code>geofence=0</code> to override this.</li>
+<li>A MeshCore-compatible device (e.g., T1000e, Heltec, T-Beam) to act as your observer node</li>
+<li>A Raspberry Pi, Linux server, or similar always-on computer running a Debian-based OS (Raspberry Pi OS, Ubuntu, etc.)</li>
+<li>A USB cable (for serial connection) or Bluetooth support (for BLE connection)</li>
+<li>Internet access for packet forwarding</li>
 </ul>
-<hr>
-<h2 id="repeater-id-grid">Repeater ID Grid<a class="headerlink" href="#repeater-id-grid" title="Permanent link">¶</a></h2>
-<p>You can also embed the Repeater ID Usage grid — a 16×16 visual showing which first-byte repeater IDs are taken, available, or reserved in a region.</p>
-<h3 id="embed-url_1">Embed URL<a class="headerlink" href="#embed-url_1" title="Permanent link">¶</a></h3>
-<pre><code>https://[IATA].meshmapper.net/embed_repeaters.php
-</code></pre>
-<h3 id="basic-usage_1">Basic Usage<a class="headerlink" href="#basic-usage_1" title="Permanent link">¶</a></h3>
-<pre><code class="language-html">&lt;iframe
-  src="https://yow.meshmapper.net/embed_repeaters.php"
-  width="100%"
-  height="500"
-  style="border: none;"
-  loading="lazy"&gt;
-&lt;/iframe&gt;
-</code></pre>
-<h3 id="url-parameters_1">URL Parameters<a class="headerlink" href="#url-parameters_1" title="Permanent link">¶</a></h3>
+<h2 id="available-brokers">Available Brokers<a class="headerlink" href="#available-brokers" title="Permanent link">¶</a></h2>
+<p>An observer can connect to one or both of the following brokers:</p>
 <table>
 <thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Default</th>
+<th>Broker</th>
+<th>Host</th>
+<th>Port</th>
+<th>Transport</th>
+<th>Authentication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LetsMesh</strong></td>
+<td><code>mqtt-us-v1.letsmesh.net</code> / <code>mqtt-eu-v1.letsmesh.net</code></td>
+<td>443</td>
+<td>WebSockets + TLS</td>
+<td>Device signing</td>
+</tr>
+<tr>
+<td><strong>MeshMapper</strong></td>
+<td><code>mqtt.meshmapper.cc</code></td>
+<td>443</td>
+<td>WebSockets + TLS</td>
+<td>Device signing</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Redundancy</p>
+<p>Connecting to both brokers is recommended but not required. Data received from multiple brokers is automatically deduplicated by MeshMapper.</p>
+</div>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">¶</a></h2>
+<h3 id="1-flash-a-companion-device">1. Flash a Companion Device<a class="headerlink" href="#1-flash-a-companion-device" title="Permanent link">¶</a></h3>
+<p>Configure a Companion device using the <a href="https://flasher.meshcore.co.uk">MeshCore Flasher Tool</a> and connect it to your Raspberry Pi or Linux server via USB.  Ensure radio settings are correct for your region.</p>
+<h3 id="2-install-dependencies">2. Install Dependencies<a class="headerlink" href="#2-install-dependencies" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash">sudo apt update
+sudo apt install -y python3 python3.12-venv curl git
+</code></pre>
+<h3 id="3-install-the-meshcore-decoder">3. Install the MeshCore Decoder<a class="headerlink" href="#3-install-the-meshcore-decoder" title="Permanent link">¶</a></h3>
+<p>The MeshCore decoder is required for authentication when sending packets to the brokers:</p>
+<pre><code class="language-bash">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+source ~/.bashrc
+nvm install --lts
+npm install -g @michaelhart/meshcore-decoder
+</code></pre>
+<p>Verify the installation:</p>
+<pre><code class="language-bash">which meshcore-decoder
+</code></pre>
+<h3 id="4-run-the-meshcore-packet-capture-installer">4. Run the meshcore-packet-capture Installer<a class="headerlink" href="#4-run-the-meshcore-packet-capture-installer" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash">bash &lt;(curl -fsSL https://raw.githubusercontent.com/agessaman/meshcore-packet-capture/main/install.sh)
+</code></pre>
+<p>The interactive installer will walk you through the remaining configuration steps below.</p>
+<h3 id="5-device-connection">5. Device Connection<a class="headerlink" href="#5-device-connection" title="Permanent link">¶</a></h3>
+<p>You will be prompted to select a connection type:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Best For</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Serial</strong> (recommended)</td>
+<td>USB-connected devices</td>
+<td>Most reliable for continuous operation</td>
+</tr>
+<tr>
+<td><strong>BLE</strong></td>
+<td>T1000e and compatible devices</td>
+<td>Wireless, no cable needed</td>
+</tr>
+<tr>
+<td><strong>TCP</strong></td>
+<td>Network-connected devices</td>
+<td>For use with ser2net or TCP-to-serial bridges</td>
+</tr>
+</tbody>
+</table>
+<p>For serial connections, the script will automatically detect connected devices. Select your device from the list.</p>
+<h3 id="6-iata-code">6. IATA Code<a class="headerlink" href="#6-iata-code" title="Permanent link">¶</a></h3>
+<p>Enter your region's <strong>3-letter IATA code</strong> (e.g., <code>SEA</code>, <code>LAX</code>, <code>YOW</code>, <code>LON</code>). This identifies which MeshMapper region your observer belongs to.</p>
+<h3 id="7-jwt-token-configuration-optional">7. JWT Token Configuration (Optional)<a class="headerlink" href="#7-jwt-token-configuration-optional" title="Permanent link">¶</a></h3>
+<p>You may optionally configure:</p>
+<ul>
+<li><strong>Owner Public Key</strong>: The public key of the observer owner (64 hex characters)</li>
+<li><strong>Owner Email</strong>: Contact email for the LetsMesh Analyzer</li>
+</ul>
+<p>These are optional, apply to LetsMesh only, and can be skipped.</p>
+<h3 id="8-mqtt-broker-configuration">8. MQTT Broker Configuration<a class="headerlink" href="#8-mqtt-broker-configuration" title="Permanent link">¶</a></h3>
+<h4 id="letsmesh-broker">LetsMesh Broker<a class="headerlink" href="#letsmesh-broker" title="Permanent link">¶</a></h4>
+<p>The script will ask whether to enable the LetsMesh Packet Analyzer. This connects to both the US and EU LetsMesh servers for redundancy. Recommended to enable.</p>
+<h4 id="meshmapper-broker">MeshMapper Broker<a class="headerlink" href="#meshmapper-broker" title="Permanent link">¶</a></h4>
+<p>When prompted to configure additional brokers, select "1" additonal, and add the MeshMapper broker with the following settings:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Server hostname</td>
+<td><code>mqtt.meshmapper.cc</code></td>
+</tr>
+<tr>
+<td>Port</td>
+<td><code>443</code></td>
+</tr>
+<tr>
+<td>WebSockets transport</td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>TLS/SSL encryption</td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Verify TLS certificates</td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr>
+<td>Authentication method</td>
+<td><strong>MeshCore Auth Token</strong></td>
+</tr>
+<tr>
+<td>Token audience</td>
+<td><code>mqtt.meshmapper.cc</code></td>
+</tr>
+</tbody>
+</table>
+<p>When prompted for topic configuration, select <strong>Default pattern</strong> (<code>meshcore/{IATA}/{PUBLIC_KEY}/status</code>, <code>meshcore/{IATA}/{PUBLIC_KEY}/packets</code>).</p>
+<h3 id="9-installation-method">9. Installation Method<a class="headerlink" href="#9-installation-method" title="Permanent link">¶</a></h3>
+<p>Choose how the capture software should run:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>mode</code></td>
-<td><code>light</code> or <code>dark</code></td>
-<td><code>light</code></td>
-<td>Sets the initial colour scheme. Users can also toggle between modes using the button in the header.</td>
+<td><strong>System Service</strong> (recommended)</td>
+<td>Runs on boot via systemd, auto-restarts on failure</td>
+</tr>
+<tr>
+<td><strong>Docker Container</strong></td>
+<td>Isolated environment, easy to update</td>
+</tr>
+<tr>
+<td><strong>Manual</strong></td>
+<td>No automatic startup, run when needed</td>
 </tr>
 </tbody>
 </table>
-<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">¶</a></h3>
-<p><strong>Embed the repeater grid in dark mode:</strong></p>
-<pre><code>https://yow.meshmapper.net/embed_repeaters.php?mode=dark
-</code></pre>
-<h3 id="notes_1">Notes<a class="headerlink" href="#notes_1" title="Permanent link">¶</a></h3>
+<p>For the recommended <strong>systemd service</strong>, the script will:</p>
 <ul>
-<li>Clicking a grid cell opens a popup showing whether the ID prefix is available, reserved, or which repeater(s) occupy it.</li>
-<li>A "View on <strong>MeshMapper</strong>" link at the bottom opens the full repeater list on the region's map.</li>
-<li>The grid is only available for regions using 1-byte repeater IDs. Multibyte regions will see a "Coming Soon" message instead.</li>
+<li>Install and enable the service</li>
+<li>Start it immediately</li>
+<li>Verify a successful MQTT connection</li>
 </ul>
+<h2 id="managing-the-service">Managing the Service<a class="headerlink" href="#managing-the-service" title="Permanent link">¶</a></h2>
+<p>Once installed as a systemd service, use these commands:</p>
+<pre><code class="language-bash"># Start / stop / restart
+sudo systemctl start meshcore-capture
+sudo systemctl stop meshcore-capture
+sudo systemctl restart meshcore-capture
+
+# Check status
+sudo systemctl status meshcore-capture
+
+# View live logs
+sudo journalctl -u meshcore-capture -f
+</code></pre>
+<p>The configuration file is stored at:</p>
+<pre><code>~/.meshcore-packet-capture/.env.local
+</code></pre>
+<h2 id="resource-limits">Resource Limits<a class="headerlink" href="#resource-limits" title="Permanent link">¶</a></h2>
+<p>The systemd service includes built-in safeguards:</p>
+<ul>
+<li><strong>Memory</strong>: 512 MB limit</li>
+<li><strong>CPU</strong>: 50% limit</li>
+<li><strong>Tasks</strong>: 200 max</li>
+<li><strong>Auto-restart</strong>: Up to 3 failures within 5 minutes before stopping</li>
+</ul>
+<h2 id="verifying-your-observer">Verifying Your Observer<a class="headerlink" href="#verifying-your-observer" title="Permanent link">¶</a></h2>
+<p>Once your observer is running and connected, it will appear in your region's <strong>Admin Portal</strong> under the <a href="../admins/#observers">Observers tab</a> once packets have been received (repeater or companion adverts, or wardriving pings) You should see a checkmark under the broker(s) your observer is connected to.</p>
 
 
 
