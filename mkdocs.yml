@@ -14,6 +14,7 @@ nav:
       - Overview: mqtt-main.md
       - MeshCore Packet Capture: mqtt-python.md
       - MeshCore-HA: mqtt-ha.md
+      - PyMC Repeater: mqtt-pymc.md
     - Multiregions: multiregions.md
 
   - Using the Map:

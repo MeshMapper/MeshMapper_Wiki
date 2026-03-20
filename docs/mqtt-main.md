@@ -50,6 +50,4 @@ This method uses the PyMC software, which handles MQTT configuration directly fr
 
   - **Requires**: A Raspberry Pi running PyMC
   - **Best for**: Anyone already running a PyMC repeater
-
-!!! note "Coming Soon"
-    Documentation for PyMC MQTT setup is in progress.
+  - **Guide**: [PyMC Repeater MQTT Setup](mqtt-pymc.md)
