@@ -483,6 +483,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#4-pymc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. PyMC
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1954,6 +1965,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#4-pymc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. PyMC
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2012,7 +2034,7 @@
 <p>Connecting to both brokers is recommended but not required. Data received from multiple brokers is automatically deduplicated by MeshMapper.</p>
 </div>
 <h2 id="mqtt-observer-methods">MQTT Observer Methods<a class="headerlink" href="#mqtt-observer-methods" title="Permanent link">¶</a></h2>
-<p>There are three ways to set up a MeshCore MQTT observer that collects packets and forwards them to LetsMesh or MeshMapper.</p>
+<p>There are four ways to set up a MeshCore MQTT observer that collects packets and forwards them to LetsMesh or MeshMapper.</p>
 <h3 id="1-meshcore-packet-capture-python">1. MeshCore Packet Capture (Python)<a class="headerlink" href="#1-meshcore-packet-capture-python" title="Permanent link">¶</a></h3>
 <p>This method uses a dedicated companion device (e.g., Raspberry Pi) connected to your MeshCore radio via USB, BLE, or TCP. A Python service runs continuously, capturing packets and publishing them to MQTT.</p>
 <ul>
@@ -2036,6 +2058,16 @@
 <div class="admonition note">
 <p class="admonition-title">Coming Soon</p>
 <p>Documentation for native MQTT firmware setup is in progress.</p>
+</div>
+<h3 id="4-pymc">4. PyMC<a class="headerlink" href="#4-pymc" title="Permanent link">¶</a></h3>
+<p>This method uses the PyMC software, which handles MQTT configuration directly from its own interface.</p>
+<ul>
+<li><strong>Requires</strong>: A Raspberry Pi running PyMC</li>
+<li><strong>Best for</strong>: Anyone already running a PyMC repeater</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Coming Soon</p>
+<p>Documentation for PyMC MQTT setup is in progress.</p>
 </div>
 
 
