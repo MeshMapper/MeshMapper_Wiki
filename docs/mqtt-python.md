@@ -1,9 +1,6 @@
-# MeshMapper MQTT Setup
+# MeshCore Packet Capture
 
-An **MQTT observer** is a MeshCore node that acts as the "ears" of MeshMapper â€” it listens for mesh traffic and publishes it to an MQTT broker, where MeshMapper picks it up for processing. Each region requires at least one observer connected to either the **LetsMesh** or **MeshMapper** broker (or both for redundancy).
-
-!!! info ""
-    These instructions are for the community [meshcore-packet-capture](https://github.com/agessaman/meshcore-packet-capture) project from agessaman/HerculesMulligan.  A single observer can connect to both the LetsMesh and MeshMapper brokers.
+These instructions are for the community [meshcore-packet-capture](https://github.com/agessaman/meshcore-packet-capture) project from agessaman/HerculesMulligan.  A single observer can connect to both the LetsMesh and MeshMapper brokers.
 
 ## Prerequisites
 
@@ -11,18 +8,6 @@ An **MQTT observer** is a MeshCore node that acts as the "ears" of MeshMapper â€
   - A Raspberry Pi, Linux server, or similar always-on computer running a Debian-based OS (Raspberry Pi OS, Ubuntu, etc.)
   - A USB cable (for serial connection) or Bluetooth support (for BLE connection)
   - Internet access for packet forwarding
-
-## Available Brokers
-
-An observer can connect to one or both of the following brokers:
-
-| Broker | Host | Port | Transport | Authentication |
-| --- | --- | --- | --- | --- |
-| **LetsMesh** | `mqtt-us-v1.letsmesh.net` / `mqtt-eu-v1.letsmesh.net` | 443 | WebSockets + TLS | Device signing |
-| **MeshMapper** | `mqtt.meshmapper.cc` | 443 | WebSockets + TLS | Device signing |
-
-!!! tip "Redundancy"
-    Connecting to both brokers is recommended but not required. Data received from multiple brokers is automatically deduplicated by MeshMapper.
 
 ## Installation
 
