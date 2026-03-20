@@ -2075,6 +2075,18 @@
     audience: mqtt.meshmapper.cc
   status_interval: 300
 </code></pre>
+<p>If you don't want to send logs to LetsMesh and only want to use MeshMapper, set <code>broker_index</code> to <code>-2</code>:</p>
+<pre><code class="language-yaml">letsmesh:
+  enabled: true
+  iata_code: YOW  # Replace with your region's IATA code
+  broker_index: -2
+  additional_brokers:
+  - name: mqtt.meshmapper.cc
+    host: mqtt.meshmapper.cc
+    port: 443
+    audience: mqtt.meshmapper.cc
+  status_interval: 300
+</code></pre>
 <p>Save and exit (<code>Ctrl+X</code>, then <code>Y</code>, then <code>Enter</code>).</p>
 <h3 id="3-start-the-service">3. Start the Service<a class="headerlink" href="#3-start-the-service" title="Permanent link">¶</a></h3>
 <pre><code class="language-bash">sudo systemctl start pymc-repeater
