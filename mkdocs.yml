@@ -10,9 +10,10 @@ nav:
   
   - Getting Started:
     - Onboarding New Regions: onboarding.md
-    - MeshMapper MQTT Setup: mqtt-main.md
-      - MeshCore Packet Capture MQTT: mqtt-python.md
-      - MeshCore-HA MQTT: mqtt-ha.md
+    - MeshMapper MQTT Setup:
+      - Overview: mqtt-main.md
+      - MeshCore Packet Capture: mqtt-python.md
+      - MeshCore-HA: mqtt-ha.md
     - Multiregions: multiregions.md
 
   - Using the Map:
