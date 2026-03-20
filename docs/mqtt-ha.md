@@ -47,4 +47,4 @@ Click **Submit**, then click **Exit** to return to the integration page.
 
 ## Verifying Your Observer
 
-Once your observer is running and connected, it will appear in your region's **Admin Portal** under the **Observers tab** once packets have been received. You should see a checkmark under the MeshMapper broker column.
+Once your observer is running and connected, it will appear in your region's **Admin Portal** under the [Observers tab](admins.md#observers) once packets have been received (repeater or companion adverts, or wardriving pings) You should see a checkmark under the broker(s) your observer is connected to.
