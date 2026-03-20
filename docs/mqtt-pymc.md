@@ -39,6 +39,21 @@ letsmesh:
   status_interval: 300
 ```
 
+If you don't want to send logs to LetsMesh and only want to use MeshMapper, set `broker_index` to `-2`:
+
+```yaml
+letsmesh:
+  enabled: true
+  iata_code: YOW  # Replace with your region's IATA code
+  broker_index: -2
+  additional_brokers:
+  - name: mqtt.meshmapper.cc
+    host: mqtt.meshmapper.cc
+    port: 443
+    audience: mqtt.meshmapper.cc
+  status_interval: 300
+```
+
 Save and exit (`Ctrl+X`, then `Y`, then `Enter`).
 
 ### 3. Start the Service
