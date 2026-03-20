@@ -41,7 +41,15 @@
          <lastmod>2026-03-20</lastmod>
     </url>
     <url>
-         <loc>https://meshmapper.net/mqtt-setup/</loc>
+         <loc>https://meshmapper.net/mqtt-ha/</loc>
+         <lastmod>2026-03-20</lastmod>
+    </url>
+    <url>
+         <loc>https://meshmapper.net/mqtt-main/</loc>
+         <lastmod>2026-03-20</lastmod>
+    </url>
+    <url>
+         <loc>https://meshmapper.net/mqtt-python/</loc>
          <lastmod>2026-03-20</lastmod>
     </url>
     <url>
