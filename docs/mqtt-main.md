@@ -16,7 +16,7 @@ An observer can connect to one or both of the following brokers:
 
 ## MQTT Observer Methods
 
-There are three ways to set up a MeshCore MQTT observer that collects packets and forwards them to LetsMesh or MeshMapper.
+There are four ways to set up a MeshCore MQTT observer that collects packets and forwards them to LetsMesh or MeshMapper.
 
 ### 1. MeshCore Packet Capture (Python)
 
@@ -43,3 +43,13 @@ This method runs directly on a Heltec V3 or V4 board with no companion device ne
 
 !!! note "Coming Soon"
     Documentation for native MQTT firmware setup is in progress.
+
+### 4. PyMC
+
+This method uses the PyMC software, which handles MQTT configuration directly from its own interface.
+
+  - **Requires**: A Raspberry Pi running PyMC
+  - **Best for**: Anyone already running a PyMC repeater
+
+!!! note "Coming Soon"
+    Documentation for PyMC MQTT setup is in progress.
