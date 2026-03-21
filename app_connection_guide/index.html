@@ -2869,18 +2869,22 @@
 <hr>
 <h2 id="zone-authentication">Zone Authentication<a class="headerlink" href="#zone-authentication" title="Permanent link">¶</a></h2>
 <p>MeshMapper uses a zone-based authentication system. The server checks your GPS coordinates and tells you which zone you are in (if any). Each zone has a code (like "YOW" for Ottawa) and a set of rules configured by the regional admin:</p>
-<p><strong>Session permissions:</strong>
-- <strong>TX Allowed</strong>: Whether you can send channel messages. If at TX capacity, you are limited to Passive Mode only.
-- <strong>RX Allowed</strong>: Whether passive reception is permitted
-- <strong>TX Slots Available</strong>: How many active wardrivers the zone can support simultaneously
-- <strong>Session Expiry</strong>: When your session expires (automatically refreshed via heartbeat)</p>
-<p><strong>Regional configuration:</strong>
-- <strong>Scope</strong>: Flood scope for the zone. When set, your TX channel messages are scoped to that region instead of flooding the entire global mesh. Shown on the Connect tab (e.g., "#ottawa"). If no scope is set, it shows "Global." Applied automatically by setting a transport key on your radio.
-- <strong>Channels</strong>: Additional channels configured by the regional admin (e.g., regional monitoring channels)
-- <strong>Enforce Hybrid</strong>: Whether Hybrid Mode is mandatory for the zone. When enforced, the Hybrid Mode toggle in Settings is locked.
-- <strong>Minimum TX Ping Interval</strong>: The minimum auto-ping interval (15, 30, or 60 seconds). If set, you cannot choose a faster interval than the regional minimum.
-- <strong>Mark Failed Discovery as Drop</strong>: When enabled, discovery requests with no response are counted as "no coverage" data and shown as DROP on the coverage map.
-- <strong>Hop Bytes</strong>: Enforces a specific path hash size (1-byte, 2-byte, or 3-byte) for consistent data across all wardrivers in the zone. During connection, the app checks your radio's current path hash mode against the region's requirement. If they differ (e.g., your radio is set to 1-byte but the region requires 2-byte), the app automatically reconfigures your radio to match. On clean disconnect, the app restores your radio to its original setting. If your firmware does not support multi-byte paths (pre-1.14), the app will warn you that it cannot apply the regional setting.</p>
+<p><strong>Session permissions:</strong></p>
+<ul>
+<li><strong>TX Allowed</strong>: Whether you can send channel messages. If at TX capacity, you are limited to Passive Mode only.</li>
+<li><strong>RX Allowed</strong>: Whether passive reception is permitted</li>
+<li><strong>TX Slots Available</strong>: How many active wardrivers the zone can support simultaneously</li>
+<li><strong>Session Expiry</strong>: When your session expires (automatically refreshed via heartbeat)</li>
+</ul>
+<p><strong>Regional configuration:</strong></p>
+<ul>
+<li><strong>Scope</strong>: Flood scope for the zone. When set, your TX channel messages are scoped to that region instead of flooding the entire global mesh. Shown on the Connect tab (e.g., "#ottawa"). If no scope is set, it shows "Global." Applied automatically by setting a transport key on your radio.</li>
+<li><strong>Channels</strong>: Additional channels configured by the regional admin (e.g., regional monitoring channels)</li>
+<li><strong>Enforce Hybrid</strong>: Whether Hybrid Mode is mandatory for the zone. When enforced, the Hybrid Mode toggle in Settings is locked.</li>
+<li><strong>Minimum TX Ping Interval</strong>: The minimum auto-ping interval (15, 30, or 60 seconds). If set, you cannot choose a faster interval than the regional minimum.</li>
+<li><strong>Mark Failed Discovery as Drop</strong>: When enabled, discovery requests with no response are counted as "no coverage" data and shown as DROP on the coverage map.</li>
+<li><strong>Hop Bytes</strong>: Enforces a specific path hash size (1-byte, 2-byte, or 3-byte) for consistent data across all wardrivers in the zone. During connection, the app checks your radio's current path hash mode against the region's requirement. If they differ (e.g., your radio is set to 1-byte but the region requires 2-byte), the app automatically reconfigures your radio to match. On clean disconnect, the app restores your radio to its original setting. If your firmware does not support multi-byte paths (pre-1.14), the app will warn you that it cannot apply the regional setting.</li>
+</ul>
 <p>If you are outside all zones, the status bar shows an orange dash with the name and distance to the nearest zone.</p>
 <hr>
 <h2 id="automatic-reconnection">Automatic Reconnection<a class="headerlink" href="#automatic-reconnection" title="Permanent link">¶</a></h2>
