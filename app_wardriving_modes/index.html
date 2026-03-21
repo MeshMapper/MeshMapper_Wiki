@@ -2791,12 +2791,14 @@
 <hr>
 <h2 id="manual-ping">Manual Ping<a class="headerlink" href="#manual-ping" title="Permanent link">¶</a></h2>
 <p>The simplest way to wardrive. Tap the <strong>Send Ping</strong> button on the Map tab to send a single channel message to #wardriving.</p>
-<p><strong>What happens:</strong>
-1. The app checks GPS, zone, and that the 15-second manual cooldown has elapsed. No minimum distance requirement for manual pings.
-2. A message containing your GPS coordinates and radio power is encrypted and sent as a channel message to #wardriving. This message <strong>floods the entire mesh network</strong>. If a <strong>scope</strong> is configured, it is scoped to that region instead.
-3. The app listens for <strong>5 seconds</strong> for repeater echoes
-4. Echoes are matched (decrypted and compared to what you sent) and logged as "heard repeats"
-5. Ping and echo data are queued for upload</p>
+<p><strong>What happens:</strong></p>
+<ol>
+<li>The app checks GPS, zone, and that the 15-second manual cooldown has elapsed. No minimum distance requirement for manual pings.</li>
+<li>A message containing your GPS coordinates and radio power is encrypted and sent as a channel message to #wardriving. This message <strong>floods the entire mesh network</strong>. If a <strong>scope</strong> is configured, it is scoped to that region instead.</li>
+<li>The app listens for <strong>5 seconds</strong> for repeater echoes</li>
+<li>Echoes are matched (decrypted and compared to what you sent) and logged as "heard repeats"</li>
+<li>Ping and echo data are queued for upload</li>
+</ol>
 <p>Controls lock during the 5-second window and API upload.</p>
 <p><strong>When to use:</strong> Quick testing, spot-checking a specific location, or occasional pings.</p>
 <hr>
@@ -2804,12 +2806,14 @@
 <p><em>Thanks to HerculesMulligan for coming up with the idea for this mode.</em></p>
 <p>Hybrid Mode is the <strong>recommended default</strong> for wardriving. It alternates between channel messages (TX) and discovery requests at your configured interval.</p>
 <p><strong>To start:</strong> Tap the <strong>Hybrid Mode</strong> button in the Controls panel on the Map tab. (Enabled by default. If disabled in Settings, this button shows as "Active Mode" instead.)</p>
-<p><strong>What happens each interval (alternating):</strong>
-- <strong>1</strong> Discovery request (direct query, does not flood the mesh)
-- <strong>2</strong> Channel message / TX (floods the mesh or is scoped)
-- <strong>3</strong> Discovery request
-- <strong>4</strong> Channel message / TX
-- And so on...</p>
+<p><strong>What happens each interval (alternating):</strong></p>
+<ul>
+<li><strong>1</strong> Discovery request (direct query, does not flood the mesh)</li>
+<li><strong>2</strong> Channel message / TX (floods the mesh or is scoped)</li>
+<li><strong>3</strong> Discovery request</li>
+<li><strong>4</strong> Channel message / TX</li>
+<li>And so on...</li>
+</ul>
 <p><strong>What it produces:</strong> TX channel messages, discovery responses, and passive RX observations, all interleaved. The richest dataset of any mode.</p>
 <p><strong>Why Hybrid is the default:</strong> 50% fewer channel messages than Active Mode while also collecting discovery data. Better for mesh health and more useful coverage data.</p>
 <p><strong>Minimum distance:</strong> Enforced between pings (configurable in Settings, default 25m). Pings pause when stationary.</p>
@@ -2822,12 +2826,14 @@
 <h2 id="passive-mode">Passive Mode<a class="headerlink" href="#passive-mode" title="Permanent link">¶</a></h2>
 <p>No channel messages (no mesh flooding at all). Sends <strong>discovery requests</strong> every 30 seconds and passively monitors mesh traffic.</p>
 <p><strong>To start:</strong> Tap the <strong>Passive Mode</strong> button (hearing icon) in the Controls panel.</p>
-<p><strong>What happens:</strong>
-1. Every 30 seconds, sends a zero-hop discovery request (direct query, not a broadcast)
-2. Repeaters/rooms respond with node type, public key, and signal quality (local + remote SNR/RSSI)
-3. Discovery Tracker collects responses during a 5-second window, deduplicates by public key, and filters carpeaters
-4. Unified RX Handler monitors for mesh traffic on subscribed channels
-5. All discovery responses and RX observations queued for upload</p>
+<p><strong>What happens:</strong></p>
+<ol>
+<li>Every 30 seconds, sends a zero-hop discovery request (direct query, not a broadcast)</li>
+<li>Repeaters/rooms respond with node type, public key, and signal quality (local + remote SNR/RSSI)</li>
+<li>Discovery Tracker collects responses during a 5-second window, deduplicates by public key, and filters carpeaters</li>
+<li>Unified RX Handler monitors for mesh traffic on subscribed channels</li>
+<li>All discovery responses and RX observations queued for upload</li>
+</ol>
 <p><strong>What it produces:</strong> Discovery data (which repeaters are in direct range, bidirectional signal quality) and passive RX observations.</p>
 <p><strong>When to use:</strong> Map repeater locations without flooding the mesh. Also the only mode available when your zone is at TX capacity (see <a href="#tx-capacity-limits">TX Capacity Limits</a>).</p>
 <div class="admonition warning">
@@ -2841,12 +2847,14 @@
 <p>Hybrid Mode has replaced Active Mode as the default and is recommended for all wardriving. Active Mode is kept for backward compatibility but Hybrid produces richer data with less mesh traffic. To use Active Mode, disable Hybrid Mode in Settings &gt; Modes.</p>
 </div>
 <p>Sends only channel messages (no discovery requests) at a regular interval (15, 30, or 60 seconds).</p>
-<p><strong>What happens each interval:</strong>
-1. Checks GPS freshness and minimum distance requirement
-2. If you haven't moved far enough (based on Settings, default 25m), the ping is skipped
-3. Channel message sent (floods mesh or scoped) + 5-second echo listening window
-4. Unified RX Handler monitors for passive mesh traffic
-5. All data (TX + RX) queued for upload</p>
+<p><strong>What happens each interval:</strong></p>
+<ol>
+<li>Checks GPS freshness and minimum distance requirement</li>
+<li>If you haven't moved far enough (based on Settings, default 25m), the ping is skipped</li>
+<li>Channel message sent (floods mesh or scoped) + 5-second echo listening window</li>
+<li>Unified RX Handler monitors for passive mesh traffic</li>
+<li>All data (TX + RX) queued for upload</li>
+</ol>
 <p><strong>What it produces:</strong> TX data (location, repeater echoes, SNR/RSSI) and passive RX observations.</p>
 <hr>
 <h2 id="trace-mode">Trace Mode<a class="headerlink" href="#trace-mode" title="Permanent link">¶</a></h2>
@@ -2862,14 +2870,18 @@
 <hr>
 <h2 id="tx-capacity-limits">TX Capacity Limits<a class="headerlink" href="#tx-capacity-limits" title="Permanent link">¶</a></h2>
 <p>Regional admins set a <strong>maximum number of active TX wardrivers</strong> per zone (for example, 5). This prevents too many users from flooding the mesh simultaneously.</p>
-<p><strong>When the zone is at capacity:</strong>
-- <strong>Manual Ping, Hybrid Mode, and Active Mode are disabled</strong> (they all send TX channel messages)
-- <strong>Passive Mode is the only option</strong> (discovery requests don't flood the mesh)
-- The app indicates TX is not allowed for your session</p>
-<p><strong>To get a TX slot:</strong>
-- Wait for another wardriver to disconnect and free up a slot
-- New sessions will be granted TX access
-- If already connected in Passive Mode, disconnect and reconnect to pick up a slot</p>
+<p><strong>When the zone is at capacity:</strong></p>
+<ul>
+<li><strong>Manual Ping, Hybrid Mode, and Active Mode are disabled</strong> (they all send TX channel messages)</li>
+<li><strong>Passive Mode is the only option</strong> (discovery requests don't flood the mesh)</li>
+<li>The app indicates TX is not allowed for your session</li>
+</ul>
+<p><strong>To get a TX slot:</strong></p>
+<ul>
+<li>Wait for another wardriver to disconnect and free up a slot</li>
+<li>New sessions will be granted TX access</li>
+<li>If already connected in Passive Mode, disconnect and reconnect to pick up a slot</li>
+</ul>
 <hr>
 <h2 id="which-mode-should-i-use">Which Mode Should I Use?<a class="headerlink" href="#which-mode-should-i-use" title="Permanent link">¶</a></h2>
 <table>

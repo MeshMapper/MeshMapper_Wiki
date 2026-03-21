@@ -3354,9 +3354,11 @@
 <li><strong>RX Characteristic</strong>: Receive notifications (responses and events) from the device</li>
 </ul>
 <p>All communication follows the <strong>MeshCore Companion Protocol</strong>, a binary protocol where the app sends commands and the radio responds with data or event notifications.</p>
-<p><strong>Platform libraries:</strong>
-- Android / iOS: <code>flutter_blue_plus</code>
-- Web: <code>flutter_web_bluetooth</code></p>
+<p><strong>Platform libraries:</strong></p>
+<ul>
+<li>Android / iOS: <code>flutter_blue_plus</code></li>
+<li>Web: <code>flutter_web_bluetooth</code></li>
+</ul>
 <hr>
 <h2 id="how-tx-channel-messages-work">How TX Channel Messages Work<a class="headerlink" href="#how-tx-channel-messages-work" title="Permanent link">¶</a></h2>
 <p>When you send a TX ping (manually or via auto-ping), you are sending a <strong>channel message</strong> that floods the mesh:</p>
@@ -3396,9 +3398,11 @@
 <li>More packets arrive from the same repeater. If a new packet has a <strong>better SNR</strong>, it replaces the previous one in the batch. Worse SNR packets are discarded.</li>
 <li>The batch keeps the <strong>original GPS location</strong> where you first heard that repeater (the map pin doesn't follow you as you move)</li>
 </ol>
-<p><strong>The batch flushes (uploads) when either condition is met:</strong>
-- You move <strong>25m</strong> from where you first heard the repeater, OR
-- <strong>30 seconds</strong> pass since the first observation</p>
+<p><strong>The batch flushes (uploads) when either condition is met:</strong></p>
+<ul>
+<li>You move <strong>25m</strong> from where you first heard the repeater, OR</li>
+<li><strong>30 seconds</strong> pass since the first observation</li>
+</ul>
 <p>Whichever happens first. On flush, only the <strong>best SNR observation</strong> per repeater is sent to the API. After flushing, if you hear the same repeater again, a new batch starts at your new location.</p>
 <p><strong>On disconnect or stopping auto-ping</strong>, all active batches are flushed immediately so no data is lost.</p>
 <hr>
@@ -3466,9 +3470,11 @@
 <li>Node name must be present, non-empty, and pass the 60% printable character check</li>
 </ul>
 <h3 id="why-this-matters">Why this matters<a class="headerlink" href="#why-this-matters" title="Permanent link">¶</a></h3>
-<p>Without this pipeline, the coverage map would be polluted with:
-- <strong>False coverage data</strong> from CARpeaters (your own co-located repeater always reporting perfect signal)
-- <strong>False repeater IDs</strong> from corrupt or non-conforming packets that partially decode, causing phantom repeaters to appear in the path with garbage data</p>
+<p>Without this pipeline, the coverage map would be polluted with:</p>
+<ul>
+<li><strong>False coverage data</strong> from CARpeaters (your own co-located repeater always reporting perfect signal)</li>
+<li><strong>False repeater IDs</strong> from corrupt or non-conforming packets that partially decode, causing phantom repeaters to appear in the path with garbage data</li>
+</ul>
 <h3 id="after-validation">After validation<a class="headerlink" href="#after-validation" title="Permanent link">¶</a></h3>
 <p>Validated packets enter the RX batching pipeline (see <a href="#how-rx-observations-work">How RX Observations Work</a> above):</p>
 <ol>
@@ -3500,9 +3506,11 @@
 <hr>
 <h2 id="carpeater-filtering">Carpeater Filtering<a class="headerlink" href="#carpeater-filtering" title="Permanent link">¶</a></h2>
 <p>"Carpeater" (car + repeater) = a repeater mounted in/on your vehicle. Always has a very strong signal, does not provide useful coverage data.</p>
-<p><strong>Two filter methods:</strong>
-1. <strong>RSSI threshold</strong>: RSSI ≥ -30 dBm → automatically dropped (device is right next to you)
-2. <strong>User-configured repeater ID</strong>: Specify your repeater's hex ID in Settings &gt; Filtering &gt; CARpeater Filter. Echoes from that repeater are stripped before upload.</p>
+<p><strong>Two filter methods:</strong></p>
+<ol>
+<li><strong>RSSI threshold</strong>: RSSI ≥ -30 dBm → automatically dropped (device is right next to you)</li>
+<li><strong>User-configured repeater ID</strong>: Specify your repeater's hex ID in Settings &gt; Filtering &gt; CARpeater Filter. Echoes from that repeater are stripped before upload.</li>
+</ol>
 <p>Both can be adjusted or disabled in Settings for testing.</p>
 <hr>
 <h2 id="multi-byte-path-support">Multi-Byte Path Support<a class="headerlink" href="#multi-byte-path-support" title="Permanent link">¶</a></h2>
@@ -3512,10 +3520,12 @@
 <li><strong>2 bytes</strong>: ~65K values, reduced collisions</li>
 <li><strong>3 bytes</strong>: ~16M values, maximum resolution</li>
 </ul>
-<p><strong>Key details:</strong>
-- Configurable in Settings &gt; Radio &gt; TX Bytes (firmware 1.14+ required)
-- RX auto-detects path size regardless of your TX setting
-- Some regions enforce a specific path size via the regional admin</p>
+<p><strong>Key details:</strong></p>
+<ul>
+<li>Configurable in Settings &gt; Radio &gt; TX Bytes (firmware 1.14+ required)</li>
+<li>RX auto-detects path size regardless of your TX setting</li>
+<li>Some regions enforce a specific path size via the regional admin</li>
+</ul>
 <hr>
 <h2 id="platform-differences">Platform Differences<a class="headerlink" href="#platform-differences" title="Permanent link">¶</a></h2>
 <table>

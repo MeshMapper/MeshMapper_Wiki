@@ -3867,11 +3867,13 @@
 <p class="admonition-title">Warning</p>
 <p>Requires both your companion device and repeaters to be on firmware <strong>1.14+</strong>. Only change this if you understand what you're doing, or if your regional admin has enforced a value. RX always auto-detects the sender's byte size regardless of your TX setting.</p>
 </div>
-<p><strong>States:</strong>
-- "Set by Regional Admin" (amber) when region enforces a value
-- "Firmware 1.14+ required" (amber) if firmware is too old
-- "Connect to radio to configure" (amber) when disconnected
-- Cannot be changed during auto-ping</p>
+<p><strong>States:</strong></p>
+<ul>
+<li>"Set by Regional Admin" (amber) when region enforces a value</li>
+<li>"Firmware 1.14+ required" (amber) if firmware is too old</li>
+<li>"Connect to radio to configure" (amber) when disconnected</li>
+<li>Cannot be changed during auto-ping</li>
+</ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Applied to your radio during connection, restored on clean disconnect.</p>
@@ -3912,10 +3914,12 @@
 <p class="admonition-title">Warning</p>
 <p>Requires companion firmware <strong>1.14+</strong>. Only change this if you understand what you're doing.</p>
 </div>
-<p><strong>States:</strong>
-- "Firmware 1.14+ required" (amber) if firmware is too old
-- "Connect to radio to configure" (amber) when disconnected
-- Cannot be changed during auto-ping</p>
+<p><strong>States:</strong></p>
+<ul>
+<li>"Firmware 1.14+ required" (amber) if firmware is too old</li>
+<li>"Connect to radio to configure" (amber) when disconnected</li>
+<li>Cannot be changed during auto-ping</li>
+</ul>
 <h3 id="delete-channel-on-disconnect">Delete Channel on Disconnect<a class="headerlink" href="#delete-channel-on-disconnect" title="Permanent link">¶</a></h3>
 <ul>
 <li><strong>Enabled</strong> (default): Removes #wardriving channel from your radio on disconnect. Keeps radio clean.</li>
@@ -3943,10 +3947,12 @@
 <li>Ping count</li>
 <li>Device info</li>
 </ul>
-<p><strong>Actions per session:</strong>
-- <strong>Upload</strong>: Send to MeshMapper servers
-- <strong>Download</strong>: Save raw JSON to your device
-- <strong>Delete</strong>: Remove from local storage</p>
+<p><strong>Actions per session:</strong></p>
+<ul>
+<li><strong>Upload</strong>: Send to MeshMapper servers</li>
+<li><strong>Download</strong>: Save raw JSON to your device</li>
+<li><strong>Delete</strong>: Remove from local storage</li>
+</ul>
 <hr>
 <h2 id="about">About<a class="headerlink" href="#about" title="Permanent link">¶</a></h2>
 <h3 id="app-name-and-version">App Name and Version<a class="headerlink" href="#app-name-and-version" title="Permanent link">¶</a></h3>
@@ -3987,12 +3993,14 @@
 <li>Timestamped entries, auto-rotate (max 10 files, max 4.5 MB per file)</li>
 <li>Always disabled on app start (must re-enable each session)</li>
 </ul>
-<p><strong>When logs exist:</strong>
-- <strong>Log file list</strong>: Date, size, active status
-- <strong>View</strong>: In-app log viewer
-- <strong>Share</strong>: System share sheet
-- <strong>Upload</strong>: Send to MeshMapper team for analysis
-- <strong>Delete All</strong>: Remove all stored log files</p>
+<p><strong>When logs exist:</strong></p>
+<ul>
+<li><strong>Log file list</strong>: Date, size, active status</li>
+<li><strong>View</strong>: In-app log viewer</li>
+<li><strong>Share</strong>: System share sheet</li>
+<li><strong>Upload</strong>: Send to MeshMapper team for analysis</li>
+<li><strong>Delete All</strong>: Remove all stored log files</li>
+</ul>
 
 
 

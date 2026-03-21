@@ -3394,53 +3394,71 @@
 <hr>
 <h2 id="connection-issues">Connection Issues<a class="headerlink" href="#connection-issues" title="Permanent link">¶</a></h2>
 <h3 id="no-devices-found-when-scanning">"No devices found" when scanning<a class="headerlink" href="#no-devices-found-when-scanning" title="Permanent link">¶</a></h3>
-<p><strong>Possible causes:</strong>
-- Radio is not powered on or out of BLE range (typically 10-30m)
-- Bluetooth is disabled on your phone
-- Android: Location permission not granted (required for BLE scanning)
-- Another app/device is already connected (MeshCore only supports one BLE connection at a time)</p>
-<p><strong>Solutions:</strong>
-- Power cycle your radio and scan again
-- Move closer to the radio
-- Check Bluetooth and Location are enabled in system settings
-- Disconnect other apps connected to the device</p>
+<p><strong>Possible causes:</strong></p>
+<ul>
+<li>Radio is not powered on or out of BLE range (typically 10-30m)</li>
+<li>Bluetooth is disabled on your phone</li>
+<li>Android: Location permission not granted (required for BLE scanning)</li>
+<li>Another app/device is already connected (MeshCore only supports one BLE connection at a time)</li>
+</ul>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Power cycle your radio and scan again</li>
+<li>Move closer to the radio</li>
+<li>Check Bluetooth and Location are enabled in system settings</li>
+<li>Disconnect other apps connected to the device</li>
+</ul>
 <h3 id="connection-fails-at-device-info-step">Connection fails at "Device Info" step<a class="headerlink" href="#connection-fails-at-device-info-step" title="Permanent link">¶</a></h3>
 <p>Retrieves your radio's public key (required for API auth). If this fails, the entire connection fails.</p>
 <p><strong>Causes:</strong> Firmware compatibility issue or transient BLE error</p>
-<p><strong>Solutions:</strong>
-- Try connecting again (transient errors often resolve on retry)
-- Verify your radio runs MeshCore firmware with companion protocol support
-- Power cycle the radio if the problem persists</p>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Try connecting again (transient errors often resolve on retry)</li>
+<li>Verify your radio runs MeshCore firmware with companion protocol support</li>
+<li>Power cycle the radio if the problem persists</li>
+</ul>
 <h3 id="connection-fails-at-session-acquisition-step">Connection fails at "Session Acquisition" step<a class="headerlink" href="#connection-fails-at-session-acquisition-step" title="Permanent link">¶</a></h3>
 <p>Authenticates with the MeshMapper API.</p>
-<p><strong>Causes:</strong>
-- No internet connection
-- MeshMapper API in maintenance mode</p>
-<p><strong>Solutions:</strong>
-- Check internet connection
-- Use Offline Mode during maintenance</p>
+<p><strong>Causes:</strong></p>
+<ul>
+<li>No internet connection</li>
+<li>MeshMapper API in maintenance mode</li>
+</ul>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Check internet connection</li>
+<li>Use Offline Mode during maintenance</li>
+</ul>
 <h3 id="bluetooth-disconnects-unexpectedly">Bluetooth disconnects unexpectedly<a class="headerlink" href="#bluetooth-disconnects-unexpectedly" title="Permanent link">¶</a></h3>
-<p><strong>Causes:</strong>
-- Out of Bluetooth range
-- Radio battery died
-- Transient BLE error
-- iOS: Aggressive background app management</p>
-<p><strong>What happens:</strong>
-- Auto-reconnect up to <strong>3 attempts</strong> (3-second delay between each, 30-second overall timeout)
-- Session, upload queue, and noise floor data are <strong>preserved</strong>
-- If auto-reconnect fails → full disconnect cleanup, manual reconnect needed</p>
+<p><strong>Causes:</strong></p>
+<ul>
+<li>Out of Bluetooth range</li>
+<li>Radio battery died</li>
+<li>Transient BLE error</li>
+<li>iOS: Aggressive background app management</li>
+</ul>
+<p><strong>What happens:</strong></p>
+<ul>
+<li>Auto-reconnect up to <strong>3 attempts</strong> (3-second delay between each, 30-second overall timeout)</li>
+<li>Session, upload queue, and noise floor data are <strong>preserved</strong></li>
+<li>If auto-reconnect fails → full disconnect cleanup, manual reconnect needed</li>
+</ul>
 <hr>
 <h2 id="gps-issues">GPS Issues<a class="headerlink" href="#gps-issues" title="Permanent link">¶</a></h2>
 <h3 id="status-bar-shows-gps-and-never-resolves">Status bar shows "GPS..." and never resolves<a class="headerlink" href="#status-bar-shows-gps-and-never-resolves" title="Permanent link">¶</a></h3>
-<p><strong>Causes:</strong>
-- Location permission denied
-- GPS/Location services disabled
-- Indoors with poor reception</p>
-<p><strong>Solutions:</strong>
-- Check location permission is granted for MeshMapper
-- Enable Location Services system-wide
-- Move to a location with clear sky view
-- Android: If permanently denied, a snackbar appears with "Settings" button</p>
+<p><strong>Causes:</strong></p>
+<ul>
+<li>Location permission denied</li>
+<li>GPS/Location services disabled</li>
+<li>Indoors with poor reception</li>
+</ul>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Check location permission is granted for MeshMapper</li>
+<li>Enable Location Services system-wide</li>
+<li>Move to a location with clear sky view</li>
+<li>Android: If permanently denied, a snackbar appears with "Settings" button</li>
+</ul>
 <h3 id="zone-shows-orange-dash-outside-coverage-area">Zone shows orange dash (outside coverage area)<a class="headerlink" href="#zone-shows-orange-dash-outside-coverage-area" title="Permanent link">¶</a></h3>
 <ul>
 <li>You are outside any registered MeshMapper zone</li>
@@ -3452,50 +3470,64 @@
 <li>Zone status queries need GPS &lt; 60 seconds old and &lt; 50m accuracy</li>
 <li>Regular pings only check the 25m movement requirement</li>
 </ul>
-<p><strong>Solutions:</strong>
-- Make sure GPS is actively tracking (not cached)
-- Move to improve accuracy
-- iOS: Enable Background Mode in Settings for continuous tracking</p>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Make sure GPS is actively tracking (not cached)</li>
+<li>Move to improve accuracy</li>
+<li>iOS: Enable Background Mode in Settings for continuous tracking</li>
+</ul>
 <hr>
 <h2 id="ping-issues">Ping Issues<a class="headerlink" href="#ping-issues" title="Permanent link">¶</a></h2>
 <h3 id="send-ping-button-is-disabled">"Send Ping" button is disabled<a class="headerlink" href="#send-ping-button-is-disabled" title="Permanent link">¶</a></h3>
-<p>Check these requirements:
-- <strong>External antenna not set</strong> — Choose Yes or No in Controls panel
-- <strong>Power level not set</strong> — Device model was not recognized. Go to Settings to manually select your TX power level.
-- <strong>Not connected</strong> — Need active Bluetooth connection
-- <strong>No GPS lock</strong> — App needs valid GPS position
-- <strong>GPS accuracy too low</strong> — GPS accuracy is too poor (&gt; 100m). Move to a location with better reception.
-- <strong>Not in a zone</strong> — Must be in a coverage zone (or use Offline Mode)
-- <strong>TX Disabled (Offline Mode)</strong> — TX pings are not available in Offline Mode. Only discovery and passive RX work offline.
-- <strong>Zone Full</strong> — All TX slots in your zone are taken. You can still use Passive Mode.
-- <strong>Controls locked</strong> — Ping in progress (5s listening window or API upload)
-- <strong>Cooldown active</strong> — Brief cooldown after a manual ping (15s) or after stopping Active/Hybrid Mode</p>
+<p>Check these requirements:</p>
+<ul>
+<li><strong>External antenna not set</strong> — Choose Yes or No in Controls panel</li>
+<li><strong>Power level not set</strong> — Device model was not recognized. Go to Settings to manually select your TX power level.</li>
+<li><strong>Not connected</strong> — Need active Bluetooth connection</li>
+<li><strong>No GPS lock</strong> — App needs valid GPS position</li>
+<li><strong>GPS accuracy too low</strong> — GPS accuracy is too poor (&gt; 100m). Move to a location with better reception.</li>
+<li><strong>Not in a zone</strong> — Must be in a coverage zone (or use Offline Mode)</li>
+<li><strong>TX Disabled (Offline Mode)</strong> — TX pings are not available in Offline Mode. Only discovery and passive RX work offline.</li>
+<li><strong>Zone Full</strong> — All TX slots in your zone are taken. You can still use Passive Mode.</li>
+<li><strong>Controls locked</strong> — Ping in progress (5s listening window or API upload)</li>
+<li><strong>Cooldown active</strong> — Brief cooldown after a manual ping (15s) or after stopping Active/Hybrid Mode</li>
+</ul>
 <h3 id="no-repeaters-heard-on-every-ping">"No repeaters heard" on every ping<a class="headerlink" href="#no-repeaters-heard-on-every-ping" title="Permanent link">¶</a></h3>
-<p><strong>Causes:</strong>
-- No MeshCore repeaters in range
-- Antenna not connected or poorly oriented
-- Signal blocked by terrain or buildings
-- Repeaters on a different channel</p>
-<p><strong>Solutions:</strong>
-- Try Passive/Discovery Mode to query repeaters directly
-- Check antenna connection
-- Move to a location with known repeater coverage</p>
+<p><strong>Causes:</strong></p>
+<ul>
+<li>No MeshCore repeaters in range</li>
+<li>Antenna not connected or poorly oriented</li>
+<li>Signal blocked by terrain or buildings</li>
+<li>Repeaters on a different channel</li>
+</ul>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Try Passive/Discovery Mode to query repeaters directly</li>
+<li>Check antenna connection</li>
+<li>Move to a location with known repeater coverage</li>
+</ul>
 <h3 id="pings-are-being-skipped-in-auto-ping-mode">Pings are being skipped in auto-ping mode<a class="headerlink" href="#pings-are-being-skipped-in-auto-ping-mode" title="Permanent link">¶</a></h3>
-<p>This is <strong>normal behavior</strong>:
-- Pings skip when you haven't moved the minimum distance (default 25m)
-- If "Auto-Stop After Idle" is enabled, auto-ping stops entirely after 30 minutes without movement</p>
+<p>This is <strong>normal behavior</strong>:</p>
+<ul>
+<li>Pings skip when you haven't moved the minimum distance (default 25m)</li>
+<li>If "Auto-Stop After Idle" is enabled, auto-ping stops entirely after 30 minutes without movement</li>
+</ul>
 <hr>
 <h2 id="data-upload-issues">Data Upload Issues<a class="headerlink" href="#data-upload-issues" title="Permanent link">¶</a></h2>
 <h3 id="queue-keeps-growing-but-nothing-uploads">Queue keeps growing but nothing uploads<a class="headerlink" href="#queue-keeps-growing-but-nothing-uploads" title="Permanent link">¶</a></h3>
-<p><strong>Causes:</strong>
-- Poor or no internet connection
-- API in maintenance mode
-- API authentication expired</p>
-<p><strong>Solutions:</strong>
-- Check internet connection
-- Try "Force Upload" in Settings &gt; Data &gt; Queued Pings
-- Switch to Offline Mode during maintenance
-- Disconnect and reconnect to refresh API session</p>
+<p><strong>Causes:</strong></p>
+<ul>
+<li>Poor or no internet connection</li>
+<li>API in maintenance mode</li>
+<li>API authentication expired</li>
+</ul>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Check internet connection</li>
+<li>Try "Force Upload" in Settings &gt; Data &gt; Queued Pings</li>
+<li>Switch to Offline Mode during maintenance</li>
+<li>Disconnect and reconnect to refresh API session</li>
+</ul>
 <h3 id="data-uploaded-but-not-appearing-on-meshmappernet">Data uploaded but not appearing on meshmapper.net<a class="headerlink" href="#data-uploaded-but-not-appearing-on-meshmappernet" title="Permanent link">¶</a></h3>
 <ul>
 <li>Server-side processing may take a few minutes</li>
@@ -3504,13 +3536,17 @@
 <hr>
 <h2 id="audio-issues">Audio Issues<a class="headerlink" href="#audio-issues" title="Permanent link">¶</a></h2>
 <h3 id="no-sound-on-ping-events">No sound on ping events<a class="headerlink" href="#no-sound-on-ping-events" title="Permanent link">¶</a></h3>
-<p><strong>Causes:</strong>
-- Sound notifications disabled in Settings
-- Phone on silent/vibrate mode
-- Another app has exclusive audio focus</p>
-<p><strong>Solutions:</strong>
-- Enable in Settings &gt; Ping Settings &gt; Sound Notifications
-- Check phone volume and ringer mode</p>
+<p><strong>Causes:</strong></p>
+<ul>
+<li>Sound notifications disabled in Settings</li>
+<li>Phone on silent/vibrate mode</li>
+<li>Another app has exclusive audio focus</li>
+</ul>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>Enable in Settings &gt; Ping Settings &gt; Sound Notifications</li>
+<li>Check phone volume and ringer mode</li>
+</ul>
 <h3 id="audio-hangs-or-freezes">Audio hangs or freezes<a class="headerlink" href="#audio-hangs-or-freezes" title="Permanent link">¶</a></h3>
 <ul>
 <li>App has a 3-second timeout protection</li>
@@ -3552,9 +3588,11 @@
 <li>Optionally enable "Upload debug logs" and select which log files to include</li>
 <li>Submit — a confirmation toast appears with a "View" link to track your report</li>
 </ol>
-<p>Also report issues on:
-- <a href="https://github.com/MeshMapper/MeshMapper_Project"><strong>GitHub</strong></a>
-- <a href="https://discord.gg/D26P6c6QmG"><strong>Discord</strong></a></p>
+<p>Also report issues on:</p>
+<ul>
+<li><a href="https://github.com/MeshMapper/MeshMapper_Project"><strong>GitHub</strong></a></li>
+<li><a href="https://discord.gg/D26P6c6QmG"><strong>Discord</strong></a></li>
+</ul>
 
 
 

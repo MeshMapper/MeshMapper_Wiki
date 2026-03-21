@@ -3419,10 +3419,12 @@
 <li><strong>DROP</strong> (red): No repeats heard AND did not reach a backend observer. Also includes failed discovery requests if the region has "Count DISC as failed" enabled, meaning the backend tracks a failed discovery as no coverage at that location.</li>
 </ul>
 <p>If "Top Repeaters on Map" is enabled in Settings, a <strong>Top Heard</strong> overlay appears on the map.</p>
-<p><strong>Top 3 slots</strong>: Shows the best 3 repeaters by SNR from your most recent ping, fully replacing on each new ping. If a ping gets no responses, the previous results stay visible. Each row has a colored dot indicating the ping type:
-- TX ping (green) - Active/Hybrid channel message
-- Discovery ping (purple) - Passive/Hybrid query
-- Trace ping (blue diamond) - Trace mode, specific repeater</p>
+<p><strong>Top 3 slots</strong>: Shows the best 3 repeaters by SNR from your most recent ping, fully replacing on each new ping. If a ping gets no responses, the previous results stay visible. Each row has a colored dot indicating the ping type:</p>
+<ul>
+<li>TX ping (green) - Active/Hybrid channel message</li>
+<li>Discovery ping (purple) - Passive/Hybrid query</li>
+<li>Trace ping (blue diamond) - Trace mode, specific repeater</li>
+</ul>
 <p><strong>RX slot</strong>: A 4th row shows the strongest passively overheard repeater (blue) within a rolling window that matches your auto-ping interval (15s, 30s, or 60s).</p>
 <p>Each row also shows the repeater's hex ID and SNR value, color-coded: green (good, above 5), orange (okay, -1 to 5), red (poor, below -1).</p>
 <p>The overlay clears when you stop auto-ping, switch modes, disconnect, or clear pings/logs.</p>
@@ -3516,11 +3518,13 @@
 <li>Trace got a response (blue diamond)</li>
 <li>Trace with no response (black)</li>
 </ul>
-<p><strong>Interactions</strong>:
-- <strong>Pinch to zoom</strong> on a specific time range (minimum 10-second visible window)
-- <strong>Drag to pan</strong> across the timeline
-- <strong>Tap a marker</strong> to open a detail sheet with event type, timestamp, interpolated noise floor, and repeater table
-- <strong>Reset zoom</strong> (top right) returns to full session view</p>
+<p><strong>Interactions</strong>:</p>
+<ul>
+<li><strong>Pinch to zoom</strong> on a specific time range (minimum 10-second visible window)</li>
+<li><strong>Drag to pan</strong> across the timeline</li>
+<li><strong>Tap a marker</strong> to open a detail sheet with event type, timestamp, interpolated noise floor, and repeater table</li>
+<li><strong>Reset zoom</strong> (top right) returns to full session view</li>
+</ul>
 <p>Live sessions update every 2 seconds. If the session ends while you are viewing it, the "LIVE" badge disappears and the graph becomes a static historical view.</p>
 <h3 id="clearing-sessions">Clearing Sessions<a class="headerlink" href="#clearing-sessions" title="Permanent link">¶</a></h3>
 <p>Use the trash icon in the top right to delete all saved sessions. The current active session is not affected.</p>
@@ -3528,9 +3532,11 @@
 <h2 id="connect-tab">Connect Tab<a class="headerlink" href="#connect-tab" title="Permanent link">¶</a></h2>
 <p>The Connect tab manages your Bluetooth connection. Its appearance changes based on your connection state.</p>
 <h3 id="zone-status-bar">Zone Status Bar<a class="headerlink" href="#zone-status-bar" title="Permanent link">¶</a></h3>
-<p>Shown across all connection states when GPS is available:
-- <strong>Left</strong>: City name of your current zone and IATA code. If you are outside a zone, shows distance to the nearest one.
-- <strong>Right</strong>: Open TX slots (e.g. "3/5 Open"), color-coded: green (plenty available), orange (2 or fewer left), red (none available)</p>
+<p>Shown across all connection states when GPS is available:</p>
+<ul>
+<li><strong>Left</strong>: City name of your current zone and IATA code. If you are outside a zone, shows distance to the nearest one.</li>
+<li><strong>Right</strong>: Open TX slots (e.g. "3/5 Open"), color-coded: green (plenty available), orange (2 or fewer left), red (none available)</li>
+</ul>
 <h3 id="disconnected">Disconnected<a class="headerlink" href="#disconnected" title="Permanent link">¶</a></h3>
 <ul>
 <li>"Go Offline" / "Go Online" button to toggle offline mode</li>
