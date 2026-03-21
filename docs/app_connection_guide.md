@@ -12,6 +12,7 @@ This guide covers everything about connecting to your MeshCore radio, what happe
 4. Tap your device to begin connecting
 
 **Platform notes:**
+
 - **Android**: May need to grant Bluetooth and Location permissions
 - **iOS**: System will prompt for Bluetooth access
 - **Web**: Chrome shows its native Bluetooth pairing dialog
@@ -84,12 +85,14 @@ If you are outside all zones, the status bar shows an orange dash with the name 
 If your Bluetooth connection drops unexpectedly (out of range, radio restart, etc.), MeshMapper will attempt to reconnect automatically.
 
 **What you see:**
+
 - "Reconnecting..." overlay on the map
 - Current attempt number (up to 3 attempts)
 - Device name
 - Cancel button to stop trying
 
 **What is preserved:**
+
 - API session
 - Upload queue
 - Noise floor session
@@ -125,15 +128,18 @@ Tap the **Disconnect** button on the Connect tab. The app performs a clean shutd
 If you don't have internet, or the MeshMapper API is in maintenance mode, use **Offline Mode** to continue wardriving. Data is saved locally and can be uploaded later.
 
 **To enable:**
+
 - Tap the **"Go Offline"** button on the Connect tab
 
 **In Offline Mode:**
+
 - Zone validation is skipped (zone chip shows a grey dash)
 - All ping data (TX, RX, DISC) is saved to local session files
 - Session files are named by date (e.g., "2026-03-20.json")
 - Manage sessions in **Settings > Offline Sessions**
 
 **When you are back online:**
+
 1. Open **Settings > Offline Sessions**
 2. Tap upload button next to each session to send to MeshMapper
 3. Or download session files for backup
