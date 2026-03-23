@@ -3396,8 +3396,8 @@
 <ul>
 <li><strong>Zone chip</strong> (left): Your current zone code. Tap for details. The popup changes based on your state: zone name and TX slots available (green), zone at TX capacity with Passive Mode suggestion (red), distance to nearest zone (orange), or "Connect to a device to start wardriving" (grey, when in zone but not connected).</li>
 <li><strong>TX</strong> (green): Channel messages you have sent. These are flood messages that propagate across the mesh (or are regionally scoped if your zone admin has set a scope).</li>
-<li><strong>RX</strong> (blue): Mesh packets passively received.</li>
-<li><strong>DISC</strong> (purple): Discovery requests sent.</li>
+<li><strong>RX</strong> (purple): Mesh packets passively received.</li>
+<li><strong>DISC</strong> (cyan): Discovery requests sent.</li>
 <li><strong>TRC</strong> (blue diamond): Successful trace responses.</li>
 <li><strong>Upload</strong>: Pings successfully uploaded to the server.</li>
 </ul>
@@ -3430,8 +3430,8 @@
 <ul>
 <li><strong>TX (success)</strong> (green): You sent a channel message (flood) and at least one repeater echoed it back</li>
 <li><strong>TX (fail)</strong> (red): You sent a channel message but no repeater was heard</li>
-<li><strong>RX</strong> (blue): You passively received a message from the mesh</li>
-<li><strong>DISC (success)</strong> (purple): You sent a discovery request and a repeater responded</li>
+<li><strong>RX</strong> (purple): You passively received a message from the mesh</li>
+<li><strong>DISC (success)</strong> (cyan): You sent a discovery request and a repeater responded</li>
 <li><strong>DISC (fail)</strong> (black/red): You sent a discovery request but no repeater responded. Shown as red if your region has "Count DISC as failed" enabled, meaning the backend will track a failed discovery as no coverage at that location.</li>
 <li><strong>TRC (success)</strong> (blue diamond): A trace reached the target repeater</li>
 <li><strong>TRC (fail)</strong> (black): A trace got no response</li>
@@ -3440,7 +3440,7 @@
 <p>These show the <strong>backend's view</strong> of coverage, combining data from all wardrivers and MQTT observers across the entire mesh. The backend has information your device does not, such as whether a message was received by an MQTT observer on the other side of the mesh. This is why the overlay uses different categories than your session markers.</p>
 <ul>
 <li><strong>BIDIR</strong> (green): Heard repeats from the mesh AND successfully routed through to a backend observer</li>
-<li><strong>DISC</strong> (blue): A wardriver sent a discovery packet and heard a reply</li>
+<li><strong>DISC</strong> (cyan): A wardriver sent a discovery packet and heard a reply</li>
 <li><strong>TX</strong> (orange): Successfully routed through to a backend observer, but no repeats heard back by the wardriver</li>
 <li><strong>RX</strong> (purple): Heard mesh traffic but did not transmit</li>
 <li><strong>DEAD</strong> (brown): A repeater heard it, but no other radio received the repeat</li>
@@ -3450,10 +3450,10 @@
 <p><strong>Top 3 slots</strong>: Shows the best 3 repeaters by SNR from your most recent ping, fully replacing on each new ping. If a ping gets no responses, the previous results stay visible. Each row has a colored dot indicating the ping type:</p>
 <ul>
 <li>TX ping (green) - Active/Hybrid channel message</li>
-<li>Discovery ping (purple) - Passive/Hybrid query</li>
+<li>Discovery ping (cyan) - Passive/Hybrid query</li>
 <li>Trace ping (blue diamond) - Trace mode, specific repeater</li>
 </ul>
-<p><strong>RX slot</strong>: A 4th row shows the strongest passively overheard repeater (blue) within a rolling window that matches your auto-ping interval (15s, 30s, or 60s).</p>
+<p><strong>RX slot</strong>: A 4th row shows the strongest passively overheard repeater (purple) within a rolling window that matches your auto-ping interval (15s, 30s, or 60s).</p>
 <p>Each row also shows the repeater's hex ID and SNR value, color-coded: green (good, above 5), orange (okay, -1 to 5), red (poor, below -1).</p>
 <p>The overlay clears when you stop auto-ping, switch modes, disconnect, or clear pings/logs.</p>
 <p>Example:</p>
@@ -3487,7 +3487,7 @@
 </ul>
 <p>Each entry is a card showing:</p>
 <ul>
-<li><strong>Type badge</strong>: Color-coded label (green TX, blue RX, purple DISC, blue diamond TRC). TX entries are channel messages that flooded the mesh (or were regionally scoped).</li>
+<li><strong>Type badge</strong>: Color-coded label (green TX, purple RX, cyan DISC, cyan diamond TRC). TX entries are channel messages that flooded the mesh (or were regionally scoped).</li>
 <li><strong>Timestamp</strong>: When the event occurred</li>
 <li><strong>Location</strong>: GPS coordinates at the time of the event</li>
 <li><strong>Repeater table</strong>:</li>
@@ -3540,8 +3540,8 @@
 <li><strong>Event markers</strong>: Colored dots marking when ping events occurred:</li>
 <li>TX channel message (green) - heard by a repeater (success)</li>
 <li>TX channel message (red) - not heard</li>
-<li>Passive RX received (blue)</li>
-<li>Discovery got a response (purple)</li>
+<li>Passive RX received (purple)</li>
+<li>Discovery got a response (cyan)</li>
 <li>Discovery with no response (black) - or failed discovery if "Count DISC as failed" is enabled at the region level</li>
 <li>Trace got a response (blue diamond)</li>
 <li>Trace with no response (black)</li>
