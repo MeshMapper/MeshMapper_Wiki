@@ -2658,21 +2658,25 @@
 <ul>
 <li>
 <ol>
-<li><strong>Notification</strong>: Administrators will receive a notification of the onboarding request.</li>
+<li><strong>MQTT Verification</strong>: MeshMapper servers will verify if MQTT-connected observers are sending data to the brokers at either letsmesh.net or MeshMapper (or both).</li>
 </ol>
 </li>
 <li>
 <ol>
-<li><strong>Review</strong>: Admins will verify the Observer IDs and ensure they are successfully transmitting data to the MQTT broker at letsmesh.net.</li>
+<li><strong>Review</strong>: If the servers are able to verify active observers, the region is presented to MeshMapper administrators for review.  Administrators will ensure the region isn't a duplicate, is named correctly, notes entered during onboarding are reviewed, etc.</li>
 </ol>
 </li>
 <li>
 <ol>
-<li><strong>Activation</strong>: Once verified, the region is approved and will become available for wardriving.  It can take up to 5 minutes after deployment for the MeshMapper MQTT engine to start pulling in local data.</li>
+<li><strong>Activation</strong>: Once reviewed, the region is approved and will become available for wardriving.  It can take up to 5 minutes after deployment for the MeshMapper MQTT engine to start pulling in local data.</li>
 </ol>
 </li>
 </ul>
 <p>If you associated your Discord account during the onboarding process, you will receive automatic messages from MeshMapper with onboarding status.</p>
+<div class="admonition info">
+<p class="admonition-title">Request Deletion</p>
+<p>Pending onboarding requests that have not passed MQTT verification in 3 days will automatically be deleted.</p>
+</div>
 <h2 id="legacy-data">Legacy Data<a class="headerlink" href="#legacy-data" title="Permanent link">¶</a></h2>
 <p>If you have historical coverage data from other systems, it can be imported into MeshMapper. This data will appear on a separate layer and is not included in leaderboard statistics. See <a href="https://wiki.meshmapper.net/dataupload/">Data Upload</a> for format requirements.</p>
 
