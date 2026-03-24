@@ -2694,8 +2694,12 @@
 <h1 id="coverage-api">Coverage API<a class="headerlink" href="#coverage-api" title="Permanent link">¶</a></h1>
 <p>The Coverage API provides programmatic access to MeshMapper coverage grid-square data. Use it to draw coverage grids on your own maps or integrate MeshMapper data into external tools and dashboards.</p>
 <h2 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">¶</a></h2>
-<p>Access requires a <strong>Coverage</strong> API key provisioned by a Master administrator. Each key is scoped to a specific region or multiregion group and has a daily rate limit.</p>
-<p>To request a key, contact a Master administrator.</p>
+<p>Access requires a <strong>Coverage</strong> API key provisioned by the MeshMapper developers. Each key is scoped to a specific region or multiregion group and has a daily rate limit.</p>
+<p>To request a key, contact one of the MeshMapper developers.</p>
+<div class="admonition warning">
+<p class="admonition-title">Unauthorized Access</p>
+<p>MeshMapper utilizes API keys and rate limits to protect server resources and prevent access to data that regions do not wish to have shared externally.  As such, accessing unauthorized API's, scraping for data, etc., is strictly prohibited and will result in action taken to protect the server and data (which may include IP or origin bans, removal of a region, etc.).  The MeshMapper team is happy to review requests for data not provided in the API's below.</p>
+</div>
 <h2 id="endpoint">Endpoint<a class="headerlink" href="#endpoint" title="Permanent link">¶</a></h2>
 <pre><code>GET https://meshmapper.net/coverage.php?key=YOUR_API_KEY
 </code></pre>
