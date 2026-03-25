@@ -1995,6 +1995,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../release-notes/260325/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    March 25, 2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../release-notes/260320/" class="md-nav__link">
         
   
@@ -2953,7 +2981,7 @@
 <h3 id="repeaters">Repeaters<a class="headerlink" href="#repeaters" title="Permanent link">¶</a></h3>
 <p>Manage the repeaters database.</p>
 <ul>
-<li><strong>Add/Edit:</strong> Manually register repeaters or update their details (Name, Location, Power).</li>
+<li><strong>Add/Edit:</strong> Manually register repeaters or update their details (Name, Location, Power, Hop Bytes).</li>
 <li>
 <p><strong>Status Control:</strong></p>
 <ul>
@@ -2973,6 +3001,7 @@
 <li>
 <p><strong>Ping Calc:</strong> A tool to recalculate the total number of pings a repeater has handled.</p>
 </li>
+<li><strong>Neighbours Cleanup:</strong> Reset the neighbours list for any repeater in the region. Useful for clearing stale or incorrect neighbour associations.</li>
 <li><strong>Notes:</strong> Clicking the note icon will allow you to optionally add a note to the repeater.  On multiregion admin panels, if a repeater belongs to multiple single regions, notes will be combined and edits will be saved to the individual regions.</li>
 <li><strong>Lock GPS Coordinates:</strong> Enabling this setting will prevent new adverts from a repeater from updating its location.  This can be used in instances where the GPS coordinates set on the repeater are incorrect and need to be manually overridden.</li>
 <li>
@@ -3039,6 +3068,7 @@
 </div>
 <ul>
 <li><strong>Notifications</strong>: A toggle to mute or unmute offline Discord notifications for this observer. Muting suppresses notifications only — data collection is unaffected.</li>
+<li><strong>Remove</strong>: Administrators can remove stale or inactive observers from the list.  Note that if the observer starts sending packets again, it will automatically be re-added.</li>
 </ul>
 <div class="admonition info">
 <p class="admonition-title">Observer Data Source</p>
@@ -3120,7 +3150,7 @@
 </div>
 </li>
 <li>
-<p><strong>Hop Bytes</strong>: Configure the region's repeater identification byte length — 1-byte (256 IDs), 2-byte (65K IDs), or 3-byte (16M IDs). When set to 2 or 3-byte, companion devices connecting to wardrive sessions are automatically configured to use the enforced hop byte length. In 1-byte regions, MeshMapper passively detects which repeaters support multi-byte by watching packets and only confirmed repeaters will show multi-byte IDs on the map. Collision detection, coverage mapping, and leaderboards all respect the configured hop byte length. Requires MeshCore firmware v1.14.0+.</p>
+<p><strong>Hop Bytes</strong>: Configure the region's repeater identification byte length — 1-byte (256 IDs), 2-byte (65K IDs), or 3-byte (16M IDs). When set to 2 or 3-byte, companion devices connecting to wardrive sessions are automatically configured to use the enforced hop byte length. In 1-byte regions, MeshMapper passively detects which repeaters support multi-byte by watching packets and only confirmed repeaters will show multi-byte IDs on the map. Collision detection, coverage mapping, and leaderboards all respect the configured hop byte length. Changing the byte mode automatically recalculates repeater collisions and updates affected repeaters to Active status. Requires MeshCore firmware v1.14.0+.</p>
 </li>
 <li><strong>Single Observer Mode</strong>: Enable this if your region relies on a single MQTT ingestor to prevent repeaters from being flagged as "Stale" too quickly. This option prevents the repeater from displaying as stale and ultimately getting disabled at 30 days without an advert.</li>
 <li><strong>Public Channels</strong>: Define which channels are treated as public traffic.</li>

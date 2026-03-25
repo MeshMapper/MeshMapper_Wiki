@@ -2386,6 +2386,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../release-notes/260325/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    March 25, 2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../release-notes/260320/" class="md-nav__link">
         
   
@@ -3382,7 +3410,7 @@
 <p>In portrait orientation, the top bar shows:</p>
 <ul>
 <li><strong>"MeshMapper"</strong> with your connected device name below it (or "Disconnected")</li>
-<li><strong>Noise floor indicator</strong> (right): Current noise floor in dBm with color coding</li>
+<li><strong>Noise floor indicator</strong> (right): Current noise floor in dBm with colour coding</li>
 <li>Below -100 dBm: great (green)</li>
 <li>-100 to -90 dBm: okay (orange)</li>
 <li>Above -90 dBm: noisy (red)</li>
@@ -3406,7 +3434,7 @@
 <p>The map shows your current position and wardriving data.</p>
 <h4 id="gps-info-overlay-top-left">GPS Info Overlay (Top Left)<a class="headerlink" href="#gps-info-overlay-top-left" title="Permanent link">¶</a></h4>
 <ul>
-<li><strong>GPS accuracy</strong>: Color-coded readout in meters (or feet if imperial is enabled)</li>
+<li><strong>GPS accuracy</strong>: Colour-coded readout in meters (or feet if imperial is enabled)</li>
 <li>10m or better (green)</li>
 <li>10-30m (orange)</li>
 <li>Worse than 30m (red)</li>
@@ -3421,7 +3449,7 @@
 <li><strong>Auto-Follow</strong>: Centers the map on your GPS position as you move</li>
 <li><strong>Always North</strong>: Keeps north at the top. When disabled, the map can rotate with your heading.</li>
 <li><strong>Rotation Lock</strong>: Disables rotation gestures entirely</li>
-<li><strong>Legend</strong>: Opens a legend showing what the map markers and colors mean</li>
+<li><strong>Legend</strong>: Opens a legend showing what the map markers and colours mean</li>
 </ul>
 <h4 id="markers">Markers<a class="headerlink" href="#markers" title="Permanent link">¶</a></h4>
 <p>Ping markers appear on the map as you wardrive. Tap any marker to view its details.</p>
@@ -3447,14 +3475,14 @@
 <li><strong>DROP</strong> (red): No repeats heard AND did not reach a backend observer. Also includes failed discovery requests if the region has "Count DISC as failed" enabled, meaning the backend tracks a failed discovery as no coverage at that location.</li>
 </ul>
 <p>If "Top Repeaters on Map" is enabled in Settings, a <strong>Top Heard</strong> overlay appears on the map.</p>
-<p><strong>Top 3 slots</strong>: Shows the best 3 repeaters by SNR from your most recent ping, fully replacing on each new ping. If a ping gets no responses, the previous results stay visible. Each row has a colored dot indicating the ping type:</p>
+<p><strong>Top 3 slots</strong>: Shows the best 3 repeaters by SNR from your most recent ping, fully replacing on each new ping. If a ping gets no responses, the previous results stay visible. Each row has a coloured dot indicating the ping type:</p>
 <ul>
 <li>TX ping (green) - Active/Hybrid channel message</li>
 <li>Discovery ping (cyan) - Passive/Hybrid query</li>
 <li>Trace ping (blue diamond) - Trace mode, specific repeater</li>
 </ul>
 <p><strong>RX slot</strong>: A 4th row shows the strongest passively overheard repeater (purple) within a rolling window that matches your auto-ping interval (15s, 30s, or 60s).</p>
-<p>Each row also shows the repeater's hex ID and SNR value, color-coded: green (good, above 5), orange (okay, -1 to 5), red (poor, below -1).</p>
+<p>Each row also shows the repeater's hex ID and SNR value, colour-coded: green (good, above 5), orange (okay, -1 to 5), red (poor, below -1).</p>
 <p>The overlay clears when you stop auto-ping, switch modes, disconnect, or clear pings/logs.</p>
 <p>Example:</p>
 <pre><code>Top Heard
@@ -3487,7 +3515,7 @@
 </ul>
 <p>Each entry is a card showing:</p>
 <ul>
-<li><strong>Type badge</strong>: Color-coded label (green TX, purple RX, cyan DISC, cyan diamond TRC). TX entries are channel messages that flooded the mesh (or were regionally scoped).</li>
+<li><strong>Type badge</strong>: Colour-coded label (green TX, purple RX, cyan DISC, cyan diamond TRC). TX entries are channel messages that flooded the mesh (or were regionally scoped).</li>
 <li><strong>Timestamp</strong>: When the event occurred</li>
 <li><strong>Location</strong>: GPS coordinates at the time of the event</li>
 <li><strong>Repeater table</strong>:</li>
@@ -3497,7 +3525,7 @@
 <li>Trace: Target repeater and signal quality</li>
 </ul>
 <p><strong>Tapping a card</strong> navigates to the Map tab and centers on that event's GPS coordinates.</p>
-<p><strong>Tapping a repeater ID</strong> in any table opens a popup showing matching repeaters from the mesh database. Each match shows the repeater's name, a colored hex ID badge, distance from your current GPS position (sorted closest first), and an Active/Stale status badge. For discovery pings, the popup uses exact 4-byte public key matching for precise identification. For TX/RX pings (which only have 1-byte path IDs), it uses prefix matching, so multiple repeaters may appear if they share the same first byte.</p>
+<p><strong>Tapping a repeater ID</strong> in any table opens a popup showing matching repeaters from the mesh database. Each match shows the repeater's name, a coloured hex ID badge, distance from your current GPS position (sorted closest first), and an Active/Stale status badge. For discovery pings, the popup uses exact 4-byte public key matching for precise identification. For TX/RX pings (which only have 1-byte path IDs), it uses prefix matching, so multiple repeaters may appear if they share the same first byte.</p>
 <h3 id="errors">Errors<a class="headerlink" href="#errors" title="Permanent link">¶</a></h3>
 <p>The Errors sub-tab shows warnings and errors that occurred during your session:</p>
 <ul>
@@ -3536,8 +3564,8 @@
 <h3 id="full-screen-graph">Full-Screen Graph<a class="headerlink" href="#full-screen-graph" title="Permanent link">¶</a></h3>
 <p>Tap a session to open the full-screen interactive graph:</p>
 <ul>
-<li><strong>Noise floor line</strong>: Color-coded by level (green/orange/red) over time</li>
-<li><strong>Event markers</strong>: Colored dots marking when ping events occurred:</li>
+<li><strong>Noise floor line</strong>: Colour-coded by level (green/orange/red) over time</li>
+<li><strong>Event markers</strong>: Coloured dots marking when ping events occurred:</li>
 <li>TX channel message (green) - heard by a repeater (success)</li>
 <li>TX channel message (red) - not heard</li>
 <li>Passive RX received (purple)</li>
@@ -3563,7 +3591,7 @@
 <p>Shown across all connection states when GPS is available:</p>
 <ul>
 <li><strong>Left</strong>: City name of your current zone and IATA code. If you are outside a zone, shows distance to the nearest one.</li>
-<li><strong>Right</strong>: Open TX slots (e.g. "3/5 Open"), color-coded: green (plenty available), orange (2 or fewer left), red (none available)</li>
+<li><strong>Right</strong>: Open TX slots (e.g. "3/5 Open"), colour-coded: green (plenty available), orange (2 or fewer left), red (none available)</li>
 </ul>
 <h3 id="disconnected">Disconnected<a class="headerlink" href="#disconnected" title="Permanent link">¶</a></h3>
 <ul>
