@@ -20,6 +20,7 @@ nav:
   - Using the Map:
     - Map Layers & Filters: layers.md
     - Understanding Visuals: visuals.md
+    - Multi-Byte Repeaters: multibyte.md
     - Duplicate Repeater IDs: duplicaterepeaterid.md
     - Override Duplicate IDs: overrideduplicates.md
 
