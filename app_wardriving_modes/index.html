@@ -2914,7 +2914,7 @@
 <ol>
 <li>Every 30 seconds, sends a zero-hop discovery request (direct query, not a broadcast)</li>
 <li>Repeaters/rooms respond with node type, public key, and signal quality (local + remote SNR/RSSI)</li>
-<li>Discovery Tracker collects responses during a 5-second window, deduplicates by public key, and filters carpeaters</li>
+<li>Discovery Tracker collects responses during a 5-second window, deduplicates by public key, and filters carpeaters (RSSI stronger than -30 or by user-configured prefix value)</li>
 <li>Unified RX Handler monitors for mesh traffic on subscribed channels</li>
 <li>All discovery responses and RX observations queued for upload</li>
 </ol>

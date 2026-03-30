@@ -1111,10 +1111,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-carpeater-id-check-optional" class="md-nav__link">
+  <a href="#2-vehicle-mounted-carpeater-id-check-optional" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2 CARpeater ID check (optional)
+        2 Vehicle-mounted "CARpeater" ID check (optional)
       
     </span>
   </a>
@@ -2145,10 +2145,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-carpeater-id-check-optional" class="md-nav__link">
+  <a href="#2-vehicle-mounted-carpeater-id-check-optional" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2 CARpeater ID check (optional)
+        2 Vehicle-mounted "CARpeater" ID check (optional)
       
     </span>
   </a>
@@ -3233,10 +3233,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-carpeater-id-check-optional" class="md-nav__link">
+  <a href="#2-vehicle-mounted-carpeater-id-check-optional" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2 CARpeater ID check (optional)
+        2 Vehicle-mounted "CARpeater" ID check (optional)
       
     </span>
   </a>
@@ -3450,20 +3450,20 @@
 <li><strong>Message composition</strong>: GPS coordinates + TX power level</li>
 <li><strong>Encryption</strong>: AES-ECB with the #wardriving channel key (SHA-256 hash of "#wardriving"). ECB mode is mandated by the MeshCore protocol.</li>
 <li><strong>Broadcast and flooding</strong>: The encrypted message is sent via BLE as a GROUP_TEXT packet. It <strong>floods the entire mesh</strong> by default (every repeater relays it). If a <strong>flood scope</strong> is configured by the regional admin, only repeaters within the scope relay it.</li>
-<li><strong>Echo listening (5-second window)</strong>: After sending, the app opens a 5-second listening window. Every incoming packet is checked against these criteria:</li>
-<li>GROUP_TEXT type</li>
-<li>RSSI below -30 dBm (not a carpeater)</li>
-<li>Channel hash matches #wardriving</li>
-<li>Decrypted content matches what you sent</li>
-<li>Path length &gt; 0 (traveled through at least one repeater)</li>
-<li><strong>Deduplication</strong>: Same repeater echoing multiple times? Only the best SNR is kept.</li>
-<li><strong>Queuing</strong>: After the 5-second window closes, the TX ping and its echo results are added to the <strong>upload queue</strong>. A 5-second flush timer starts. When it fires, the queue uploads.</li>
+<li><strong>Echo listening (5-second window)</strong>: After sending, the app opens a 5-second listening window. Every incoming packet is checked against these criteria, proceeding to step 5 if all of the following conditions are met:</li>
+<li>Packet is of the GROUP_TEXT type</li>
+<li>RSSI is NOT stronger (closer to zero) than -30 dBm (likely a vehicle-mounted "carpeater" if so). This can be overridden by the user in the MeshMapper app settings.</li>
+<li>Channel hash matches that of #wardriving</li>
+<li>Decrypted content matches that of the ping just sent</li>
+<li>Path length is &gt; 0 (the packet has traveled through at least one repeater)</li>
+<li><strong>Deduplication</strong>: If the same packet is heard from the same repeater more than once, only the one with the best SNR value is kept.</li>
+<li><strong>Queuing</strong>: After the 5-second window closes, the TX ping and its echo results are added to the <strong>upload queue</strong>. A 5-second flush timer starts. When the timer expires, the queue uploads.</li>
 </ol>
 <h3 id="tx-vs-rx-queuing">TX vs RX Queuing<a class="headerlink" href="#tx-vs-rx-queuing" title="Permanent link">¶</a></h3>
 <p>TX pings are queued differently from RX observations:</p>
 <ul>
 <li><strong>TX/DISC/Trace</strong> go directly into the upload queue as a single item (the ping + its results from the listening window). A <strong>5-second flush timer</strong> triggers an upload shortly after.</li>
-<li><strong>RX observations</strong> go through a <strong>two-stage pipeline</strong>: first the RX Logger batches by repeater (best SNR, 25m/30s flush), then the API queue buffers up to <strong>4 RX entries per repeater</strong> before flushing to the main queue.</li>
+<li><strong>RX observations</strong> go through a <strong>two-stage pipeline</strong>: first the RX Logger batches by repeater (best SNR, 25 meter/30 second flush), then the API queue buffers up to <strong>4 RX entries per repeater</strong> before flushing to the main queue.</li>
 </ul>
 <hr>
 <h2 id="how-rx-observations-work">How RX Observations Work<a class="headerlink" href="#how-rx-observations-work" title="Permanent link">¶</a></h2>
@@ -3477,25 +3477,25 @@
 <p>RX packets aren't uploaded individually. Instead, they are <strong>grouped by repeater ID</strong> and aggregated before upload. This reduces API traffic and ensures the best observation is reported for each repeater at each location.</p>
 <p><strong>How it works:</strong></p>
 <ol>
-<li>A packet arrives from repeater <code>A3B2FF</code> at your current GPS location</li>
+<li>A packet arrives from a repeater at your current GPS location</li>
 <li>The app creates a <strong>batch</strong> for that repeater, recording your GPS position and the packet's SNR/RSSI</li>
-<li>More packets arrive from the same repeater. If a new packet has a <strong>better SNR</strong>, it replaces the previous one in the batch. Worse SNR packets are discarded.</li>
+<li>More packets arrive from the same repeater. If a new packet has a <strong>better SNR</strong>, it replaces the previous one in the batch. Worse SNR packets are discarded, leaving only the <strong>best SNR observation</strong> to be sent to the API.</li>
 <li>The batch keeps the <strong>original GPS location</strong> where you first heard that repeater (the map pin doesn't follow you as you move)</li>
 </ol>
-<p><strong>The batch flushes (uploads) when either condition is met:</strong></p>
+<p><strong>The batch flushes (uploads) when either condition below is met:</strong></p>
 <ul>
-<li>You move <strong>25m</strong> from where you first heard the repeater, OR</li>
+<li>You move <strong>25 meters</strong> from where you first heard the repeater, OR</li>
 <li><strong>30 seconds</strong> pass since the first observation</li>
 </ul>
-<p>Whichever happens first. On flush, only the <strong>best SNR observation</strong> per repeater is sent to the API. After flushing, if you hear the same repeater again, a new batch starts at your new location.</p>
-<p><strong>On disconnect or stopping auto-ping</strong>, all active batches are flushed immediately so no data is lost.</p>
+<p>After flushing, if you hear the same repeater again, a new batch starts at your new location.</p>
+<p><strong>On disconnect or stopping auto-ping</strong>, all active batches are flushed immediately, so no data is lost.</p>
 <hr>
 <h2 id="how-discovery-pings-work">How Discovery Pings Work<a class="headerlink" href="#how-discovery-pings-work" title="Permanent link">¶</a></h2>
-<p>Discovery pings use a fundamentally different mechanism than TX channel messages. Instead of flooding the mesh, discovery sends a <strong>direct control data request</strong> to nearby repeaters. They do not propagate.</p>
+<p>Discovery pings use a fundamentally different mechanism than TX channel messages. Instead of flooding the mesh, discovery sends a <strong>direct control data request</strong> (zero-hop) to nearby repeaters. Note: Only repeaters and room servers with firmware 1.10.0 or newer support and will respond to discovery pings.</p>
 <ol>
 <li><strong>Request</strong>: ControlData command (0x37) with DISCOVER_REQ flag, requesting responses from repeaters and rooms in direct range. Includes a random 4-byte tag for matching.</li>
 <li><strong>Response</strong>: Repeaters respond with node type, public key, and their assessment of signal quality from their end (remote SNR).</li>
-<li><strong>Tracking</strong>: Discovery Tracker collects responses during a 5-second window, deduplicates by public key, and filters carpeaters. Gives you <strong>bidirectional</strong> signal quality (how you hear them + how they hear you).</li>
+<li><strong>Tracking</strong>: Discovery Tracker collects responses during a 5-second window, deduplicates by public key, and filters carpeaters. Gives you <strong>bidirectional</strong> signal quality (how you hear them &amp; how they hear you).</li>
 <li><strong>Upload</strong>: "DISC" type data with repeater public key, node type, and bidirectional signal quality.</li>
 </ol>
 <hr>
@@ -3514,18 +3514,18 @@
 <li>Packet must have traveled through <strong>at least one repeater</strong> (path length &gt; 0)</li>
 <li>Direct transmissions from nearby devices are not repeater coverage data</li>
 </ul>
-<h3 id="2-carpeater-id-check-optional">2 CARpeater ID check (optional)<a class="headerlink" href="#2-carpeater-id-check-optional" title="Permanent link">¶</a></h3>
+<h3 id="2-vehicle-mounted-carpeater-id-check-optional">2 Vehicle-mounted "CARpeater" ID check (optional)<a class="headerlink" href="#2-vehicle-mounted-carpeater-id-check-optional" title="Permanent link">¶</a></h3>
 <ul>
-<li>If you have configured a CARpeater filter with a repeater hex ID:</li>
+<li>If you have configured a CARpeater filter with a repeater hex ID in the MeshMapper app settings:</li>
 <li><strong>Single hop</strong> from your CARpeater → <strong>dropped</strong> (this is just your own repeater relaying back to you, no real coverage info)</li>
 <li><strong>Multiple hops</strong> with CARpeater as last hop → CARpeater hop is <strong>stripped</strong>, second-to-last hop used as the real repeater (the packet traveled through a distant repeater first, then your CARpeater delivered it to you. The distant repeater is the real coverage data, your CARpeater just happened to be the final relay. SNR/RSSI are set to null since they reflect your CARpeater's signal, not the distant repeater's.)</li>
 </ul>
 <h3 id="3-rssi-check-carpeater-failsafe">3 RSSI check (CARpeater failsafe)<a class="headerlink" href="#3-rssi-check-carpeater-failsafe" title="Permanent link">¶</a></h3>
 <ul>
-<li>Signal must be <strong>weaker than -30 dBm</strong></li>
-<li>Anything stronger = device is right next to you (carpeater)</li>
+<li>Signal must be <strong>weaker (farther from zero) than -30 dBm</strong></li>
+<li>Anything stronger implies the relaying node is right next to you (likely a carpeater)</li>
 <li>Acts as a safety net even without the CARpeater ID filter</li>
-<li>Skipped if RSSI filter is disabled in Settings or CARpeater hop was already stripped</li>
+<li>Skipped if the Disable RSSI Filter option is ENABLED in app Settings or if CARpeater hop was already stripped</li>
 </ul>
 <h3 id="4-packet-type-check">4 Packet type check<a class="headerlink" href="#4-packet-type-check" title="Permanent link">¶</a></h3>
 <ul>
@@ -3556,7 +3556,7 @@
 <h3 id="why-this-matters">Why this matters<a class="headerlink" href="#why-this-matters" title="Permanent link">¶</a></h3>
 <p>Without this pipeline, the coverage map would be polluted with:</p>
 <ul>
-<li><strong>False coverage data</strong> from CARpeaters (your own co-located repeater always reporting perfect signal)</li>
+<li><strong>False coverage data</strong> from CARpeaters (your own vehicle-mounted repeater always reporting perfect signal)</li>
 <li><strong>False repeater IDs</strong> from corrupt or non-conforming packets that partially decode, causing phantom repeaters to appear in the path with garbage data</li>
 </ul>
 <h3 id="after-validation">After validation<a class="headerlink" href="#after-validation" title="Permanent link">¶</a></h3>
@@ -3564,7 +3564,7 @@
 <ol>
 <li><strong>Grouped by repeater ID</strong> (last hop in path, the repeater that delivered the packet to you)</li>
 <li><strong>Best SNR kept</strong> per repeater. If multiple packets arrive from the same repeater, only the one with the strongest SNR is retained. GPS location is pinned to where you <strong>first</strong> heard that repeater.</li>
-<li><strong>Flushed to upload queue</strong> when you move <strong>25m</strong> from the first observation OR <strong>30 seconds</strong> pass, whichever comes first</li>
+<li><strong>Flushed to upload queue</strong> when you move <strong>25 meters</strong> from the first observation OR <strong>30 seconds</strong> pass, whichever comes first</li>
 <li>The upload queue then buffers up to <strong>4 RX entries per repeater</strong> before adding them to the main batch for API upload</li>
 </ol>
 <hr>
@@ -3575,6 +3575,7 @@
 <li>Included with every data point uploaded (TX, RX, DISC, Trace)</li>
 <li>Helps the community understand the radio environment at each coverage point</li>
 <li>The noise floor graph overlays ping events on the timeline for visual correlation</li>
+<li>Values are reported as dBm departure from a device's 10th percentile baseline to account for variances between hardware types. See <a href="https://wiki.meshmapper.net/layers/#how-calibration-works">How Calibration Works</a>.</li>
 </ul>
 <hr>
 <h2 id="the-upload-queue">The Upload Queue<a class="headerlink" href="#the-upload-queue" title="Permanent link">¶</a></h2>
@@ -3589,10 +3590,10 @@
 </ul>
 <hr>
 <h2 id="carpeater-filtering">Carpeater Filtering<a class="headerlink" href="#carpeater-filtering" title="Permanent link">¶</a></h2>
-<p>"Carpeater" (car + repeater) = a repeater mounted in/on your vehicle. Always has a very strong signal, does not provide useful coverage data.</p>
+<p>A "carpeater" (car + repeater) is a repeater mounted in/on your vehicle. It will always have a very strong signal and does not provide useful coverage data.</p>
 <p><strong>Two filter methods:</strong></p>
 <ol>
-<li><strong>RSSI threshold</strong>: RSSI ≥ -30 dBm → automatically dropped (device is right next to you)</li>
+<li><strong>RSSI threshold</strong>: RSSI equal to or stronger (closer to 0) than -30 dBm → automatically dropped (device is right next to you)</li>
 <li><strong>User-configured repeater ID</strong>: Specify your repeater's hex ID in Settings &gt; Filtering &gt; CARpeater Filter. Echoes from that repeater are stripped before upload.</li>
 </ol>
 <p>Both can be adjusted or disabled in Settings for testing.</p>
@@ -3608,7 +3609,7 @@
 <ul>
 <li>Configurable in Settings &gt; Radio &gt; TX Bytes (firmware 1.14+ required)</li>
 <li>RX auto-detects path size regardless of your TX setting</li>
-<li>Some regions enforce a specific path size via the regional admin</li>
+<li>Regional administrators can require a specific TX path setting in the admin panel</li>
 </ul>
 <hr>
 <h2 id="platform-differences">Platform Differences<a class="headerlink" href="#platform-differences" title="Permanent link">¶</a></h2>

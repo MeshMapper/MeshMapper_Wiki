@@ -3858,7 +3858,7 @@
 <h2 id="ping-settings">Ping Settings<a class="headerlink" href="#ping-settings" title="Permanent link">¶</a></h2>
 <h3 id="anonymous-mode">Anonymous Mode<a class="headerlink" href="#anonymous-mode" title="Permanent link">¶</a></h3>
 <ul>
-<li>Renames your companion device to <strong>"Anonymous"</strong> on the mesh</li>
+<li>Renames your companion device to <strong>"Anonymous"</strong> on the mesh (requires a clean disconnect to reset your node name)</li>
 <li>Changing while connected triggers a brief reconnection</li>
 <li>Confirmation dialog when enabling or disabling while connected</li>
 <li>Cannot change while auto-ping is running</li>
@@ -3931,7 +3931,7 @@
 <li>Cannot be changed during auto-ping</li>
 </ul>
 <h3 id="disable-rssi-filter">Disable RSSI Filter<a class="headerlink" href="#disable-rssi-filter" title="Permanent link">¶</a></h3>
-<p>By default, the app drops any packet with RSSI ≥ -30 dBm because a signal that strong almost certainly came from a co-located repeater, not meaningful coverage. Only disable this if you are certain no co-located repeater is within range. If disabled while a CARpeater is present, your device will report false coverage data to the MeshMapper community map, degrading accuracy for everyone.</p>
+<p>By default, the app drops any packet with RSSI equal to or stronger (closer to 0) than -30 dBm because a signal that strong almost certainly came from a co-located repeater and is not meaningful coverage data. Only disable this if you are certain no co-located repeater is within range. If disabled while a CARpeater is present, your device will report false coverage data to the MeshMapper community map, degrading accuracy for everyone.</p>
 <ul>
 <li>Default: Drops packets with RSSI ≥ -30 dBm (carpeater threshold)</li>
 <li>Enabling allows <strong>all signal strengths</strong> through</li>

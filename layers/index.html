@@ -3028,15 +3028,15 @@
 <tbody>
 <tr>
 <td><strong>BIDIR</strong></td>
-<td><strong>Green</strong> grid squares showing confirmed two-way coverage.</td>
+<td><strong>Green</strong> grid squares showing confirmed two-way coverage (the sender heard a repeat AND the packet was also heard by at least one observer after being repeated).</td>
 </tr>
 <tr>
 <td><strong>TX</strong></td>
-<td><strong>Orange</strong> grid squares where packets were sent but no confirmation was received.</td>
+<td><strong>Orange</strong> grid squares where packets were sent but no confirmation was received (no repeat heard by the sender but the packet was repeated and heard by at least one observer).</td>
 </tr>
 <tr>
 <td><strong>RX</strong></td>
-<td><strong>Purple</strong> grid squares where packets were heard but no transmission occurred.</td>
+<td><strong>Purple</strong> grid squares where other repeated mesh traffic was heard by the meshmapper companion.</td>
 </tr>
 <tr>
 <td><strong>DISC / TRACE</strong></td>
@@ -3044,11 +3044,11 @@
 </tr>
 <tr>
 <td><strong>DEAD</strong></td>
-<td><strong>Grey</strong> grid squares where a repeater heard the ping, but it didn't route further.</td>
+<td><strong>Grey</strong> grid squares where a repeater heard the ping, but it didn't route further (sender heard a repeat but no observer did).</td>
 </tr>
 <tr>
 <td><strong>DROP</strong></td>
-<td><strong>Red</strong> grid squares showing failed pings (no route, no repeats).</td>
+<td><strong>Red</strong> grid squares showing failed pings (neither the sender nor any observers heard repeats of the packet).</td>
 </tr>
 <tr>
 <td><strong>Repeaters</strong></td>
@@ -3100,16 +3100,16 @@
 <p>The <strong>Noise Heatmap</strong> is an optional overlay that visualizes the RF noise environment across the map. It helps identify areas with high interference versus quiet areas with clean signal conditions.</p>
 <h4 id="what-it-shows">What It Shows<a class="headerlink" href="#what-it-shows" title="Permanent link">¶</a></h4>
 <p>Every companion reports a <strong>noise floor</strong> reading (in dBm) with each ping it submits. The noise floor represents the level of background RF interference the radio is experiencing at that location. A reading closer to 0 dBm is "loud" (lots of interference), while a very negative value like -120 dBm is "quiet."</p>
-<p>Because different radios and antennas report different absolute noise values, MeshMapper doesn't display the raw readings directly. Instead, it calculates a <strong>noise delta</strong> — how much louder or quieter a location is compared to that user's personal baseline.</p>
+<p>Because different radios and antennas report different absolute noise values, MeshMapper doesn't display the raw readings directly. Instead, it calculates a <strong>noise delta</strong> — how much louder or quieter a location is compared to that device's baseline.</p>
 <h4 id="how-calibration-works">How Calibration Works<a class="headerlink" href="#how-calibration-works" title="Permanent link">¶</a></h4>
 <p>MeshMapper automatically calibrates each companion's baseline:</p>
 <ol>
 <li>After enough data has been collected (at least 5 readings), MeshMapper calculates the companions's <strong>10th percentile</strong> noise floor — essentially the quietest conditions that companion typically experiences.</li>
-<li>This becomes the companions's personal <strong>baseline</strong>.</li>
+<li>This becomes the companions's <strong>baseline</strong>.</li>
 <li>Every data point is then scored as a <strong>delta</strong> (difference) from that baseline.</li>
-<li>Every day a new calibration is done to update that companions noise delta.</li>
+<li>Every day a new calibration is done to update that companion's noise delta.</li>
 </ol>
-<p>For example, if your companion's baseline is <strong>-110 dBm</strong> and you submit a reading of <strong>-90 dBm</strong>, the delta is <strong>+20</strong> — meaning that location is 20 dB noisier than your typical quiet conditions.</p>
+<p>For example, if your companion's baseline is <strong>-110 dBm</strong> and you submit a reading of <strong>-90 dBm</strong>, the delta is <strong>+20</strong> — meaning that location is 20 dB (100X) noisier than your device sees under typical quiet conditions.</p>
 <p>This per-companion calibration ensures that readings from different hardware/setups are comparable on the same map.  All readings for a single location are averaged and displayed accordingly.</p>
 <h4 id="reading-the-colours">Reading the Colours<a class="headerlink" href="#reading-the-colours" title="Permanent link">¶</a></h4>
 <p>The heatmap uses a gradient from cool to warm colours:</p>
