@@ -60,7 +60,11 @@ nav:
     - Troubleshooting: app_troubleshooting.md
 
   - Release Notes:
+<<<<<<< HEAD
     - March 25, 2026: release-notes/260325.md
+=======
+    - March 31, 2026: release-notes/260331.md
+>>>>>>> e540a4c (Added release notes)
     - March 20, 2026: release-notes/260320.md
     - March 17, 2026: release-notes/260317.md
     - March 8, 2026: release-notes/260308.md
