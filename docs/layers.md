@@ -30,6 +30,17 @@ The **Settings** menu (gear icon in the navigation bar) provides global options 
 *   **Info Panel**: Switch between **Sidebar** and **Popup** mode for viewing ping details.
 *   **Hide Data from Missing Repeaters**: When enabled, hides coverage grid squares that reference repeaters no longer present on the map, reducing visual noise from outdated or removed infrastructure.
 
+### Accessibility
+
+*   **Colour Vision**: Choose a colour palette optimised for your vision type. The setting is found under **Settings > Accessibility > Colour Vision**. Available options:
+    *   **Default** — Standard colours (unchanged).
+    *   **Protanopia** (Red-blind) — Optimised for red-green colour vision deficiency.
+    *   **Deuteranopia** (Green-blind) — Same palette as Protanopia (both are red-green CVD).
+    *   **Tritanopia** (Blue-blind) — Optimised for blue-yellow colour vision deficiency.
+    *   **Achromatopsia** (Monochrome) — Greyscale palette for total colour blindness.
+
+    Palettes are based on Wong 2011 colourblind-safe colours. When a palette is selected, all coverage grid squares, repeater markers, signal strength indicators, legend colours, summary stats, charts, and gradient layers (Effective Coverage, Signal Strength, Ping Age) update automatically. The setting is saved in your browser and persists across sessions.
+
 ### Effective Coverage
 
 *   **Colour Spectrum**: Toggle between **Red → Green** (default) and **Red → Blue** (full spectrum) for the Effective Coverage layer.

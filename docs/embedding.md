@@ -63,6 +63,8 @@ Toggle layers on or off with `1` (show) or `0` (hide).
 | --- | --- | --- | --- |
 | `geofence` | `0` or `1` | Auto | Limits loaded data to a 5 km radius around the center. Automatically enabled when `lat`/`lon` are provided. Set `geofence=0` to load all region data instead. |
 
+Embedded maps support colour vision palettes via the `?cvd=` URL parameter (e.g., `?cvd=protanopia`).
+
 ## Examples
 
 **Center on a specific location at zoom 14:**
