@@ -33,6 +33,7 @@ nav:
     - Connection Guide: app_connection_guide.md
     - How It Works: app_how_it_works.md
     - Troubleshooting: app_troubleshooting.md
+    - Third Party API: app_third_party_api.md
 
   - Community:
     - Leaderboards & Statistics: leaderboards.md
