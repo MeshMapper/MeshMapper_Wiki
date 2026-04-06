@@ -1157,6 +1157,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#configuration-link-for-end-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Link for End Users
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#security-notes" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2777,6 +2788,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#configuration-link-for-end-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Link for End Users
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#security-notes" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3124,6 +3146,19 @@
 </tbody>
 </table>
 <p>MeshMapper does <strong>not</strong> retry failed custom API requests. Each batch is sent exactly once.</p>
+<h2 id="configuration-link-for-end-users">Configuration Link for End Users<a class="headerlink" href="#configuration-link-for-end-users" title="Permanent link">¶</a></h2>
+<p>As an endpoint operator, you can generate a configuration link that your users paste into their clipboard. In MeshMapper Settings &gt; API Endpoints, they tap <strong>Import from Clipboard</strong> to auto-fill the URL and API key.</p>
+<p><strong>Format:</strong></p>
+<pre><code>meshmapper://custom-api?url=your-server.com/api/wardrive&amp;key=your-api-key-here
+</code></pre>
+<ul>
+<li><code>url</code> — Your endpoint host and path, <strong>without</strong> <code>https://</code> (MeshMapper prepends it automatically).</li>
+<li><code>key</code> — The API key the user should send. This will be set as their <code>X-API-Key</code> header value.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code>meshmapper://custom-api?url=data.myproject.org/ingest/wardrive&amp;key=sk_live_abc123def456
+</code></pre>
+<p>The user copies this link, opens MeshMapper Settings &gt; API Endpoints, and taps "Import from Clipboard." Both fields are populated instantly.</p>
 <h2 id="security-notes">Security Notes<a class="headerlink" href="#security-notes" title="Permanent link">¶</a></h2>
 <ul>
 <li><strong>HTTPS required</strong>: MeshMapper validates that the configured URL uses HTTPS. HTTP endpoints are rejected at the settings level.</li>
