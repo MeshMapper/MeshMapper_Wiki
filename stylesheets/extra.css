@@ -39,21 +39,22 @@
 }
 
 /* FAQ collapsible question styling */
-.md-typeset details.question,
-.md-typeset .admonition.question {
+:root {
+    --md-admonition-icon--question: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.07 12.85c.77-1.39 2.25-2.21 3.11-3.44.91-1.29.4-3.7-2.18-3.7-1.69 0-2.52 1.28-2.87 2.34L6.54 6.96C7.25 4.83 9.18 3 11.99 3c2.35 0 3.96 1.07 4.78 2.41.7 1.15 1.11 3.3.03 4.9-1.2 1.77-2.35 2.31-2.97 3.45-.25.46-.35.76-.35 2.24h-2.89c-.01-.78-.13-2.05.48-3.15M14 20c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2"/></svg>');
+}
+.md-typeset .admonition.question,
+.md-typeset details.question {
     border-color: #00d2ff;
 }
-.md-typeset details.question > summary,
-.md-typeset .admonition.question > .admonition-title {
+.md-typeset .question > .admonition-title,
+.md-typeset .question > summary {
     background-color: rgba(0, 210, 255, 0.1);
-    border-color: #00d2ff;
 }
-.md-typeset details.question > summary::before,
-.md-typeset .admonition.question > .admonition-title::before {
+.md-typeset .question > .admonition-title::before,
+.md-typeset .question > summary::before {
     background-color: #00d2ff;
-}
-.md-typeset details.question > summary::after {
-    color: #00d2ff;
+    -webkit-mask-image: var(--md-admonition-icon--question);
+    mask-image: var(--md-admonition-icon--question);
 }
 
 @media screen and (max-width: 768px) {
