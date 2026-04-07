@@ -2919,6 +2919,16 @@
 <td><code>string\|null</code></td>
 <td>Radio TX power formatted as <code>"X.Xw"</code> (e.g., <code>"0.3w"</code>, <code>"1.0w"</code>, <code>"2.0w"</code>). Null if unavailable.</td>
 </tr>
+<tr>
+<td><code>contact</code></td>
+<td><code>string\|absent</code></td>
+<td>First 8 hex chars of the wardriver's MeshCore device public key (e.g., <code>"D873B1F2"</code>). Only present when the user enables "Include Contact Key" in settings. Useful for cross-referencing with MQTT observer data.</td>
+</tr>
+<tr>
+<td><code>iata</code></td>
+<td><code>string\|absent</code></td>
+<td>MeshMapper zone code (e.g., <code>"RDU"</code>, <code>"MSP"</code>, <code>"YOW"</code>). Present when the wardriver is in a zone.</td>
+</tr>
 </tbody>
 </table>
 <h3 id="tx-ping-type-tx">TX Ping (type: "TX")<a class="headerlink" href="#tx-ping-type-tx" title="Permanent link">¶</a></h3>
@@ -2948,7 +2958,9 @@
   "heard_repeats": "4e(12.25),77(8.50)",
   "timestamp": 1768762843,
   "external_antenna": false,
-  "power": "0.3w"
+  "power": "0.3w",
+  "contact": "D873B1F2",
+  "iata": "YOW"
 }
 </code></pre>
 <p><strong>Example (no repeaters heard):</strong></p>
@@ -2960,7 +2972,9 @@
   "heard_repeats": "None",
   "timestamp": 1768762873,
   "external_antenna": false,
-  "power": "0.3w"
+  "power": "0.3w",
+  "contact": "D873B1F2",
+  "iata": "YOW"
 }
 </code></pre>
 <h3 id="rx-ping-type-rx">RX Ping (type: "RX")<a class="headerlink" href="#rx-ping-type-rx" title="Permanent link">¶</a></h3>
@@ -2990,7 +3004,9 @@
   "heard_repeats": "4e(12.00)",
   "timestamp": 1768762900,
   "external_antenna": false,
-  "power": "0.3w"
+  "power": "0.3w",
+  "contact": "D873B1F2",
+  "iata": "YOW"
 }
 </code></pre>
 <h3 id="disc-ping-type-disc-discovery-response">DISC Ping (type: "DISC") - Discovery Response<a class="headerlink" href="#disc-ping-type-disc-discovery-response" title="Permanent link">¶</a></h3>
@@ -3050,7 +3066,9 @@
   "public_key": "a3b2c1d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2",
   "timestamp": 1768762950,
   "external_antenna": true,
-  "power": "1.0w"
+  "power": "1.0w",
+  "contact": "D873B1F2",
+  "iata": "YOW"
 }
 </code></pre>
 <p><strong>Example (failed discovery - no nodes responded):</strong></p>
@@ -3062,7 +3080,9 @@
   "repeater_id": "None",
   "timestamp": 1768762980,
   "external_antenna": true,
-  "power": "1.0w"
+  "power": "1.0w",
+  "contact": "D873B1F2",
+  "iata": "YOW"
 }
 </code></pre>
 <h3 id="trace-ping-type-trace">TRACE Ping (type: "TRACE")<a class="headerlink" href="#trace-ping-type-trace" title="Permanent link">¶</a></h3>
@@ -3110,7 +3130,9 @@
   "remote_snr": 8.25,
   "timestamp": 1768763010,
   "external_antenna": false,
-  "power": "0.3w"
+  "power": "0.3w",
+  "contact": "D873B1F2",
+  "iata": "YOW"
 }
 </code></pre>
 <h2 id="expected-response">Expected Response<a class="headerlink" href="#expected-response" title="Permanent link">¶</a></h2>
@@ -3163,6 +3185,7 @@
 <ul>
 <li><strong>HTTPS required</strong>: MeshMapper validates that the configured URL uses HTTPS. HTTP endpoints are rejected at the settings level.</li>
 <li><strong>API key in header</strong>: The user-configured API key is sent as <code>X-API-Key</code> header, not in the request body.</li>
+<li><strong>Contact key is opt-in</strong>: The <code>contact</code> field (device public key prefix) is controlled by the user via "Include Contact Key" toggle. It defaults to ON but can be disabled.</li>
 <li><strong>Fire-and-forget</strong>: Custom API errors never affect MeshMapper's primary data submission. A broken custom endpoint cannot disrupt wardriving.</li>
 </ul>
 <h2 id="rate-and-volume">Rate and Volume<a class="headerlink" href="#rate-and-volume" title="Permanent link">¶</a></h2>
