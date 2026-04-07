@@ -39,6 +39,8 @@ Every ping object contains a `type` field that determines which additional field
 | `external_antenna` | `boolean` | Whether an external antenna is connected to the device |
 | `noisefloor` | `integer\|null` | Ambient noise floor in dBm (e.g., -103). Null if unavailable. |
 | `power` | `string\|null` | Radio TX power formatted as `"X.Xw"` (e.g., `"0.3w"`, `"1.0w"`, `"2.0w"`). Null if unavailable. |
+| `contact` | `string\|absent` | First 8 hex chars of the wardriver's MeshCore device public key (e.g., `"D873B1F2"`). Only present when the user enables "Include Contact Key" in settings. Useful for cross-referencing with MQTT observer data. |
+| `iata` | `string\|absent` | MeshMapper zone code (e.g., `"RDU"`, `"MSP"`, `"YOW"`). Present when the wardriver is in a zone. |
 
 ### TX Ping (type: "TX")
 
@@ -59,7 +61,9 @@ A transmitted ping broadcast on the wardriving channel, with repeater echo resul
   "heard_repeats": "4e(12.25),77(8.50)",
   "timestamp": 1768762843,
   "external_antenna": false,
-  "power": "0.3w"
+  "power": "0.3w",
+  "contact": "D873B1F2",
+  "iata": "YOW"
 }
 ```
 
@@ -74,7 +78,9 @@ A transmitted ping broadcast on the wardriving channel, with repeater echo resul
   "heard_repeats": "None",
   "timestamp": 1768762873,
   "external_antenna": false,
-  "power": "0.3w"
+  "power": "0.3w",
+  "contact": "D873B1F2",
+  "iata": "YOW"
 }
 ```
 
@@ -97,7 +103,9 @@ A passively observed mesh packet from a nearby repeater.
   "heard_repeats": "4e(12.00)",
   "timestamp": 1768762900,
   "external_antenna": false,
-  "power": "0.3w"
+  "power": "0.3w",
+  "contact": "D873B1F2",
+  "iata": "YOW"
 }
 ```
 
@@ -130,7 +138,9 @@ A response from a discovered repeater or room node.
   "public_key": "a3b2c1d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2",
   "timestamp": 1768762950,
   "external_antenna": true,
-  "power": "1.0w"
+  "power": "1.0w",
+  "contact": "D873B1F2",
+  "iata": "YOW"
 }
 ```
 
@@ -145,7 +155,9 @@ A response from a discovered repeater or room node.
   "repeater_id": "None",
   "timestamp": 1768762980,
   "external_antenna": true,
-  "power": "1.0w"
+  "power": "1.0w",
+  "contact": "D873B1F2",
+  "iata": "YOW"
 }
 ```
 
@@ -174,7 +186,9 @@ A targeted zero-hop trace to a specific repeater.
   "remote_snr": 8.25,
   "timestamp": 1768763010,
   "external_antenna": false,
-  "power": "0.3w"
+  "power": "0.3w",
+  "contact": "D873B1F2",
+  "iata": "YOW"
 }
 ```
 
@@ -218,6 +232,7 @@ The user copies this link, opens MeshMapper Settings > API Endpoints, and taps "
 
 - **HTTPS required**: MeshMapper validates that the configured URL uses HTTPS. HTTP endpoints are rejected at the settings level.
 - **API key in header**: The user-configured API key is sent as `X-API-Key` header, not in the request body.
+- **Contact key is opt-in**: The `contact` field (device public key prefix) is controlled by the user via "Include Contact Key" toggle. It defaults to ON but can be disabled.
 - **Fire-and-forget**: Custom API errors never affect MeshMapper's primary data submission. A broken custom endpoint cannot disrupt wardriving.
 
 ## Rate and Volume
