@@ -38,6 +38,24 @@
     border-color: #fff;
 }
 
+/* FAQ collapsible question styling */
+.md-typeset details.question,
+.md-typeset .admonition.question {
+    border-color: #00d2ff;
+}
+.md-typeset details.question > summary,
+.md-typeset .admonition.question > .admonition-title {
+    background-color: rgba(0, 210, 255, 0.1);
+    border-color: #00d2ff;
+}
+.md-typeset details.question > summary::before,
+.md-typeset .admonition.question > .admonition-title::before {
+    background-color: #00d2ff;
+}
+.md-typeset details.question > summary::after {
+    color: #00d2ff;
+}
+
 @media screen and (max-width: 768px) {
     .md-header__inner {
         padding: 0.5rem 1rem !important;
