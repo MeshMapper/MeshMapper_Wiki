@@ -13,7 +13,7 @@
         <link rel="prev" href="../administratorlist/">
       
       
-        <link rel="next" href="../coverage-api/">
+        <link rel="next" href="../webhooks/">
       
       
         
@@ -1541,6 +1541,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../webhooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -3307,6 +3335,7 @@
 <li><strong>Allow Messages From Visitors</strong>: When enabled, a map visitor can send a message to you directly from the "Region Info" page of your regions map.</li>
 <li><strong>Alert on Offline Observer</strong>: Once a day (around 0800 EST/EDT) MeshMapper will review all data received via your regions MQTT observers (pings, repeater adverts, companion adverts) for the past 7 days.  If a particular observer has sent data within that time, but not within the "Stale Repeater Age" time configured for your region, then this observer is potentially offline.  Receive an alert when this is the case.</li>
 </ul>
+<p>Webhooks can also be configured per-region to send these same notifications to any HTTPS endpoint (Slack, Home Assistant, custom automation, etc.). See <a href="https://wiki.meshmapper.net/webhooks">Webhooks</a> for setup instructions.</p>
 
 
 
