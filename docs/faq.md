@@ -19,8 +19,6 @@
 ??? question "My repeater shows as Excluded or Duplicate.  Why?"
     As a regions mesh network grows, the likelihood of two repeaters sharing the same ID increases. MeshMapper has a robust system for detecting, handling, and resolving these "collisions" to ensure data integrity.  Part of this duplicate detection logic is disabling repeaters that share the same ID in order to protect data integrity.  [Read more about it here](https://wiki.meshmapper.net/duplicaterepeaterid/).
 
-??? question "My repeater isn't showing on the map."
-    Repeaters will display on the map once their adverts are heard through a connected observer.  If forcing an advert doesn't work, ensure the region is configured to use an observer that can hear the advert.  Clicking the "Region Info" button, followed by the "Observers", will display a regions connected observers.  For assistance, please reach out to the region's administrator.
 
 ??? question "Does MeshMapper support multibyte?"
     Yes, MeshMapper fully supports multibyte repeater hops/paths.  [Read more about it here](https://wiki.meshmapper.net/multibyte/).
@@ -53,9 +51,6 @@
 
 ??? question "Where can I download the MeshMapper app?"
     The companion app is available on both the Google Play Store (Android) and the Apple App Store (iOS). Search for "MeshMapper" or visit the [App Overview](https://wiki.meshmapper.net/app_overview) page for direct links.
-
-??? question "The app says I'm outside of a region. What do I do?"
-    You need to be within a registered MeshMapper region to start a wardriving session. If there isn't a region near you, you can request one — see [Onboarding New Regions](https://wiki.meshmapper.net/onboarding).
 
 ??? question "How does the app connect to my MeshCore device?"
     The app communicates with your MeshCore device over Bluetooth. See the [Connection Guide](app_connection_guide.md) for pairing instructions and troubleshooting tips.

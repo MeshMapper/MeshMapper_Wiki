@@ -48,6 +48,7 @@ nav:
     - Data Upload: dataupload.md
   
   - Support:
+    - Troubleshooting: troubleshooting.md
     - Report Bugs & Features: reportbugs.md
     - System Status: systemstatus.md
 
