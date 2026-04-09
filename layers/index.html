@@ -712,15 +712,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#noise-heatmap" class="md-nav__link">
+  <a href="#noise-floor" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Noise Heatmap
+        Noise Floor
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Noise Heatmap">
+    <nav class="md-nav" aria-label="Noise Floor">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2922,15 +2922,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#noise-heatmap" class="md-nav__link">
+  <a href="#noise-floor" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Noise Heatmap
+        Noise Floor
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Noise Heatmap">
+    <nav class="md-nav" aria-label="Noise Floor">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3226,8 +3226,8 @@
 <td>Colour-codes grid squares based on how recently they were last pinged. Green indicates recent activity and red indicates stale coverage. The green and red age thresholds are adjustable from the Settings panel, making it easy to identify areas that may need remapping.</td>
 </tr>
 <tr>
-<td><strong>Noise Heatmap</strong></td>
-<td>A visual heatmap representing the RF noise environment. <strong>Red</strong> areas indicate high interference, while <strong>Blue</strong> areas are quieter. See <a href="#noise-heatmap">Noise Heatmap</a> below for details.</td>
+<td><strong>Noise Floor</strong></td>
+<td>A coverage mode that colour-codes grid squares by RF noise level. <strong>Green</strong> = quiet, <strong>Red</strong> = loud. Select it from the <strong>Coverage Mode</strong> section. See <a href="#noise-floor">Noise Floor</a> below for details.</td>
 </tr>
 <tr>
 <td><strong>Neighbor Zones</strong></td>
@@ -3243,23 +3243,23 @@
 </tr>
 </tbody>
 </table>
-<h3 id="noise-heatmap">Noise Heatmap<a class="headerlink" href="#noise-heatmap" title="Permanent link">¶</a></h3>
-<p>The <strong>Noise Heatmap</strong> is an optional overlay that visualizes the RF noise environment across the map. It helps identify areas with high interference versus quiet areas with clean signal conditions.</p>
+<h3 id="noise-floor">Noise Floor<a class="headerlink" href="#noise-floor" title="Permanent link">¶</a></h3>
+<p>The <strong>Noise Floor</strong> coverage mode visualizes the RF noise environment across the map by colour-coding grid squares. It helps identify areas with high interference versus quiet areas with clean signal conditions.</p>
 <h4 id="what-it-shows">What It Shows<a class="headerlink" href="#what-it-shows" title="Permanent link">¶</a></h4>
 <p>Every companion reports a <strong>noise floor</strong> reading (in dBm) with each ping it submits. The noise floor represents the level of background RF interference the radio is experiencing at that location. A reading closer to 0 dBm is "loud" (lots of interference), while a very negative value like -120 dBm is "quiet."</p>
 <p>Because different radios and antennas report different absolute noise values, MeshMapper doesn't display the raw readings directly. Instead, it calculates a <strong>noise delta</strong> — how much louder or quieter a location is compared to that device's baseline.</p>
 <h4 id="how-calibration-works">How Calibration Works<a class="headerlink" href="#how-calibration-works" title="Permanent link">¶</a></h4>
 <p>MeshMapper automatically calibrates each companion's baseline:</p>
 <ol>
-<li>After enough data has been collected (at least 5 readings), MeshMapper calculates the companions's <strong>10th percentile</strong> noise floor — essentially the quietest conditions that companion typically experiences.</li>
-<li>This becomes the companions's <strong>baseline</strong>.</li>
+<li>After enough data has been collected (at least 5 readings), MeshMapper calculates the companion's <strong>10th percentile</strong> noise floor — essentially the quietest conditions that companion typically experiences.</li>
+<li>This becomes the companion's <strong>baseline</strong>.</li>
 <li>Every data point is then scored as a <strong>delta</strong> (difference) from that baseline.</li>
 <li>Every day a new calibration is done to update that companion's noise delta.</li>
 </ol>
 <p>For example, if your companion's baseline is <strong>-110 dBm</strong> and you submit a reading of <strong>-90 dBm</strong>, the delta is <strong>+20</strong> — meaning that location is 20 dB (100X) noisier than your device sees under typical quiet conditions.</p>
-<p>This per-companion calibration ensures that readings from different hardware/setups are comparable on the same map.  All readings for a single location are averaged and displayed accordingly.</p>
+<p>This per-companion calibration ensures that readings from different hardware/setups are comparable on the same map. All readings for a single location are averaged and displayed accordingly.</p>
 <h4 id="reading-the-colours">Reading the Colours<a class="headerlink" href="#reading-the-colours" title="Permanent link">¶</a></h4>
-<p>The heatmap uses a gradient from cool to warm colours:</p>
+<p>Grid squares are colour-coded on a gradient from green to red:</p>
 <table>
 <thead>
 <tr>
@@ -3269,11 +3269,11 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>Blue</strong></td>
-<td>Quiet — at or near the companions's baseline noise level.</td>
+<td><strong>Green</strong></td>
+<td>Quiet — at or near the companion's baseline noise level.</td>
 </tr>
 <tr>
-<td><strong>Green / Lime</strong></td>
+<td><strong>Yellow</strong></td>
 <td>Moderate — some elevated noise above baseline.</td>
 </tr>
 <tr>
@@ -3282,13 +3282,11 @@
 </tr>
 </tbody>
 </table>
+<p>A <strong>Noise Floor</strong> legend appears in the bottom-right of the map when this mode is active, showing the gradient scale from Quiet to Loud.</p>
+<p>Like the other coverage modes, Noise Floor fully supports the <a href="#accessibility">colour vision accessibility options</a>, so all colour blindness palettes apply to noise grid squares and the legend.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>The Noise Heatmap is <strong>off by default</strong>. Enable it from the Layer Control (stack icon) in the top-right corner of the map. It works best when zoomed in to a neighborhood or specific area of interest.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For privacy, heatmap coordinates are rounded to approximately 100-meter precision, so the heatmap shows general area trends rather than exact locations.</p>
+<p>To enable, select <strong>Noise Floor</strong> from the <strong>Coverage Mode</strong> section in the Layer Control (stack icon) in the top-right corner of the map.</p>
 </div>
 <h3 id="legacy-data-layer">Legacy Data Layer<a class="headerlink" href="#legacy-data-layer" title="Permanent link">¶</a></h3>
 <p>Regions with imported historical data will have a <strong>Legacy</strong> layer available. This layer displays data points uploaded via CSV but does not show connection lines or contribute to repeater statistics due to the lack of verifiable repeater association. See <a href="https://wiki.meshmapper.net/dataupload/">Data Upload</a> for more details.</p>
