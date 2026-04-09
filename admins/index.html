@@ -3352,7 +3352,12 @@
 </ul>
 <h2 id="alerts-history">Alerts &amp; History<a class="headerlink" href="#alerts-history" title="Permanent link">¶</a></h2>
 <ul>
-<li><strong>Alerts</strong>: Automatically detects configuration issues, such as <strong>Duplicate Repeater IDs</strong> (Collisions) and <strong>Pending Repeaters</strong> awaiting approval.</li>
+<li><strong>Alerts</strong>: Automatically detects configuration issues, including:<ul>
+<li><strong>Repeater Clock Alerts</strong>: Repeaters whose embedded timestamp differs from the server time by more than 120 seconds. An incorrect clock can affect packet routing and deduplication.</li>
+<li><strong>Duplicate Repeater IDs</strong> (Collisions): Multiple repeaters sharing the same short public ID.</li>
+<li><strong>Pending Repeaters</strong>: Repeaters awaiting approval (when "New Repeaters Enter Pending State" is enabled).</li>
+</ul>
+</li>
 <li><strong>History</strong>: An audit log of all administrative actions (who edited what and when), ensuring accountability.</li>
 </ul>
 <h2 id="notifications">Notifications<a class="headerlink" href="#notifications" title="Permanent link">¶</a></h2>
