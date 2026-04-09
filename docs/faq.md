@@ -24,7 +24,7 @@
     Yes, MeshMapper fully supports multibyte repeater hops/paths.  [Read more about it here](https://wiki.meshmapper.net/multibyte/).
 
 ??? question "How long does it take for my region to be onboarded?"
-    Once the onboarding form is completed, the MeshMapper servers for an MQTT verification.  This checks to ensure that there are observers in the region connected to the MQTT brokers at MeshMapper or letsmesh.net.  This process can take up to 5-6 minutes.  If verification is successful, the region is presented to the MeshMapper administration team for review.  The team will review to ensure boundries are set correctly, read and accomodate any notes added during onboarding, determine if the region should belong to a multiregion, etc.  Once complete, the region is deployed.  As the process after MQTT verification is manual, the time to complete can vary, but typically regions are onboarded within 24 hours.
+    Once the onboarding form is completed, the MeshMapper servers perform an MQTT verification.  This checks to ensure that there are observers in the region connected to the MQTT brokers at MeshMapper or letsmesh.net.  This process can take up to 5-6 minutes.  If verification is successful, the region is presented to the MeshMapper administration team for review.  The team will review to ensure boundries are set correctly, read and accomodate any notes added during onboarding, determine if the region should belong to a multiregion, etc.  Once complete, the region is deployed.  As the process after MQTT verification is manual, the time to complete can vary, but typically regions are onboarded in under 24 hours.
 
 ---
 
