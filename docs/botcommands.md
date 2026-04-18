@@ -24,7 +24,7 @@ For example, both of these work:
 | `!remember {text}` | Developers, Moderators | Adds a fact to the bot's knowledge base. Can also reply to a message to remember its content. |
 | `!forget {text}` | Developers, Moderators | Removes any remembered facts that match the provided text. |
 | `!recall` | Developers, Moderators | Lists all remembered facts currently stored in the bot's memory. |
-| `!delete {#}` | Developers, Moderators | Deletes a specific remembered fact by its number (use `!recall` to see the list). |
+| `!delete {number}` | Developers, Moderators | Deletes a specific remembered fact by its number (use `!recall` to see the list). |
 | `!refresh` | Developers, Moderators | Forces a rebuild of the bot's wiki knowledge base. |
 | `!syncup` | Developers, Moderators | Pushes all locally stored remembered facts to the web admin panel. |
 
