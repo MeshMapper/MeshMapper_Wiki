@@ -2767,83 +2767,48 @@
 <thead>
 <tr>
 <th>Command</th>
-<th>Who Can Use</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td><code>!help</code></td>
+<td>Displays a help message with information about the bot and some available commands.</td>
+</tr>
+<tr>
 <td><code>!status {IATA}</code></td>
-<td>Everyone</td>
 <td>Displays the status of a region. For pending regions, shows MQTT verification status. For active/inactive regions, shows data point, repeater, and observer counts.</td>
 </tr>
 <tr>
 <td><code>!settings {IATA}</code></td>
-<td>Everyone</td>
 <td>Displays the region's configuration settings including hop bytes, flood traffic, hybrid mode, stale repeater age, duplicate ID detection, and RX channels.</td>
 </tr>
 <tr>
 <td><code>!admins {IATA}</code></td>
-<td>Everyone</td>
 <td>Lists the administrators for a region along with their contact information.</td>
 </tr>
 <tr>
 <td><code>!bug {description}</code></td>
-<td>Everyone</td>
-<td>Submits a bug report to GitHub. Can also reply to a message to use its content as the description. The bot uses AI to generate a concise title. Rate limited to 5 per user per hour (Developers and Moderators are exempt).</td>
+<td>Submits a bug report to GitHub. Can also reply to a message to use its content as the description. The bot uses AI to generate a concise title. Rate limited to 5 per user per hour.</td>
 </tr>
 <tr>
 <td><code>!issue {description}</code></td>
-<td>Everyone</td>
 <td>Alias for <code>!bug</code>.</td>
 </tr>
 <tr>
 <td><code>!feature {description}</code></td>
-<td>Everyone</td>
 <td>Submits a feature request to GitHub. Works the same as <code>!bug</code> but creates a feature request instead.</td>
 </tr>
 <tr>
 <td><code>!resetpassword</code></td>
-<td>Everyone (self-service)</td>
-<td>Resets your own admin password if your Discord name matches an account in the system. New credentials are sent via DM. Developers and Moderators can also reply to another user's message to reset their password.</td>
-</tr>
-<tr>
-<td><code>!createadmin {IATA}</code></td>
-<td>Developers, Moderators</td>
-<td>Creates a new regional admin account. Must be used as a reply to the target user's message. If the user already has an account, the region is added to their existing account. Credentials are sent to the target user via DM.</td>
-</tr>
-<tr>
-<td><code>!remember {text}</code></td>
-<td>Developers, Moderators</td>
-<td>Adds a fact to the bot's knowledge base. Can also reply to a message to remember its content.</td>
-</tr>
-<tr>
-<td><code>!forget {text}</code></td>
-<td>Developers, Moderators</td>
-<td>Removes any remembered facts that match the provided text.</td>
-</tr>
-<tr>
-<td><code>!recall</code></td>
-<td>Developers, Moderators</td>
-<td>Lists all remembered facts currently stored in the bot's memory.</td>
-</tr>
-<tr>
-<td><code>!delete {number}</code></td>
-<td>Developers, Moderators</td>
-<td>Deletes a specific remembered fact by its number (use <code>!recall</code> to see the list).</td>
-</tr>
-<tr>
-<td><code>!refresh</code></td>
-<td>Developers, Moderators</td>
-<td>Forces a rebuild of the bot's wiki knowledge base.</td>
-</tr>
-<tr>
-<td><code>!syncup</code></td>
-<td>Developers, Moderators</td>
-<td>Pushes all locally stored remembered facts to the web admin panel.</td>
+<td>Resets your own admin password if your Discord name matches an account in the system. New credentials are sent via DM.</td>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Additional Commands</p>
+<p>Additional commands are available for users with the Developers or Moderator roles. These commands are not listed here.</p>
+</div>
 <h2 id="general-questions">General Questions<a class="headerlink" href="#general-questions" title="Permanent link">¶</a></h2>
 <p>In addition to commands, you can tag the bot with any question about MeshMapper and it will answer using its knowledge of the <a href="https://wiki.meshmapper.net">MeshMapper Wiki</a>. For example:</p>
 <ul>
@@ -2856,7 +2821,6 @@
 <ul>
 <li>All commands require the bot to be tagged (e.g. <code>@MeshMapper !status YOW</code>), except in DMs where tagging is not required.</li>
 <li>When submitting bugs or features by replying to a message, the "Submitted by" field credits the original poster, not the person who tagged the bot.</li>
-<li>The <code>!createadmin</code> and <code>!resetpassword</code> commands send credentials via DM. If the target user has DMs disabled, the bot will notify the channel that the DM could not be delivered.</li>
 </ul>
 
 
