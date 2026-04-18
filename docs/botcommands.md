@@ -21,6 +21,7 @@ For example, both of these work:
 | `!issue {description}` | Alias for `!bug`. |
 | `!feature {description}` | Submits a feature request to GitHub. Works the same as `!bug` but creates a feature request instead. |
 | `!resetpassword` | Resets your own admin password if your Discord name matches an account in the system. New credentials are sent via DM. |
+| `!myissues` | Lists your open bug reports and feature requests that were submitted through the bot. |
 
 !!! note "Additional Commands"
     Additional commands are available for users with the Developers or Moderator roles. These commands are not listed here.
