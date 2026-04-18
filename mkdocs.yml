@@ -39,7 +39,6 @@ nav:
     - Leaderboards & Statistics: leaderboards.md
     - Profiles & Awards: awards.md
     - Map Embedding: embedding.md
-    - Bot Commands: botcommands.md
   
   - Administration:
     - Administrator List: administratorlist.md
@@ -52,6 +51,7 @@ nav:
     - Troubleshooting: troubleshooting.md
     - Report Bugs & Features: reportbugs.md
     - System Status: systemstatus.md
+    - Bot Commands: botcommands.md
 
   - Wardriving App:
     - Overview: app_overview.md
