@@ -129,6 +129,21 @@ Regions with imported historical data will have a **Legacy** layer available. Th
 
 The **Line of Sight** tool is available from the map toolbar and allows you to check terrain clearance between any number of points on the map. Click to place two (or more) points (or click directly on repeaters) and MeshMapper will fetch the elevation profile and show whether the path is clear or obstructed. When a repeater is selected as one of the endpoints, you can adjust its elevation above ground for more accurate results.
 
+### Coverage Timeline (Beta)
+
+The **Coverage Timeline** tool provides an animated playback of how a region's coverage has grown over time. Available from the **Tools** menu, it generates 20 cumulative snapshots from the region's earliest data to the present day.
+
+When activated, a playback bar appears at the bottom of the screen with controls to:
+
+- **Play/Pause** — automatically cycle through the timeline frames
+- **Scrub** — drag the slider to jump to a specific point in time
+- **Speed** — click the speed label to cycle through playback speeds (0.5x, 1x, 2x, 4x)
+
+Each frame shows all coverage data collected up to that date, so you can watch coverage fill in as wardrivers contribute data over weeks and months.
+
+!!! note "Beta Limitations"
+    This feature is currently in beta. Timeline tiles are generated on-demand the first time the tool is opened (which may take a moment), and are rendered at a single fixed zoom level. Zooming is not available during playback. Timeline is regenerated automatically when coverage data has grown significantly since the last generation.
+
 ### View in 3D (Beta)
 
 Region maps can be viewed in 3D. Available from the **Map Mode** section of the Layer Control, this opens a 3D globe view centered on the current map position with coverage data overlaid on terrain. This feature is currently in beta.
