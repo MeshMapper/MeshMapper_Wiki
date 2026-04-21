@@ -761,6 +761,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#repeater-id-grid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repeater ID Grid
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2860,6 +2871,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#repeater-id-grid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repeater ID Grid
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2927,6 +2949,40 @@
 <p>MeshMapper re-evaluates collisions as hop bytes update, restoring previously excluded repeaters to active status when they become distinguishable.</p>
 <h3 id="filtering-by-hop-bytes">Filtering by Hop Bytes<a class="headerlink" href="#filtering-by-hop-bytes" title="Permanent link">¶</a></h3>
 <p>The map's advanced filter panel includes a <strong>Hop Bytes</strong> filter, allowing you to view only repeaters of a specific byte length. This is helpful for tracking firmware upgrade progress across your region — quickly see which repeaters are still running 1-byte firmware and need updating.  In addition, a list of repeaters and their byte modes/capabilities can be found in the <strong>Region Info</strong> page under <strong>Repeaters</strong>.</p>
+<h3 id="repeater-id-grid">Repeater ID Grid<a class="headerlink" href="#repeater-id-grid" title="Permanent link">¶</a></h3>
+<p>The Repeater ID Grid (found in <strong>Region Info &gt; Repeater List</strong>) provides a visual overview of first-byte ID usage across the region. Each cell represents a possible first-byte prefix (<code>00</code> to <code>FF</code>) and is colour-coded:</p>
+<table>
+<thead>
+<tr>
+<th>Colour</th>
+<th>Status</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Green</strong></td>
+<td>Available</td>
+<td>No repeater is using this ID in any form.</td>
+</tr>
+<tr>
+<td><strong>Blue</strong></td>
+<td>Deployed</td>
+<td>ID is in use with no conflicts — a single 1-byte repeater, a single multi-byte repeater, or multiple unique multi-byte repeaters sharing the same first byte.</td>
+</tr>
+<tr>
+<td><strong>Red</strong></td>
+<td>Conflict</td>
+<td>A 1-byte repeater shares this first byte with one or more multi-byte repeaters. This is ambiguous for legacy clients that only see the first byte.</td>
+</tr>
+<tr>
+<td><strong>Black</strong></td>
+<td>Reserved</td>
+<td>Reserved by MeshCore firmware (<code>00</code> and <code>FF</code>). Not available for assignment.</td>
+</tr>
+</tbody>
+</table>
+<p>Clicking any cell shows the repeater(s) assigned to that prefix, including their Public ID and byte mode.</p>
 
 
 
