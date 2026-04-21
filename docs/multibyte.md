@@ -64,3 +64,16 @@ MeshMapper re-evaluates collisions as hop bytes update, restoring previously exc
 ### Filtering by Hop Bytes
 
 The map's advanced filter panel includes a **Hop Bytes** filter, allowing you to view only repeaters of a specific byte length. This is helpful for tracking firmware upgrade progress across your region — quickly see which repeaters are still running 1-byte firmware and need updating.  In addition, a list of repeaters and their byte modes/capabilities can be found in the **Region Info** page under **Repeaters**.
+
+### Repeater ID Grid
+
+The Repeater ID Grid (found in **Region Info > Repeater List**) provides a visual overview of first-byte ID usage across the region. Each cell represents a possible first-byte prefix (`00` to `FF`) and is colour-coded:
+
+| Colour | Status | Meaning |
+| --- | --- | --- |
+| **Green** | Available | No repeater is using this ID in any form. |
+| **Blue** | Deployed | ID is in use with no conflicts — a single 1-byte repeater, a single multi-byte repeater, or multiple unique multi-byte repeaters sharing the same first byte. |
+| **Red** | Conflict | A 1-byte repeater shares this first byte with one or more multi-byte repeaters. This is ambiguous for legacy clients that only see the first byte. |
+| **Black** | Reserved | Reserved by MeshCore firmware (`00` and `FF`). Not available for assignment. |
+
+Clicking any cell shows the repeater(s) assigned to that prefix, including their Public ID and byte mode.

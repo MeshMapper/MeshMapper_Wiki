@@ -95,7 +95,7 @@ https://yow.meshmapper.net/embed.php?lat=45.4034&lon=-75.7258&geofence=0
 
 ## Repeater ID Grid
 
-You can also embed the Repeater ID Usage grid — a 16×16 visual showing which first-byte repeater IDs are taken, available, or reserved in a region.
+You can also embed the Repeater ID Usage grid — a 16×16 visual showing which first-byte repeater IDs are available, deployed, in conflict, or reserved in a region.
 
 ### Embed URL
 
@@ -131,6 +131,6 @@ https://yow.meshmapper.net/embed_repeaters.php?mode=dark
 
 ### Notes
 
-- Clicking a grid cell opens a popup showing whether the ID prefix is available, reserved, or which repeater(s) occupy it.
+- Clicking a grid cell opens a popup showing whether the ID prefix is available, deployed, in conflict, or reserved, along with the repeater(s) that occupy it.
 - A "View on **MeshMapper**" link at the bottom opens the full repeater list on the region's map.
 - The grid is only available for regions using 1-byte repeater IDs. Multibyte regions will see a "Coming Soon" message instead.
