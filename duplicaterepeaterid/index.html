@@ -3195,6 +3195,10 @@
 <li>If one of the colliding repeaters has not been heard from in <strong>3× the region's configured Stale Repeater Age</strong> (e.g., 72 hours at the default 24-hour setting), it is considered gone and is automatically deleted.</li>
 <li><strong>The Survivor</strong>: Once the duplicate ID is removed, the remaining active repeater is automatically restored to <strong>Active</strong> status. Its icon will turn back to normal, it will reappear on Leaderboards, and new incoming pings will properly associate themselves with this repeater again.</li>
 </ul>
+<div class="admonition tip">
+<p class="admonition-title">Bypass Auto Delete</p>
+<p>If a repeater is known to go offline for extended periods (seasonal deployment, remote location, etc.), administrators can enable <strong>Bypass Auto Delete</strong> on that repeater via the edit modal. This prevents the cleanup routine from removing or deactivating it, even if it hasn't been heard within the stale timer.</p>
+</div>
 <h3 id="manual-resolution">Manual Resolution<a class="headerlink" href="#manual-resolution" title="Permanent link">¶</a></h3>
 <p>If both repeaters are active and legitimate (a true collision between two live devices):</p>
 <ul>
