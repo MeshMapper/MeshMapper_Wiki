@@ -2899,10 +2899,14 @@
 <li><strong>Standard</strong>: Colours represent ping type (green=BIDIR, orange=TX, purple=RX, etc.)</li>
 <li><strong>Effective Coverage</strong>: Averaged quality score (green=high quality, red=low quality)</li>
 <li><strong>Signal Strength</strong>: Based on SNR (green=strong, red=weak)</li>
-<li><strong>Ping Age</strong>: Based on data recency (green=recent, red=stale)</li>
+<li><strong>Ping Age</strong>: Based on data recency (green=recent, red=stale)(green</li>
 <li><strong>Noise Floor</strong>: Based on RF noise relative to each companion's baseline (green=quiet, red=loud)</li>
 </ul>
 <p>Check which mode is selected in the <strong>Coverage Mode</strong> section of the Layer Control.</p>
+</details>
+<details class="question">
+<summary>I'm not seeing repeater neighbours, or the associations are old (orange).</summary>
+<p>MeshMapper determines a repeater's neighbours using the hop information contained in repeater adverts, contact adverts, or wardriving pings. These packets will need to travel between two or repeaters before getting ingested by an observer.  For example, an advert that goes directly from repeater to observer has no hops, therefore no neighbour information is available.  However, if that same advert hops to a different repeater first and then to the observer, one neighbour association can be made.  The more observers and repeaters a region has, the greater the possibility packets will jump around between repeaters and record hop/neighbour information.</p>
 </details>
 <hr>
 <h2 id="mobile-app">Mobile App<a class="headerlink" href="#mobile-app" title="Permanent link">¶</a></h2>
