@@ -2864,6 +2864,7 @@
 <p>If you're having trouble with MeshMapper, you're in the right place. Browse the common issues below, or use the resources at the bottom of this page to get further help.</p>
 <hr>
 <h2 id="map-coverage">Map &amp; Coverage<a class="headerlink" href="#map-coverage" title="Permanent link">¶</a></h2>
+<div id="repeater-not-showing">
 <details class="question">
 <summary>My repeater isn't showing on the map.</summary>
 <p>Repeaters appear on the map once their adverts are heard through a connected observer. Try the following:</p>
@@ -2878,10 +2879,14 @@
 <p>If your repeater or room server is also an observer, it may not "hear" its own advert.  Another observer must be within range in order to ingest it's advert and display on the map.  If there are no other observers nearby, you can mimic the repeaters advert from a companion by using the MeshCore app, select the ellipses beside the repeater, select "Share", and then select "Zero Hop Advert".  When this is the case, however, this repeater will eventually become stale and get removed.  This process must be repeated regularly.</p>
 <p>If it still doesn't appear, contact your region's administrator.</p>
 </details>
+</div>
+<div id="repeater-excluded">
 <details class="question">
 <summary>My repeater shows as Excluded or Duplicate.</summary>
 <p>As a region's mesh network grows, the likelihood of two repeaters sharing the same short ID increases. MeshMapper detects these collisions and disables affected repeaters to protect data integrity. See <a href="https://wiki.meshmapper.net/duplicaterepeaterid/">Duplicate Repeater IDs</a> for a full explanation and resolution steps.</p>
 </details>
+</div>
+<div id="map-slow">
 <details class="question">
 <summary>The map is slow or unresponsive on my device.</summary>
 <p>Large regions with lots of data can be demanding on older devices or slow connections. Try the following:</p>
@@ -2892,6 +2897,8 @@
 <li><strong>Grid Mode</strong>: Use the "Simplified" grid mode from within the map settings.</li>
 </ul>
 </details>
+</div>
+<div id="unexpected-colours">
 <details class="question">
 <summary>Grid squares are showing unexpected colours.</summary>
 <p>Grid square colours depend on the active <strong>Coverage Mode</strong>:</p>
@@ -2904,12 +2911,16 @@
 </ul>
 <p>Check which mode is selected in the <strong>Coverage Mode</strong> section of the Layer Control.</p>
 </details>
+</div>
+<div id="no-neighbours">
 <details class="question">
 <summary>I'm not seeing repeater neighbours, or the associations are old (orange).</summary>
 <p>MeshMapper determines a repeater's neighbours using the hop information contained in repeater adverts, contact adverts, or wardriving pings. These packets will need to travel between two or repeaters before getting ingested by an observer.  For example, an advert that goes directly from repeater to observer has no hops, therefore no neighbour information is available.  However, if that same advert hops to a different repeater first and then to the observer, one neighbour association can be made.  The more observers and repeaters a region has, the greater the possibility packets will jump around between repeaters and record hop/neighbour information.</p>
 </details>
+</div>
 <hr>
 <h2 id="mobile-app">Mobile App<a class="headerlink" href="#mobile-app" title="Permanent link">¶</a></h2>
+<div id="app-wont-connect">
 <details class="question">
 <summary>The app won't connect to my MeshCore device.</summary>
 <p>Bluetooth connections can be finicky. Try the following:</p>
@@ -2922,10 +2933,14 @@
 </ol>
 <p>See the <a href="https://wiki.meshmapper.net/app_connection_guide/">Connection Guide</a> for detailed pairing instructions.</p>
 </details>
+</div>
+<div id="outside-region">
 <details class="question">
 <summary>The app says I'm outside of a region.</summary>
 <p>You need to be within a registered MeshMapper region to start a wardriving session. If there isn't a region near you, you can <a href="https://wiki.meshmapper.net/onboarding">request one</a>.</p>
 </details>
+</div>
+<div id="gps-accuracy">
 <details class="question">
 <summary>GPS isn't locking or accuracy is poor.</summary>
 <p>GPS accuracy depends on your device and environment. Try the following:</p>
@@ -2936,12 +2951,16 @@
 <li>On Android, ensure location mode is set to "High accuracy."</li>
 </ul>
 </details>
+</div>
 <hr>
 <h2 id="administration">Administration<a class="headerlink" href="#administration" title="Permanent link">¶</a></h2>
+<div id="cant-access-admin">
 <details class="question">
 <summary>I can't access the admin portal.</summary>
 <p>The admin portal is only available to region administrators. If you believe you should have access, confirm with the person who set up the region or contact a Moderator on Discord. See the <a href="https://wiki.meshmapper.net/administratorlist/">Administrator List</a> to find your region's admin.</p>
 </details>
+</div>
+<div id="observer-not-working">
 <details class="question">
 <summary>Observer data isn't coming through.</summary>
 <p>If your observer isn't forwarding data:</p>
@@ -2952,6 +2971,7 @@
 </ol>
 <p>See <a href="https://wiki.meshmapper.net/mqtt-main/">MeshMapper MQTT Setup</a> for configuration details.</p>
 </details>
+</div>
 <hr>
 <h2 id="getting-more-help">Getting More Help<a class="headerlink" href="#getting-more-help" title="Permanent link">¶</a></h2>
 <p>If you can't find the answer here, there are several ways to get support:</p>
