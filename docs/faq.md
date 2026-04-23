@@ -101,3 +101,8 @@
 
 ??? question "Can I have access to the MeshMapper MQTT broker or raw data?"
     No.  MeshMapper is not a data broker.
+
+??? question "Is MeshMapper open source?  Can I run a local copy?"
+    The MeshMapper wardriving app for Android and iOS is open source.  It can also natively be configured to send wardriving data to additional endpoints outside of MeshMapper.
+
+    The MeshMapper web interface is not open source and cannot be run locally.  The MeshMapper development team has put time, effort, and money into developing a tool that can be used and is accessible to all globally without the requirement/complexity/cost of any per-region/local configuration of code, servers, MQTT engines, hosting, etc.  Part of MeshMapper's appeal is global leaderboards and comparing region by region, which is not possible unless made a global platform.
