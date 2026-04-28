@@ -3341,16 +3341,17 @@
 <h4 id="adding-a-new-administrator">Adding a New Administrator<a class="headerlink" href="#adding-a-new-administrator" title="Permanent link">¶</a></h4>
 <p>Region admins can invite new administrators directly from this tab by clicking <strong>+ Add Administrator</strong>.</p>
 <ol>
-<li><strong>Username</strong> <em>(required)</em>: Choose a username for the new administrator. As you type, the system will check if the username already exists. If the administrator already has an account, a notice will appear and the form will switch to "Grant Access" mode — submitting will add your region to their existing access instead of creating a new account.</li>
-<li><strong>Contact Info</strong> <em>(required)</em>: Enter the new administrator's contact information (e.g., Discord handle or email) so they can be reached if needed. If the username already exists, this field will auto-populate with their current contact info.</li>
+<li><strong>Username</strong> <em>(required)</em>: Choose a username for the new administrator. If the administrator already has an account, a notice will appear and the form will switch to "Grant Access" mode — submitting will add your region to their existing access.</li>
+<li><strong>Contact Info</strong> <em>(required)</em>: Enter the new administrator's contact information (e.g., Discord handle or email).</li>
 <li><strong>Region Assignment</strong> <em>(required)</em>: Select which region the new administrator should have access to. On multiregion admin panels, you can assign the administrator to the multi-region group or to an individual sub-region.</li>
 </ol>
-<p>For <strong>new administrators</strong>, a message will display with a registration link and the username. Share both with the new administrator. For <strong>existing administrators</strong>, a confirmation will display that access to the region has been granted — no registration link is needed.</p>
+<p>For <strong>new administrators</strong>, an invite link will be generated. Copy the link and send it to the new administrator. Invite links expire after <strong>7 days</strong>. For <strong>existing administrators</strong>, a confirmation will display that access to the region has been granted — no invite link is needed.</p>
+<p>Pending invites are displayed below the administrators table, showing the username, region, who sent the invite, and when it expires. Invites can be deleted before they are claimed.</p>
 <h4 id="registration">Registration<a class="headerlink" href="#registration" title="Permanent link">¶</a></h4>
-<p>New administrators claim their account by visiting <a href="https://register.meshmapper.net">register.meshmapper.net</a> and entering the username provided to them. If the account exists and has not yet been registered, a <strong>temporary key</strong> will be generated and displayed.</p>
+<p>New administrators claim their account by visiting the invite link sent to them. The link opens a confirmation page showing their username, assigned region, and who invited them. Clicking <strong>Accept Invite &amp; Create Account</strong> generates their password.</p>
 <div class="admonition warning">
-<p class="admonition-title">Temporary Key</p>
-<p>The temporary key is shown <strong>only once</strong> during registration. The new administrator must copy it immediately. After logging in for the first time, they should change their key from the <strong>User Settings</strong> tab.</p>
+<p class="admonition-title">Password</p>
+<p>The password is shown <strong>only once</strong> during registration. The new administrator must copy it immediately. After logging in for the first time, they can change their password from the <strong>User Settings</strong> tab.</p>
 </div>
 <h2 id="maintenance-tools">Maintenance Tools<a class="headerlink" href="#maintenance-tools" title="Permanent link">¶</a></h2>
 <p>The <strong>Tools</strong> tab contains powerful utilities for bulk operations. <strong>Use with caution.</strong></p>
