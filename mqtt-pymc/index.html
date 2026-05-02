@@ -535,6 +535,29 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#option-1-add-meshmapper-from-the-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 1. Add MeshMapper from the UI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-2-add-meshmapper-manually" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 2. Add MeshMapper manually
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Option 2. Add MeshMapper manually">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#1-stop-the-service" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -575,6 +598,11 @@
       
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2808,6 +2836,29 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#option-1-add-meshmapper-from-the-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 1. Add MeshMapper from the UI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-2-add-meshmapper-manually" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 2. Add MeshMapper manually
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Option 2. Add MeshMapper manually">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#1-stop-the-service" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2855,6 +2906,11 @@
     </nav>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#verifying-your-observer" class="md-nav__link">
@@ -2886,50 +2942,67 @@
 
 <h1 id="pymc-repeater-mqtt-setup">PyMC Repeater MQTT Setup<a class="headerlink" href="#pymc-repeater-mqtt-setup" title="Permanent link">¶</a></h1>
 <p>These instructions cover adding the MeshMapper MQTT broker to an existing pyMC-Repeater installation. If you haven't set up pyMC-Repeater yet, refer to the <a href="https://github.com/rightup/pyMC_Repeater">pyMC documentation</a> first.</p>
-<p><em>Thanks to mrzarquon for providing the information for this guide.</em></p>
+<p><em>Thanks to mrzarquon and yellowcooln for providing the information for this guide.</em></p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
 <ul>
 <li>A Raspberry Pi running pyMC-Repeater with LetsMesh already configured and working</li>
 </ul>
 <h2 id="adding-the-meshmapper-broker">Adding the MeshMapper Broker<a class="headerlink" href="#adding-the-meshmapper-broker" title="Permanent link">¶</a></h2>
-<h3 id="1-stop-the-service">1. Stop the Service<a class="headerlink" href="#1-stop-the-service" title="Permanent link">¶</a></h3>
+<h3 id="option-1-add-meshmapper-from-the-ui">Option 1. Add MeshMapper from the UI<a class="headerlink" href="#option-1-add-meshmapper-from-the-ui" title="Permanent link">¶</a></h3>
+<p>This is the easiest way to add MeshMapper to an existing pyMC-Repeater installation.</p>
+<ol>
+<li>Open <strong>Configuration &gt; Observer</strong>.</li>
+<li>Click <strong>Edit</strong> next to <strong>Observer Configuration</strong>.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../assets/pymc-mqtt1.png" data-desc-position="bottom"><img alt="Observer configuration screen" src="../assets/pymc-mqtt1.png"></a></p>
+<ol>
+<li>Click <strong>From Template</strong>.</li>
+<li>Select <strong>MeshMapper</strong>.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../assets/pymc-mqtt2.png" data-desc-position="bottom"><img alt="MeshMapper template selection" src="../assets/pymc-mqtt2.png"></a></p>
+<ol>
+<li>Click <strong>Save Settings</strong>.</li>
+<li>Open the <strong>Terminal</strong> option on the left.</li>
+<li>Enter <code>restart</code> to restart the service.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../assets/pymc-mqtt3.png" data-desc-position="bottom"><img alt="Restarting pyMC-Repeater from the terminal" src="../assets/pymc-mqtt3.png"></a></p>
+<h3 id="option-2-add-meshmapper-manually">Option 2. Add MeshMapper manually<a class="headerlink" href="#option-2-add-meshmapper-manually" title="Permanent link">¶</a></h3>
+<p>If you prefer, you can still add MeshMapper by editing the config file directly.</p>
+<h4 id="1-stop-the-service">1. Stop the Service<a class="headerlink" href="#1-stop-the-service" title="Permanent link">¶</a></h4>
 <pre><code class="language-bash">sudo systemctl stop pymc-repeater
 </code></pre>
-<h3 id="2-edit-the-configuration">2. Edit the Configuration<a class="headerlink" href="#2-edit-the-configuration" title="Permanent link">¶</a></h3>
+<h4 id="2-edit-the-configuration">2. Edit the Configuration<a class="headerlink" href="#2-edit-the-configuration" title="Permanent link">¶</a></h4>
 <p>Open the pyMC-Repeater config file:</p>
 <pre><code class="language-bash">sudo nano /etc/pymc_repeater/config.yaml
 </code></pre>
-<p>Add <code>mqtt.meshmapper.cc</code> to the <code>additional_brokers</code> field under the <code>letsmesh</code> section:</p>
-<pre><code class="language-yaml">letsmesh:
-  enabled: true
-  iata_code: YOW  # Replace with your region's IATA code
-  broker_index: 0
-  additional_brokers:
-  - name: mqtt.meshmapper.cc
-    host: mqtt.meshmapper.cc
-    port: 443
-    audience: mqtt.meshmapper.cc
-  status_interval: 300
-</code></pre>
-<p>If you don't want to send logs to LetsMesh and only want to use MeshMapper, set <code>broker_index</code> to <code>-2</code>:</p>
-<pre><code class="language-yaml">letsmesh:
-  enabled: true
-  iata_code: YOW  # Replace with your region's IATA code
-  broker_index: -2
-  additional_brokers:
-  - name: mqtt.meshmapper.cc
-    host: mqtt.meshmapper.cc
-    port: 443
-    audience: mqtt.meshmapper.cc
-  status_interval: 300
+<p>Add <code>mqtt.meshmapper.cc</code> to the <code>brokers</code> field under the <code>brokers</code> section:</p>
+<pre><code class="language-yaml">mqtt:
+  iata_code: &lt;IATA&gt; # e.g., "SFO", "LHR", "Test"
+  status_interval: 300 # How often a status message is sent (in seconds)
+  owner: ""
+  email: ""
+  brokers:
+    - name: MeshMapper
+      enabled: true
+      transport: websockets
+      host: mqtt.meshmapper.cc
+      port: 443
+      format: letsmesh
+      disallowed_packet_types: []
+      retain_status: false
+      tls:
+        enabled: true
+        insecure: false
+      use_jwt_auth: true
+      audience: mqtt.meshmapper.cc
 </code></pre>
 <p>Save and exit (<code>Ctrl+X</code>, then <code>Y</code>, then <code>Enter</code>).</p>
-<h3 id="3-start-the-service">3. Start the Service<a class="headerlink" href="#3-start-the-service" title="Permanent link">¶</a></h3>
+<h4 id="3-start-the-service">3. Start the Service<a class="headerlink" href="#3-start-the-service" title="Permanent link">¶</a></h4>
 <pre><code class="language-bash">sudo systemctl start pymc-repeater
 </code></pre>
-<h3 id="4-verify-the-connection-optional">4. Verify the Connection (Optional)<a class="headerlink" href="#4-verify-the-connection-optional" title="Permanent link">¶</a></h3>
+<h4 id="4-verify-the-connection-optional">4. Verify the Connection (Optional)<a class="headerlink" href="#4-verify-the-connection-optional" title="Permanent link">¶</a></h4>
 <p>Follow the logs to confirm the broker connection is working:</p>
-<pre><code class="language-bash">sudo journalctl -u pymc-repeater.service -f | grep LetsMeshHandler
+<pre><code class="language-bash">sudo journalctl -u pymc-repeater.service -f | grep MeshMapper
 </code></pre>
 <h2 id="verifying-your-observer">Verifying Your Observer<a class="headerlink" href="#verifying-your-observer" title="Permanent link">¶</a></h2>
 <p>Once your observer is running and connected, it will appear in your region's <strong>Admin Portal</strong> under the <a href="../admins/#observers">Observers tab</a> once packets have been received (repeater or companion adverts, or wardriving pings). You should see a checkmark under the broker(s) your observer is connected to.</p>
