@@ -2975,7 +2975,7 @@
 <p>Open the pyMC-Repeater config file:</p>
 <pre><code class="language-bash">sudo nano /etc/pymc_repeater/config.yaml
 </code></pre>
-<p>Add <code>mqtt.meshmapper.cc</code> to the <code>brokers</code> field under the <code>brokers</code> section:</p>
+<p>Add <code>mqtt.meshmapper.net</code> to the <code>brokers</code> field under the <code>brokers</code> section:</p>
 <pre><code class="language-yaml">mqtt:
   iata_code: &lt;IATA&gt; # e.g., "SFO", "LHR", "Test"
   status_interval: 300 # How often a status message is sent (in seconds)
@@ -2985,7 +2985,7 @@
     - name: MeshMapper
       enabled: true
       transport: websockets
-      host: mqtt.meshmapper.cc
+      host: mqtt.meshmapper.net
       port: 443
       format: letsmesh
       disallowed_packet_types: []
@@ -2994,7 +2994,7 @@
         enabled: true
         insecure: false
       use_jwt_auth: true
-      audience: mqtt.meshmapper.cc
+      audience: mqtt.meshmapper.net
 </code></pre>
 <p>Save and exit (<code>Ctrl+X</code>, then <code>Y</code>, then <code>Enter</code>).</p>
 <h4 id="3-start-the-service">3. Start the Service<a class="headerlink" href="#3-start-the-service" title="Permanent link">¶</a></h4>
