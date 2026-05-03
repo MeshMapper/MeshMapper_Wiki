@@ -9,7 +9,7 @@ An observer can connect to one or both of the following brokers:
 | Broker | Host | Port | Transport | Authentication |
 | --- | --- | --- | --- | --- |
 | **LetsMesh** | `mqtt-us-v1.letsmesh.net` / `mqtt-eu-v1.letsmesh.net` | 443 | WebSockets + TLS | Device signing |
-| **MeshMapper** | `mqtt.meshmapper.cc` | 443 | WebSockets + TLS | Device signing |
+| **MeshMapper** | `mqtt.meshmapper.net` | 443 | WebSockets + TLS | Device signing |
 
 !!! tip "Redundancy"
     Connecting to both brokers is recommended but not required. Data received from multiple brokers is automatically deduplicated by MeshMapper.

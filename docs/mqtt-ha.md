@@ -23,7 +23,7 @@ Click **Add Broker** and fill in the following settings:
 | Setting | Value |
 | --- | --- |
 | **Enabled** | Checked |
-| **Server** | `mqtt.meshmapper.cc` |
+| **Server** | `mqtt.meshmapper.net` |
 | **Port** | `443` |
 | **Transport** | WebSocket |
 | **Use TLS** | Checked |
@@ -32,7 +32,7 @@ Click **Add Broker** and fill in the following settings:
 | **Username** | *(leave blank)* |
 | **Password** | *(leave blank)* |
 | **Use MeshCore Auth Token** | Checked |
-| **Token Audience** | `mqtt.meshmapper.cc` |
+| **Token Audience** | `mqtt.meshmapper.net` |
 | **Owner Pub Key** | *(leave blank)* |
 | **Owner Email** | *(leave blank)* |
 | **Payload Mode** | LetsMesh-Compatible |

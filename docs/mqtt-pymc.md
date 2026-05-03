@@ -48,7 +48,7 @@ Open the pyMC-Repeater config file:
 sudo nano /etc/pymc_repeater/config.yaml
 ```
 
-Add `mqtt.meshmapper.cc` to the `brokers` field under the `brokers` section:
+Add `mqtt.meshmapper.net` to the `brokers` field under the `brokers` section:
 
 ```yaml
 mqtt:
@@ -60,7 +60,7 @@ mqtt:
     - name: MeshMapper
       enabled: true
       transport: websockets
-      host: mqtt.meshmapper.cc
+      host: mqtt.meshmapper.net
       port: 443
       format: letsmesh
       disallowed_packet_types: []
@@ -69,7 +69,7 @@ mqtt:
         enabled: true
         insecure: false
       use_jwt_auth: true
-      audience: mqtt.meshmapper.cc
+      audience: mqtt.meshmapper.net
 ```
 
 Save and exit (`Ctrl+X`, then `Y`, then `Enter`).

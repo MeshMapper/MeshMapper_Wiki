@@ -84,13 +84,13 @@ When prompted to configure additional brokers, select "1" additonal, and add the
 
 | Setting | Value |
 | --- | --- |
-| Server hostname | `mqtt.meshmapper.cc` |
+| Server hostname | `mqtt.meshmapper.net` |
 | Port | `443` |
 | WebSockets transport | **Yes** |
 | TLS/SSL encryption | **Yes** |
 | Verify TLS certificates | **Yes** |
 | Authentication method | **MeshCore Auth Token** |
-| Token audience | `mqtt.meshmapper.cc` |
+| Token audience | `mqtt.meshmapper.net` |
 
 When prompted for topic configuration, select **Default pattern** (`meshcore/{IATA}/{PUBLIC_KEY}/status`, `meshcore/{IATA}/{PUBLIC_KEY}/packets`).
 
