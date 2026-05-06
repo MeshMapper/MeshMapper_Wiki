@@ -2912,6 +2912,12 @@
 <p>Check which mode is selected in the <strong>Coverage Mode</strong> section of the Layer Control.</p>
 </details>
 </div>
+<div id="live-analyzer-lines">
+<details class="question">
+<summary>The Live Analyzer isn't drawing lines between some repeaters, or otherwise doesn't appear to be showing all packet paths.</summary>
+<p>The Live Visualization mode in the Packet Analyzer can only draw lines/paths between repeaters that are <strong>not</strong> in a duplicate or conflict state. Because duplicate repeaters share the same identifier, the system cannot determine which physical repeater was actually involved in the packet path, so lines are not drawn to avoid displaying misleading information.  This is the same duplicate detection logic that applies elsewhere in MeshMapper.</p>
+</details>
+</div>
 <div id="no-neighbours">
 <details class="question">
 <summary>I'm not seeing repeater neighbours, or the associations are old (orange).</summary>
