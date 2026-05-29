@@ -50,7 +50,7 @@ When your region is approved and deployed, an administrator account will be auto
 
 ## Defining the Boundary
 
-One of the most important steps is defining the geographic boundary of your region.
+One of the most important steps is defining the geographic boundary of your region. For a more detailed look into creating region boundaries (particularly if using geoJSON files), please see [Region Boundaries](https://wiki.meshmapper.net/region_boundaries.md).
 
   - **The Map Tool**: The form includes an interactive map with drawing tools.
   - **Draw Polygon**: Use the **Polygon Tool** (pentagon icon) to draw a precise shape around your mesh's coverage area if a circle  doesn't accurately describe it.  Alternatively, click the "Auto Generate Boundry" button to have AI attempt to draw the boundry for you.
