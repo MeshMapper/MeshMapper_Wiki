@@ -2,12 +2,16 @@
 
 MeshMapper is designed to be scalable, allowing new geographic regions to be added to the network. This guide outlines the process for community members to request a new map zone for their local mesh.
 
+*Please note that all region approvals are granted at the discretion of the master and global administration team. Some circumstances may better be served by working with an existing region rather than creating a new one.*
+
 ## Prerequisites
 
-Before requesting a new region, you must ensure the local infrastructure is ready to support it.
+Before requesting a new region, you must ensure the local infrastructure is ready to support it and that the new region would not be redundant or better served by making modifications to an existing region's boundaries.
 
   - **Active Mesh Community**: There should be an active group of users in the area.
-  - **MQTT Observers**: You need at least one (preferably 2-3) nodes configured as **MQTT Clients** connected to the **LetsMesh** broker, the **MeshMapper** broker, or both.
+  - **No Existing Region**: There must not be an existing region covering a substantial portion of the area desired for any new region. Regions within regions will not be allowed.
+  - **No Nearby Neighbors**: No nearby neighboring regions should exist that could reasonably be expanded to include your desired area. The details matter. If your mesh is and will likely remain distinct from a nearby neighbor (e.g. due to natural terrain features that block RF), then a new region would be reasonable.
+  - **MQTT Observers**: You need at least one (preferably 2-3) nodes configured as **MQTT Clients** connected to the **MeshMapper** broker, the **LetsMesh** broker, or both.
     - These nodes act as the "ears" of the map, reporting traffic to MeshMapper.
     - See [MeshMapper MQTT Setup](mqtt-main.md) for detailed instructions.
 
@@ -19,7 +23,7 @@ The form collects the following critical information:
 
 | Field | Description |
 | --- | --- |
-| **IATA Code** | The 3-letter code that will identify your region in the database and URL (e.g., `yow.meshmapper.net`). |
+| **IATA Code** | The 3-letter code that will identify your region in the database and URL (e.g., `yow.meshmapper.net`). *Please note that the mere existence of an IATA code does not, in and of itself, imply suitability for a MeshMapper region to be created using that code.*|
 | **Region Name** | The display name for the map (e.g., "Ottawa, CA", "London, UK"). |
 | **Region Radius** | A rough estimate (in km) of the area you intend to cover. |
 | **Contact Info** | Your Discord username or Email address. This is required for administrators to contact you during the setup process. |
@@ -50,18 +54,18 @@ When your region is approved and deployed, an administrator account will be auto
 
 ## Defining the Boundary
 
-One of the most important steps is defining the geographic boundary of your region. For a more detailed look into creating region boundaries (particularly if using geoJSON files), please see [Region Boundaries](region_boundaries.md).
+One of the most important steps is defining the geographic boundary of your region. For a more detailed look into creating region boundaries (particularly if using geoJSON files), please see [Region Boundaries](region_boundaries.md). Regardless of which method is ultimately used, look at the other regions in your area and attempt to coordinate/align with area best practices.
 
   - **The Map Tool**: The form includes an interactive map with drawing tools.
-  - **Draw Polygon**: Use the **Polygon Tool** (pentagon icon) to draw a precise shape around your mesh's coverage area if a circle  doesn't accurately describe it.  Alternatively, click the "Auto Generate Boundry" button to have AI attempt to draw the boundry for you.
-  - **Import GeoJSON**: Alternatively, click the **Import GeoJSON** button to paste GeoJSON data directly. This is useful if you already have a boundary defined in another tool (e.g., [geojson.io](https://geojson.io)). Supported formats include `Polygon`, `MultiPolygon`, `Feature`, and `FeatureCollection`.
+  - **Draw Polygon (preferred)**: Use the **Polygon Tool** (pentagon icon) to draw a precise shape around your mesh's coverage area if a circle  doesn't accurately describe it.  Alternatively, click the "Auto Generate Boundry" button to have AI attempt to draw the boundry for you.
+  - **Import GeoJSON (alternate preferred)**: Alternatively, click the **Import GeoJSON** button to paste GeoJSON data directly. This is useful if you already have a boundary defined in another tool (e.g., [geojson.io](https://geojson.io)). Supported formats include `Polygon`, `MultiPolygon`, `Feature`, and `FeatureCollection`.
   - **Region Center**: The center pin automatically moves to the center of the polygon when one is drawn or imported. You can also drag the pin manually if needed. This determines where your region appears on the global map.
   - **Purpose**: This polygon is used to:
     - Define where wardriving activities in your region can occur.
     - Determine if a user is "In Zone" for authentication purposes.
     - Render the region border on the global map.
 
-*Note: Keep the boundary reasonable. You can always expand it later as your network grows.*
+*Note: Keep the boundary reasonable. You can always modify it later, in coordination with your neighbors, as your network grows.*
 
 ## Submission & Approval
 
