@@ -78,8 +78,8 @@ Once you submit the form:
 
 If you associated your Discord account during the onboarding process, you will receive automatic messages from MeshMapper with onboarding status.
 
-!!! info "Request Deletion"
-    Pending onboarding requests that have not passed MQTT verification in 3 days will automatically be deleted.
+> [!WARNING]
+> Pending onboarding requests that have not passed MQTT verification in 3 days will automatically be deleted.
 
 ## Legacy Data
 
