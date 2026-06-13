@@ -8,7 +8,6 @@ MeshMapper is designed to be scalable, allowing new geographic regions to be add
 
 Before requesting a new region, you must ensure the local infrastructure is ready to support it and that the new region would not be redundant or better served by making modifications to an existing region's boundaries.
 
-  - **Active Mesh Community**: There should be an active group of users in the area.
   - **No Existing Region**: There must not be an existing region covering a substantial portion of the area desired for any new region. Regions within regions will not be allowed.
   - **No Nearby Neighbors**: No nearby neighboring regions should exist that could reasonably be expanded to include your desired area. The details matter. If your mesh is and will likely remain distinct from a nearby neighbor (e.g. due to natural terrain features that block RF), then a new region would be reasonable.
   - **MQTT Observers**: You need at least one (preferably 2-3) nodes configured as **MQTT Clients** connected to the **MeshMapper** broker, the **LetsMesh** broker, or both.
@@ -28,8 +27,8 @@ The form collects the following critical information:
 | **Region Radius** | A rough estimate (in km) of the area you intend to cover. |
 | **Contact Info** | Your Discord username or Email address. This is required for administrators to contact you during the setup process. |
 | **Public Channels** | A list of public channels used in your mesh (e.g., `Chat`, `Emergency`). This helps the wardriving app correctly identify valid traffic. |
-| **Observer IDs** | The **Public ID** (e.g., `12345678XXXXXX...`) of the nodes acting as MQTT gateways. |
-| **Volunteer as Administrator** | Optional. Tick this to volunteer as your region's administrator. Requires Discord to be linked. See [below](#volunteer-as-region-administrator) for details. |
+| **Observer IDs** | The **Public ID** (e.g., `12345678XXXXXX...`) of the nodes acting as MQTT gateways. There are two options here. You can either manually enter the public keys of specific observers you want to ingest data from (ignoring all others - you will maintain this list on an ongoing basis), or "Subscribe to all observers" and ingest data from anyone who brings an observer online|
+| **Volunteer as Administrator** | Optional but recommended. Tick this to volunteer as your region's administrator. Requires Discord to be linked. See [below](#volunteer-as-region-administrator) for details. |
 
 ## Volunteer as Region Administrator
 
@@ -40,6 +39,7 @@ Enabling this option signals to the MeshMapper team that you are willing to take
   - Monitoring and managing your region's data and settings.
   - Supporting local wardrivers and answering questions about the map.
   - Being an active and available point of contact for your mesh community.
+    - **Please note: Admins are expected to maintain an ongoing, active presence beyond the initial onboarding process.  Admins who do not login to their account on the MeshMapper admin panel for more than 90 days are subject to being marked as inactive and/or having admin access removed.** Inactive accounts will not be consulted on changes to a region, and new admins may be added to a region at any time should no active admin accounts be present.
 
 **Requirements:**
 
