@@ -2850,11 +2850,13 @@
 
 <h1 id="onboarding-a-new-region">Onboarding a New Region<a class="headerlink" href="#onboarding-a-new-region" title="Permanent link">¶</a></h1>
 <p>MeshMapper is designed to be scalable, allowing new geographic regions to be added to the network. This guide outlines the process for community members to request a new map zone for their local mesh.</p>
+<p><em>Please note that all region approvals are granted at the discretion of the master and global administration team. Some circumstances may better be served by working with an existing region rather than creating a new one.</em></p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
-<p>Before requesting a new region, you must ensure the local infrastructure is ready to support it.</p>
+<p>Before requesting a new region, you must ensure the local infrastructure is ready to support it and that the new region would not be redundant or better served by making modifications to an existing region's boundaries.</p>
 <ul>
-<li><strong>Active Mesh Community</strong>: There should be an active group of users in the area.</li>
-<li><strong>MQTT Observers</strong>: You need at least one (preferably 2-3) nodes configured as <strong>MQTT Clients</strong> connected to the <strong>LetsMesh</strong> broker, the <strong>MeshMapper</strong> broker, or both.<ul>
+<li><strong>No Existing Region</strong>: There must not be an existing region covering a substantial portion of the area desired for any new region. Regions within regions will not be allowed.</li>
+<li><strong>No Nearby Neighbors</strong>: No nearby neighboring regions should exist that could reasonably be expanded to include your desired area. The details matter. If your mesh is and will likely remain distinct from a nearby neighbor (e.g. due to extreme distance or natural terrain features that block RF), then a new region would be reasonable. If your desired new region falls in this category, please explain how it is justified vs modifying a nearby existing region's boundaries in the "Additional Notes" field.</li>
+<li><strong>MQTT Observers</strong>: You need at least one (preferably 2-3) nodes configured as <strong>MQTT Clients</strong> connected to the <strong>MeshMapper</strong> broker, the <strong>LetsMesh</strong> broker, or both.<ul>
 <li>These nodes act as the "ears" of the map, reporting traffic to MeshMapper.</li>
 <li>See <a href="../mqtt-main/">MeshMapper MQTT Setup</a> for detailed instructions.</li>
 </ul>
@@ -2873,7 +2875,7 @@
 <tbody>
 <tr>
 <td><strong>IATA Code</strong></td>
-<td>The 3-letter code that will identify your region in the database and URL (e.g., <code>yow.meshmapper.net</code>).</td>
+<td>The 3-letter code that will identify your region in the database and URL (e.g., <code>yow.meshmapper.net</code>). <em>Please note that the mere existence of an IATA code does not, in and of itself, imply suitability for a MeshMapper region to be created using that code. International and regional commercial airports are strongly preferred over military or general aviation airfields.</em></td>
 </tr>
 <tr>
 <td><strong>Region Name</strong></td>
@@ -2884,20 +2886,24 @@
 <td>A rough estimate (in km) of the area you intend to cover.</td>
 </tr>
 <tr>
-<td><strong>Contact Info</strong></td>
-<td>Your Discord username or Email address. This is required for administrators to contact you during the setup process.</td>
+<td><strong>Region Boundary</strong></td>
+<td>This is where you define your desired region boundary. We strongly encourage region admins to use geoJSON files and coordinate with neighboring regions when defining a region's boundaries. More information and geoJSON resources are available at <a href="../region_boundaries/">Region Boundaries</a>.</td>
+</tr>
+<tr>
+<td><strong>Email Address / Discord Notifications</strong></td>
+<td>Enter your email address (required) and optionally - though encouraged - link your Discord account to receive notifications on the status of your application.</td>
+</tr>
+<tr>
+<td><strong>Additional Notes</strong></td>
+<td>Use this field to provide additional details or context about your application.  If your desired region doesn't meet the <a href="#Prerequisites">prerequisites</a> above and you believe an exception should be made, justify it in detail here.</td>
 </tr>
 <tr>
 <td><strong>Public Channels</strong></td>
 <td>A list of public channels used in your mesh (e.g., <code>Chat</code>, <code>Emergency</code>). This helps the wardriving app correctly identify valid traffic.</td>
 </tr>
 <tr>
-<td><strong>Observer IDs</strong></td>
-<td>The <strong>Public ID</strong> (e.g., <code>12345678XXXXXX...</code>) of the nodes acting as MQTT gateways.</td>
-</tr>
-<tr>
 <td><strong>Volunteer as Administrator</strong></td>
-<td>Optional. Tick this to volunteer as your region's administrator. Requires Discord to be linked. See <a href="#volunteer-as-region-administrator">below</a> for details.</td>
+<td>Optional but recommended. Tick this to volunteer as your region's administrator. Requires Discord to be linked. See <a href="#volunteer-as-region-administrator">below</a> for details.</td>
 </tr>
 </tbody>
 </table>
@@ -2907,7 +2913,10 @@
 <ul>
 <li>Monitoring and managing your region's data and settings.</li>
 <li>Supporting local wardrivers and answering questions about the map.</li>
-<li>Being an active and available point of contact for your mesh community.</li>
+<li>Being an active and available point of contact for your mesh community.<ul>
+<li><strong>Please note: Admins are expected to maintain an ongoing, active presence beyond the initial onboarding process.  Admins who do not login to their account on the MeshMapper admin panel for more than 90 days are subject to being marked as inactive and/or having admin access removed.</strong> Inactive accounts will not be consulted on changes to a region, and new admins may be added to a region at any time should no active admin accounts be present.</li>
+</ul>
+</li>
 </ul>
 <p><strong>Requirements:</strong></p>
 <ul>
@@ -2918,12 +2927,12 @@
 <p>When your region is approved and deployed, an administrator account will be automatically created for you. Your credentials (username and a generated key) will be sent to you via Discord DM. You should log in to your region's admin panel and change your key immediately after first login.</p>
 <p><em>If you already have an administrator account on another MeshMapper region, access to the new region will simply be added to your existing account.</em></p>
 <h2 id="defining-the-boundary">Defining the Boundary<a class="headerlink" href="#defining-the-boundary" title="Permanent link">¶</a></h2>
-<p>One of the most important steps is defining the geographic boundary of your region. For a more detailed look into creating region boundaries (particularly if using geoJSON files), please see <a href="../region_boundaries/">Region Boundaries</a>.</p>
+<p>One of the most important steps is defining the geographic boundary of your region. For a more detailed look into creating region boundaries (particularly if using geoJSON files), please see <a href="../region_boundaries/">Region Boundaries</a>. Regardless of which method is ultimately used, look at the other regions in your area and attempt to coordinate/align with area best practices.</p>
 <ul>
 <li><strong>The Map Tool</strong>: The form includes an interactive map with drawing tools.</li>
-<li><strong>Draw Polygon</strong>: Use the <strong>Polygon Tool</strong> (pentagon icon) to draw a precise shape around your mesh's coverage area if a circle  doesn't accurately describe it.  Alternatively, click the "Auto Generate Boundry" button to have AI attempt to draw the boundry for you.</li>
-<li><strong>Import GeoJSON</strong>: Alternatively, click the <strong>Import GeoJSON</strong> button to paste GeoJSON data directly. This is useful if you already have a boundary defined in another tool (e.g., <a href="https://geojson.io">geojson.io</a>). Supported formats include <code>Polygon</code>, <code>MultiPolygon</code>, <code>Feature</code>, and <code>FeatureCollection</code>.</li>
-<li><strong>Region Center</strong>: The center pin automatically moves to the center of the polygon when one is drawn or imported. You can also drag the pin manually if needed. This determines where your region appears on the global map.</li>
+<li><strong>Import GeoJSON (strongly preferred)</strong>: Click the <strong>Import GeoJSON</strong> button to paste GeoJSON data directly. This is useful if you already have a boundary defined in another tool (e.g., <a href="https://geojson.io">geojson.io</a>). Supported formats include <code>Polygon</code>, <code>MultiPolygon</code>, <code>Feature</code>, and <code>FeatureCollection</code>. Drag the pin to your desired load-in view when loading the region on the web.</li>
+<li><strong>Draw Polygon (alternate preferred)</strong>: Use the <strong>Polygon Tool</strong> (pentagon icon) to draw a precise shape around your mesh's coverage area if a circle  doesn't accurately describe it.  Alternatively, click the "Auto Generate Boundry" button to have AI attempt to draw the boundry for you. Drag the pin to your desired load-in view when loading the region on the web.</li>
+<li><strong>Radius Around Region Center (discouraged)</strong>: Drag the pin or enter the GPS coordinates (degrees longitude west are negative numbers) and desired radius (in km) in the fields above the map, or drag the pin to your desired center point and then set the radius.  This will generate a circular region around the pin.</li>
 <li><strong>Purpose</strong>: This polygon is used to:<ul>
 <li>Define where wardriving activities in your region can occur.</li>
 <li>Determine if a user is "In Zone" for authentication purposes.</li>
@@ -2931,7 +2940,7 @@
 </ul>
 </li>
 </ul>
-<p><em>Note: Keep the boundary reasonable. You can always expand it later as your network grows.</em></p>
+<p><em>Note: Keep the boundary reasonable. You can always modify it later, in coordination with your neighbors, as your network grows.</em></p>
 <h2 id="submission-approval">Submission &amp; Approval<a class="headerlink" href="#submission-approval" title="Permanent link">¶</a></h2>
 <p>Once you submit the form:</p>
 <ul>
@@ -2952,10 +2961,10 @@
 </li>
 </ul>
 <p>If you associated your Discord account during the onboarding process, you will receive automatic messages from MeshMapper with onboarding status.</p>
-<div class="admonition info">
-<p class="admonition-title">Request Deletion</p>
-<p>Pending onboarding requests that have not passed MQTT verification in 3 days will automatically be deleted.</p>
-</div>
+<blockquote>
+<p>[!WARNING]
+Pending onboarding requests that have not passed MQTT verification in 3 days will automatically be deleted.</p>
+</blockquote>
 <h2 id="legacy-data">Legacy Data<a class="headerlink" href="#legacy-data" title="Permanent link">¶</a></h2>
 <p>If you have historical coverage data from other systems, it can be imported into MeshMapper. This data will appear on a separate layer and is not included in leaderboard statistics. See <a href="https://wiki.meshmapper.net/dataupload/">Data Upload</a> for format requirements.</p>
 
