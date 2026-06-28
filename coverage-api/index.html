@@ -1386,6 +1386,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Endpoint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1433,6 +1450,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#repeater-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repeater Fields
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1450,10 +1478,60 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#cell-quality-and-status-mask" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cell Quality and Status Mask
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cell Quality and Status Mask">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#effective-average-quality-03" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        effective — average quality (0–3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#status_mask-which-types-are-present" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        status_mask — which types are present
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#drawing-grid-squares" class="md-nav__link">
     <span class="md-ellipsis">
       
         Drawing Grid Squares
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#http-caching-and-compression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTTP Caching and Compression
       
     </span>
   </a>
@@ -2880,6 +2958,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Endpoint">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2927,6 +3022,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#repeater-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repeater Fields
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2944,10 +3050,60 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#cell-quality-and-status-mask" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cell Quality and Status Mask
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cell Quality and Status Mask">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#effective-average-quality-03" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        effective — average quality (0–3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#status_mask-which-types-are-present" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        status_mask — which types are present
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#drawing-grid-squares" class="md-nav__link">
     <span class="md-ellipsis">
       
         Drawing Grid Squares
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#http-caching-and-compression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTTP Caching and Compression
       
     </span>
   </a>
@@ -3025,13 +3181,42 @@
 <h2 id="endpoint">Endpoint<a class="headerlink" href="#endpoint" title="Permanent link">¶</a></h2>
 <pre><code>GET https://meshmapper.net/coverage.php?key=YOUR_API_KEY
 </code></pre>
+<h3 id="query-parameters">Query Parameters<a class="headerlink" href="#query-parameters" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>key</code></td>
+<td>Yes</td>
+<td>Your Coverage API key.</td>
+</tr>
+<tr>
+<td><code>include</code></td>
+<td>No</td>
+<td>Comma-separated list of optional sections to add to the response. Currently supports <code>repeaters</code> (e.g. <code>?include=repeaters</code>) — see <a href="#repeater-fields">Repeater Fields</a>.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="response-format">Response Format<a class="headerlink" href="#response-format" title="Permanent link">¶</a></h2>
 <pre><code class="language-json">{
   "success": true,
   "region": "[IATA]",
+  "region_name": "Ottawa, CA",
   "grid_size": { "lat": 0.0027, "lon": 0.00384 },
+  "schema_version": 2,
   "generated_at": 1710547200,
+  "data_age_seconds": 312,
   "total_squares": 1234,
+  "point_count": 48210,
+  "coverage_type_counts": { "BIDIR": 540, "TX": 60, "RX": 410, "DISC": 90, "DEAD": 12, "DROP": 122 },
+  "type_bits": { "BIDIR": 1, "TX": 2, "RX": 4, "DISC": 8, "DEAD": 16, "DROP": 32 },
+  "bbox": { "minLat": 45.108, "minLon": -76.351, "maxLat": 45.621, "maxLon": -75.299 },
   "grid_squares": [
     {
       "grid_id": "16816_-19718",
@@ -3045,11 +3230,22 @@
       "fill_color": "#1e7e34",
       "border_color": "#14522d",
       "snr": 8.5,
-      "timestamp": 1710547200
+      "timestamp": 1710547200,
+      "count": 14,
+      "snr_min": -2.1,
+      "snr_max": 11.3,
+      "status_mask": 37,
+      "first_seen": 1710201600,
+      "noise": 17.4,
+      "effective": 2.43
     }
   ]
 }
 </code></pre>
+<div class="admonition info">
+<p class="admonition-title">Backward compatibility</p>
+<p>The fields documented here are <strong>additive</strong> — every field present in earlier versions of the API (<code>grid_id</code>, <code>bounds</code>, <code>coverage_type</code>, <code>fill_color</code>, <code>border_color</code>, <code>snr</code>, <code>timestamp</code>, and the original top-level fields) is unchanged. Existing integrations continue to work without modification; simply ignore any fields you do not need.</p>
+</div>
 <h2 id="field-reference">Field Reference<a class="headerlink" href="#field-reference" title="Permanent link">¶</a></h2>
 <h3 id="top-level-fields">Top-Level Fields<a class="headerlink" href="#top-level-fields" title="Permanent link">¶</a></h3>
 <table>
@@ -3072,14 +3268,29 @@
 <td>The region or group code this key is scoped to.</td>
 </tr>
 <tr>
+<td><code>region_name</code></td>
+<td>string</td>
+<td>Human-readable name of the region (falls back to the code for groups).</td>
+</tr>
+<tr>
 <td><code>grid_size</code></td>
 <td>object</td>
 <td>Grid square dimensions in degrees (<code>lat</code> and <code>lon</code>).</td>
 </tr>
 <tr>
+<td><code>schema_version</code></td>
+<td>integer</td>
+<td>Response schema version. New fields are added without breaking the existing contract.</td>
+</tr>
+<tr>
 <td><code>generated_at</code></td>
 <td>integer</td>
-<td>Unix timestamp of when the response was generated.</td>
+<td>Unix timestamp of when this response was built (see <a href="#http-caching-and-compression">Caching</a>).</td>
+</tr>
+<tr>
+<td><code>data_age_seconds</code></td>
+<td>integer or null</td>
+<td>Seconds between the most recent ping in the dataset and when the response was built — a freshness indicator. <code>null</code> if the region has no data.</td>
 </tr>
 <tr>
 <td><code>total_squares</code></td>
@@ -3087,9 +3298,34 @@
 <td>Number of grid squares returned.</td>
 </tr>
 <tr>
+<td><code>point_count</code></td>
+<td>integer</td>
+<td>Total number of pings aggregated across all grid squares.</td>
+</tr>
+<tr>
+<td><code>coverage_type_counts</code></td>
+<td>object</td>
+<td>Number of grid squares per dominant <code>coverage_type</code>.</td>
+</tr>
+<tr>
+<td><code>type_bits</code></td>
+<td>object</td>
+<td>Legend mapping each coverage type to the bit value used in a square's <code>status_mask</code>.</td>
+</tr>
+<tr>
+<td><code>bbox</code></td>
+<td>object or null</td>
+<td>Bounding box covering all returned squares (<code>minLat</code>, <code>minLon</code>, <code>maxLat</code>, <code>maxLon</code>). <code>null</code> if empty.</td>
+</tr>
+<tr>
 <td><code>grid_squares</code></td>
 <td>array</td>
 <td>Array of grid square objects (see below).</td>
+</tr>
+<tr>
+<td><code>repeaters</code></td>
+<td>array</td>
+<td>Only present when <code>?include=repeaters</code> is set — see <a href="#repeater-fields">Repeater Fields</a>.</td>
 </tr>
 </tbody>
 </table>
@@ -3116,7 +3352,7 @@
 <tr>
 <td><code>coverage_type</code></td>
 <td>string</td>
-<td>One of: <code>BIDIR</code>, <code>TX</code>, <code>RX</code>, <code>DISC</code>, <code>DEAD</code>, <code>DROP</code>.</td>
+<td>Dominant type for the cell. One of: <code>BIDIR</code>, <code>TX</code>, <code>RX</code>, <code>DISC</code>, <code>DEAD</code>, <code>DROP</code>.</td>
 </tr>
 <tr>
 <td><code>fill_color</code></td>
@@ -3131,17 +3367,100 @@
 <tr>
 <td><code>snr</code></td>
 <td>float or null</td>
-<td>Signal-to-noise ratio of the dominant ping, if available.</td>
+<td>Average signal-to-noise ratio (dB) across the cell's pings, if available.</td>
 </tr>
 <tr>
 <td><code>timestamp</code></td>
 <td>integer or null</td>
-<td>Unix timestamp of the ping colouring this grid square.</td>
+<td>Unix timestamp of the dominant (most recent, highest-priority) ping colouring this square.</td>
+</tr>
+<tr>
+<td><code>count</code></td>
+<td>integer</td>
+<td>Number of pings aggregated into this cell — a confidence/density indicator.</td>
+</tr>
+<tr>
+<td><code>snr_min</code></td>
+<td>float or null</td>
+<td>Lowest SNR (dB) among the cell's pings.</td>
+</tr>
+<tr>
+<td><code>snr_max</code></td>
+<td>float or null</td>
+<td>Highest SNR (dB) among the cell's pings.</td>
+</tr>
+<tr>
+<td><code>status_mask</code></td>
+<td>integer</td>
+<td>Bitmask of <strong>all</strong> coverage types present in the cell (OR of <code>type_bits</code>). See <a href="#cell-quality-and-status-mask">Cell Quality and Status Mask</a>.</td>
+</tr>
+<tr>
+<td><code>first_seen</code></td>
+<td>integer or null</td>
+<td>Unix timestamp of the <strong>oldest</strong> ping in the cell (<code>timestamp</code> is the newest/dominant).</td>
+</tr>
+<tr>
+<td><code>noise</code></td>
+<td>float or null</td>
+<td>Average noise level (dB above the receiver's noise floor) across the cell's pings.</td>
+</tr>
+<tr>
+<td><code>effective</code></td>
+<td>float</td>
+<td>Average coverage-quality score for the cell, <code>0</code>–<code>3</code> (see below).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="repeater-fields">Repeater Fields<a class="headerlink" href="#repeater-fields" title="Permanent link">¶</a></h3>
+<p>Returned in the top-level <code>repeaters</code> array <strong>only</strong> when the request includes <code>?include=repeaters</code>. Each entry describes a repeater known to the region:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>hex</code></td>
+<td>string</td>
+<td>Repeater hex ID (prefix).</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>string or null</td>
+<td>Repeater name.</td>
+</tr>
+<tr>
+<td><code>lat</code></td>
+<td>float or null</td>
+<td>Latitude.</td>
+</tr>
+<tr>
+<td><code>lon</code></td>
+<td>float or null</td>
+<td>Longitude.</td>
+</tr>
+<tr>
+<td><code>last_heard</code></td>
+<td>integer or null</td>
+<td>Unix timestamp the repeater was last heard.</td>
+</tr>
+<tr>
+<td><code>enabled</code></td>
+<td>integer</td>
+<td><code>1</code> = active, <code>2</code> = flagged for an ID collision (still listed).</td>
+</tr>
+<tr>
+<td><code>advert_bytes</code></td>
+<td>integer or null</td>
+<td>Advertised path-ID width in bytes.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="coverage-types">Coverage Types<a class="headerlink" href="#coverage-types" title="Permanent link">¶</a></h2>
-<p>When multiple pings exist in the same grid square, the highest-priority type wins.</p>
+<p>Each grid square's <code>coverage_type</code> is the <strong>dominant</strong> ping in that square — when multiple pings exist, the highest-priority type wins.</p>
 <table>
 <thead>
 <tr>
@@ -3190,6 +3509,44 @@
 </tr>
 </tbody>
 </table>
+<h2 id="cell-quality-and-status-mask">Cell Quality and Status Mask<a class="headerlink" href="#cell-quality-and-status-mask" title="Permanent link">¶</a></h2>
+<p><code>coverage_type</code> reflects only the single dominant ping in a square. The <code>effective</code> and <code>status_mask</code> fields summarise the <strong>whole mix</strong> of pings in the cell.</p>
+<h3 id="effective-average-quality-03"><code>effective</code> — average quality (0–3)<a class="headerlink" href="#effective-average-quality-03" title="Permanent link">¶</a></h3>
+<p><code>effective</code> is the mean, over every ping in the cell, of a per-ping quality score:</p>
+<table>
+<thead>
+<tr>
+<th>Ping type</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BIDIR</code></td>
+<td>3</td>
+</tr>
+<tr>
+<td><code>TX</code>, <code>RX</code>, <code>DISC</code></td>
+<td>2</td>
+</tr>
+<tr>
+<td><code>DEAD</code></td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>DROP</code></td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>A cell that is entirely <code>BIDIR</code> scores <code>3.0</code>; a cell that is mostly <code>BIDIR</code> with some failed pings scores lower. This makes <code>effective</code> ideal for a smooth red→green quality gradient, where <code>coverage_type</code> alone would only show the single best ping.</p>
+<h3 id="status_mask-which-types-are-present"><code>status_mask</code> — which types are present<a class="headerlink" href="#status_mask-which-types-are-present" title="Permanent link">¶</a></h3>
+<p><code>status_mask</code> is a bitwise-OR of the <code>type_bits</code> for every type that appears anywhere in the cell. Use the top-level <code>type_bits</code> legend to decode it:</p>
+<pre><code class="language-text">BIDIR=1  TX=2  RX=4  DISC=8  DEAD=16  DROP=32
+
+status_mask = 37  →  1 (BIDIR) + 4 (RX) + 32 (DROP)
+              i.e. the cell contains BIDIR, RX, and DROP pings.
+</code></pre>
 <h2 id="drawing-grid-squares">Drawing Grid Squares<a class="headerlink" href="#drawing-grid-squares" title="Permanent link">¶</a></h2>
 <p>Each grid square can be reconstructed as a rectangle using the <code>bounds</code> object:</p>
 <pre><code class="language-javascript">// Leaflet.js example
@@ -3206,8 +3563,22 @@ data.grid_squares.forEach(sq =&gt; {
 });
 </code></pre>
 <p>The grid uses fixed cell sizes of <strong>0.0027 degrees latitude</strong> by <strong>0.00384 degrees longitude</strong> (approximately 300m squares). These match MeshMapper's Simplified Mode rendering.</p>
+<h2 id="http-caching-and-compression">HTTP Caching and Compression<a class="headerlink" href="#http-caching-and-compression" title="Permanent link">¶</a></h2>
+<p>The API is built for efficient, low-frequency polling. Coverage data does not change second-to-second, so please poll sparingly.</p>
+<ul>
+<li><strong>Compression.</strong> Responses are gzip-compressed. Send <code>Accept-Encoding: gzip</code> (most HTTP clients do this automatically) to receive compressed data — payloads are roughly 9× smaller.</li>
+<li><strong>Server-side cache.</strong> Responses carry <code>Cache-Control: public, max-age=900</code> and are cached for up to <strong>15 minutes</strong>. Polling more often than that returns identical data (and still counts toward your daily limit), so a poll interval of <strong>15 minutes or longer is recommended</strong>. <code>generated_at</code> tells you when the cached data was built.</li>
+<li><strong>Conditional requests.</strong> Each response includes an <code>ETag</code> (and <code>Last-Modified</code>). Send the <code>ETag</code> value back in an <code>If-None-Match</code> header; if nothing has changed since, you'll get a <strong><code>304 Not Modified</code></strong> with an empty body, saving you the download.</li>
+</ul>
+<pre><code class="language-bash"># First request — note the ETag header
+curl -s --compressed -D - "https://meshmapper.net/coverage.php?key=YOUR_API_KEY" -o coverage.json
+
+# Later — only download if the data changed
+curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
+     "https://meshmapper.net/coverage.php?key=YOUR_API_KEY"
+</code></pre>
 <h2 id="rate-limits">Rate Limits<a class="headerlink" href="#rate-limits" title="Permanent link">¶</a></h2>
-<p>Each API key has a daily request limit. Counters reset daily.</p>
+<p>Each API key has a <strong>daily</strong> request limit (100 requests). Counters reset daily. Every request that reaches your data — including cache hits and <code>304 Not Modified</code> responses — counts toward this limit.</p>
 <p>When you exceed your limit, the API returns HTTP 429:</p>
 <pre><code class="language-json">{
   "success": false,
@@ -3218,6 +3589,7 @@ data.grid_squares.forEach(sq =&gt; {
   "resets_in_hours": 12.5
 }
 </code></pre>
+<p>A separate short-term, per-IP throttle protects against bursts; exceeding it also returns HTTP 429 (with <code>error: rate_limited</code>). Spacing requests out (see <a href="#http-caching-and-compression">Caching</a>) avoids both.</p>
 <h2 id="error-responses">Error Responses<a class="headerlink" href="#error-responses" title="Permanent link">¶</a></h2>
 <table>
 <thead>
@@ -3252,6 +3624,11 @@ data.grid_squares.forEach(sq =&gt; {
 <td>429</td>
 <td><code>rate_limit_exceeded</code></td>
 <td>Daily request limit reached.</td>
+</tr>
+<tr>
+<td>429</td>
+<td><code>rate_limited</code></td>
+<td>Too many requests in a short period (per-IP throttle).</td>
 </tr>
 <tr>
 <td>500</td>
