@@ -27,15 +27,29 @@ Each administrator is limited to **one API key per region**. The key is automati
 GET https://meshmapper.net/coverage.php?key=YOUR_API_KEY
 ```
 
+### Query Parameters
+
+| Parameter | Required | Description |
+| --- | --- | --- |
+| `key` | Yes | Your Coverage API key. |
+| `include` | No | Comma-separated list of optional sections to add to the response. Currently supports `repeaters` (e.g. `?include=repeaters`) — see [Repeater Fields](#repeater-fields). |
+
 ## Response Format
 
 ```json
 {
   "success": true,
   "region": "[IATA]",
+  "region_name": "Ottawa, CA",
   "grid_size": { "lat": 0.0027, "lon": 0.00384 },
+  "schema_version": 2,
   "generated_at": 1710547200,
+  "data_age_seconds": 312,
   "total_squares": 1234,
+  "point_count": 48210,
+  "coverage_type_counts": { "BIDIR": 540, "TX": 60, "RX": 410, "DISC": 90, "DEAD": 12, "DROP": 122 },
+  "type_bits": { "BIDIR": 1, "TX": 2, "RX": 4, "DISC": 8, "DEAD": 16, "DROP": 32 },
+  "bbox": { "minLat": 45.108, "minLon": -76.351, "maxLat": 45.621, "maxLon": -75.299 },
   "grid_squares": [
     {
       "grid_id": "16816_-19718",
@@ -49,11 +63,21 @@ GET https://meshmapper.net/coverage.php?key=YOUR_API_KEY
       "fill_color": "#1e7e34",
       "border_color": "#14522d",
       "snr": 8.5,
-      "timestamp": 1710547200
+      "timestamp": 1710547200,
+      "count": 14,
+      "snr_min": -2.1,
+      "snr_max": 11.3,
+      "status_mask": 37,
+      "first_seen": 1710201600,
+      "noise": 17.4,
+      "effective": 2.43
     }
   ]
 }
 ```
+
+!!! info "Backward compatibility"
+    The fields documented here are **additive** — every field present in earlier versions of the API (`grid_id`, `bounds`, `coverage_type`, `fill_color`, `border_color`, `snr`, `timestamp`, and the original top-level fields) is unchanged. Existing integrations continue to work without modification; simply ignore any fields you do not need.
 
 ## Field Reference
 
@@ -63,10 +87,18 @@ GET https://meshmapper.net/coverage.php?key=YOUR_API_KEY
 | --- | --- | --- |
 | `success` | boolean | `true` if the request succeeded. |
 | `region` | string | The region or group code this key is scoped to. |
+| `region_name` | string | Human-readable name of the region (falls back to the code for groups). |
 | `grid_size` | object | Grid square dimensions in degrees (`lat` and `lon`). |
-| `generated_at` | integer | Unix timestamp of when the response was generated. |
+| `schema_version` | integer | Response schema version. New fields are added without breaking the existing contract. |
+| `generated_at` | integer | Unix timestamp of when this response was built (see [Caching](#http-caching-and-compression)). |
+| `data_age_seconds` | integer or null | Seconds between the most recent ping in the dataset and when the response was built — a freshness indicator. `null` if the region has no data. |
 | `total_squares` | integer | Number of grid squares returned. |
+| `point_count` | integer | Total number of pings aggregated across all grid squares. |
+| `coverage_type_counts` | object | Number of grid squares per dominant `coverage_type`. |
+| `type_bits` | object | Legend mapping each coverage type to the bit value used in a square's `status_mask`. |
+| `bbox` | object or null | Bounding box covering all returned squares (`minLat`, `minLon`, `maxLat`, `maxLon`). `null` if empty. |
 | `grid_squares` | array | Array of grid square objects (see below). |
+| `repeaters` | array | Only present when `?include=repeaters` is set — see [Repeater Fields](#repeater-fields). |
 
 ### Grid Square Fields
 
@@ -74,15 +106,36 @@ GET https://meshmapper.net/coverage.php?key=YOUR_API_KEY
 | --- | --- | --- |
 | `grid_id` | string | Unique identifier for the grid cell in `"latIndex_lonIndex"` format. |
 | `bounds` | object | Bounding box with `south`, `west`, `north`, `east` in decimal degrees. |
-| `coverage_type` | string | One of: `BIDIR`, `TX`, `RX`, `DISC`, `DEAD`, `DROP`. |
+| `coverage_type` | string | Dominant type for the cell. One of: `BIDIR`, `TX`, `RX`, `DISC`, `DEAD`, `DROP`. |
 | `fill_color` | string | Hex fill colour matching MeshMapper's map rendering. |
 | `border_color` | string | Hex border colour matching MeshMapper's map rendering. |
-| `snr` | float or null | Signal-to-noise ratio of the dominant ping, if available. |
-| `timestamp` | integer or null | Unix timestamp of the ping colouring this grid square. |
+| `snr` | float or null | Average signal-to-noise ratio (dB) across the cell's pings, if available. |
+| `timestamp` | integer or null | Unix timestamp of the dominant (most recent, highest-priority) ping colouring this square. |
+| `count` | integer | Number of pings aggregated into this cell — a confidence/density indicator. |
+| `snr_min` | float or null | Lowest SNR (dB) among the cell's pings. |
+| `snr_max` | float or null | Highest SNR (dB) among the cell's pings. |
+| `status_mask` | integer | Bitmask of **all** coverage types present in the cell (OR of `type_bits`). See [Cell Quality and Status Mask](#cell-quality-and-status-mask). |
+| `first_seen` | integer or null | Unix timestamp of the **oldest** ping in the cell (`timestamp` is the newest/dominant). |
+| `noise` | float or null | Average noise level (dB above the receiver's noise floor) across the cell's pings. |
+| `effective` | float | Average coverage-quality score for the cell, `0`–`3` (see below). |
+
+### Repeater Fields
+
+Returned in the top-level `repeaters` array **only** when the request includes `?include=repeaters`. Each entry describes a repeater known to the region:
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `hex` | string | Repeater hex ID (prefix). |
+| `name` | string or null | Repeater name. |
+| `lat` | float or null | Latitude. |
+| `lon` | float or null | Longitude. |
+| `last_heard` | integer or null | Unix timestamp the repeater was last heard. |
+| `enabled` | integer | `1` = active, `2` = flagged for an ID collision (still listed). |
+| `advert_bytes` | integer or null | Advertised path-ID width in bytes. |
 
 ## Coverage Types
 
-When multiple pings exist in the same grid square, the highest-priority type wins.
+Each grid square's `coverage_type` is the **dominant** ping in that square — when multiple pings exist, the highest-priority type wins.
 
 | Type | Colour | Priority | Description |
 | --- | --- | --- | --- |
@@ -92,6 +145,34 @@ When multiple pings exist in the same grid square, the highest-priority type win
 | `RX` | Purple (`#6f42c1`) | 3 | Heard traffic, without transmitting. |
 | `DEAD` | Grey (`#6c757d`) | 2 | Repeater heard but no route. |
 | `DROP` | Red (`#bd2130`) | 1 | No connection. |
+
+## Cell Quality and Status Mask
+
+`coverage_type` reflects only the single dominant ping in a square. The `effective` and `status_mask` fields summarise the **whole mix** of pings in the cell.
+
+### `effective` — average quality (0–3)
+
+`effective` is the mean, over every ping in the cell, of a per-ping quality score:
+
+| Ping type | Score |
+| --- | --- |
+| `BIDIR` | 3 |
+| `TX`, `RX`, `DISC` | 2 |
+| `DEAD` | 1 |
+| `DROP` | 0 |
+
+A cell that is entirely `BIDIR` scores `3.0`; a cell that is mostly `BIDIR` with some failed pings scores lower. This makes `effective` ideal for a smooth red→green quality gradient, where `coverage_type` alone would only show the single best ping.
+
+### `status_mask` — which types are present
+
+`status_mask` is a bitwise-OR of the `type_bits` for every type that appears anywhere in the cell. Use the top-level `type_bits` legend to decode it:
+
+```text
+BIDIR=1  TX=2  RX=4  DISC=8  DEAD=16  DROP=32
+
+status_mask = 37  →  1 (BIDIR) + 4 (RX) + 32 (DROP)
+              i.e. the cell contains BIDIR, RX, and DROP pings.
+```
 
 ## Drawing Grid Squares
 
@@ -114,9 +195,26 @@ data.grid_squares.forEach(sq => {
 
 The grid uses fixed cell sizes of **0.0027 degrees latitude** by **0.00384 degrees longitude** (approximately 300m squares). These match MeshMapper's Simplified Mode rendering.
 
+## HTTP Caching and Compression
+
+The API is built for efficient, low-frequency polling. Coverage data does not change second-to-second, so please poll sparingly.
+
+- **Compression.** Responses are gzip-compressed. Send `Accept-Encoding: gzip` (most HTTP clients do this automatically) to receive compressed data — payloads are roughly 9× smaller.
+- **Server-side cache.** Responses carry `Cache-Control: public, max-age=900` and are cached for up to **15 minutes**. Polling more often than that returns identical data (and still counts toward your daily limit), so a poll interval of **15 minutes or longer is recommended**. `generated_at` tells you when the cached data was built.
+- **Conditional requests.** Each response includes an `ETag` (and `Last-Modified`). Send the `ETag` value back in an `If-None-Match` header; if nothing has changed since, you'll get a **`304 Not Modified`** with an empty body, saving you the download.
+
+```bash
+# First request — note the ETag header
+curl -s --compressed -D - "https://meshmapper.net/coverage.php?key=YOUR_API_KEY" -o coverage.json
+
+# Later — only download if the data changed
+curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
+     "https://meshmapper.net/coverage.php?key=YOUR_API_KEY"
+```
+
 ## Rate Limits
 
-Each API key has a daily request limit. Counters reset daily.
+Each API key has a **daily** request limit (100 requests). Counters reset daily. Every request that reaches your data — including cache hits and `304 Not Modified` responses — counts toward this limit.
 
 When you exceed your limit, the API returns HTTP 429:
 
@@ -131,6 +229,8 @@ When you exceed your limit, the API returns HTTP 429:
 }
 ```
 
+A separate short-term, per-IP throttle protects against bursts; exceeding it also returns HTTP 429 (with `error: rate_limited`). Spacing requests out (see [Caching](#http-caching-and-compression)) avoids both.
+
 ## Error Responses
 
 | HTTP Code | Error | Description |
@@ -140,6 +240,7 @@ When you exceed your limit, the API returns HTTP 429:
 | 401 | `invalid_key` | API key not found. |
 | 403 | `no_region` | No region assigned to this key. |
 | 429 | `rate_limit_exceeded` | Daily request limit reached. |
+| 429 | `rate_limited` | Too many requests in a short period (per-IP throttle). |
 | 500 | `server_error` | Internal error (database not found, etc.). |
 
 ## Managing Your Key
