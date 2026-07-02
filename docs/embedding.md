@@ -56,6 +56,8 @@ Toggle layers on or off with `1` (show) or `0` (hide).
 | `drop_grid` | Dead coverage (grey) | `1` (on) |
 | `fail_grid` | Dropped packets (red) | `0` (off) |
 | `repeaters` | Repeater markers | `1` (on) |
+| `rep_coverage` | Repeater coverage lines | `0` (off) |
+| `grid_lines` | Grid outline lines | `0` (off) |
 
 ### Other Options
 

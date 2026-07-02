@@ -4,14 +4,15 @@ The MeshMapper map interface offers various layers and filtering options to cust
 
 ## Base Layers
 
-You can switch between different underlying map styles using the **Layer Control** (stack icon) in the top-right corner of the map.
+You can switch between different underlying map styles using the **Layer Control** (stack icon) in the top-right corner of the map, under **Map Mode**.
 
-  - **Standard**: The default view. Best for general navigation and street names.
-  - **Topographic**: Displays terrain features, elevation lines, and hill shading. Extremely useful for understanding line-of-sight (LOS) obstructions between repeaters.
+  - **Standard**: The default view (OpenFreeMap "Liberty" vector style). Best for general navigation and street names.
+  - **Bright**: A brighter vector style variant.
   - **Dark Mode**: A high-contrast dark theme. Ideal for low-light viewing or when you want the coloured data points to stand out clearly.
-  - **Satellite**: Aerial imagery. Useful for verifying physical locations, tree cover, and landmarks.
+  - **Topographic**: Displays terrain features, elevation lines, and hill shading. Extremely useful for understanding line-of-sight (LOS) obstructions between repeaters.
+  - **Satellite** / **Google Satellite** / **Google Hybrid**: Aerial imagery (with street labels in Hybrid). Useful for verifying physical locations, tree cover, and landmarks.
 
-*Note: Your selected base layer is saved in your browser and will be remembered the next time you visit.*
+*Note: Your selected base layer is saved in your browser and will be remembered the next time you visit. Selecting a dark or satellite base automatically switches the interface to dark mode.*
 
 ## Settings & Preferences
 
@@ -23,10 +24,8 @@ The **Settings** menu (gear icon in the navigation bar) provides global options 
     *   Distance measurements on connection lines.
     *   Maximum range calculation.
     *   Leaderboard statistics.
-    *   Advanced Search distance filters.
-    *   Grid Size labels.
-*   **Grid Mode**: Switch between **Detailed** and **Simplified** modes. Detailed mode disables repeater clustering and expands each ping into neighboring grid cells for smoother coverage. Simplified mode clusters repeaters at wide zoom levels and loads faster.
-*   **Grid Size**: Select the physical size of coverage grid squares. Options range from **50m** to **2km**, with the default being **300m** (Simplified) or **100m** (Detailed). Click to open a dropdown and select the desired size. Changing this setting reloads the map. Labels adjust automatically when switching between Metric and Imperial units.
+    *   Filter panel distance filters.
+*   **Grid Mode**: Switch between **Simplified** and **Detailed** modes. **Simplified** (default) uses **300m** grid squares, merges cells, and clusters repeaters at wide zoom levels — it loads faster. **Detailed** uses **100m** grid squares with finer coverage detail and non-grouped repeaters. The coverage grid is rendered from cached vector tiles, so the cell size is fixed by the chosen mode at every zoom level.
 *   **Info Panel**: Switch between **Sidebar** and **Popup** mode for viewing ping details.
 *   **Hide Data from Missing Repeaters**: When enabled, hides coverage grid squares that reference repeaters no longer present on the map, reducing visual noise from outdated or removed infrastructure.
 *   **Follow My Location**: When enabled, the map continuously tracks your GPS position and re-centres on it every 5 seconds. Your current zoom level is preserved — only the centre point updates. A blue dot and accuracy circle show your position. Useful for wardriving or moving through a coverage area. Toggle it off to stop tracking; the marker stays at your last known position.
@@ -135,24 +134,28 @@ Regions with imported historical data will have a **Legacy** layer available. Th
 
 The **Line of Sight** tool is available from the map toolbar and allows you to check terrain clearance between any number of points on the map. Click to place two (or more) points (or click directly on repeaters) and MeshMapper will fetch the elevation profile and show whether the path is clear or obstructed. When a repeater is selected as one of the endpoints, you can adjust its elevation above ground for more accurate results.
 
-### Coverage Timeline (Beta)
+### Coverage Timeline
 
-The **Coverage Timeline** tool provides an animated playback of how a region's coverage has grown over time. Available from the **Tools** menu, it generates 20 cumulative snapshots from the region's earliest data to the present day.
+The **Coverage Timeline** tool provides an animated playback of how a region's coverage has grown over time, from the region's earliest data to the present day. It is available from the **Map Tools** (wrench icon) control.
 
 When activated, a playback bar appears at the bottom of the screen with controls to:
 
-- **Play/Pause** — automatically cycle through the timeline frames
+- **Play/Pause** — automatically advance the timeline
 - **Scrub** — drag the slider to jump to a specific point in time
 - **Speed** — click the speed label to cycle through playback speeds (0.5x, 1x, 2x, 4x)
 
-Each frame shows all coverage data collected up to that date, so you can watch coverage fill in as wardrivers contribute data over weeks and months.
+The playback runs on the live vector coverage data, so you can watch coverage fill in as wardrivers contributed data over weeks and months.
 
-!!! note "Beta Limitations"
-    This feature is currently in beta. Timeline tiles are generated on-demand the first time the tool is opened (which may take a moment), and are rendered at a single fixed zoom level. Zooming is not available during playback. Timeline is regenerated automatically when coverage data has grown significantly since the last generation.
+### 3D Terrain
 
-### View in 3D (Beta)
+The **3D Terrain** control (landscape icon at the top of the map controls) drapes the map — including all coverage data — over real elevation terrain:
 
-Region maps can be viewed in 3D. Available from the **Map Mode** section of the Layer Control, this opens a 3D globe view centered on the current map position with coverage data overlaid on terrain. This feature is currently in beta.
+- **Enable 3D** — Toggles the terrain on or off
+- **Hillshade relief** — Adds shaded relief for depth
+- **Exaggeration** — A slider (0.5×–2.5×) to emphasize elevation differences
+- **Tilt/rotate** the view by right-dragging (or ctrl-dragging) the map
+
+3D terrain makes it much easier to see how hills and valleys shape your region's RF coverage.
 
 ### Packet Analyzer
 
@@ -164,19 +167,26 @@ The **Live Visualization** mode (accessed via the "Visualize Live" button in the
 
 The search functionality combines quick lookups with powerful filtering options.
 
-### Advanced Search
-Clicking the **Options** button (tune icon) next to the search bar opens the Advanced Search panel.
+### Filter Map Data
+Clicking the **Filter** pill (tune icon) in the navigation bar opens the **Filter Map Data** panel. Filters are applied server-side — the coverage grid, click popups, charts, and ping history all reflect the same filtered dataset. Active filters appear as removable chips, and the Filter pill shows a count and lights up cyan while filters are active.
 
-  - **Quick Time**: Filter data by age (Last 30 Days, 90 Days, 1 Year, or All Time).
-  - **Tx Power**: Filter by transmit power (0.3W, 0.6W, 1.0W).
-  - **Ext. Ant.**: Toggle to show only data points collected with an external antenna.
-  - **Display Only Repeaters With Incorrect Time**: Toggle to filter the map to only show repeaters whose embedded clock is off by more than 120 seconds. Useful for identifying repeaters that need their time set correctly.
-  - **User**: Filter pings by the username of the wardriver (if enabled for the region).
-  - **Repeater Name / ID**: Search for specific repeaters by name or the first 2 characters of its Public ID.
-  - **Ping contains repeater name or ID**: Find pings that routed through or were heard from a specific repeater by its name or ID. This filter automatically excludes pings associated with duplicate repeater IDs or known collisions and displays a warning message when this occurs.
-  - **SNR Range**: Filter pings based on Signal-to-Noise Ratio (Min/Max).
-  - **Distance Range**: Filter pings based on distance from the heard repeater (Min/Max meters).
-  - **Date Range**: Specify a custom start and end date for the data.
+  - **Time**:
+    - **Show data from**: All time, Last 30 days, Last 90 days, or Last year.
+    - **From date / To date**: Specify a custom date range.
+  - **Signal**:
+    - **Transmit power**: Any power, 0.3 W, 0.6 W, or 1.0 W.
+    - **Radio config**: Filter by the radio preset (frequency / bandwidth / SF / CR) the wardriver's device reported — useful in regions where multiple radio configurations are in use.
+    - **Min / Max signal**: Filter pings by Signal-to-Noise Ratio (dB).
+  - **Location**:
+    - **Min / Max distance**: Filter pings by distance from the heard repeater (in your selected units).
+  - **Repeaters**:
+    - **Repeater name or ID**: Show only specific repeaters by name or hex ID.
+    - **Hops away**: Filter by hop count (1, 2, or 3 hops).
+    - **Ping mentions repeater**: Find pings that routed through or were heard from a specific repeater by its name or ID. This filter automatically excludes pings associated with duplicate repeater IDs or known collisions and displays a warning message when this occurs.
+    - **Only external antennas**: Show only data points collected with an external antenna.
+    - **Only repeaters with the wrong time**: Show only repeaters whose embedded clock is off by more than 120 seconds. Useful for identifying repeaters that need their time set correctly.
+  - **User**:
+    - **User name**: Filter pings by the (full or partial) username of the wardriver (if enabled for the region).
 
 !!! tip "Filters preserve your map position"
     Applying, resetting, or changing filters no longer resets the map to its default centre and zoom. Your current view is preserved so you can refine filters while staying focused on a specific area.
@@ -185,7 +195,7 @@ Clicking the **Options** button (tune icon) next to the search bar opens the Adv
 
 For users on older hardware, mobile devices with limited resources, or slow internet connections, MeshMapper offers a **Coverage Only Mode**.
 
-  - **How it works**: Instead of loading thousands of individual data points and rendering them in the browser (which can be CPU intensive), this mode loads pre-rendered image tiles from the server.
+  - **How it works**: Instead of the full interactive interface, this mode loads just the coverage grid as lightweight map tiles from the server, skipping repeaters, popups, and all the interactive machinery.
   - **Performance**: This significantly reduces memory usage and load times, making the map usable on almost any device regardless of processing power.
   - **Limitations**:
     - **No interactivity**: You cannot click on grid squares to see pings or repeater paths.

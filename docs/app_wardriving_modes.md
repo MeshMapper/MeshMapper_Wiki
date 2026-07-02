@@ -11,7 +11,8 @@ The simplest way to wardrive. Tap the **Send Ping** button on the Map tab to sen
 **What happens:**
 
 1. The app checks GPS, zone, and that the 15-second manual cooldown has elapsed. No minimum distance requirement for manual pings.
-2. A message containing your GPS coordinates and radio power is encrypted and sent as a channel message to #wardriving. This message **floods the entire mesh network**. If a **scope** is configured, it is scoped to that region instead.
+2. A short message is encrypted and sent as a channel message to #wardriving. This message **floods the entire mesh network**. If a **scope** is configured, it is scoped to that region instead.
+   - **By default, the message does not contain your GPS position** — it carries a short anonymous token, and your coordinates travel only to the MeshMapper server via the API. Anyone listening on the channel sees the token, not your location. (See [Broadcast My Coordinates](app_settings_reference.md#broadcast-my-coordinates) to opt in to on-air coordinates.)
 3. The app listens for **5 seconds** for repeater echoes
 4. Echoes are matched (decrypted and compared to what you sent) and logged as "heard repeats"
 5. Ping and echo data are queued for upload
@@ -61,7 +62,7 @@ No channel messages (no mesh flooding at all). Sends **discovery requests** ever
 
 1. Every 30 seconds, sends a zero-hop discovery request (direct query, not a broadcast)
 2. Repeaters/rooms respond with node type, public key, and signal quality (local + remote SNR/RSSI)
-3. Discovery Tracker collects responses during a 5-second window, deduplicates by public key, and filters carpeaters (RSSI stronger than -30 or by user-configured prefix value)
+3. Discovery Tracker collects responses during a 7-second window, deduplicates by public key, and filters carpeaters (RSSI stronger than -30 or by user-configured prefix value)
 4. Unified RX Handler monitors for mesh traffic on subscribed channels
 5. All discovery responses and RX observations queued for upload
 
@@ -114,6 +115,9 @@ Targets a **specific repeater** by hex ID for focused signal testing.
 ## TX Capacity Limits
 
 Regional admins set a **maximum number of active TX wardrivers** per zone (for example, 5). This prevents too many users from flooding the mesh simultaneously.
+
+!!! note "Regions can disable flood traffic entirely"
+    Some regions disable flood (TX) wardriving traffic altogether. In those zones the Active/Hybrid/Send Ping controls are locked off (the **Flood Traffic** setting shows as set by the regional admin) and Passive and Trace modes are the available options.
 
 **When the zone is at capacity:**
 

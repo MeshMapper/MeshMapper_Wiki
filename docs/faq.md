@@ -48,6 +48,15 @@
 ??? question "Do I need the companion app to contribute data?"
     Yes. The MeshMapper companion app is the primary way to submit wardriving data. It is available for both Android and iOS. See [Getting Started](https://wiki.meshmapper.net/app_getting_started) for setup instructions.
 
+??? question "Does the wardriving app broadcast my location on the mesh?"
+    Not by default. TX pings sent on the #wardriving channel carry a short anonymous token instead of coordinates — your GPS position travels only to the MeshMapper server over the internet. Anyone listening on the channel sees the token, not where you are. If you *want* your live position visible on the air (e.g., so local mesh users can follow your drive), enable **Broadcast My Coordinates** in the app's Ping Settings.
+
+??? question "Can I view or delete the data I have contributed?"
+    Yes. Create an account on the [My MeshMapper portal](https://wiki.meshmapper.net/portal/), link your companion device (a quick cryptographic proof over USB or Bluetooth), and you can view your sessions, see your own pings on the map, set your leaderboard display name, and delete some or all of your contributed data.
+
+??? question "Why isn't my recent data showing on the leaderboard?"
+    Leaderboards and profile statistics are regenerated about once a day, so new contributions can take up to 24 hours to appear. The coverage map itself updates in near-real-time.
+
 ---
 
 ## Mobile App

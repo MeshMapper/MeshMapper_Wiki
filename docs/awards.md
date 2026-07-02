@@ -10,9 +10,9 @@ You can view any users profile by clicking their name on a regional or [global l
 
 When a single person operates multiple companion devices in a region, that regions administrators can combine them into a **user group**. All devices in the group aggregate their points under a single primary companion. The group appears as one entry on the leaderboards, and the profile displays the combined statistics.  
 
-### Roadmap
+### Manage Your Own Profile & Data
 
-Eventually, profiles will expand to allow users to log in and manage their avatar, bio, social media links, and view and manage the data they have contributed.
+Wardrivers can now create an account on the [**My MeshMapper portal**](portal.md), link their companion devices, set the display name shown on leaderboards, and view or delete the data they have contributed. Additional profile features (avatar and bio self-management) are planned.
 
 ## Awards
 

@@ -63,7 +63,7 @@ MeshMapper re-evaluates collisions as hop bytes update, restoring previously exc
 
 ### Filtering by Hop Bytes
 
-The map's advanced filter panel includes a **Hop Bytes** filter, allowing you to view only repeaters of a specific byte length. This is helpful for tracking firmware upgrade progress across your region — quickly see which repeaters are still running 1-byte firmware and need updating.  In addition, a list of repeaters and their byte modes/capabilities can be found in the **Region Info** page under **Repeaters**.
+The map's **Filter Map Data** panel includes a **Hops away** filter, allowing you to view only repeaters of a specific byte length. This is helpful for tracking firmware upgrade progress across your region — quickly see which repeaters are still running 1-byte firmware and need updating.  In addition, the **Repeater List** (Region menu) splits repeaters into **Non-Multibyte Capable** and **Multibyte Capable** tabs, based on whether each repeater has been observed advertising or processing a multibyte ID.
 
 ### Repeater ID Grid
 

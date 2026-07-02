@@ -4,7 +4,7 @@ MeshMapper visualizes mesh coverage using a grid system, colour-coded markers, a
 
 ## The Grid System
 
-The map is divided into small grid squares. The default grid size is **300m x 300m** in Simplified mode and **100m x 100m** in Detailed mode, but this can be changed via the **Grid Size** option in the Settings panel (sizes range from 50m up to 2km).
+The map is divided into small grid squares. The grid size is **300m x 300m** in Simplified mode and **100m x 100m** in Detailed mode — switch between the two via the **Grid Mode** option in the Settings panel.
 
 Since a single grid square may contain multiple pings from different times or users, MeshMapper uses a **Priority System** to determine which colour to display. The map will always show the "best" result available for that location.
 
@@ -88,25 +88,30 @@ The icons representing repeaters on the map change colour based on their status:
 
   - **Pink**: **Active**. The repeater is active and online.
   - **Orange**: **New**. The repeater was discovered by MeshMapper within the last 14 days.
-  - **Grey**: **Stale**. The repeater has not sent an advert within the predetermined timeframe (set by the regional administrators).
-  - **Red**: **Excluded**. The repeater is flagged as a duplicate or has been manually flagged as excluded.
+  - **Grey**: **Stale / Inactive**. The repeater has not sent an advert within the predetermined timeframe (set by the regional administrators).
+  - **Red**: **Ambiguous / Disabled**. The repeater's ID collides with another repeater (a duplicate), or it has been manually disabled.
 
 ## Repeater Popups
 
 Clicking on a repeater icon opens a popup with details:
 
   - **Status Indicators**:
-    - **Online (Green)**: The repeater has been heard from recently.
-    - **New (Orange)**: First seen within the last 14 days.
-    - **Stale (Grey)**: Has not been heard from in a specific timeframe set by the region administrator (e.g., 24 hours).
-    - **Excluded (Red)**: Flagged as a duplicate or problematic node.
+    - **Repeater Online**: The repeater has been heard from recently.
+    - **New Repeater (Orange)**: First seen within the last 14 days.
+    - **Stale Repeater (Grey)**: Has not been heard from in a specific timeframe set by the region administrator (e.g., 24 hours).
+    - **Ambiguous (Red)**: The repeater's ID collides with another repeater at its byte width.
+    - A red warning row appears if the repeater's clock is off by more than 120 seconds ("Repeater time is not set correctly").
   - **Details**:
-    - **ID**: The repeaters identifier.
+    - **ID**: The repeater's identifier (shown at its advertised byte width), plus its power and **Advert Bytes** (the ID width the repeater advertises).
     - **First Heard**: The date the repeater was first discovered by MeshMapper.
     - **Last Heard**: The exact time the repeater was last seen by the mesh.
     - **Max Range**: The furthest distance a user has successfully connected to this repeater from.
+  - **Stats & Chart**: Per-type ping counts (BIDIR / TX / RX / DISC / DEAD) and a signal-vs-distance chart built from the repeater's coverage data.
   - **Neighbours**: A list of other repeaters this node has directly communicated with recently.
+  - **Add Another**: Compare mode — select additional repeaters to view their coverage side by side.
   - **Copy Link**: A link icon in the top right allows you to copy a direct URL to this repeater.
+
+While a repeater is selected, the rest of the coverage grid dims so the selected repeater's own coverage stands out.
 
 ## Private Repeaters
 

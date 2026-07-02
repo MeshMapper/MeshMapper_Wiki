@@ -36,8 +36,8 @@ All communication follows the **MeshCore Companion Protocol**, a binary protocol
 
 When you send a TX ping (manually or via auto-ping), you are sending a **channel message** that floods the mesh:
 
-1. **Message composition**: GPS coordinates + TX power level
-2. **Encryption**: AES-ECB with the #wardriving channel key (SHA-256 hash of "#wardriving"). ECB mode is mandated by the MeshCore protocol.
+1. **Message composition**: By default, a short **anonymous token** (a keyed "wire tag" unique to your session and ping). Your GPS coordinates and power level travel to MeshMapper only via the API — they are not in the on-air message. If **Broadcast My Coordinates** is enabled in Settings, your GPS coordinates are appended to the message as well.
+2. **Encryption**: AES-ECB with the #wardriving channel key (SHA-256 hash of "#wardriving"). ECB mode is mandated by the MeshCore protocol. Note that anyone with the community channel key can decrypt the message — which is why it carries a token rather than your location by default.
 3. **Broadcast and flooding**: The encrypted message is sent via BLE as a GROUP_TEXT packet. It **floods the entire mesh** by default (every repeater relays it). If a **flood scope** is configured by the regional admin, only repeaters within the scope relay it.
 4. **Echo listening (5-second window)**: After sending, the app opens a 5-second listening window. Every incoming packet is checked against these criteria, proceeding to step 5 if all of the following conditions are met:
    - Packet is of the GROUP_TEXT type
@@ -93,7 +93,7 @@ Discovery pings use a fundamentally different mechanism than TX channel messages
 
 1. **Request**: ControlData command (0x37) with DISCOVER_REQ flag, requesting responses from repeaters and rooms in direct range. Includes a random 4-byte tag for matching.
 2. **Response**: Repeaters respond with node type, public key, and their assessment of signal quality from their end (remote SNR).
-3. **Tracking**: Discovery Tracker collects responses during a 5-second window, deduplicates by public key, and filters carpeaters. Gives you **bidirectional** signal quality (how you hear them & how they hear you).
+3. **Tracking**: Discovery Tracker collects responses during a 7-second window, deduplicates by public key, and filters carpeaters. Gives you **bidirectional** signal quality (how you hear them & how they hear you).
 4. **Upload**: "DISC" type data with repeater public key, node type, and bidirectional signal quality.
 
 ---
@@ -248,4 +248,8 @@ Your wardriving data contributes to the public coverage map at [meshmapper.net](
 - GPS coordinates, repeater signal quality, noise floor, device power level
 - No personal information beyond what is inherent to the mesh protocol (device public key for auth)
 
-If you prefer not to broadcast your device name, enable Anonymous Mode in Settings.
+**On-air privacy:** your GPS position is not broadcast over the mesh by default — TX pings carry a short anonymous token, and coordinates go only to the MeshMapper API. Enable "Broadcast My Coordinates" only if you want your live position visible on the air.
+
+If you prefer not to broadcast your device name either, enable Anonymous Mode in Settings.
+
+You can also view and manage the data you've contributed through the [My MeshMapper portal](portal.md).

@@ -78,6 +78,9 @@ Once complete, the Connect tab icon turns **green** and the label changes to "Co
 !!! tip
     MeshMapper remembers your last connected device. On future launches, you can tap the remembered device to reconnect quickly without scanning.
 
+!!! note "Not just Bluetooth"
+    Bluetooth is the standard way to connect, but the Connect tab also supports **TCP** (network-attached radios, Android/iOS) and **USB Serial** (Android via OTG cable, or Chrome/Edge on the web). See the [Connection Guide](app_connection_guide.md) for details.
+
 ---
 
 ## Your First Ping
@@ -101,6 +104,7 @@ Once both are set, tap **Send Ping**:
 
 - The app sends a channel message to #wardriving
 - This message **floods the entire mesh network**, with every repeater relaying it onward
+- **Your GPS position is not in the on-air message.** By default the message carries a short anonymous token — your coordinates are sent only to the MeshMapper server over the internet. (You can opt in to broadcasting coordinates on the air via Settings > Ping Settings > Broadcast My Coordinates.)
 - If your regional admin has configured a **scope**, the message stays within that region instead
 - The app listens for **5 seconds** to see which repeaters echoed your message back
 - On the backend, MeshMapper uses **MQTT observers** that also listen to the #wardriving channel. If an observer receives your message, the backend marks that ping as **bidirectional (bidir)**

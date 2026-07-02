@@ -4,8 +4,8 @@ MeshMapper has five tabs accessible from the bottom navigation bar:
 
 - **Map** - Primary wardriving interface
 - **Log** - Ping and error history
-- **Graph** - Noise floor visualization
-- **Connect** - Bluetooth connection management
+- **History** - Past session playback and noise floor graphs
+- **Connect** - Device connection management (Bluetooth, TCP, USB)
 - **Settings** - App configuration
 
 ---
@@ -58,8 +58,10 @@ The map shows your current position and wardriving data.
 
 Expand the map controls panel to access:
 
-- **Map Style**: Cycle between Dark, Light, and Satellite tile layers
+- **Map Style**: Cycle between Liberty (standard), Dark, Light, and Satellite map styles
 - **Coverage Overlay**: Toggle the MeshMapper community coverage overlay on the map. Shows coverage data reported by all wardrivers in your zone. Only available when in an onboarded region/zone.
+- **Repeaters**: Show or hide repeater markers
+- **Region Boundary**: Show or hide your region's boundary line and label
 - **Auto-Follow**: Centers the map on your GPS position as you move
 - **Always North**: Keeps north at the top. When disabled, the map can rotate with your heading.
 - **Rotation Lock**: Disables rotation gestures entirely
@@ -73,13 +75,14 @@ Ping markers appear on the map as you wardrive. Tap any marker to view its detai
 
 These show what **your device** observed locally over BLE. The app only knows what it saw directly, not what happened on the backend. For example, a green TX marker means a repeater echoed your message back to *you*, but the app has no way of knowing whether that message also made it through the mesh to a backend MQTT observer. Similarly, a red TX marker means no repeater echoed back, but the message may still have been received by the backend through a different path (which would show as an orange TX on the coverage overlay).
 
-- **TX (success)** (green): You sent a channel message (flood) and at least one repeater echoed it back
+- **TX (success)** (green): You sent a channel message (flood) and at least one repeater echoed it back directly
+- **TX (multi-hop only)** (purple): Your channel message was echoed back, but only via multi-hop paths (no direct single-hop repeat). Echoes are grouped under the parent TX ping and shown as "Direct Repeats" and "Multi-hop Repeats" in the details.
 - **TX (fail)** (red): You sent a channel message but no repeater was heard
 - **RX** (purple): You passively received a message from the mesh
 - **DISC (success)** (cyan): You sent a discovery request and a repeater responded
-- **DISC (fail)** (black/red): You sent a discovery request but no repeater responded. Shown as red if your region has "Count DISC as failed" enabled, meaning the backend will track a failed discovery as no coverage at that location.
+- **DISC (fail)** (grey/red): You sent a discovery request but no repeater responded. Shown as red if your region has "Count DISC as failed" enabled, meaning the backend will track a failed discovery as no coverage at that location.
 - **TRC (success)** (blue diamond): A trace reached the target repeater
-- **TRC (fail)** (black): A trace got no response
+- **TRC (fail)** (grey): A trace got no response
 
 **Coverage overlay markers** (when coverage overlay is enabled):
 
@@ -91,6 +94,13 @@ These show the **backend's view** of coverage, combining data from all wardriver
 - **RX** (purple): Heard mesh traffic but did not transmit
 - **DEAD** (brown): A repeater heard it, but no other radio received the repeat
 - **DROP** (red): No repeats heard AND did not reach a backend observer. Also includes failed discovery requests if the region has "Count DISC as failed" enabled, meaning the backend tracks a failed discovery as no coverage at that location.
+
+The overlay renders from the same vector coverage tiles as the web map, using your selected **Grid Mode** (Simplified 300m or Detailed 100m — see Settings > Map Management) and Color Vision palette. After a successful upload, your own newly-mapped cells refresh in place within about 10 seconds — you can watch your coverage appear as you drive.
+
+**Tap to inspect:**
+
+- **Tap a coverage cell** to open a summary of its pings, with dashed connection lines fanning out to every repeater that heard that spot (each line labelled with distance).
+- **Tap a repeater** to see its details plus all the coverage cells it has been heard from, colour-coded by status, while the rest of the map dims so its footprint stands out.
 
 If "Top Repeaters on Map" is enabled in Settings, a **Top Heard** overlay appears on the map.
 
@@ -180,9 +190,16 @@ The overflow menu (⋮) in the top right offers:
 
 ---
 
-## Graph Tab
+## History Tab
 
-The Graph tab shows your **Noise Floor History**, a record of ambient radio noise measured during your wardriving sessions.
+The History tab (titled **Session History**) lists your past wardriving sessions. Each session card offers two views:
+
+- **View on Map**: Replays the session's pings as markers on the map, zoomed to fit the session's area. Tap any marker for the same detail sheets as during live wardriving.
+- **Noise Floor**: Opens the interactive noise floor graph for that session (see below).
+
+### Noise Floor History
+
+Alongside session playback, MeshMapper records the ambient radio noise measured during each session.
 
 ### What is Noise Floor?
 
@@ -216,9 +233,9 @@ Tap a session to open the full-screen interactive graph:
   - TX channel message (red) - not heard
   - Passive RX received (purple)
   - Discovery got a response (cyan)
-  - Discovery with no response (black) - or failed discovery if "Count DISC as failed" is enabled at the region level
+  - Discovery with no response (grey) - or failed discovery if "Count DISC as failed" is enabled at the region level
   - Trace got a response (blue diamond)
-  - Trace with no response (black)
+  - Trace with no response (grey)
 
 **Interactions**:
 
@@ -237,7 +254,15 @@ Use the trash icon in the top right to delete all saved sessions. The current ac
 
 ## Connect Tab
 
-The Connect tab manages your Bluetooth connection. Its appearance changes based on your connection state.
+The Connect tab manages your device connection. Its appearance changes based on your connection state.
+
+### Connection Methods
+
+A selector at the top lets you choose how to connect to your MeshCore device:
+
+- **BLE** (Bluetooth Low Energy) — available on all platforms. The standard way to connect.
+- **TCP** — available on Android and iOS. Connect to a network-attached MeshCore device by host and port (default port 5000), e.g. via a WiFi companion or a ser2net bridge. Saved connections are remembered.
+- **USB** — available on Android (USB OTG cable) and in the web app (Chrome/Edge via Web Serial). Connect your radio directly with a cable.
 
 ### Zone Status Bar
 
@@ -277,7 +302,7 @@ For a detailed walkthrough of the connection process, see the [Connection Guide]
 
 ## Settings Tab
 
-The Settings tab contains all user preferences and configuration options. Settings are organized into sections: General, Ping Settings, Modes, Filtering, Radio, Data, Offline Sessions, About, Exit (Android only), and Debug.
+The Settings tab contains all user preferences and configuration options. Settings are organized into sections: General, Map Management, Ping Settings, Modes, Filtering, Radio, Data, Offline Sessions, API Endpoints, About, Exit (Android only), and Debug.
 
 Some settings are locked while auto-ping is running to prevent mid-session changes that could affect data consistency. A yellow banner at the top indicates when settings are locked.
 

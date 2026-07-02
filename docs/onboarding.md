@@ -16,7 +16,7 @@ Before requesting a new region, you must ensure the local infrastructure is read
 
 ## The Onboarding Form
 
-To start the process, navigate to the **Region Onboarding** form (accessed via the About page).
+To start the process, open the **Region Onboarding** form — available from the [meshmapper.net](https://meshmapper.net) homepage, or from any region map via the **About** menu → **Onboard Your Region**.
 
 The form collects the following critical information:
 
@@ -77,6 +77,8 @@ Once you submit the form:
   - 3. **Activation**: Once reviewed, the region is approved and will become available for wardriving.  It can take up to 5 minutes after deployment for the MeshMapper MQTT engine to start pulling in local data.
 
 If you associated your Discord account during the onboarding process, you will receive automatic messages from MeshMapper with onboarding status.
+
+While your request is pending, your region's subdomain (`https://<code>.meshmapper.net`) shows a status page for the application, including whether MQTT observer verification has passed. You can also ask the Discord bot: `@MeshMapper !status <code>`.
 
 > [!WARNING]
 > Pending onboarding requests that have not passed MQTT verification in 3 days will automatically be deleted.

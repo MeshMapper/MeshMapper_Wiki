@@ -31,10 +31,9 @@ If you're having trouble with MeshMapper, you're in the right place. Browse the 
 ??? question "The map is slow or unresponsive on my device."
     Large regions with lots of data can be demanding on older devices or slow connections. Try the following:
 
-    - **Coverage Only Mode**: A "Switch to Coverage Only" button appears on the loading screen. This loads pre-rendered tiles instead of interactive data, significantly reducing resource usage.
-    - **Increase grid size**: In Settings, increase the grid size (e.g. from 100m to 300m or larger) to reduce the number of rendered elements.
-    - **Filter by time**: Use Advanced Search to limit data to a recent time range (e.g. Last 30 Days).
-    - **Grid Mode**: Use the "Simplified" grid mode from within the map settings.
+    - **Coverage Only Mode**: A "Switch to Coverage Only" button appears on the loading screen. This loads just the coverage grid without the interactive data, significantly reducing resource usage.
+    - **Grid Mode**: Use the "Simplified" grid mode (300m cells) from within the map settings instead of "Detailed" (100m cells).
+    - **Filter by time**: Use the Filter panel to limit data to a recent time range (e.g. Last 30 days).
 </div>
 
 <div id="unexpected-colours" markdown>

@@ -25,6 +25,7 @@ MeshMapper was desiged to provide realistically reliable data without making ass
   - **Duplicate Repeaters:** If a repeater with duplicate ID is detected on the mesh (see "Duplicate Repeater IDs" on the left), coverage data is never directly associated with these repeaters.  Mapping tools will make suggestions on which repeater was actually involved, but no concrete link will ever be made.
   - **Association:** For every data point, repeaters involved in its transmission are associated based on their GPS coordinates.  **If a repeater is ever relocated, all links to its coverage data are broken** to ensure actual coverage is not skewed.
   - **Authentication:** Every wardriving session is validated against known mesh nodes.
+  - **Privacy:** Wardriving pings do not broadcast your GPS position over the air by default — coordinates travel only to the MeshMapper server. Wardrivers can also view and delete the data they've contributed at any time through the [My MeshMapper portal](https://wiki.meshmapper.net/portal/).
 
 MeshMapper believes in the ownership and control of how a regions data is presented lies with the region itself.  If a region chooses to bypass logic designed to limit false or misleading data, that is their choice, and visitors to their map will be warned as such.  Repeater owners can easily [opt out of being publicly listed](https://wiki.meshmapper.net/layers/#private-repeaters) on the map.
 
@@ -50,7 +51,7 @@ Data is collected using the **MeshMapper Wardriver** app, available for both iOS
 By visualizing signal paths and dead zones, repeater operators can adjust antenna placement, upgrade hardware, or deploy new repeaters in areas that actually need them.
 
 ### 2. Community Building
-MeshMapper fosters a sense of shared ownership. Users can see their contributions on the map and compete on **Leaderboards** for the most distance covered.
+MeshMapper fosters a sense of shared ownership. Users can see their contributions on the map, compete on **Leaderboards**, earn **Awards**, and manage their own profile and data through the [**My MeshMapper portal**](https://wiki.meshmapper.net/portal/).
 
 ### 3. Hardware Validation
 The map provides objective data on hardware performance. You can see exactly how far a specific repeater can be heard, or compare the performance of different antennas in real-world conditions.

@@ -1,6 +1,6 @@
 # Privacy Notice
 
-**Last Updated:** March 23, 2026
+**Last Updated:** July 1, 2026
 
 MeshMapper ("we", "us", or "our") operates the MeshMapper platform at meshmapper.net and its associated regional subdomains. This Privacy Notice explains how we collect, use, and protect your information when you use our services.
 
@@ -8,6 +8,8 @@ MeshMapper ("we", "us", or "our") operates the MeshMapper platform at meshmapper
 
 ### Account Information
 When you associate via Discord OAuth, we receive your Discord user ID, username, and avatar. We use this solely for automated notification purposes.
+
+If you create a **My MeshMapper** portal account, we store your chosen username, your email address (used for account verification and password resets), and a hash of your password. Your email address is never displayed publicly and is not used for marketing.
 
 ### Location and Coverage Data
 When you participate in wardriving sessions, the following data is collected:
@@ -18,6 +20,8 @@ When you participate in wardriving sessions, the following data is collected:
 - **Node identifiers** for mesh network repeaters and devices encountered, including your device name
 
 This data is essential to the core function of MeshMapper: building community-driven RF coverage maps.
+
+Note that by default the wardriving app does **not** broadcast your GPS coordinates over the mesh radio channel — pings carry a short anonymous token on the air, and your coordinates are transmitted only to our servers over the internet. An opt-in setting ("Broadcast My Coordinates") is available for users who want their position visible on the air.
 
 ### Technical Data
 We may collect standard technical information such as:
@@ -55,11 +59,12 @@ We use the information we collect to:
 MeshMapper integrates with the following third-party services:
 
 - **Discord** for OAuth authentication ([Discord Privacy Policy](https://discord.com/privacy))
-- **Leaflet** as the map rendering engine ([Leaflet](https://leafletjs.com/))
-- **CARTO** for dark mode map tiles ([CARTO Privacy Policy](https://carto.com/privacy/))
+- **MapLibre GL** as the map rendering engine ([MapLibre](https://maplibre.org/))
+- **OpenFreeMap** for standard, bright, and dark base map tiles ([OpenFreeMap](https://openfreemap.org/))
 - **OpenTopoMap** for topography tiles ([OpenTopoMap](https://opentopomap.org/))
 - **Esri** for satellite imagery — Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-GP, and the GIS User Community ([Esri Privacy Policy](https://www.esri.com/en-us/privacy/overview))
-- **REST Countries** for country code lookup during region onboarding ([REST Countries](https://restcountries.com))
+- **Google Maps** for the Google Satellite and Google Hybrid base layers ([Google Privacy Policy](https://policies.google.com/privacy))
+- **AWS Open Data Terrain Tiles** for 3D terrain elevation data
 - **Nominatim** for geocoding / location search ([Nominatim Usage Policy](https://operations.osmfoundation.org/policies/nominatim/))
 - **OpenStreetMap** for map data ([OpenStreetMap Privacy Policy](https://wiki.osmfoundation.org/wiki/Privacy_Policy))
 - **LetsMesh.net** as the MQTT broker for wardriving data ingestion ([LetsMesh](https://letsmesh.net/))
@@ -67,7 +72,8 @@ MeshMapper integrates with the following third-party services:
 ## Data Retention
 
 - Coverage and session data is retained indefinitely to maintain historical map accuracy.
-- You may request deletion of your data by contacting us at admin@meshmapper.net.
+- You can view and delete your own contributed data yourself through the [My MeshMapper portal](portal.md) after verifying ownership of your device.
+- You may also request deletion of your data by contacting us at admin@meshmapper.net.
 
 ## Your Rights
 

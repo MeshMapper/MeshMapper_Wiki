@@ -4,6 +4,20 @@ This guide covers everything about connecting to your MeshCore radio, what happe
 
 ---
 
+## Connection Methods
+
+The Connect tab has a selector for **how** to connect to your radio:
+
+| Method | Platforms | Notes |
+|--------|-----------|-------|
+| **BLE** (Bluetooth) | Android, iOS, Web (Chrome/Edge) | The standard method. Scan and tap your device. |
+| **TCP** | Android, iOS | Connect to a network-attached radio by host and port (default 5000) — e.g., a WiFi-connected companion or a serial-to-TCP bridge. Saved connections are remembered. |
+| **USB Serial** | Android (USB OTG), Web (Chrome/Edge) | Direct cable connection. Not available on iOS. |
+
+Everything below the transport (the connection workflow, sessions, zones, reconnection) works the same regardless of which method you use.
+
+---
+
 ## Scanning for Devices
 
 1. Open the **Connect** tab (Bluetooth icon in the bottom bar)
@@ -35,7 +49,7 @@ When you tap a device, MeshMapper runs through nine steps automatically. You can
 
 | Step | What Happens |
 |------|-------------|
-| 1 BLE GATT Connect | Establishes the raw Bluetooth connection |
+| 1 Transport Connect | Establishes the raw connection (BLE GATT, TCP socket, or USB serial port) |
 | 2 Protocol Handshake | Verifies app and firmware compatibility |
 | 3 Device Info | Retrieves manufacturer string and public key (required for API auth). If this fails, the entire connection fails. |
 | 4 Device Identification | Determines your device model and TX power level for reporting. Does NOT change your radio's actual power settings. |

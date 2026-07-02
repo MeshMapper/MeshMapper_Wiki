@@ -38,6 +38,7 @@ nav:
   - Community:
     - Leaderboards & Statistics: leaderboards.md
     - Profiles & Awards: awards.md
+    - My MeshMapper (User Portal): portal.md
     - Map Embedding: embedding.md
   
   - Administration:
@@ -53,17 +54,8 @@ nav:
     - System Status: systemstatus.md
     - Bot Commands: botcommands.md
 
-  - Wardriving App:
-    - Overview: app_overview.md
-    - Getting Started: app_getting_started.md
-    - App Tabs: app_tabs.md
-    - Wardriving Modes: app_wardriving_modes.md
-    - Settings Reference: app_settings_reference.md
-    - Connection Guide: app_connection_guide.md
-    - How It Works: app_how_it_works.md
-    - Troubleshooting: app_troubleshooting.md
-
   - Release Notes:
+    - June 30, 2026: release-notes/260630.md
     - April 19, 2026: release-notes/260419.md
     - April 9, 2026: release-notes/260409.md
     - March 31, 2026: release-notes/260331.md

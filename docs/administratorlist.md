@@ -1,79 +1,40 @@
-# Administrator List
+# Finding Your Region's Administrators
 
-This page displays the current list of MeshMapper administrators.
+Every MeshMapper region has one or more administrators who manage its settings, repeaters, and data. Here's how to find and contact them.
 
+!!! note
+    The full administrator table that used to load on this page has been retired for privacy reasons. Administrator names and contact information are now available per-region through the methods below.
 
-## Current Administrators
+## From the Region Map
 
-<div id="admin-table-container">
-    <em>Loading data from server...</em>
-</div>
+The easiest way to find your region's administrators:
+
+1. Open your region's map (e.g., `https://yow.meshmapper.net`)
+2. Click the **Region** menu in the navigation bar
+3. Select **Region Info**
+
+The Region Information window lists the region's administrators. Click an administrator's name to see their contact information (e.g., Discord handle or email). If the region has enabled it, you can also use **Contact Region** from the same menu to send a message directly to the administrators.
+
+## From the Discord Bot
+
+Tag the MeshMapper bot in the MeshMapper Discord server:
+
+```
+@MeshMapper !admins YOW
+```
+
+Or just ask in natural language — `@MeshMapper who runs YOW?` works too. The bot replies with the region's administrators and their contact information. See [Bot Commands](botcommands.md) for more.
+
+## Still Can't Reach Anyone?
+
+If a region's administrators are unavailable or unresponsive, tag a `@Moderator` in the MeshMapper Discord server. Moderators (Global Administrators) can assist with any region.
 
 ---
 
-### Legend
+## Administrator Tiers
+
 * **Master Administrator**: Full system access and server control.
 * **Global Administrator**: Moderator access across all regions.
 * **Region Administrator**: Access to specific geographic regions.
 
-<style>
-    #admin-table-container {
-        overflow-x: auto;
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-    .admin-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 0.8em;
-    }
-    .admin-table th {
-        background-color: #003366;
-        color: #ffffff;
-        padding: 5px;
-        text-align: left;
-        border: 1px solid #ddd;
-    }
-    .admin-table td {
-        padding: 5px;
-        border: 1px solid #ddd;
-    }
-    .loading-msg {
-        padding: 20px;
-        text-align: center;
-        color: #666;
-        font-style: italic;
-    }
-</style>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        fetch('https://meshmapper.net/pull_users.php')
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    let html = '<table class="admin-table"><thead><tr><th>Zone</th><th>Name</th><th>Contact Info</th></tr></thead><tbody>';
-                    data.data.forEach(user => {
-
-                        const safeZone = String(user.zone).replace(/</g, "&lt;").replace(/>/g, "&gt;");
-                        const safeName = String(user.name).replace(/</g, "&lt;").replace(/>/g, "&gt;");
-                        const safeContact = String(user.contact_info || '').replace(/</g, "&lt;").replace(/>/g, "&gt;");
-                        
-                        html += `<tr>
-                            <td>${safeZone}</td>
-                            <td>${safeName}</td>
-                            <td>${safeContact}</td>
-                        </tr>`;
-                    });
-                    html += '</tbody></table>';
-                    document.getElementById('admin-table-container').innerHTML = html;
-                } else {
-                    document.getElementById('admin-table-container').innerHTML = '<div class="loading-msg">Unable to load administrator list.</div>';
-                }
-            })
-            .catch(err => {
-                console.error('Error fetching admin list:', err);
-                document.getElementById('admin-table-container').innerHTML = '<div class="loading-msg">Error connecting to server.</div>';
-            });
-    });
-</script>
+Want to become an administrator for your region? See the [FAQ](faq.md#administration) and [Onboarding](onboarding.md) pages.
