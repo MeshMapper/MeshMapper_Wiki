@@ -293,7 +293,6 @@ See the [Third Party API guide](app_third_party_api.md) for the full payload con
 
 - Shows "MeshMapper" and current version
 - Tap version to copy to clipboard
-- **Hidden feature**: Tap version **7 times** to enable Developer Mode (countdown appears after 3 taps)
 
 ### Submit Feedback
 
@@ -319,15 +318,6 @@ See the [Third Party API guide](app_third_party_api.md) for the full payload con
 
 - Immediately exits the app
 - Confirmation dialog. Warns if connected.
-
----
-
-## Developer Tools (hidden)
-
-Appears only after unlocking Developer Mode (tap the version number 7 times in About):
-
-- **Developer Mode** toggle
-- **GPS Simulator**: Simulate movement for testing — simulation speed, movement patterns (Straight Line, Circle, Random Walk, Route), loading a KML/GPX route file, and position reset
 
 ---
 
