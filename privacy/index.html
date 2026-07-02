@@ -2793,7 +2793,12 @@
 <p>MeshMapper ("we", "us", or "our") operates the MeshMapper platform at meshmapper.net and its associated regional subdomains. This Privacy Notice explains how we collect, use, and protect your information when you use our services.</p>
 <h2 id="information-we-collect">Information We Collect<a class="headerlink" href="#information-we-collect" title="Permanent link">¶</a></h2>
 <h3 id="account-information">Account Information<a class="headerlink" href="#account-information" title="Permanent link">¶</a></h3>
-<p>When you associate via Discord OAuth, we receive your Discord user ID, username, and avatar. We use this solely for automated notification purposes.</p>
+<p>When you sign in or link your account via Discord OAuth, what we receive depends on where you authenticate:</p>
+<ul>
+<li><strong>My MeshMapper portal:</strong> with your permission, we receive your Discord user ID, username, avatar, and the email address associated with your Discord account. Your avatar is stored only for optional display on your public leaderboard profile, and only if you choose to enable it.</li>
+<li><strong>Region administration and the main site:</strong> we receive only your Discord user ID and username.</li>
+</ul>
+<p>We use your Discord user ID to send you automated notifications, such as direct messages about your regions or pending repeaters.</p>
 <p>If you create a <strong>My MeshMapper</strong> portal account, we store your chosen username, your email address (used for account verification and password resets), and a hash of your password. Your email address is never displayed publicly and is not used for marketing.</p>
 <h3 id="location-and-coverage-data">Location and Coverage Data<a class="headerlink" href="#location-and-coverage-data" title="Permanent link">¶</a></h3>
 <p>When you participate in wardriving sessions, the following data is collected:</p>
@@ -2802,13 +2807,15 @@
 <li><strong>Signal metrics</strong> such as RSSI, SNR, and hop counts</li>
 <li><strong>Session metadata</strong> including timestamps, region, and session identifiers</li>
 <li><strong>Node identifiers</strong> for mesh network repeaters and devices encountered, including your device name</li>
+<li><strong>Device identity</strong>, including your device's public key — a persistent, unique identifier for your mesh node</li>
+<li><strong>Device and radio details</strong>, such as your radio model, app version, radio frequency, transmit power, GPS accuracy, and noise-floor readings</li>
 </ul>
 <p>This data is essential to the core function of MeshMapper: building community-driven RF coverage maps.</p>
 <p>Note that by default the wardriving app does <strong>not</strong> broadcast your GPS coordinates over the mesh radio channel — pings carry a short anonymous token on the air, and your coordinates are transmitted only to our servers over the internet. An opt-in setting ("Broadcast My Coordinates") is available for users who want their position visible on the air.</p>
 <h3 id="technical-data">Technical Data<a class="headerlink" href="#technical-data" title="Permanent link">¶</a></h3>
 <p>We may collect standard technical information such as:</p>
 <ul>
-<li>IP addresses (used for rate limiting and abuse prevention)</li>
+<li>IP addresses (used for rate limiting and abuse prevention; full IP addresses are also recorded in server access logs, which are retained for approximately 30 days)</li>
 <li>Browser user-agent strings</li>
 <li>Server access logs</li>
 </ul>
@@ -2827,12 +2834,14 @@
 <li><strong>We do not sell your personal data</strong> to third parties.</li>
 <li><strong>We do not share your data with advertisers.</strong></li>
 <li>We may share data with regional administrators who manage their respective MeshMapper regions.</li>
+<li><strong>Optional third-party forwarding.</strong> The wardriving app includes an optional feature, off by default, that forwards your ping data to a custom endpoint that <em>you</em> configure. If you enable it, data is sent to the third-party destination you specify, and that destination's handling of your data is your responsibility.</li>
 </ul>
 <h2 id="data-storage-and-security">Data Storage and Security<a class="headerlink" href="#data-storage-and-security" title="Permanent link">¶</a></h2>
 <ul>
 <li>All data is stored in databases on our servers.</li>
 <li>Sessions are managed server-side using PHP sessions and API key authentication.</li>
-<li>MQTT-ingested wardriving packets are encrypted with AES and decrypted server-side.</li>
+<li>Data sent from the wardriving app to our servers is transmitted over secure (HTTPS/TLS) connections, and our MQTT data ingestion also runs over TLS.</li>
+<li>Wardriving-channel messages carried over the mesh use the MeshCore channel's standard AES encryption and are decrypted on our ingestion server. This relies on the shared public channel key, and some mesh traffic (such as repeater advertisements and status pings) is transmitted unencrypted as part of the mesh protocol — the mesh channel should not be treated as a private or confidential transport.</li>
 <li>We take reasonable measures to protect your data, but no method of electronic transmission or storage is 100% secure.</li>
 </ul>
 <h2 id="third-party-services">Third-Party Services<a class="headerlink" href="#third-party-services" title="Permanent link">¶</a></h2>
@@ -2848,10 +2857,14 @@
 <li><strong>Nominatim</strong> for geocoding / location search (<a href="https://operations.osmfoundation.org/policies/nominatim/">Nominatim Usage Policy</a>)</li>
 <li><strong>OpenStreetMap</strong> for map data (<a href="https://wiki.osmfoundation.org/wiki/Privacy_Policy">OpenStreetMap Privacy Policy</a>)</li>
 <li><strong>LetsMesh.net</strong> as the MQTT broker for wardriving data ingestion (<a href="https://letsmesh.net/">LetsMesh</a>)</li>
+<li><strong>GitHub</strong> for handling in-app bug reports, which may include information you choose to submit in a report (<a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub Privacy Statement</a>)</li>
+<li><strong>OpenTopoData</strong> for elevation lookups (<a href="https://www.opentopodata.org/">OpenTopoData</a>)</li>
+<li><strong>Content delivery networks</strong> — our web interface loads fonts, scripts, and an anti-abuse CAPTCHA widget from third-party CDNs (including Google Fonts, unpkg, jsDelivr, Cloudflare cdnjs, and cap.js). These providers may receive your IP address and browser user-agent when their assets are loaded.</li>
 </ul>
 <h2 id="data-retention">Data Retention<a class="headerlink" href="#data-retention" title="Permanent link">¶</a></h2>
 <ul>
 <li>Coverage and session data is retained indefinitely to maintain historical map accuracy.</li>
+<li>Records of individual mesh repeaters that have not been heard for 30 days may be automatically removed.</li>
 <li>You can view and delete your own contributed data yourself through the <a href="../portal/">My MeshMapper portal</a> after verifying ownership of your device.</li>
 <li>You may also request deletion of your data by contacting us at admin@meshmapper.net.</li>
 </ul>
