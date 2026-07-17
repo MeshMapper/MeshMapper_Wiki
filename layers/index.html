@@ -850,6 +850,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#linking-to-a-specific-location" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linking to a Specific Location
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Linking to a Specific Location">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#searching-by-place-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Searching by Place Name
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#search-filters" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2972,6 +3000,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#linking-to-a-specific-location" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linking to a Specific Location
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Linking to a Specific Location">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#searching-by-place-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Searching by Place Name
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#search-filters" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3251,6 +3307,60 @@
 <h3 id="packet-analyzer">Packet Analyzer<a class="headerlink" href="#packet-analyzer" title="Permanent link">¶</a></h3>
 <p>The <strong>Packet Analyzer</strong> provides a real-time view of raw MeshCore packets flowing through the region's MQTT observers. It is accessible from the map toolbar. The analyzer can be opened in a new tab for a full-screen experience using the pop-out button.</p>
 <p>The <strong>Live Visualization</strong> mode (accessed via the "Visualize Live" button in the analyzer) draws animated lines on the map showing how packets are moving through the region's repeaters in real time.</p>
+<h2 id="linking-to-a-specific-location">Linking to a Specific Location<a class="headerlink" href="#linking-to-a-specific-location" title="Permanent link">¶</a></h2>
+<p>You can open a region's map pre-centred on an exact spot by adding <code>lat</code>, <code>lon</code>, and (optionally) <code>zoom</code> query parameters to its URL. This is useful for sharing a precise location — a specific repeater site, a coverage gap, or a spot you want someone else to look at — without them having to pan and zoom to find it.</p>
+<pre><code>https://[IATA].meshmapper.net/?lat=45.4034&amp;lon=-75.7258&amp;zoom=15
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lat</code></td>
+<td>float</td>
+<td>Region centre</td>
+<td>Latitude to centre the map on (−90 to 90).</td>
+</tr>
+<tr>
+<td><code>lon</code></td>
+<td>float</td>
+<td>Region centre</td>
+<td>Longitude to centre the map on (−180 to 180).</td>
+</tr>
+<tr>
+<td><code>zoom</code></td>
+<td>integer</td>
+<td><code>13</code></td>
+<td>Map zoom level. Clamped to the 3–19 range.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example — open the YOW map centred on Parliament Hill at zoom 16:</strong></p>
+<pre><code>https://yow.meshmapper.net/?lat=45.4236&amp;lon=-75.7009&amp;zoom=16
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>Both <code>lat</code> and <code>lon</code> must be present and valid for the deep link to take effect. If either is missing or out of range, the map ignores it and loads normally at the region's default view.</li>
+<li>The deep-link position is preserved even after the coverage data finishes loading — the map will not snap back to the region's default extent.</li>
+<li>A <code>lat</code>/<code>lon</code> deep link takes precedence over the <code>location</code> place-name search (below).</li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To share a read-only, embeddable version of the map at a fixed location instead, see <a href="../embedding/">Map Embedding</a> — it accepts the same <code>lat</code>/<code>lon</code>/<code>zoom</code> parameters on the <code>embed.php</code> view.</p>
+</div>
+<h3 id="searching-by-place-name">Searching by Place Name<a class="headerlink" href="#searching-by-place-name" title="Permanent link">¶</a></h3>
+<p>If you don't have exact coordinates, append <code>location=</code> with a place name or address instead. The map geocodes it and centres there on load:</p>
+<pre><code>https://yow.meshmapper.net/?location=Parliament%20Hill,%20Ottawa
+</code></pre>
+<p>If both are supplied, an explicit <code>lat</code>/<code>lon</code> deep link always wins over <code>location</code>.</p>
 <h2 id="search-filters">Search &amp; Filters<a class="headerlink" href="#search-filters" title="Permanent link">¶</a></h2>
 <p>The search functionality combines quick lookups with powerful filtering options.</p>
 <h3 id="filter-map-data">Filter Map Data<a class="headerlink" href="#filter-map-data" title="Permanent link">¶</a></h3>
