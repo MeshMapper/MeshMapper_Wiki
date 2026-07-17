@@ -163,6 +163,44 @@ The **Packet Analyzer** provides a real-time view of raw MeshCore packets flowin
 
 The **Live Visualization** mode (accessed via the "Visualize Live" button in the analyzer) draws animated lines on the map showing how packets are moving through the region's repeaters in real time.
 
+## Linking to a Specific Location
+
+You can open a region's map pre-centred on an exact spot by adding `lat`, `lon`, and (optionally) `zoom` query parameters to its URL. This is useful for sharing a precise location — a specific repeater site, a coverage gap, or a spot you want someone else to look at — without them having to pan and zoom to find it.
+
+```
+https://[IATA].meshmapper.net/?lat=45.4034&lon=-75.7258&zoom=15
+```
+
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `lat` | float | Region centre | Latitude to centre the map on (−90 to 90). |
+| `lon` | float | Region centre | Longitude to centre the map on (−180 to 180). |
+| `zoom` | integer | `13` | Map zoom level. Clamped to the 3–19 range. |
+
+**Example — open the YOW map centred on Parliament Hill at zoom 16:**
+
+```
+https://yow.meshmapper.net/?lat=45.4236&lon=-75.7009&zoom=16
+```
+
+!!! note
+    - Both `lat` and `lon` must be present and valid for the deep link to take effect. If either is missing or out of range, the map ignores it and loads normally at the region's default view.
+    - The deep-link position is preserved even after the coverage data finishes loading — the map will not snap back to the region's default extent.
+    - A `lat`/`lon` deep link takes precedence over the `location` place-name search (below).
+
+!!! tip
+    To share a read-only, embeddable version of the map at a fixed location instead, see [Map Embedding](embedding.md) — it accepts the same `lat`/`lon`/`zoom` parameters on the `embed.php` view.
+
+### Searching by Place Name
+
+If you don't have exact coordinates, append `location=` with a place name or address instead. The map geocodes it and centres there on load:
+
+```
+https://yow.meshmapper.net/?location=Parliament%20Hill,%20Ottawa
+```
+
+If both are supplied, an explicit `lat`/`lon` deep link always wins over `location`.
+
 ## Search & Filters
 
 The search functionality combines quick lookups with powerful filtering options.
