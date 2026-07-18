@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../assets/wardrive.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1599,6 +1599,56 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#global-coverage-feed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global Coverage Feed
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Global Coverage Feed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#response-format_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response Format
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caching-and-timeouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caching and Timeouts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#differences-from-regional-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Differences from Regional Keys
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2921,6 +2971,56 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#global-coverage-feed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global Coverage Feed
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Global Coverage Feed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#response-format_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response Format
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caching-and-timeouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caching and Timeouts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#differences-from-regional-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Differences from Regional Keys
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3417,6 +3517,98 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
 </table>
 <h2 id="managing-your-key">Managing Your Key<a class="headerlink" href="#managing-your-key" title="Permanent link">¶</a></h2>
 <p>If you have a Coverage API key assigned to your admin account, you can view your current usage and regenerate your key from the <strong>User Settings</strong> tab in your region's Admin Portal. Regenerating a key invalidates the old one immediately.</p>
+<h2 id="global-coverage-feed">Global Coverage Feed<a class="headerlink" href="#global-coverage-feed" title="Permanent link">¶</a></h2>
+<p>A special <strong>global</strong> Coverage key returns data for <strong>every MeshMapper region in one request</strong> — no region list to maintain on your side. Global keys are not self-service: they are issued by the MeshMapper team on request, for integrations that genuinely need fleet-wide data (reach out via the usual channels if that's you).</p>
+<p>The endpoint and authentication are identical — only the key differs:</p>
+<pre><code>GET https://meshmapper.net/coverage.php?key=YOUR_GLOBAL_KEY
+</code></pre>
+<h3 id="response-format_1">Response Format<a class="headerlink" href="#response-format_1" title="Permanent link">¶</a></h3>
+<p>Instead of a single region's payload, a global key returns an envelope containing one section per region. Each section carries the <strong>same fields as a regional response</strong> (<code>region</code>, <code>region_name</code>, <code>data_age_seconds</code>, <code>total_squares</code>, <code>point_count</code>, <code>coverage_type_counts</code>, <code>bbox</code>, <code>grid_squares</code>, and <code>repeaters</code> when requested); <code>grid_size</code> and <code>type_bits</code> appear once at the top level since they are identical for every region.</p>
+<pre><code class="language-json">{
+  "success": true,
+  "global": true,
+  "schema_version": 2,
+  "generated_at": 1710547200,
+  "grid_size": { "lat": 0.0027, "lon": 0.00384 },
+  "type_bits": { "BIDIR": 1, "TX": 2, "RX": 4, "DISC": 8, "DEAD": 16, "DROP": 32 },
+  "regions": [
+    {
+      "region": "YOW",
+      "region_name": "Ottawa, CA",
+      "data_age_seconds": 312,
+      "total_squares": 1234,
+      "point_count": 48210,
+      "coverage_type_counts": { "BIDIR": 540, "TX": 60, "RX": 410, "DISC": 90, "DEAD": 12, "DROP": 122 },
+      "bbox": { "minLat": 45.108, "minLon": -76.351, "maxLat": 45.621, "maxLon": -75.299 },
+      "grid_squares": [ "…same grid square objects as the regional API…" ]
+    }
+  ],
+  "region_count": 214,
+  "regions_skipped": 249
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>global</code></td>
+<td>boolean</td>
+<td>Always <code>true</code> for a global-key response.</td>
+</tr>
+<tr>
+<td><code>regions</code></td>
+<td>array</td>
+<td>One section per region with coverage data, in region-code order.</td>
+</tr>
+<tr>
+<td><code>region_count</code></td>
+<td>integer</td>
+<td>Number of sections in <code>regions</code>. Note this field arrives <strong>after</strong> the <code>regions</code> array — use a standard JSON parser rather than assuming key order.</td>
+</tr>
+<tr>
+<td><code>regions_skipped</code></td>
+<td>integer</td>
+<td>Regions omitted because they have no coverage data yet.</td>
+</tr>
+</tbody>
+</table>
+<p><code>?include=repeaters</code> works exactly as for regional keys, adding a <code>repeaters</code> array to each section.</p>
+<h3 id="caching-and-timeouts">Caching and Timeouts<a class="headerlink" href="#caching-and-timeouts" title="Permanent link">¶</a></h3>
+<p>The global response aggregates the entire fleet, so it is cached more aggressively than regional responses:</p>
+<ul>
+<li>The server cache lasts <strong>6 hours</strong> (<code>Cache-Control: public, max-age=21600</code>). Polling more often returns identical data; <strong>once or twice a day is the intended usage</strong>.</li>
+<li>A request that arrives after the cache has expired triggers a rebuild. The response <strong>streams region-by-region while it builds</strong> — data starts flowing immediately, but the complete download can take a minute. Configure a generous <em>total</em> timeout in your HTTP client (the connection is never idle, so per-read timeouts are fine at their defaults). All other requests are served instantly from cache.</li>
+<li><code>ETag</code> / <code>If-None-Match</code> conditional requests work exactly as for regional keys, and a <code>304 Not Modified</code> is by far the cheapest way to poll.</li>
+</ul>
+<h3 id="differences-from-regional-keys">Differences from Regional Keys<a class="headerlink" href="#differences-from-regional-keys" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Behaviour</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fresh=1</code></td>
+<td>HTTP 400, <code>fresh_not_supported</code> — global rebuilds are cache-driven only.</td>
+</tr>
+<tr>
+<td><code>f_*</code> filter parameters</td>
+<td>HTTP 400, <code>filters_not_supported</code>.</td>
+</tr>
+<tr>
+<td>Rebuild already in progress elsewhere</td>
+<td>Served the previous cached copy; if no cached copy exists yet, HTTP 503 with <code>error: rebuilding</code> and a <code>Retry-After</code> header — retry after the indicated delay.</td>
+</tr>
+</tbody>
+</table>
 
 
 
@@ -3469,7 +3661,7 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascripts/extra.js"></script>
       
