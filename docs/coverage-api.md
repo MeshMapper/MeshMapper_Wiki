@@ -246,3 +246,67 @@ A separate short-term, per-IP throttle protects against bursts; exceeding it als
 ## Managing Your Key
 
 If you have a Coverage API key assigned to your admin account, you can view your current usage and regenerate your key from the **User Settings** tab in your region's Admin Portal. Regenerating a key invalidates the old one immediately.
+
+## Global Coverage Feed
+
+A special **global** Coverage key returns data for **every MeshMapper region in one request** — no region list to maintain on your side. Global keys are not self-service: they are issued by the MeshMapper team on request, for integrations that genuinely need fleet-wide data (reach out via the usual channels if that's you).
+
+The endpoint and authentication are identical — only the key differs:
+
+```
+GET https://meshmapper.net/coverage.php?key=YOUR_GLOBAL_KEY
+```
+
+### Response Format
+
+Instead of a single region's payload, a global key returns an envelope containing one section per region. Each section carries the **same fields as a regional response** (`region`, `region_name`, `data_age_seconds`, `total_squares`, `point_count`, `coverage_type_counts`, `bbox`, `grid_squares`, and `repeaters` when requested); `grid_size` and `type_bits` appear once at the top level since they are identical for every region.
+
+```json
+{
+  "success": true,
+  "global": true,
+  "schema_version": 2,
+  "generated_at": 1710547200,
+  "grid_size": { "lat": 0.0027, "lon": 0.00384 },
+  "type_bits": { "BIDIR": 1, "TX": 2, "RX": 4, "DISC": 8, "DEAD": 16, "DROP": 32 },
+  "regions": [
+    {
+      "region": "YOW",
+      "region_name": "Ottawa, CA",
+      "data_age_seconds": 312,
+      "total_squares": 1234,
+      "point_count": 48210,
+      "coverage_type_counts": { "BIDIR": 540, "TX": 60, "RX": 410, "DISC": 90, "DEAD": 12, "DROP": 122 },
+      "bbox": { "minLat": 45.108, "minLon": -76.351, "maxLat": 45.621, "maxLon": -75.299 },
+      "grid_squares": [ "…same grid square objects as the regional API…" ]
+    }
+  ],
+  "region_count": 214,
+  "regions_skipped": 249
+}
+```
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `global` | boolean | Always `true` for a global-key response. |
+| `regions` | array | One section per region with coverage data, in region-code order. |
+| `region_count` | integer | Number of sections in `regions`. Note this field arrives **after** the `regions` array — use a standard JSON parser rather than assuming key order. |
+| `regions_skipped` | integer | Regions omitted because they have no coverage data yet. |
+
+`?include=repeaters` works exactly as for regional keys, adding a `repeaters` array to each section.
+
+### Caching and Timeouts
+
+The global response aggregates the entire fleet, so it is cached more aggressively than regional responses:
+
+- The server cache lasts **6 hours** (`Cache-Control: public, max-age=21600`). Polling more often returns identical data; **once or twice a day is the intended usage**.
+- A request that arrives after the cache has expired triggers a rebuild. The response **streams region-by-region while it builds** — data starts flowing immediately, but the complete download can take a minute. Configure a generous *total* timeout in your HTTP client (the connection is never idle, so per-read timeouts are fine at their defaults). All other requests are served instantly from cache.
+- `ETag` / `If-None-Match` conditional requests work exactly as for regional keys, and a `304 Not Modified` is by far the cheapest way to poll.
+
+### Differences from Regional Keys
+
+| Behaviour | Result |
+| --- | --- |
+| `fresh=1` | HTTP 400, `fresh_not_supported` — global rebuilds are cache-driven only. |
+| `f_*` filter parameters | HTTP 400, `filters_not_supported`. |
+| Rebuild already in progress elsewhere | Served the previous cached copy; if no cached copy exists yet, HTTP 503 with `error: rebuilding` and a `Retry-After` header — retry after the indicated delay. |
