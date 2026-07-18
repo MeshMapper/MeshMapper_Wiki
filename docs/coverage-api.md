@@ -295,6 +295,16 @@ Instead of a single region's payload, a global key returns an envelope containin
 
 `?include=repeaters` works exactly as for regional keys, adding a `repeaters` array to each section.
 
+### Response Size and Pagination
+
+Expect a download in the **single-digit megabytes** (gzipped); decoded, the JSON can run to tens or low hundreds of megabytes. Size scales with the number of ~300 m grid cells that have coverage — not with raw ping counts — so growth over time is gradual.
+
+There is **no pagination or cursor**, by design: the response is served as a single pre-built cached file, which is what keeps it fast and cheap for everyone. The per-region sections are the natural chunks instead:
+
+- **Stream-parse rather than loading the whole document.** Sections arrive one complete region at a time, in order, so an incremental JSON parser (e.g. `ijson` in Python) lets you process and discard each region as it arrives — peak memory stays at one region, not the whole world.
+- **Poll with `If-None-Match`.** On days where nothing changed you get a `304 Not Modified` and transfer nothing (see below).
+- **Need finer-grained fetching?** Regional keys *are* the paginated form of this API — one independently cached, independently ETagged response per region. If your integration outgrows the single global document, ask about switching to per-region keys instead of requesting pagination here.
+
 ### Caching and Timeouts
 
 The global response aggregates the entire fleet, so it is cached more aggressively than regional responses:
