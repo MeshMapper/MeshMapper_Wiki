@@ -1623,6 +1623,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#response-size-and-pagination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response Size and Pagination
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#caching-and-timeouts" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2995,6 +3006,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#response-size-and-pagination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response Size and Pagination
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#caching-and-timeouts" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3579,6 +3601,14 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
 </tbody>
 </table>
 <p><code>?include=repeaters</code> works exactly as for regional keys, adding a <code>repeaters</code> array to each section.</p>
+<h3 id="response-size-and-pagination">Response Size and Pagination<a class="headerlink" href="#response-size-and-pagination" title="Permanent link">¶</a></h3>
+<p>Expect a download in the <strong>single-digit megabytes</strong> (gzipped); decoded, the JSON can run to tens or low hundreds of megabytes. Size scales with the number of ~300 m grid cells that have coverage — not with raw ping counts — so growth over time is gradual.</p>
+<p>There is <strong>no pagination or cursor</strong>, by design: the response is served as a single pre-built cached file, which is what keeps it fast and cheap for everyone. The per-region sections are the natural chunks instead:</p>
+<ul>
+<li><strong>Stream-parse rather than loading the whole document.</strong> Sections arrive one complete region at a time, in order, so an incremental JSON parser (e.g. <code>ijson</code> in Python) lets you process and discard each region as it arrives — peak memory stays at one region, not the whole world.</li>
+<li><strong>Poll with <code>If-None-Match</code>.</strong> On days where nothing changed you get a <code>304 Not Modified</code> and transfer nothing (see below).</li>
+<li><strong>Need finer-grained fetching?</strong> Regional keys <em>are</em> the paginated form of this API — one independently cached, independently ETagged response per region. If your integration outgrows the single global document, ask about switching to per-region keys instead of requesting pagination here.</li>
+</ul>
 <h3 id="caching-and-timeouts">Caching and Timeouts<a class="headerlink" href="#caching-and-timeouts" title="Permanent link">¶</a></h3>
 <p>The global response aggregates the entire fleet, so it is cached more aggressively than regional responses:</p>
 <ul>
