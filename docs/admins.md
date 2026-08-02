@@ -310,12 +310,14 @@ Nothing is deleted until the MeshMapper operator enables the purge fleet-wide �
 
 A **ghost** is a device that has only ever been heard passively — it answered a wardriver's discovery ping but never sent an advert. With no advert it has no name and no fixed location, so it never appears on the map. Ghosts are kept in a separate catalog as evidence that *something* with that ID is transmitting nearby.
 
-This setting drops a ghost after this many days without being heard. Ghosts are also removed as soon as the same ID registers as a real repeater, regardless of the timer.
+This setting drops a ghost after this many days without being heard.
+
+A ghost stops being a ghost the moment MeshMapper receives an advert from it — it becomes a normal repeater straight away, and every rule in [Repeater Lifecycle & Cleanup](#repeater-lifecycle-cleanup) applies to it from then on. Ghost Retention only governs devices that have never adverted.
 
 That catalog is what makes [Pending Repeater Links](#pending-repeater-links) work — a local ghost sharing a distant repeater's ID is the evidence that the pings belong to the local device. Set it too low and you lose that evidence.
 
 !!! example
-    An unregistered repeater `C4A8…` answers discovery 40 times but never adverts. It's logged as a ghost and used as evidence for any pending-link decision on that ID. If nobody hears it for 30 days the ghost is dropped. If its owner fixes it and it starts adverting, it becomes a real repeater and the ghost is removed on the next nightly run.
+    An unregistered repeater `C4A8…` answers discovery 40 times but never adverts. It's logged as a ghost and used as evidence for any pending-link decision on that ID. If nobody hears it for 30 days, the ghost is dropped. If its owner fixes it and it starts adverting, it becomes a normal repeater on the spot — name, location, and the standard timers.
 
 !!! info
     Ghost cleanup only touches the ghost catalog — it can never delete or modify a registered repeater.
