@@ -320,7 +320,7 @@ That catalog is what makes [Pending Repeater Links](#pending-repeater-links) wor
 When enabled, newly discovered repeaters will enter a **Pending** state instead of **Active**. Pending repeaters are hidden from the map until an admin reviews and approves them, and are resolved automatically once they have been in the queue for 3× the stale timer — see [Pending repeater resolution](#pending-repeater-resolution) for exactly how that decision is made. In multiregion mode, this setting is configured per-region under Region-Specific Settings.
 
 !!! warning "Data Inaccuracy Warning"
-    New repeaters will not display on the map until approved. This can cause data inaccuracies. Use with caution.
+    Pings are not associated to a repeater until it has been approved and set to **Active**. Any coverage heard while it sits Pending stays unlinked, and approving it later does not backfill those pings — use **Reassociate Repeater** in the Tools tab if you need them attached.
 
 #### Disable Duplicate ID Detection Logic
 
