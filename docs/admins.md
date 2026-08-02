@@ -282,11 +282,11 @@ Configurable per region (previously fixed at 30 days).
 **Default: blank (Disabled). Opt-in. DESTRUCTIVE.**
 
 !!! danger "This permanently deletes repeaters"
-    An Inactive repeater that hasn't adverted for this many days is **permanently deleted**. Recovery is only from a nightly backup. **Leave it blank to keep it off** — that's the default, and most regions should keep it there.
+    An Inactive repeater that hasn't adverted for this many days is **permanently deleted**. There is no undo. **Leave it blank to keep it off** — that's the default.
 
     A repeater with no observer in range looks identical to a dead one here. Enabling this in a region with patchy observer coverage will delete repeaters that are still transmitting.
 
-It exists for regions accumulating dead records — test devices, replaced hardware — that want the database pruned without doing it by hand.
+Whether to use it is each region's call. Some accumulate dead records — test devices, replaced hardware — and want the database pruned without doing it by hand.
 
 **The clock runs from the last advert**, not from the day the repeater went Inactive, so the two windows overlap.
 
@@ -296,7 +296,7 @@ It exists for regions accumulating dead records — test devices, replaced hardw
       - **January 31st** — marked Inactive, hidden from the map. Record intact.
       - **April 1st** — permanently deleted.
 
-    So it was recoverable for 60 days, not 90. Set both to 30 and it's marked Inactive and deleted on the same night.
+    So it sat Inactive, still on file, for 60 days — not 90. Set both to 30 and it's marked Inactive and deleted on the same night.
 
 **Minimum:** your **Repeater Inactive After** value, or 7 days, whichever is larger — a repeater can't be deleted before it's marked Inactive. The minimum shown next to the field updates as you type. **A smaller value is rejected outright and auto-delete stays off.** It is not rounded up.
 
