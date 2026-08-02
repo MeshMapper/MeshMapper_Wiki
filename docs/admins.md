@@ -344,27 +344,16 @@ These control how coverage pings are linked to repeaters and when orphaned pings
 
 **Default: 200. 0 disables. Affects new pings only.**
 
-When a wardriver hears a repeater, their radio reports a short ID — often only one or two bytes. If that resolves to exactly one registered repeater, MeshMapper normally links the ping to it.
+A ping matching a repeater more than this far away is not linked automatically — it's held as a **Pending Repeater Link** in the Alerts tab for an admin to approve. The pings stay on the map, just not tied to a repeater until you decide.
 
-The problem: an **unregistered** local repeater can share a short ID with a registered one on the far side of the country, and every ping it generates gets credited to the distant repeater — drawing coverage lines hundreds of kilometres long.
-
-So if the matching repeater is farther away than this many km, the link isn't drawn. The pings are held as a **Pending Repeater Link** in the Alerts tab for you to confirm or reject. They stay on the map, just not tied to a repeater.
-
-!!! example
-    At the default 200 km:
-
-      - An Ottawa wardriver hears `C4`, which resolves to a repeater in Vancouver 3,500 km away → held for review.
-      - Hears `9F`, resolving to a repeater 40 km away → linked automatically.
-      - A genuine mountaintop link at 215 km → held once; confirm it and future pings link automatically.
+This catches an unregistered local repeater sharing a short ID with a registered one far away, which would otherwise draw coverage lines across the country.
 
 !!! question "Why 200?"
-    Real LoRa long-hauls reach about 220 km. Past that, a handheld hearing a repeater almost always means an unregistered local device with the same short ID. A false alert costs one click; a missed one puts a wrong line on the map permanently.
+    Real LoRa long-hauls reach about 220 km. Past that, a handheld hearing a repeater almost always means an unregistered local device with the same short ID.
 
 Lower it in a compact region to catch more collisions at the cost of more alerts; raise it if you genuinely have extreme long-haul links. **0** disables the check and always auto-links.
 
-Changing it affects new pings only — existing data and existing alerts are untouched.
-
-See [Pending Repeater Links](#pending-repeater-links) for how to resolve the alerts it generates.
+See [Pending Repeater Links](#pending-repeater-links) for how to resolve the alerts.
 
 #### Stale Ping Cleanup (Auto-Delete Orphaned Pings)
 
