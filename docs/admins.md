@@ -207,7 +207,7 @@ Cleanup runs once a night, so changes you save here take effect on the next run 
 
 #### The lifecycle at a glance
 
-Defaults, for a repeater that stops adverting at **day 0**:
+If the region is set to the defaults, this is what happens to a repeater that stops adverting at **day 0**:
 
 | Elapsed | What happens | Setting |
 | --- | --- | --- |
