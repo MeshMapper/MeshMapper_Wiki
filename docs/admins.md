@@ -36,7 +36,7 @@ Manage the repeaters database.
   - **Status Control:**
     - **Active:** The default state. The repeater is visible on the map, included in leaderboards, and actively associating with coverage pings.
     - **Disabled:** The repeater is hidden from the public map and leaderboards but remains in the database for historical purposes.
-    - **Inactive:** The repeater hasn't sent an advert within the region's **Repeater Inactive After** window (default 30 days) and has been removed from the map. This is non-destructive — the record is retained and returns to Active automatically the next time the repeater adverts and an observer relays it to MeshMapper. Wardrive pings alone will not bring it back. See [Repeater Lifecycle & Data Cleanup](#repeater-lifecycle-data-cleanup).
+    - **Inactive:** The repeater hasn't sent an advert within the region's **Repeater Inactive After** window (default 30 days) and has been removed from the map. This is non-destructive — the record is retained and returns to Active automatically the next time the repeater adverts and an observer relays it to MeshMapper. Wardrive pings alone will not bring it back. See [Repeater Lifecycle & Cleanup](#repeater-lifecycle-cleanup).
     - **Pending:** The repeater has been discovered but is awaiting approval. Pending repeaters are **not** visible on the map and do not associate with coverage data. This state is only used when the "New Repeaters Enter Pending State" setting is enabled for the region. Admins can approve a pending repeater by editing it and setting its status to **Active**. Once a pending repeater has existed for 3× the stale timer it is resolved automatically — approved if it has been heard within 1× the stale timer, deleted if it has not. See [Pending repeater resolution](#pending-repeater-resolution).
     - **Excluded:** The repeater is flagged as a duplicate. It appears as a **Red** icon on the map. Coverage data is **not** associated with this repeater to prevent skewing statistics (with the exception of **DISCOVERY** type pings).
 
@@ -175,7 +175,7 @@ The **Tools** tab contains powerful utilities for bulk operations. **Use with ca
 
 Configure how the map behaves for your region.
 
-The Settings tab is organised into collapsible blocks. Everything that ages, hides, or deletes data lives together under **Repeaters & Data Integrity** — see [Repeater Lifecycle & Data Cleanup](#repeater-lifecycle-data-cleanup) below for the full walkthrough of those timers.
+The Settings tab is organised into collapsible blocks. The ageing and cleanup controls all live under **Repeaters & Data Integrity** — see [Repeater Lifecycle & Cleanup](#repeater-lifecycle-cleanup) and [Coverage Ping Settings](#coverage-ping-settings) below.
 
   - **Max Session Capacity**: Limit the number of simultaneous wardrivers to prevent mesh congestion.
   - **Disable All Flood Traffic**: Disables Active and Hybrid modes in the mobile app entirely — users in your region can only passively wardrive. When enabled, Max Session Capacity is forced to 0 and greyed out.
@@ -192,7 +192,7 @@ The Settings tab is organised into collapsible blocks. Everything that ages, hid
   - **MQTT Observers**: Configure the list of letsmesh observers to ingest from.
   - **Subscribe to all local observers**: This gives a region the option to either define which observers make up their mesh and exclude everything else (when off), or by toggling this on, listen for packets from any connected observer in the IATA. Turning this off and defining which observers to use could be helpful in cases where someone has fired up an observer and connected it with an IATA, but in reality its far away from the actual region and not contributing to the mesh.
 
-### Repeater Lifecycle & Data Cleanup
+### Repeater Lifecycle & Cleanup
 
 Everything that ages, hides, or deletes data lives in the **Repeaters & Data Integrity** block of the Settings tab. A repeater goes quiet, gets flagged, gets hidden, and — only if you opt in — eventually gets deleted.
 
@@ -216,7 +216,7 @@ If the region is set to the defaults, this is what happens to a repeater that st
 | 30 days | Marked **Inactive** and hidden from the map. Reversible — returns to Active when it adverts again. | Repeater Inactive After |
 | Never | Permanently deleted. **Off by default.** | Repeater Retention / Auto-Delete |
 
-Ghosts and orphaned pings run on separate clocks: ghosts age out after 30 days, and orphaned pings are kept forever unless you enable Stale Ping Cleanup.
+Ghosts run on their own clock and age out after 30 days.
 
 Pending repeaters aren't on this timeline at all — see [Pending repeater resolution](#pending-repeater-resolution).
 
@@ -320,6 +320,24 @@ That catalog is what makes [Pending Repeater Links](#pending-repeater-links) wor
 !!! info
     Ghost cleanup only touches the ghost catalog — it can never delete or modify a registered repeater.
 
+#### New Repeaters Enter Pending State
+
+When enabled, newly discovered repeaters will enter a **Pending** state instead of **Active**. Pending repeaters are hidden from the map until an admin reviews and approves them, and are resolved automatically once they have been in the queue for 3× the stale timer — see [Pending repeater resolution](#pending-repeater-resolution) for exactly how that decision is made. In multiregion mode, this setting is configured per-region under Region-Specific Settings.
+
+!!! warning "Data Inaccuracy Warning"
+    New repeaters will not display on the map until approved. This can cause data inaccuracies. Use with caution.
+
+#### Disable Duplicate ID Detection Logic
+
+Allows the region to opt-out of MeshMapper's strict duplicate ID collision handling. When enabled, repeaters with colliding IDs will remain active, and pings will associate with all matching repeaters.
+
+  - *Warning:* This compromises data accuracy. A warning badge will be displayed on the public map, and the region will be excluded from global leaderboards.
+  - [Learn more about overriding duplicate detection](https://wiki.meshmapper.net/overrideduplicates/)
+
+### Coverage Ping Settings
+
+These control how coverage pings are linked to repeaters and when orphaned pings are removed. They are independent of the repeater timers above.
+
 #### Pending Link Distance (km)
 
 **Default: 200. 0 disables. Affects new pings only.**
@@ -392,23 +410,9 @@ Use it to clear a backlog now instead of waiting for each ping to age out.
 
 With the **Ping Purge Cleanup Report** notification on, you'll get a Discord DM summarising what was removed (one combined message per group).
 
-#### New Repeaters Enter Pending State
+### Multi-region groups
 
-When enabled, newly discovered repeaters will enter a **Pending** state instead of **Active**. Pending repeaters are hidden from the map until an admin reviews and approves them, and are resolved automatically once they have been in the queue for 3× the stale timer — see [Pending repeater resolution](#pending-repeater-resolution) for exactly how that decision is made. In multiregion mode, this setting is configured per-region under Region-Specific Settings.
-
-!!! warning "Data Inaccuracy Warning"
-    New repeaters will not display on the map until approved. This can cause data inaccuracies. Use with caution.
-
-#### Disable Duplicate ID Detection Logic
-
-Allows the region to opt-out of MeshMapper's strict duplicate ID collision handling. When enabled, repeaters with colliding IDs will remain active, and pings will associate with all matching repeaters.
-
-  - *Warning:* This compromises data accuracy. A warning badge will be displayed on the public map, and the region will be excluded from global leaderboards.
-  - [Learn more about overriding duplicate detection](https://wiki.meshmapper.net/overrideduplicates/)
-
-#### Multi-region groups
-
-Some of these are set once for the whole group, others per region.
+The cleanup settings above are split between the group and its member regions.
 
 **Group-wide** (Multi-Region Settings → Group Defaults):
 
