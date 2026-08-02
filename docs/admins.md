@@ -349,7 +349,7 @@ A ping matching a repeater more than this far away is not linked automatically â
 This catches an unregistered local repeater sharing a short ID with a registered one far away, which would otherwise draw coverage lines across the country.
 
 !!! question "Why 200?"
-    Real LoRa long-hauls reach about 220 km. Past that, a handheld hearing a repeater almost always means an unregistered local device with the same short ID.
+    LoRa long-hauls at this distance are unlikely. A handheld hearing a repeater that far away almost always means an unregistered local device with the same short ID.
 
 Lower it in a compact region to catch more collisions at the cost of more alerts; raise it if you genuinely have extreme long-haul links. **0** disables the check and always auto-links.
 
