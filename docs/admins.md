@@ -36,7 +36,7 @@ Manage the repeaters database.
   - **Status Control:**
     - **Active:** The default state. The repeater is visible on the map, included in leaderboards, and actively associating with coverage pings.
     - **Disabled:** The repeater is hidden from the public map and leaderboards but remains in the database for historical purposes.
-    - **Inactive:** The repeater hasn't sent an advert within the region's **Repeater Inactive After** window (default 30 days) and has been removed from the map. This is non-destructive — the record is retained and returns to Active automatically the next time the repeater is heard. See [Repeater Lifecycle & Data Cleanup](#repeater-lifecycle-data-cleanup).
+    - **Inactive:** The repeater hasn't sent an advert within the region's **Repeater Inactive After** window (default 30 days) and has been removed from the map. This is non-destructive — the record is retained and returns to Active automatically the next time the repeater adverts and an observer relays it to MeshMapper. Wardrive pings alone will not bring it back. See [Repeater Lifecycle & Data Cleanup](#repeater-lifecycle-data-cleanup).
     - **Pending:** The repeater has been discovered but is awaiting approval. Pending repeaters are **not** visible on the map and do not associate with coverage data. This state is only used when the "New Repeaters Enter Pending State" setting is enabled for the region. Admins can approve a pending repeater by editing it and setting its status to **Active**. Once a pending repeater has existed for 3× the stale timer it is resolved automatically — approved if it has been heard within 1× the stale timer, deleted if it has not. See [Pending repeater resolution](#pending-repeater-resolution).
     - **Excluded:** The repeater is flagged as a duplicate. It appears as a **Red** icon on the map. Coverage data is **not** associated with this repeater to prevent skewing statistics (with the exception of **DISCOVERY** type pings).
 
@@ -198,6 +198,15 @@ All of MeshMapper's ageing and cleanup controls are grouped together in the **Re
 
 The nightly cleanup job runs once per day across the whole fleet. Nothing here happens instantly when you save a setting; changes take effect on the next nightly run.
 
+!!! warning "What counts as a repeater being \"heard\""
+    Every timer in this section is driven by one thing: the repeater **sending an advert that reaches MeshMapper through an MQTT observer**. That is the only event that updates a repeater's last-heard timestamp.
+
+    **Wardriving does not count.** If someone drives past a repeater and their app records pings from it, those pings are stored and associated with the repeater normally — but the repeater's lifecycle clock is untouched. It will still be flagged stale, still be marked Inactive, and still be deleted on exactly the schedule it was already on.
+
+    The practical consequence: a repeater that is transmitting perfectly well but whose adverts never reach an observer — no observer in range, or the region's observer is offline — will age out and drop off the map no matter how much wardrive traffic it generates. If repeaters are disappearing unexpectedly, check your [Observers](#observers) tab before adjusting these timers.
+
+    Ghosts are the exception — they are tracked by wardrive discovery, not by adverts. See [Ghost Retention](#ghost-retention-days).
+
 #### The lifecycle at a glance
 
 Using the defaults, for a repeater that stops adverting at **day 0**:
@@ -206,7 +215,7 @@ Using the defaults, for a repeater that stops adverting at **day 0**:
 | --- | --- | --- |
 | 24 hours | Flagged **stale** on the map. Still Active, still associates pings. | Stale Repeater Age (24h) |
 | 72 hours (3×) | **Only if another repeater still shares its ID:** deleted as the stale half of a collision. A repeater with a unique ID is unaffected. | Stale Repeater Age × 3 |
-| 30 days | Marked **Inactive** and removed from the map. Non-destructive — the record stays in the database and returns to Active the moment it is heard again. | Repeater Inactive After (30 days) |
+| 30 days | Marked **Inactive** and removed from the map. Non-destructive — the record stays in the database and returns to Active the moment it adverts again. | Repeater Inactive After (30 days) |
 | Never (default) | Permanently deleted. **Off unless you set a retention value.** | Repeater Retention / Auto-Delete (blank) |
 
 Pending repeaters are **not** on this timeline — their clock starts when the record was created, not when the repeater went quiet. See [Pending repeater resolution](#pending-repeater-resolution) below.
@@ -271,14 +280,19 @@ Once a pending repeater has existed for **3× the stale age**, MeshMapper resolv
 
 How many days a repeater can go without an advert before it is marked **Inactive** (status 3) and removed from the map.
 
-This is fully reversible and loses nothing. The repeater row, its notes, its history, and its leaderboard contributions all stay in the database. The next time an advert arrives, ingestion flips it straight back to Active and it reappears on the map.
+This is fully reversible and loses nothing. The repeater row, its notes, its history, and its leaderboard contributions all stay in the database. The next time one of its adverts reaches MeshMapper through an observer, ingestion flips it straight back to Active and it reappears on the map.
 
 Previously this was hardcoded to 30 days; it is now configurable per region.
 
 !!! example "Worked example"
-    A region with a slow, low-traffic mesh sets **Repeater Inactive After = 60**. A cottage-country repeater that only gets heard when someone drives past every few weeks now stays on the map for two months of silence instead of one.
+    A region has a repeater at the edge of its coverage whose adverts only occasionally make it back to an observer — most of the time nothing relays them. Setting **Repeater Inactive After = 60** gives it two months to land a single advert instead of one, so an intermittently-relayed repeater stays on the map between successful adverts.
 
-    A dense urban region wanting a tighter map sets it to **14** — anything not heard in two weeks drops off, and reappears automatically if it comes back.
+    A dense urban region wanting a tighter map sets it to **14** — anything that hasn't landed an advert in two weeks drops off, and returns automatically as soon as one gets through.
+
+!!! warning "This timer will not save a repeater with no observer coverage"
+    Raising this value only helps a repeater whose adverts reach MeshMapper *sometimes*. If no observer can hear the repeater at all, no amount of extra time will help — it will age out at whatever value you set, and wardrive pings from that repeater will not stop it.
+
+    That case is an observer coverage gap, not a timer problem. Fixing it means getting an observer in range, not raising this number. **Single Observer Mode** exists for regions relying on one ingestor and disables this ageing entirely.
 
 !!! tip "Per-repeater override"
     Enabling **Bypass Auto Delete** on an individual repeater (Repeaters tab) exempts it from *every* automatic routine described in this section — it will never be marked inactive, never deleted as a stale duplicate, never deleted as a stale pending repeater, and never deleted by the retention purge. Use it for seasonal or intentionally-offline deployments you want to keep pinned on the map.
@@ -288,7 +302,9 @@ Previously this was hardcoded to 30 days; it is now configurable per region.
 **Default: blank (Disabled). Opt-in. DESTRUCTIVE.**
 
 !!! danger "This permanently deletes repeaters"
-    When set, a repeater that is **Inactive** and has not been heard for this many days is permanently deleted from your region's repeater database. Recovery is only possible from a nightly backup. **Leave the field blank to keep it disabled** — that is the default, and most regions should keep it that way.
+    When set, a repeater that is **Inactive** and has not landed an advert for this many days is permanently deleted from your region's repeater database. Recovery is only possible from a nightly backup. **Leave the field blank to keep it disabled** — that is the default, and most regions should keep it that way.
+
+    Bear in mind that a repeater with no observer in range is indistinguishable from a dead one as far as this timer is concerned. Enabling auto-delete in a region with patchy observer coverage will permanently remove repeaters that are still transmitting.
 
 This is the only setting in the panel that removes registered repeaters. It exists for regions that accumulate large numbers of dead records — test devices, one-off hardware, repeaters that were replaced rather than moved — and want the database to stay clean without manual pruning.
 
