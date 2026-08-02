@@ -3773,7 +3773,7 @@
 <p>When enabled, newly discovered repeaters will enter a <strong>Pending</strong> state instead of <strong>Active</strong>. Pending repeaters are hidden from the map until an admin reviews and approves them, and are resolved automatically once they have been in the queue for 3× the stale timer — see <a href="#pending-repeater-resolution">Pending repeater resolution</a> for exactly how that decision is made. In multiregion mode, this setting is configured per-region under Region-Specific Settings.</p>
 <div class="admonition warning">
 <p class="admonition-title">Data Inaccuracy Warning</p>
-<p>New repeaters will not display on the map until approved. This can cause data inaccuracies. Use with caution.</p>
+<p>Pings are not associated to a repeater until it has been approved and set to <strong>Active</strong>. Any coverage heard while it sits Pending stays unlinked, and approving it later does not backfill those pings — use <strong>Reassociate Repeater</strong> in the Tools tab if you need them attached.</p>
 </div>
 <h4 id="disable-duplicate-id-detection-logic">Disable Duplicate ID Detection Logic<a class="headerlink" href="#disable-duplicate-id-detection-logic" title="Permanent link">¶</a></h4>
 <p>Allows the region to opt-out of MeshMapper's strict duplicate ID collision handling. When enabled, repeaters with colliding IDs will remain active, and pings will associate with all matching repeaters.</p>
