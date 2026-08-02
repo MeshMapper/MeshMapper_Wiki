@@ -38,7 +38,7 @@ Manage the repeaters database.
     - **Disabled:** The repeater is hidden from the public map and leaderboards but remains in the database for historical purposes.
     - **Inactive:** The repeater hasn't sent an advert within the region's **Repeater Inactive After** window (default 30 days) and has been removed from the map. This is non-destructive — the record is retained and returns to Active automatically the next time the repeater adverts and an observer relays it to MeshMapper. Wardrive pings alone will not bring it back. See [Repeater Lifecycle & Cleanup](#repeater-lifecycle-cleanup).
     - **Pending:** The repeater has been discovered but is awaiting approval. Pending repeaters are **not** visible on the map and do not associate with coverage data. This state is only used when the "New Repeaters Enter Pending State" setting is enabled for the region. Admins can approve a pending repeater by editing it and setting its status to **Active**. Once a pending repeater has existed for 3× the stale timer it is resolved automatically — approved if it has been heard within 1× the stale timer, deleted if it has not. See [Pending repeater resolution](#pending-repeater-resolution).
-    - **Excluded:** The repeater is flagged as a duplicate. It appears as a **Red** icon on the map. Coverage data is **not** associated with this repeater to prevent skewing statistics (with the exception of **DISCOVERY** type pings).
+    - **Excluded:** The repeater is flagged as a duplicate. It appears as a **Red** icon on the map. Coverage data is **not** associated with this repeater to prevent skewing statistics (with the exception of **DISCOVERY** type pings). An Excluded repeater that goes silent is eventually marked **Inactive** like any other, which releases the repeater it was colliding with.
 
     !!! warning "Duplicate Repeater Persistence"
         **You cannot force a repeater with a colliding ID to remain Active.**
@@ -51,7 +51,7 @@ Manage the repeaters database.
   - **Neighbours Cleanup:** Reset the neighbours list for any repeater in the region. Useful for clearing stale or incorrect neighbour associations.
   - **Notes:** Clicking the note icon will allow you to optionally add a note to the repeater.  On multiregion admin panels, if a repeater belongs to multiple single regions, notes will be combined and edits will be saved to the individual regions.
   - **Lock GPS Coordinates:** Enabling this setting will prevent new adverts from a repeater from updating its location.  This can be used in instances where the GPS coordinates set on the repeater are incorrect and need to be manually overridden.
-  - **Bypass Auto Delete:** When enabled on a repeater, every automatic cleanup routine will skip it entirely. The repeater will not be marked inactive, will not be deleted as a stale duplicate, will not be removed as a stale pending repeater, and will not be removed by the [Repeater Retention / Auto-Delete](#repeater-retention-auto-delete-days) purge. This is useful for repeaters that are known to be offline for extended periods but should remain on the map (e.g. seasonal deployments, repeaters in remote locations with intermittent connectivity).
+  - **Bypass Auto Delete:** When enabled on a repeater, every automatic cleanup routine will skip it entirely. The repeater will not be marked inactive, will not be removed as a stale pending repeater, and will not be removed by the [Repeater Retention / Auto-Delete](#repeater-retention-auto-delete-days) purge. This is useful for repeaters that are known to be offline for extended periods but should remain on the map (e.g. seasonal deployments, repeaters in remote locations with intermittent connectivity).
   - **Bulk Select & Edit/Delete:** Use the checkboxes on each row (or the "Select All" checkbox in the header) to select multiple repeaters. A toolbar will appear at the bottom of the screen with options to **Edit Selected** or **Delete Selected**. Bulk edit allows you to change Status, Power, Lock GPS, and Notes for all selected repeaters at once — each field has an "Apply" checkbox so you only change the fields you intend to. Works across multi-region admin panels.
 
     !!! warning "Bulk Notes"
@@ -212,7 +212,6 @@ If the region is set to the defaults, this is what happens to a repeater that st
 | Elapsed | What happens | Setting |
 | --- | --- | --- |
 | 24 hours | Flagged **stale** on the map. Still Active, still collects pings. | Stale Repeater Age |
-| 72 hours | Deleted **only if another repeater still shares its ID**. A unique ID is untouched. | Stale Repeater Age × 3 |
 | 30 days | Marked **Inactive** and hidden from the map. Reversible — returns to Active when it adverts again. | Repeater Inactive After |
 | Never | Permanently deleted. **Off by default.** | Repeater Retention / Auto-Delete |
 
@@ -226,17 +225,9 @@ Pending repeaters aren't on this timeline at all — see [Pending repeater resol
 
 Hours without an advert before a repeater is flagged stale on the map. It stays Active and still collects pings — this is a visual warning only.
 
-The value also sets the **3×** threshold (72 hours by default) used by the two routines below.
+The value also sets the **3×** threshold (72 hours by default) used by [pending repeater resolution](#pending-repeater-resolution) below.
 
 Lower it for a map that reacts quickly to outages; raise it if your repeaters advert infrequently and healthy ones keep getting flagged.
-
-##### Duplicate collision cleanup
-
-After 3× the stale age of silence, a repeater is deleted **only if another repeater still shares the leading bytes of its ID**. Silence alone never deletes anything here — a repeater with a unique ID simply carries on toward Inactive.
-
-If exactly one other repeater shared that ID and the collision had forced it into **Excluded**, it is restored to **Active** with the clean ID. Collisions blocking a legitimate repeater fix themselves once the stale twin is gone.
-
-[See Duplicate Repeater IDs](https://wiki.meshmapper.net/duplicaterepeaterid/).
 
 ##### Pending repeater resolution
 
@@ -262,9 +253,11 @@ A repeater with **Bypass Auto Delete** is never deleted here, but can still be a
 
 **Default: 30. Always on. Non-destructive.**
 
-Days without an advert before a repeater is marked **Inactive** and hidden from the map.
+Days without an advert before a repeater is marked **Inactive** and hidden from the map. This applies to **Active** repeaters and to **Excluded** ones (repeaters parked by an ID collision).
 
 Nothing is lost — the record, its notes, its history, and its leaderboard contributions all stay. It returns to Active by itself the next time an advert gets through.
+
+Ageing out Excluded repeaters is what unsticks a stale collision: while a colliding repeater is still Excluded it keeps its partner excluded too, and once it goes Inactive it drops out of that comparison and the partner returns to Active on its next advert. See [Duplicate Repeater IDs](https://wiki.meshmapper.net/duplicaterepeaterid/).
 
 Configurable per region (previously fixed at 30 days).
 
