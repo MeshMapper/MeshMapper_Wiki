@@ -201,7 +201,7 @@ Cleanup runs once a night, so changes you save here take effect on the next run 
 !!! warning "“Heard” means an advert, not a wardrive"
     These timers only reset when the repeater sends an **advert that reaches MeshMapper through an MQTT observer**.
 
-    Wardriving past a repeater records its pings normally, but does **not** reset its clock — it will still go stale, go Inactive, and be deleted on schedule. A repeater that is transmitting fine but has no observer in range will age off the map anyway. If repeaters vanish unexpectedly, check the [Observers](#observers) tab first.
+    Wardriving past a repeater records its pings normally, but does **not** reset its clock — it will still go stale, go Inactive, and be deleted on schedule. A repeater that is transmitting fine but has no observer in range will age off the map anyway.
 
     Ghosts are the exception — they run on wardrive discovery. See [Ghost Retention](#ghost-retention-days).
 
