@@ -194,263 +194,203 @@ The Settings tab is organised into collapsible blocks. Everything that ages, hid
 
 ### Repeater Lifecycle & Data Cleanup
 
-All of MeshMapper's ageing and cleanup controls are grouped together in the **Repeaters & Data Integrity** block of the Settings tab. They form a single pipeline: a repeater goes quiet, gets flagged, gets hidden, and — only if you opt in — eventually gets deleted. Each stage has its own timer, and each timer is independent of the others.
+Everything that ages, hides, or deletes data lives in the **Repeaters & Data Integrity** block of the Settings tab. A repeater goes quiet, gets flagged, gets hidden, and — only if you opt in — eventually gets deleted.
 
-The nightly cleanup job runs once per day across the whole fleet. Nothing here happens instantly when you save a setting; changes take effect on the next nightly run.
+Cleanup runs once a night, so changes you save here take effect on the next run rather than immediately.
 
-!!! warning "What counts as a repeater being \"heard\""
-    Every timer in this section is driven by one thing: the repeater **sending an advert that reaches MeshMapper through an MQTT observer**. That is the only event that updates a repeater's last-heard timestamp.
+!!! warning "\"Heard\" means an advert, not a wardrive"
+    These timers only reset when the repeater sends an **advert that reaches MeshMapper through an MQTT observer**.
 
-    **Wardriving does not count.** If someone drives past a repeater and their app records pings from it, those pings are stored and associated with the repeater normally — but the repeater's lifecycle clock is untouched. It will still be flagged stale, still be marked Inactive, and still be deleted on exactly the schedule it was already on.
+    Wardriving past a repeater records its pings normally, but does **not** reset its clock — it will still go stale, go Inactive, and be deleted on schedule. A repeater that is transmitting fine but has no observer in range will age off the map anyway. If repeaters vanish unexpectedly, check the [Observers](#observers) tab first.
 
-    The practical consequence: a repeater that is transmitting perfectly well but whose adverts never reach an observer — no observer in range, or the region's observer is offline — will age out and drop off the map no matter how much wardrive traffic it generates. If repeaters are disappearing unexpectedly, check your [Observers](#observers) tab before adjusting these timers.
-
-    Ghosts are the exception — they are tracked by wardrive discovery, not by adverts. See [Ghost Retention](#ghost-retention-days).
+    Ghosts are the exception — they run on wardrive discovery. See [Ghost Retention](#ghost-retention-days).
 
 #### The lifecycle at a glance
 
-Using the defaults, for a repeater that stops adverting at **day 0**:
+Defaults, for a repeater that stops adverting at **day 0**:
 
-| Elapsed | What happens | Controlled by |
+| Elapsed | What happens | Setting |
 | --- | --- | --- |
-| 24 hours | Flagged **stale** on the map. Still Active, still associates pings. | Stale Repeater Age (24h) |
-| 72 hours (3×) | **Only if another repeater still shares its ID:** deleted as the stale half of a collision. A repeater with a unique ID is unaffected. | Stale Repeater Age × 3 |
-| 30 days | Marked **Inactive** and removed from the map. Non-destructive — the record stays in the database and returns to Active the moment it adverts again. | Repeater Inactive After (30 days) |
-| Never (default) | Permanently deleted. **Off unless you set a retention value.** | Repeater Retention / Auto-Delete (blank) |
+| 24 hours | Flagged **stale** on the map. Still Active, still collects pings. | Stale Repeater Age |
+| 72 hours | Deleted **only if another repeater still shares its ID**. A unique ID is untouched. | Stale Repeater Age × 3 |
+| 30 days | Marked **Inactive** and hidden from the map. Reversible — returns to Active when it adverts again. | Repeater Inactive After |
+| Never | Permanently deleted. **Off by default.** | Repeater Retention / Auto-Delete |
 
-Pending repeaters are **not** on this timeline — their clock starts when the record was created, not when the repeater went quiet. See [Pending repeater resolution](#pending-repeater-resolution) below.
+Ghosts and orphaned pings run on separate clocks: ghosts age out after 30 days, and orphaned pings are kept forever unless you enable Stale Ping Cleanup.
 
-Separately, and on their own clocks:
-
-| Data type | Default | Controlled by |
-| --- | --- | --- |
-| Heard-only "ghost" devices | Aged out after 30 days unheard | Ghost Retention |
-| Orphaned coverage pings | Kept forever | Stale Ping Cleanup (Disabled) |
+Pending repeaters aren't on this timeline at all — see [Pending repeater resolution](#pending-repeater-resolution).
 
 #### Stale Repeater Age (Hours)
 
 **Default: 24. Always on. Non-destructive.**
 
-How many hours a repeater can go without sending an advert before it is considered stale and visually flagged on the map. A stale repeater is still Active — it still appears on the map and still associates with coverage pings.
+Hours without an advert before a repeater is flagged stale on the map. It stays Active and still collects pings — this is a visual warning only.
 
-This value also drives two separate cleanup routines, both keyed to **3× the stale age** (72 hours by default). They are described individually below, because they answer different questions and run on different clocks.
+The value also sets the **3×** threshold (72 hours by default) used by the two routines below.
 
-!!! example "Worked example"
-    Stale Repeater Age = **12** hours. A repeater that last adverted 13 hours ago is flagged stale on the map, and the two 3× routines below now use a 36-hour threshold instead of 72.
-
-    Lowering this value makes your map more responsive to outages but flags healthy repeaters more often in a quiet mesh. Raising it is the right call for regions with long advert intervals.
+Lower it for a map that reacts quickly to outages; raise it if your repeaters advert infrequently and healthy ones keep getting flagged.
 
 ##### Duplicate collision cleanup
 
-When a repeater has been silent for **3× the stale age**, MeshMapper checks whether any *other* repeater still shares the leading bytes of its ID.
+After 3× the stale age of silence, a repeater is deleted **only if another repeater still shares the leading bytes of its ID**. Silence alone never deletes anything here — a repeater with a unique ID simply carries on toward Inactive.
 
-  - **Nothing else shares its ID** — nothing happens. Silence alone never deletes a repeater here; it just continues down the timeline toward Inactive.
-  - **Something else does share its ID** — the silent one is deleted that night. The reasoning is that between two devices claiming the same ID, the one that has gone quiet is the one you can afford to lose, and keeping it around only prolongs the collision.
+If exactly one other repeater shared that ID and the collision had forced it into **Excluded**, it is restored to **Active** with the clean ID. Collisions blocking a legitimate repeater fix themselves once the stale twin is gone.
 
-**The survivor is repaired.** If exactly one other repeater shared that ID and it had been forced into **Excluded** status by the collision, it is restored to **Active** and given the clean ID back. So a collision that was blocking a legitimate repeater resolves itself once the stale twin is cleaned up — no admin action needed.
-
-[See Duplicate Repeater IDs](https://wiki.meshmapper.net/duplicaterepeaterid/) for the full collision model.
+[See Duplicate Repeater IDs](https://wiki.meshmapper.net/duplicaterepeaterid/).
 
 ##### Pending repeater resolution
 
-This only applies when **New Repeaters Enter Pending State** is enabled, and it runs on a different clock from everything else on this page.
+Applies only when **New Repeaters Enter Pending State** is on. This clock starts when the repeater was first added, not when it went quiet.
 
-The question here is not "how long has this repeater been silent?" but **"has this repeater been sitting in the approval queue long enough for us to judge it?"** That clock starts when the record was created.
+Once a pending repeater is **3× the stale age** old, MeshMapper decides based on whether it adverted within **1×** the stale age:
 
-Once a pending repeater has existed for **3× the stale age**, MeshMapper resolves it by asking whether it is *currently* alive — a **1×** stale-age check, not 3×:
+  - **Adverted recently** → approved to Active.
+  - **Hasn't** → deleted.
 
-  - **Heard within the last 1× stale age** (24h by default) → automatically **approved** to Active.
-  - **Not heard within the last 1× stale age** → **deleted**.
+!!! example
+    With Stale Repeater Age = 24h, pending repeaters are judged at 72 hours old:
 
-!!! example "Worked example"
-    Stale Repeater Age = **24** hours, so pending records are judged once they are **72 hours** old.
+      - Added Monday, still adverting Thursday → **approved**.
+      - Added Monday, went silent Tuesday → **deleted**.
+      - Added yesterday → not judged yet, whatever it's doing.
 
-      - A repeater first seen on Monday, still adverting on Thursday → 72h old and heard within 24h → **approved**, appears on the map.
-      - A repeater first seen on Monday that adverted twice and never again → 72h old, last heard 3 days ago → **deleted**.
-      - A repeater first seen yesterday → only 24h old, not yet judged either way. It waits in the queue regardless of how active it is.
+    The two numbers differ on purpose: 72h decides *when* it's judged, 24h decides *which way*.
 
-    Note the asymmetry: the two thresholds are different numbers. 72 hours decides *when* the repeater is judged; 24 hours decides *which way*.
-
-!!! tip
-    A repeater exempted with **Bypass Auto Delete** is never deleted by this routine — but it can still be auto-approved.
+A repeater with **Bypass Auto Delete** is never deleted here, but can still be auto-approved.
 
 #### Repeater Inactive After (Days)
 
 **Default: 30. Always on. Non-destructive.**
 
-How many days a repeater can go without an advert before it is marked **Inactive** (status 3) and removed from the map.
+Days without an advert before a repeater is marked **Inactive** and hidden from the map.
 
-This is fully reversible and loses nothing. The repeater row, its notes, its history, and its leaderboard contributions all stay in the database. The next time one of its adverts reaches MeshMapper through an observer, ingestion flips it straight back to Active and it reappears on the map.
+Nothing is lost — the record, its notes, its history, and its leaderboard contributions all stay. It returns to Active by itself the next time an advert gets through.
 
-Previously this was hardcoded to 30 days; it is now configurable per region.
+Configurable per region (previously fixed at 30 days).
 
-!!! example "Worked example"
-    A region has a repeater at the edge of its coverage whose adverts only occasionally make it back to an observer — most of the time nothing relays them. Setting **Repeater Inactive After = 60** gives it two months to land a single advert instead of one, so an intermittently-relayed repeater stays on the map between successful adverts.
+!!! example
+    Raise it to **60** for a repeater whose adverts only occasionally reach an observer, giving it two months to land one. Lower it to **14** for a dense region that wants stale entries off the map quickly.
 
-    A dense urban region wanting a tighter map sets it to **14** — anything that hasn't landed an advert in two weeks drops off, and returns automatically as soon as one gets through.
-
-!!! warning "This timer will not save a repeater with no observer coverage"
-    Raising this value only helps a repeater whose adverts reach MeshMapper *sometimes*. If no observer can hear the repeater at all, no amount of extra time will help — it will age out at whatever value you set, and wardrive pings from that repeater will not stop it.
-
-    That case is an observer coverage gap, not a timer problem. Fixing it means getting an observer in range, not raising this number. **Single Observer Mode** exists for regions relying on one ingestor and disables this ageing entirely.
+!!! warning "This won't help a repeater with no observer coverage"
+    Raising the value only helps if adverts get through *sometimes*. If no observer can hear the repeater at all it ages out regardless, and its wardrive pings won't stop that. That's an observer gap, not a timer problem. (**Single Observer Mode** disables this ageing entirely.)
 
 !!! tip "Per-repeater override"
-    Enabling **Bypass Auto Delete** on an individual repeater (Repeaters tab) exempts it from *every* automatic routine described in this section — it will never be marked inactive, never deleted as a stale duplicate, never deleted as a stale pending repeater, and never deleted by the retention purge. Use it for seasonal or intentionally-offline deployments you want to keep pinned on the map.
+    **Bypass Auto Delete** on a repeater (Repeaters tab) exempts it from every routine in this section. Use it for seasonal or knowingly-offline deployments you want to keep on the map.
 
 #### Repeater Retention / Auto-Delete (Days)
 
 **Default: blank (Disabled). Opt-in. DESTRUCTIVE.**
 
 !!! danger "This permanently deletes repeaters"
-    When set, a repeater that is **Inactive** and has not landed an advert for this many days is permanently deleted from your region's repeater database. Recovery is only possible from a nightly backup. **Leave the field blank to keep it disabled** — that is the default, and most regions should keep it that way.
+    An Inactive repeater that hasn't adverted for this many days is **permanently deleted**. Recovery is only from a nightly backup. **Leave it blank to keep it off** — that's the default, and most regions should keep it there.
 
-    Bear in mind that a repeater with no observer in range is indistinguishable from a dead one as far as this timer is concerned. Enabling auto-delete in a region with patchy observer coverage will permanently remove repeaters that are still transmitting.
+    A repeater with no observer in range looks identical to a dead one here. Enabling this in a region with patchy observer coverage will delete repeaters that are still transmitting.
 
-This is the only setting in the panel that removes registered repeaters. It exists for regions that accumulate large numbers of dead records — test devices, one-off hardware, repeaters that were replaced rather than moved — and want the database to stay clean without manual pruning.
+It exists for regions accumulating dead records — test devices, replaced hardware — that want the database pruned without doing it by hand.
 
-**How the clock is measured.** The deletion window is counted from the repeater's **last heard advert**, not from the day it flipped to Inactive. The two stages overlap on one timeline rather than running back to back.
+**The clock runs from the last advert**, not from the day the repeater went Inactive, so the two windows overlap.
 
-!!! example "Worked example"
-    Repeater Inactive After = **30**, Repeater Retention = **90**.
+!!! example
+    Inactive After = **30**, Retention = **90**. A repeater last adverts January 1st:
 
-    A repeater last adverts on **January 1st**.
+      - **January 31st** — marked Inactive, hidden from the map. Record intact.
+      - **April 1st** — permanently deleted.
 
-      - **January 31st** — 30 days silent. Marked Inactive, removed from the map. Record intact.
-      - **April 1st** — 90 days silent. Permanently deleted.
+    So it was recoverable for 60 days, not 90. Set both to 30 and it's marked Inactive and deleted on the same night.
 
-    So it sat Inactive and recoverable for **60 days** (90 − 30) before deletion, not 90.
+**Minimum:** your **Repeater Inactive After** value, or 7 days, whichever is larger — a repeater can't be deleted before it's marked Inactive. The minimum shown next to the field updates as you type. **A smaller value is rejected outright and auto-delete stays off.** It is not rounded up.
 
-    Set Retention = **30** with Inactive After = **30** instead, and the two coincide: the repeater is marked inactive and deleted on the same nightly run.
+Leaderboard points and Explorer credit survive; only the repeater record goes. Deletions are written to the audit log.
 
-**Minimum value.** The field enforces a live minimum — whichever is larger of your **Repeater Inactive After** value and a hard floor of **7 days**. The minimum shown next to the label updates as you type in the Inactive After field. A value below the minimum is rejected and the setting stays disabled, because a repeater cannot be deleted before it has been marked inactive.
-
-!!! example "Rejected values"
-    With Repeater Inactive After = **30**:
-
-      - Retention = **90** → accepted.
-      - Retention = **30** → accepted (equal to the minimum).
-      - Retention = **20** → rejected, setting reverts to Disabled.
-      - Retention = **blank** → Disabled (the default).
-
-**What survives deletion.** Leaderboard points and Explorer credit earned against that repeater are preserved — they are moved to the **retired-points ledger** rather than lost, so no contributor's score drops because a repeater was cleaned up. The repeater row itself, however, is gone.
-
-**A second safety gate.** Even with a value set, nothing is deleted until the MeshMapper operator separately enables the fleet-wide purge flag on the server. Setting a retention value alone will not delete anything.
-
-Deletions are written to the audit log (repeater ID, last heard timestamp, and the retention window applied), so you can see exactly what was removed and when.
+Nothing is deleted until the MeshMapper operator enables the purge fleet-wide — setting a value alone isn't enough.
 
 #### Ghost Retention (Days)
 
 **Default: 30. Always on.**
 
-A **ghost** is a device MeshMapper has heard passively — it answered a wardriver's discovery ping — but which has never sent an advert. Because it never adverted, it carries no name and no fixed location, so it can never appear on the map as a repeater. Ghosts are tracked in a separate heard-only catalog, purely as evidence that *something* with that ID is transmitting in the area.
+A **ghost** is a device that has only ever been heard passively — it answered a wardriver's discovery ping but never sent an advert. With no advert it has no name and no fixed location, so it never appears on the map. Ghosts are kept in a separate catalog as evidence that *something* with that ID is transmitting nearby.
 
-This setting ages ghosts out of that catalog after the given number of days without being heard.
+This setting drops a ghost after this many days without being heard. Ghosts are also removed as soon as the same ID registers as a real repeater, regardless of the timer.
 
-Ghosts are also removed immediately — regardless of this timer — the moment the same ID becomes a **registered repeater** in your region. Once a device starts adverting, it is a real repeater and no longer needs a ghost entry, so the ghost record is dropped on the next nightly run.
+That catalog is what makes [Pending Repeater Links](#pending-repeater-links) work — a local ghost sharing a distant repeater's ID is the evidence that the pings belong to the local device. Set it too low and you lose that evidence.
 
-!!! info "Ghost cleanup never touches your repeaters"
-    This routine only prunes the heard-only catalog. It can never delete, hide, or modify a registered repeater. It also runs for regions in Single Observer Mode and for regions with no registered repeaters at all.
+!!! example
+    An unregistered repeater `C4A8…` answers discovery 40 times but never adverts. It's logged as a ghost and used as evidence for any pending-link decision on that ID. If nobody hears it for 30 days the ghost is dropped. If its owner fixes it and it starts adverting, it becomes a real repeater and the ghost is removed on the next nightly run.
 
-**Why ghosts matter.** The ghost catalog is the evidence base for the **Pending Repeater Links** feature below. When a wardriver reports a repeater ID that resolves to a device hundreds of kilometres away, the presence of a local ghost sharing that ID is what tells you the pings almost certainly belong to an unregistered local device instead. Setting Ghost Retention too low weakens that evidence; setting it very high keeps stale ghosts around cluttering the analysis.
-
-!!! example "Worked example"
-    A wardriver drives past an unregistered repeater whose ID starts `C4A8`. It answers discovery 40 times but never adverts.
-
-      - It is recorded as a ghost `C4A8…`, and is used as evidence in any pending-link decision involving that ID.
-      - With Ghost Retention = **30**, if nobody hears it again for 30 days the ghost entry is dropped.
-      - If its owner instead configures it properly and it starts adverting, it registers as a real repeater — and the ghost entry is deleted on the next nightly run, no waiting.
+!!! info
+    Ghost cleanup only touches the ghost catalog — it can never delete or modify a registered repeater.
 
 #### Pending Link Distance (km)
 
-**Default: 200. Set to 0 to disable. Affects future ingestion only.**
+**Default: 200. 0 disables. Affects new pings only.**
 
-This is the guard against the "ghost repeater steals a distant repeater's pings" problem.
+When a wardriver hears a repeater, their radio reports a short ID — often only one or two bytes. If that resolves to exactly one registered repeater, MeshMapper normally links the ping to it.
 
-When a wardriver hears a repeater, their radio reports a short ID token — often only one or two bytes. MeshMapper resolves that token against the registered repeater database. If the token resolves to exactly **one** registered repeater, MeshMapper would normally draw a link from the ping to that repeater's location.
+The problem: an **unregistered** local repeater can share a short ID with a registered one on the far side of the country, and every ping it generates gets credited to the distant repeater — drawing coverage lines hundreds of kilometres long.
 
-The failure case: an **unregistered** local repeater happens to share the same short ID as a registered repeater on the other side of the country. Without this check, every ping heard from the local device gets attributed to the distant one, drawing false coverage lines hundreds of kilometres long.
+So if the matching repeater is farther away than this many km, the link isn't drawn. The pings are held as a **Pending Repeater Link** in the Alerts tab for you to confirm or reject. They stay on the map, just not tied to a repeater.
 
-**What this setting does:** if the single matching repeater sits farther than this many kilometres from the ping, the link is **not** drawn automatically. Instead the pings are held as a **Pending Repeater Link** in the Alerts tab for you to confirm or reject. The pings still appear on the map — they are simply not tied to a repeater until you decide.
+!!! example
+    At the default 200 km:
 
-!!! example "Worked example"
-    Pending Link Distance = **200** (default).
+      - An Ottawa wardriver hears `C4`, which resolves to a repeater in Vancouver 3,500 km away → held for review.
+      - Hears `9F`, resolving to a repeater 40 km away → linked automatically.
+      - A genuine mountaintop link at 215 km → held once; confirm it and future pings link automatically.
 
-      - A wardriver in Ottawa hears repeater token `C4`. It resolves uniquely to a repeater registered in Vancouver, **3,500 km away**. That is far past 200 km, so the pings are held for review and an alert appears.
-      - The same wardriver hears token `9F`, resolving to a repeater 40 km away on a nearby ridge. Well under 200 km — linked automatically, no alert.
-      - A mountaintop repeater genuinely reaching **215 km** would be held for review. You would use **Link to repeater** once, and future pings for that ID auto-link from then on.
+!!! question "Why 200?"
+    Real LoRa long-hauls reach about 220 km. Past that, a handheld hearing a repeater almost always means an unregistered local device with the same short ID. A false alert costs one click; a missed one puts a wrong line on the map permanently.
 
-!!! question "Why 200 km?"
-    Genuine LoRa long-haul links (mountaintop to mountaintop) run up to roughly 220 km. Beyond that, a handheld radio in a car hearing a repeater almost always means the data actually belongs to an unregistered local device with a colliding short ID. The trade-off is deliberately asymmetric: a false alert costs you one click, while a missed one draws a permanently wrong line on the map.
+Lower it in a compact region to catch more collisions at the cost of more alerts; raise it if you genuinely have extreme long-haul links. **0** disables the check and always auto-links.
 
-**Tuning it.** Lower the value in a geographically dense region where you know nothing legitimately reaches far — you will catch more collisions, at the cost of more alerts. Raise it if your region genuinely has extreme long-haul links and you are tired of confirming them. Set it to **0** to disable the check entirely and always auto-link.
+Changing it affects new pings only — existing data and existing alerts are untouched.
 
-Changing this value affects **future ingestion only**. Existing pings and existing pending links are unaffected.
-
-See [Pending Repeater Links](#pending-repeater-links) under Alerts for how to actually resolve the alerts this generates.
+See [Pending Repeater Links](#pending-repeater-links) for how to resolve the alerts it generates.
 
 #### Stale Ping Cleanup (Auto-Delete Orphaned Pings)
 
 **Default: Disabled. Options: Disabled / 30 / 60 / 90 days. DESTRUCTIVE.**
 
-This ages out **orphaned** coverage pings. A ping is orphaned when the repeater it was attributed to has either **moved more than 100 m away** or **vanished from the database entirely** — exactly the pings the map already renders as **"(Gone)"**.
+Ages out **orphaned** pings — ones whose repeater has moved more than 100 m away or vanished entirely. These are the pings the map already shows as **"(Gone)"**. A ping only counts as orphaned when *every* repeater on it is gone; anything still resolving is kept.
 
-A ping only counts as orphaned when *every* repeater association on it is gone. If any part of it still resolves to a live repeater at the right location, the ping is kept. The detector is deliberately conservative: any doubt keeps the row.
+##### The grace clock
 
-##### The grace clock — the most important thing to understand
+**Choosing a window does not delete your existing backlog.** This is the part people misread.
 
-**Choosing a window does not delete everything that is already that old.** This is the single most common misreading of this setting.
+The nightly job starts a clock the first night it sees a ping orphaned, and only deletes it once it has stayed orphaned for the full window. If the repeater comes back within 100 m, the clock clears and the ping is kept.
 
-Instead, the nightly job **starts a clock**. The first night it sees a ping orphaned, it stamps that ping with a timestamp. It only deletes the ping once it has stayed **continuously orphaned** for the full window. If the repeater comes back within 100 m at any point, the clock is cleared and the ping is kept.
+!!! example
+    You pick **30 days** on June 1st, and you have pings orphaned since last year.
 
-!!! example "Worked example — the grace clock"
-    You set Stale Ping Cleanup = **30 days** today, on **June 1st**. Your region has pings orphaned since **last year**.
+      - **June 1st** — they're flagged and the clock starts. Nothing is deleted.
+      - **July 1st** — 30 days orphaned. *Now* they're deleted.
 
-      - **June 1st (tonight)** — the nightly job flags those pings as orphaned and stamps the clock. **Nothing is deleted.**
-      - **June 2nd–30th** — the job re-checks them each night. Still orphaned, clock keeps running.
-      - **July 1st** — 30 days continuously orphaned. *Now* they are deleted.
+    A repeater returning on June 20th resets the clock and its pings are kept — unless it comes back more than 100 m from where it was.
 
-    So a ping orphaned for a year is still not deleted until 30 days after you turn the setting on. This is intentional: it gives a repeater that is only temporarily offline, or one that was accidentally deleted, a full window to come back before any data is lost.
-
-!!! example "Worked example — the clock resetting"
-    A repeater goes offline on **March 1st** and is deleted from the database on **March 5th**. Its pings become orphaned and the clock starts that night.
-
-      - **March 20th** — the owner brings the repeater back and re-registers it at the same location. The pings resolve again, the clock is cleared, and nothing is deleted.
-      - Had it come back at a location **500 m away** instead, the pings would stay orphaned (>100 m) and the clock would keep running.
-
-##### What is preserved
-
-**Leaderboard points and Explorer credit are not lost.** Every deleted ping is written to the **retired-points ledger** before removal, inside the same transaction as the delete. Contributors keep their points, their grid-square "first" claims, and their portal statistics. Only the ping row itself is removed.
+Leaderboard points and Explorer credit are preserved; only the ping record is removed.
 
 ##### Backfill Purge Now…
 
-The dropdown above ages pings out gradually. **Backfill Purge Now…** is the immediate one-time alternative — it does not wait out the clock.
+The immediate alternative — it doesn't wait out the clock. It deletes every ping that is **already** orphaned **and** older than your saved window, plus any no-location (0,0) pings of any age. Anything orphaned more recently than the window is kept, so a briefly-offline repeater doesn't lose data.
 
-When you run it, it deletes every ping that is **already** orphaned **and** whose ping date is older than your saved retention window, plus any **no-location (0,0)** pings of any age. Recent orphaned coverage — anything inside the window — is deliberately kept, so a repeater that is only temporarily offline does not lose its data.
+  1. Save a window (30 / 60 / 90) first — the preview won't run without one.
+  2. Click **Backfill Purge Now…** to open a read-only preview.
+  3. Review what would go: totals, a breakdown by repeater with the reason each qualifies, and one by date. Multi-region groups also get a per-region breakdown.
+  4. Confirm the exact ping count.
 
-The flow is:
+!!! example
+    Window = 30 days, run on June 1st:
 
-  1. Save a retention window (30 / 60 / 90) first. The preview will refuse to run without one.
-  2. Click **Backfill Purge Now…**. A read-only preview modal opens.
-  3. Review exactly what would be deleted — totals, a breakdown **by repeater** (with the reason each qualifies, e.g. *moved >100 m*), and a breakdown **by date** with ages. On a multi-region group you also get a per-region breakdown.
-  4. Confirm. You must explicitly click through a confirmation showing the exact ping count.
+      - January ping, orphaned → **deleted**.
+      - May 25th ping, orphaned → **kept** (inside the window; the repeater may only be briefly offline).
+      - March ping at 0,0 → **deleted** (no-location pings go at any age).
+      - January ping whose repeater is still live nearby → **kept** (not orphaned).
 
-!!! example "Worked example — Backfill Purge"
-    Retention window = **30 days**. You run Backfill Purge on **June 1st**.
+Use it to clear a backlog now instead of waiting for each ping to age out.
 
-      - A ping from **January**, orphaned → **deleted** (already orphaned, older than 30 days).
-      - A ping from **May 25th**, orphaned → **kept** (only a week old, inside the window — the repeater may just be temporarily offline).
-      - A ping from **March** at coordinates **0,0** → **deleted** (no-location pings go regardless of age).
-      - A ping from **January** whose repeater is still live and within 100 m → **kept** (not orphaned at all).
+!!! info
+    The nightly sweep won't run with a window under 30 days, which is why there's no shorter option. And like the repeater purge, real deletion is blocked until the MeshMapper operator enables it fleet-wide — until then both the nightly job and this button only *mark* pings, and the preview will tell you so.
 
-    Use this to clear an existing backlog today rather than waiting for the nightly job to age each ping out individually.
-
-!!! warning "Minimum window for automatic sweeps"
-    The nightly automatic sweep refuses to run with an effective window under **30 days**, which is why the dropdown offers no shorter option.
-
-!!! info "Fleet rollout gate"
-    Like the repeater purge, real deletion is blocked fleet-wide until the MeshMapper operator enables it on the server. Until then, both the nightly job and the Backfill Purge button only *mark* pings — the preview still shows you accurately what will be removed once it is switched on, and the modal will tell you if you are in that state.
-
-If you have the **Ping Purge Cleanup Report** notification enabled, you will receive a Discord DM summarising what was removed. On a multi-region group this arrives as one combined message with a per-region breakdown.
+With the **Ping Purge Cleanup Report** notification on, you'll get a Discord DM summarising what was removed (one combined message per group).
 
 #### New Repeaters Enter Pending State
 
@@ -468,24 +408,21 @@ Allows the region to opt-out of MeshMapper's strict duplicate ID collision handl
 
 #### Multi-region groups
 
-On a multiregion admin panel, these settings behave differently depending on where you set them.
+Some of these are set once for the whole group, others per region.
 
-**Set at the group level** (Multi-Region Settings → Group Defaults) and applied to every member region:
+**Group-wide** (Multi-Region Settings → Group Defaults):
 
   - Stale Repeater Age
   - Pending Link Distance
-  - Stale Ping Cleanup (including Backfill Purge, which runs across every member region)
+  - Stale Ping Cleanup — including Backfill Purge, which runs across every member region
 
-**Set per-region**, on each member region's own settings:
+**Per region**, on each member's own settings:
 
   - Repeater Inactive After
   - Repeater Retention / Auto-Delete
   - Ghost Retention
 
-When you open a **member region** of a group, the group-controlled fields are shown greyed out and read-only — the group's value wins. Change them from the group panel instead.
-
-!!! info "How the value is resolved"
-    For each setting, MeshMapper checks the containing group's configuration first. If the group specifies a value, that value is used. If not, the region's own value is used. If neither sets one, the built-in default applies.
+Open a member region and the group-controlled fields are greyed out — the group's value wins, so change them from the group panel. Where a group hasn't set a value, the region's own applies; if neither has, the default does.
 
 ### Region Boundary
 
@@ -517,37 +454,35 @@ The **User Settings** tab allows administrators to manage their own account.
 
 ### Pending Repeater Links
 
-This alert is generated by the [Pending Link Distance](#pending-link-distance-km) setting. It appears when a wardriver's ping reports a repeater ID token that resolves to exactly one registered repeater, but that repeater sits farther away than your configured distance.
+Generated by the [Pending Link Distance](#pending-link-distance-km) setting: a ping's repeater ID resolved to exactly one registered repeater, but it sits farther away than your configured distance.
 
-The pings involved **stay on the map** — they are simply not tied to any repeater until you make a decision. Nothing is deleted, and nothing is hidden.
+The pings **stay on the map** — they're just not tied to a repeater until you decide. Nothing is deleted or hidden.
 
 #### Reading the evidence
 
-Each alert row is built to let you decide without leaving the page:
+Each row gives you what you need to decide:
 
-  - **The resolved repeater** — its ID, name, region, and how far away it is.
-  - **What was actually heard on-air** — the short token the wardriver's radio genuinely reported, which is often shorter than the resolved ID. This is the crux: the extra bytes came from MeshMapper's resolution, not from the radio.
-  - **Nearby ghosts** — unregistered devices that have answered discovery in this area, sorted into two tiers:
-      - **Strong matches**, whose key starts with the exact token that was heard. If one of these exists, the pings almost certainly belong to it rather than to the distant registered repeater. The panel will recommend leaving them unlinked.
-      - **Weak matches**, which share only the first byte. These are shown de-emphasised, because a wider heard token is what genuinely rules them out.
-  - **The held pings themselves** — expandable, showing date, session, the heard token, coordinates, and a **🗺️ Map** link that opens the public map at that exact ping.
+  - **The resolved repeater** — ID, name, region, and distance.
+  - **What was actually heard on-air** — the short token the radio really reported. It's often shorter than the resolved ID, and that's the crux: the extra bytes came from MeshMapper's resolution, not from the radio.
+  - **Nearby ghosts** — unregistered devices answering discovery in the area. **Strong matches** start with the exact token that was heard; if one exists, the pings almost certainly belong to it and the panel says so. **Weak matches** share only the first byte and are de-emphasised.
+  - **The held pings** — date, session, heard token, coordinates, and a **🗺️ Map** link to that exact ping.
 
 #### Your three choices
 
-  - **Link to repeater** — you personally know that repeater genuinely reaches this area (a rare long-haul). The pings are linked using the repeater's current coordinates, the decision is recorded permanently, and future far pings for this ID auto-link.
-  - **Leave unlinked** — the likely case. The pings stay on the map, permanently marked as not tied to any repeater. New far pings for this ID will alert again.
-  - **Leave unlinked + suppress** — the same, but future far pings for this ID are quietly held without generating a new alert. Use this when you have confirmed there is a local unregistered device and you do not want repeat notifications.
+  - **Link to repeater** — you know that repeater genuinely reaches this area. The pings link to its current position, and future far pings for this ID link automatically.
+  - **Leave unlinked** — the likely case. Pings stay on the map, marked as tied to no repeater. New far pings will alert again.
+  - **Leave unlinked + suppress** — same, but future far pings are held quietly with no new alert. Use it once you've confirmed there's a local unregistered device.
 
-With more than one pending row, a **Suppress all** button appears. Suppressed IDs are listed in their own collapsible section with held-ping counts, and can be individually **Restored** or restored in bulk.
+With more than one row you also get **Suppress all**. Suppressed IDs sit in their own list with held-ping counts and can be restored individually or all at once.
 
 !!! info "Suppression clears itself"
-    Suppression is not permanent. MeshMapper tracks the *situation* around each ID. The moment anything about it changes — a local repeater with that ID registers, the distant repeater moves or is deleted, or a new unregistered ghost appears in the area — the suppression is automatically cleared and you are alerted again. The same applies to a confirmed link.
+    MeshMapper watches the situation around each ID. If a local repeater with that ID registers, the distant one moves or is deleted, or a new ghost appears, suppression clears and you're alerted again. Same for a confirmed link.
 
-!!! warning "Two cases where linking is refused"
-    - **Unplaced repeater** — the repeater has no usable position (unplaced, or 0,0). It must be placed on the map before its links can be confirmed. This prevents pings being baked to a meaningless location.
-    - **Newly ambiguous** — more than one registered repeater now matches that ID, meaning the situation changed since the pings were held. Linking would be a guess between devices, so you are asked to review the ID's repeaters first.
+!!! warning "When linking is refused"
+    - **Unplaced repeater** — it has no usable position, so linking would bake the pings to a meaningless location. Place it on the map first.
+    - **Newly ambiguous** — more than one repeater now matches that ID, so linking would be a guess. Review that ID's repeaters first.
 
-If a region has pending links awaiting review, a daily reminder is sent to admins who have the **Pending Repeater Link** notification enabled. Each ID notifies once; the latch resets if its situation changes.
+Admins with the **Pending Repeater Link** notification on get a daily reminder. Each ID notifies once, resetting if its situation changes.
 
 ## Notifications
 
@@ -557,9 +492,9 @@ Link your Discord to MeshMapper to receive DM's from the MeshMapper bot.
   - **Alert on Pending Repeater**: Once a day, receive a notification if your region has repeaters in **Pending** state that are awaiting review.  This notification is only relevant if "New Repeaters Enter Pending State" is enabled for the region.
   - **Allow Messages From Visitors**: When enabled, a map visitor can send a message to you directly from the "Region Info" page of your regions map.
   - **Alert on Offline Observer**: Once a day (around 0800 EST/EDT) MeshMapper will review all data received via your regions MQTT observers (pings, repeater adverts, companion adverts) for the past 7 days.  If a particular observer has sent data within that time, but not within the "Stale Repeater Age" time configured for your region, then this observer is potentially offline.  Receive an alert when this is the case.
-  - **Suspicious Flight**: Receive an alert when a live session contains pings whose implied speed between consecutive fixes exceeds the flyover threshold — a device that was likely flown rather than driven. Corresponds to the **Suspicious Live Sessions** alert.
-  - **Pending Repeater Link**: Once a day, receive a summary of repeater IDs with pings held for review because they resolved to an implausibly distant repeater. Each ID notifies once; the latch resets automatically if the situation around that ID changes. See [Pending Repeater Links](#pending-repeater-links).
-  - **Ping Purge Cleanup Report**: Receive a DM summarising what the [Stale Ping Cleanup](#stale-ping-cleanup-auto-delete-orphaned-pings) removed — the ping count, and a breakdown by date and repeater. On a multiregion group this arrives as a single combined message with a per-region breakdown. Only sent when something was actually deleted.
+  - **Suspicious Flight**: Alerts you when a live session contains pings implying a speed faster than any ground vehicle — usually a device that was flown. Corresponds to the **Suspicious Live Sessions** alert.
+  - **Pending Repeater Link**: Once a day, a summary of repeater IDs whose pings are held for review because they resolved to an implausibly distant repeater. Each ID notifies once, and again only if its situation changes. See [Pending Repeater Links](#pending-repeater-links).
+  - **Ping Purge Cleanup Report**: A summary of what [Stale Ping Cleanup](#stale-ping-cleanup-auto-delete-orphaned-pings) removed — ping count, plus a breakdown by date and repeater. Multiregion groups get one combined message. Only sent when something was actually deleted.
 
 These events are also available as **webhook** subscriptions, configured separately in the Settings tab. See [Webhooks](https://wiki.meshmapper.net/webhooks/).
 
