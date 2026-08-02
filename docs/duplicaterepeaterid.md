@@ -86,14 +86,16 @@ Wardrivers are encouraged to collect data in **Hybrid** mode, which utilizes **D
 Collisions are typically resolved in one of two ways:
 
 ### Automatic Cleanup
-Often, a collision occurs because an old, offline repeater is still in the database when a new one comes online.
+Often a collision happens because an old, offline repeater is still in the database when a new one comes online. That resolves itself without any admin action.
 
   - MeshMapper runs a cleanup routine every day.
-  - If one of the colliding repeaters has not been heard from in **3× the region's configured Stale Repeater Age** (e.g., 72 hours at the default 24-hour setting), it is considered gone and is automatically deleted.
-  - **The Survivor**: Once the duplicate ID is removed, the remaining active repeater is automatically restored to **Active** status. Its icon will turn back to normal, it will reappear on Leaderboards, and new incoming pings will properly associate themselves with this repeater again.
+  - A colliding repeater that hasn't been heard for the region's **Repeater Inactive After** window (default 30 days) is marked **Inactive** and drops off the map.
+  - **The Survivor**: an Inactive repeater no longer counts as a competing claim on that ID, so the remaining repeater is restored to **Active** on its next advert. Its icon returns to normal, it reappears on leaderboards, and new pings associate with it properly again.
+
+Neither repeater is deleted. If the silent one comes back on air, it is reactivated — and if the ID is still ambiguous, both are excluded again.
 
 !!! tip "Bypass Auto Delete"
-    If a repeater is known to go offline for extended periods (seasonal deployment, remote location, etc.), administrators can enable **Bypass Auto Delete** on that repeater via the edit modal. This prevents the cleanup routine from removing or deactivating it, even if it hasn't been heard within the stale timer.
+    If a repeater is known to go offline for extended periods (seasonal deployment, remote location, etc.), administrators can enable **Bypass Auto Delete** on that repeater via the edit modal. This keeps it out of every automatic routine, including the inactive marking above — which also means it will keep its colliding partner excluded while it's away.
 
 ### Manual Resolution
 If both repeaters are active and legitimate (a true collision between two live devices):
