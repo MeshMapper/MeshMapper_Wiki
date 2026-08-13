@@ -258,7 +258,29 @@ Multi-region keys are not self-service: like [global keys](#global-coverage-feed
 
 ### Response Format
 
-Identical to a single-region response — one merged `grid_squares` array, same grid-square fields, `?include=repeaters` supported (the `repeaters` array spans all members) — with these differences:
+Identical to a single-region response — one merged `grid_squares` array, same grid-square fields, `?include=repeaters` supported (the `repeaters` array spans all members):
+
+```json
+{
+  "success": true,
+  "region": "PDX,SEA,YVR",
+  "region_name": "Portland, US + Seattle, US + Vancouver, CA",
+  "grid_size": { "lat": 0.0027, "lon": 0.00384 },
+  "schema_version": 2,
+  "generated_at": 1710547200,
+  "data_age_seconds": 312,
+  "total_squares": 4102,
+  "point_count": 131877,
+  "coverage_type_counts": { "BIDIR": 1620, "TX": 214, "RX": 1467, "DISC": 305, "DEAD": 41, "DROP": 455 },
+  "type_bits": { "BIDIR": 1, "TX": 2, "RX": 4, "DISC": 8, "DEAD": 16, "DROP": 32 },
+  "bbox": { "minLat": 45.301, "minLon": -123.212, "maxLat": 49.394, "maxLon": -121.751 },
+  "grid_squares": [ "…same grid square objects as a single-region response, all members merged…" ],
+  "regions": ["PDX", "SEA", "YVR"],
+  "regions_skipped": 0
+}
+```
+
+Note that `regions` and `regions_skipped` arrive **after** the `grid_squares` array — as with the global feed, use a standard JSON parser rather than assuming key order. The fields that differ from a single-region response:
 
 | Field | Type | Description |
 | --- | --- | --- |
