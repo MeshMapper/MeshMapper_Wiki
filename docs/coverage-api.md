@@ -4,7 +4,7 @@ The Coverage API provides programmatic access to MeshMapper coverage grid-square
 
 ## Authentication
 
-Access requires a **Coverage** API key. Each key is scoped to a specific region or multiregion group and has a daily rate limit of 100 requests.
+Access requires a **Coverage** API key. Each key is scoped to a specific region, a multiregion group, or a set of adjacent regions (see [Multi-Region Keys](#multi-region-keys)), and has a daily rate limit of 100 requests.
 
 ### Generating a Key
 
@@ -246,6 +246,42 @@ A separate short-term, per-IP throttle protects against bursts; exceeding it als
 ## Managing Your Key
 
 If you have a Coverage API key assigned to your admin account, you can view your current usage and regenerate your key from the **User Settings** tab in your region's Admin Portal. Regenerating a key invalidates the old one immediately.
+
+## Multi-Region Keys
+
+A Coverage key can be scoped to a **set of up to 6 regions** (for example `PDX,SEA,YVR`) instead of a single region. The response merges every member region's coverage into **one grid** — the same payload shape as a single-region response — so it suits integrations that render adjacent regions as one continuous map.
+
+Multi-region keys are not self-service: like [global keys](#global-coverage-feed), they are issued by the MeshMapper team on request (the admin-panel self-service flow only creates single-region keys). Adjacent regions are the intended use — the merged grid serves them as one map.
+
+!!! info "Multi-region keys vs. Multiregion Groups"
+    A [Multiregion Group](multiregions.md) merges regions *inside* MeshMapper — shared map, leaderboards, collision detection, and admin panel. A multi-region **key** changes nothing about the regions themselves; it only merges their coverage data in this API's response. If a group already exists, a key can simply be scoped to the group's code instead. A multi-region key is for sets of regions that aren't (and shouldn't become) a group.
+
+### Response Format
+
+Identical to a single-region response — one merged `grid_squares` array, same grid-square fields, `?include=repeaters` supported (the `repeaters` array spans all members) — with these differences:
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `region` | string | The normalized member set as a CSV, uppercased and sorted (e.g. `"PDX,SEA,YVR"`). |
+| `region_name` | string | Member region names joined with `+`. |
+| `regions` | array | The member region codes, sorted — present only on multi-region responses. |
+| `regions_skipped` | integer | Members that are registered but have no coverage data yet — present only on multi-region responses. |
+
+### Differences from Single-Region Keys
+
+| Behaviour | Result |
+| --- | --- |
+| `fresh=1` | HTTP 400, `fresh_not_supported` — the merged build is cache-driven only. |
+| `f_*` filter parameters | HTTP 400, `filters_not_supported`. |
+| Any member region unknown or deleted | HTTP 400, `invalid_region` — the API fails closed and never serves a partial set. |
+| More than 6 member regions | HTTP 400, `too_many_regions`. |
+| Region set too large to build in memory | HTTP 507, `over_memory_budget` — ask for the key to be recreated with fewer regions. |
+
+If a member region is later renamed, merged, or removed from MeshMapper, the key is updated automatically to follow — a removed region simply drops out of the set.
+
+### Caching and Limits
+
+Caching, compression, conditional requests, and the daily quota work exactly as for single-region keys: 15-minute server cache, `ETag` / `If-None-Match` for `304 Not Modified`, gzip, and 100 requests per day (cache hits and 304s count). Response size scales with the number of member regions — poll at 15-minute intervals or longer.
 
 ## Global Coverage Feed
 
