@@ -1556,6 +1556,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtering
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#http-caching-and-compression" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2989,6 +3000,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtering
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#http-caching-and-compression" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3201,6 +3223,11 @@
 <td>No</td>
 <td>Comma-separated list of optional sections to add to the response. Currently supports <code>repeaters</code> (e.g. <code>?include=repeaters</code>) — see <a href="#repeater-fields">Repeater Fields</a>.</td>
 </tr>
+<tr>
+<td><code>f_*</code></td>
+<td>No</td>
+<td>Filter the pings that go into the grid before it is built: by radio configuration, date, power or antenna. See <a href="#filtering">Filtering</a>.</td>
+</tr>
 </tbody>
 </table>
 <h2 id="response-format">Response Format<a class="headerlink" href="#response-format" title="Permanent link">¶</a></h2>
@@ -3217,6 +3244,7 @@
   "coverage_type_counts": { "BIDIR": 540, "TX": 60, "RX": 410, "DISC": 90, "DEAD": 12, "DROP": 122 },
   "type_bits": { "BIDIR": 1, "TX": 2, "RX": 4, "DISC": 8, "DEAD": 16, "DROP": 32 },
   "bbox": { "minLat": 45.108, "minLon": -76.351, "maxLat": 45.621, "maxLon": -75.299 },
+  "radio_configs": { "906.875,250,10,5": 41200, "910.525,62.5,7,5": 6810, "906.875,62.5,7,5": 200 },
   "grid_squares": [
     {
       "grid_id": "16816_-19718",
@@ -3318,6 +3346,11 @@
 <td>Bounding box covering all returned squares (<code>minLat</code>, <code>minLon</code>, <code>maxLat</code>, <code>maxLon</code>). <code>null</code> if empty.</td>
 </tr>
 <tr>
+<td><code>radio_configs</code></td>
+<td>object</td>
+<td>Ping count per radio configuration seen in this response, most used first. Keys are the app's <code>freqMHz,bwKHz,SF,CR</code> string. Pings with no reported configuration are not counted. Use it to discover which values to filter on (see <a href="#filtering">Filtering</a>). Empty object when nothing reported one.</td>
+</tr>
+<tr>
 <td><code>grid_squares</code></td>
 <td>array</td>
 <td>Array of grid square objects (see below).</td>
@@ -3326,6 +3359,11 @@
 <td><code>repeaters</code></td>
 <td>array</td>
 <td>Only present when <code>?include=repeaters</code> is set — see <a href="#repeater-fields">Repeater Fields</a>.</td>
+</tr>
+<tr>
+<td><code>filters</code></td>
+<td>object</td>
+<td>Only present on a filtered response: the filters that were applied, typed (see <a href="#filtering">Filtering</a>).</td>
 </tr>
 </tbody>
 </table>
@@ -3563,11 +3601,97 @@ data.grid_squares.forEach(sq =&gt; {
 });
 </code></pre>
 <p>The grid uses fixed cell sizes of <strong>0.0027 degrees latitude</strong> by <strong>0.00384 degrees longitude</strong> (approximately 300m squares). These match MeshMapper's Simplified Mode rendering.</p>
+<h2 id="filtering">Filtering<a class="headerlink" href="#filtering" title="Permanent link">¶</a></h2>
+<p>Single-region and group keys accept <code>f_*</code> query parameters that narrow which pings are aggregated into the grid. The grid is then built from the matching pings only, so <code>total_squares</code>, <code>point_count</code>, <code>coverage_type_counts</code>, <code>bbox</code> and <code>radio_configs</code> all describe the filtered set. Filters combine with AND.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>f_radio_freq</code></td>
+<td><code>906.875,250,10,5</code></td>
+<td>Exact radio configuration, the full <code>freqMHz,bwKHz,SF,CR</code> string as the app reports it.</td>
+</tr>
+<tr>
+<td><code>f_freq</code></td>
+<td><code>906.875</code></td>
+<td>Frequency in MHz. Matches the whole frequency slot, so <code>906</code> does not match <code>906.875</code> and a kHz value such as <code>906875</code> matches nothing.</td>
+</tr>
+<tr>
+<td><code>f_bw</code></td>
+<td><code>62.5</code></td>
+<td>Bandwidth in kHz.</td>
+</tr>
+<tr>
+<td><code>f_sf</code></td>
+<td><code>7</code></td>
+<td>Spreading factor, 5 to 12.</td>
+</tr>
+<tr>
+<td><code>f_cr</code></td>
+<td><code>5</code></td>
+<td>Coding rate, 5 to 8 (4/5 to 4/8).</td>
+</tr>
+<tr>
+<td><code>f_days</code></td>
+<td><code>30</code></td>
+<td>Only pings from the last N days.</td>
+</tr>
+<tr>
+<td><code>f_dstart</code></td>
+<td><code>1756684800000</code></td>
+<td>Only pings at or after this time, as a Unix timestamp in <strong>milliseconds</strong>.</td>
+</tr>
+<tr>
+<td><code>f_dend</code></td>
+<td><code>1757289600000</code></td>
+<td>Only pings at or before this time, milliseconds.</td>
+</tr>
+<tr>
+<td><code>f_power</code></td>
+<td><code>20</code></td>
+<td>Transmit power, substring match against the reported value.</td>
+</tr>
+<tr>
+<td><code>f_extant</code></td>
+<td><code>1</code></td>
+<td>Only pings reported with an external antenna.</td>
+</tr>
+</tbody>
+</table>
+<p><code>f_freq</code>, <code>f_bw</code>, <code>f_sf</code> and <code>f_cr</code> can be given in any combination. Each one matches its own slot of the stored configuration exactly, so <code>f_freq=910.525&amp;f_bw=62.5&amp;f_sf=7</code> matches every coding rate on that channel:</p>
+<pre><code>GET https://meshmapper.net/coverage.php?key=YOUR_API_KEY&amp;f_freq=910.525&amp;f_bw=62.5&amp;f_sf=7
+</code></pre>
+<p>The response echoes what was applied:</p>
+<pre><code class="language-json">{
+  "success": true,
+  "region": "YOW",
+  "point_count": 6810,
+  "radio_configs": { "910.525,62.5,7,5": 6810 },
+  "filters": { "freq": "910.525", "bw": "62.5", "sf": "7" },
+  "grid_squares": [ "…" ]
+}
+</code></pre>
+<p>Things to know:</p>
+<ul>
+<li><strong>Discover before you filter.</strong> Read <code>radio_configs</code> from an unfiltered response to see which configurations a region actually has, with their ping counts. Values must match what the app reported, so <code>906.875</code> works and <code>906.8750</code> or <code>906875</code> does not.</li>
+<li><strong>Pings with no configuration are excluded</strong> by any radio filter. Older app builds did not report one, so a filtered total can be well below the unfiltered <code>point_count</code> even for the region's main channel. <code>radio_configs</code> shows how many pings carry a configuration at all.</li>
+<li><strong>A region that has never recorded a field returns an empty grid</strong> for a filter on that field (zero squares, <code>point_count</code> 0) rather than the full set.</li>
+<li><strong>Filtered responses are not cached server-side.</strong> Every filtered request builds the grid from the region's pings, so it is slower than an unfiltered call and it counts against the daily quota like any other request. Keep filtered polling to the same 15 minute or longer cadence.</li>
+<li><strong>Empty values are ignored.</strong> <code>f_freq=</code> is the same as not sending it.</li>
+<li><strong>Anything else is an error.</strong> An unknown <code>f_</code> parameter (a typo included) returns HTTP 400 <code>unsupported_filter</code>; a malformed value returns HTTP 400 <code>invalid_filter</code>. Both carry <code>param</code> naming the offending parameter and a <code>message</code> saying what was expected. The API never silently serves the full region in place of a filter it did not understand.</li>
+</ul>
+<p>Filters are not available on <a href="#multi-region-keys">multi-region</a> or <a href="#global-coverage-feed">global</a> keys, which return HTTP 400 <code>filters_not_supported</code>.</p>
 <h2 id="http-caching-and-compression">HTTP Caching and Compression<a class="headerlink" href="#http-caching-and-compression" title="Permanent link">¶</a></h2>
 <p>The API is built for efficient, low-frequency polling. Coverage data does not change second-to-second, so please poll sparingly.</p>
 <ul>
 <li><strong>Compression.</strong> Responses are gzip-compressed. Send <code>Accept-Encoding: gzip</code> (most HTTP clients do this automatically) to receive compressed data — payloads are roughly 9× smaller.</li>
-<li><strong>Server-side cache.</strong> Responses carry <code>Cache-Control: public, max-age=900</code> and are cached for up to <strong>15 minutes</strong>. Polling more often than that returns identical data (and still counts toward your daily limit), so a poll interval of <strong>15 minutes or longer is recommended</strong>. <code>generated_at</code> tells you when the cached data was built.</li>
+<li><strong>Server-side cache.</strong> Responses carry <code>Cache-Control: public, max-age=900</code> and are cached for up to <strong>15 minutes</strong>. Polling more often than that returns identical data (and still counts toward your daily limit), so a poll interval of <strong>15 minutes or longer is recommended</strong>. <code>generated_at</code> tells you when the cached data was built. Filtered responses (see <a href="#filtering">Filtering</a>) are built on every request and are not cached on the server.</li>
 <li><strong>Conditional requests.</strong> Each response includes an <code>ETag</code> (and <code>Last-Modified</code>). Send the <code>ETag</code> value back in an <code>If-None-Match</code> header; if nothing has changed since, you'll get a <strong><code>304 Not Modified</code></strong> with an empty body, saving you the download.</li>
 </ul>
 <pre><code class="language-bash"># First request — note the ETag header
@@ -3609,6 +3733,21 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
 <td>400</td>
 <td><code>invalid_region</code></td>
 <td>Region code on key not found.</td>
+</tr>
+<tr>
+<td>400</td>
+<td><code>unsupported_filter</code></td>
+<td>An <code>f_</code> parameter that is not in the <a href="#filtering">Filtering</a> table. <code>param</code> names it.</td>
+</tr>
+<tr>
+<td>400</td>
+<td><code>invalid_filter</code></td>
+<td>A filter value of the wrong shape (for example <code>f_sf=abc</code> or a seconds timestamp in <code>f_dstart</code>). <code>param</code> and <code>message</code> say what was expected.</td>
+</tr>
+<tr>
+<td>400</td>
+<td><code>filters_not_supported</code></td>
+<td>An <code>f_</code> parameter on a multi-region or global key.</td>
 </tr>
 <tr>
 <td>401</td>
@@ -3793,7 +3932,7 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
 </tr>
 </tbody>
 </table>
-<p><code>?include=repeaters</code> works exactly as for regional keys, adding a <code>repeaters</code> array to each section.</p>
+<p><code>?include=repeaters</code> works exactly as for regional keys, adding a <code>repeaters</code> array to each section. Sections do not carry <code>radio_configs</code> or <code>filters</code>; those belong to single-region and group responses.</p>
 <h3 id="response-size-and-pagination">Response Size and Pagination<a class="headerlink" href="#response-size-and-pagination" title="Permanent link">¶</a></h3>
 <p>Expect a download in the <strong>single-digit megabytes</strong> (gzipped); decoded, the JSON can run to tens or low hundreds of megabytes. Size scales with the number of ~300 m grid cells that have coverage — not with raw ping counts — so growth over time is gradual.</p>
 <p>There is <strong>no pagination or cursor</strong>, by design: the response is served as a single pre-built cached file, which is what keeps it fast and cheap for everyone. The per-region sections are the natural chunks instead:</p>
