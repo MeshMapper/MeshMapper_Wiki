@@ -33,6 +33,7 @@ GET https://meshmapper.net/coverage.php?key=YOUR_API_KEY
 | --- | --- | --- |
 | `key` | Yes | Your Coverage API key. |
 | `include` | No | Comma-separated list of optional sections to add to the response. Currently supports `repeaters` (e.g. `?include=repeaters`) — see [Repeater Fields](#repeater-fields). |
+| `f_*` | No | Filter the pings that go into the grid before it is built: by radio configuration, date, power or antenna. See [Filtering](#filtering). |
 
 ## Response Format
 
@@ -50,6 +51,7 @@ GET https://meshmapper.net/coverage.php?key=YOUR_API_KEY
   "coverage_type_counts": { "BIDIR": 540, "TX": 60, "RX": 410, "DISC": 90, "DEAD": 12, "DROP": 122 },
   "type_bits": { "BIDIR": 1, "TX": 2, "RX": 4, "DISC": 8, "DEAD": 16, "DROP": 32 },
   "bbox": { "minLat": 45.108, "minLon": -76.351, "maxLat": 45.621, "maxLon": -75.299 },
+  "radio_configs": { "906.875,250,10,5": 41200, "910.525,62.5,7,5": 6810, "906.875,62.5,7,5": 200 },
   "grid_squares": [
     {
       "grid_id": "16816_-19718",
@@ -97,8 +99,10 @@ GET https://meshmapper.net/coverage.php?key=YOUR_API_KEY
 | `coverage_type_counts` | object | Number of grid squares per dominant `coverage_type`. |
 | `type_bits` | object | Legend mapping each coverage type to the bit value used in a square's `status_mask`. |
 | `bbox` | object or null | Bounding box covering all returned squares (`minLat`, `minLon`, `maxLat`, `maxLon`). `null` if empty. |
+| `radio_configs` | object | Ping count per radio configuration seen in this response, most used first. Keys are the app's `freqMHz,bwKHz,SF,CR` string. Pings with no reported configuration are not counted. Use it to discover which values to filter on (see [Filtering](#filtering)). Empty object when nothing reported one. |
 | `grid_squares` | array | Array of grid square objects (see below). |
 | `repeaters` | array | Only present when `?include=repeaters` is set — see [Repeater Fields](#repeater-fields). |
+| `filters` | object | Only present on a filtered response: the filters that were applied, typed (see [Filtering](#filtering)). |
 
 ### Grid Square Fields
 
@@ -195,12 +199,59 @@ data.grid_squares.forEach(sq => {
 
 The grid uses fixed cell sizes of **0.0027 degrees latitude** by **0.00384 degrees longitude** (approximately 300m squares). These match MeshMapper's Simplified Mode rendering.
 
+## Filtering
+
+Single-region and group keys accept `f_*` query parameters that narrow which pings are aggregated into the grid. The grid is then built from the matching pings only, so `total_squares`, `point_count`, `coverage_type_counts`, `bbox` and `radio_configs` all describe the filtered set. Filters combine with AND.
+
+| Parameter | Value | Description |
+| --- | --- | --- |
+| `f_radio_freq` | `906.875,250,10,5` | Exact radio configuration, the full `freqMHz,bwKHz,SF,CR` string as the app reports it. |
+| `f_freq` | `906.875` | Frequency in MHz. Matches the whole frequency slot, so `906` does not match `906.875` and a kHz value such as `906875` matches nothing. |
+| `f_bw` | `62.5` | Bandwidth in kHz. |
+| `f_sf` | `7` | Spreading factor, 5 to 12. |
+| `f_cr` | `5` | Coding rate, 5 to 8 (4/5 to 4/8). |
+| `f_days` | `30` | Only pings from the last N days. |
+| `f_dstart` | `1756684800000` | Only pings at or after this time, as a Unix timestamp in **milliseconds**. |
+| `f_dend` | `1757289600000` | Only pings at or before this time, milliseconds. |
+| `f_power` | `20` | Transmit power, substring match against the reported value. |
+| `f_extant` | `1` | Only pings reported with an external antenna. |
+
+`f_freq`, `f_bw`, `f_sf` and `f_cr` can be given in any combination. Each one matches its own slot of the stored configuration exactly, so `f_freq=910.525&f_bw=62.5&f_sf=7` matches every coding rate on that channel:
+
+```
+GET https://meshmapper.net/coverage.php?key=YOUR_API_KEY&f_freq=910.525&f_bw=62.5&f_sf=7
+```
+
+The response echoes what was applied:
+
+```json
+{
+  "success": true,
+  "region": "YOW",
+  "point_count": 6810,
+  "radio_configs": { "910.525,62.5,7,5": 6810 },
+  "filters": { "freq": "910.525", "bw": "62.5", "sf": "7" },
+  "grid_squares": [ "…" ]
+}
+```
+
+Things to know:
+
+- **Discover before you filter.** Read `radio_configs` from an unfiltered response to see which configurations a region actually has, with their ping counts. Values must match what the app reported, so `906.875` works and `906.8750` or `906875` does not.
+- **Pings with no configuration are excluded** by any radio filter. Older app builds did not report one, so a filtered total can be well below the unfiltered `point_count` even for the region's main channel. `radio_configs` shows how many pings carry a configuration at all.
+- **A region that has never recorded a field returns an empty grid** for a filter on that field (zero squares, `point_count` 0) rather than the full set.
+- **Filtered responses are not cached server-side.** Every filtered request builds the grid from the region's pings, so it is slower than an unfiltered call and it counts against the daily quota like any other request. Keep filtered polling to the same 15 minute or longer cadence.
+- **Empty values are ignored.** `f_freq=` is the same as not sending it.
+- **Anything else is an error.** An unknown `f_` parameter (a typo included) returns HTTP 400 `unsupported_filter`; a malformed value returns HTTP 400 `invalid_filter`. Both carry `param` naming the offending parameter and a `message` saying what was expected. The API never silently serves the full region in place of a filter it did not understand.
+
+Filters are not available on [multi-region](#multi-region-keys) or [global](#global-coverage-feed) keys, which return HTTP 400 `filters_not_supported`.
+
 ## HTTP Caching and Compression
 
 The API is built for efficient, low-frequency polling. Coverage data does not change second-to-second, so please poll sparingly.
 
 - **Compression.** Responses are gzip-compressed. Send `Accept-Encoding: gzip` (most HTTP clients do this automatically) to receive compressed data — payloads are roughly 9× smaller.
-- **Server-side cache.** Responses carry `Cache-Control: public, max-age=900` and are cached for up to **15 minutes**. Polling more often than that returns identical data (and still counts toward your daily limit), so a poll interval of **15 minutes or longer is recommended**. `generated_at` tells you when the cached data was built.
+- **Server-side cache.** Responses carry `Cache-Control: public, max-age=900` and are cached for up to **15 minutes**. Polling more often than that returns identical data (and still counts toward your daily limit), so a poll interval of **15 minutes or longer is recommended**. `generated_at` tells you when the cached data was built. Filtered responses (see [Filtering](#filtering)) are built on every request and are not cached on the server.
 - **Conditional requests.** Each response includes an `ETag` (and `Last-Modified`). Send the `ETag` value back in an `If-None-Match` header; if nothing has changed since, you'll get a **`304 Not Modified`** with an empty body, saving you the download.
 
 ```bash
@@ -237,6 +288,9 @@ A separate short-term, per-IP throttle protects against bursts; exceeding it als
 | --- | --- | --- |
 | 400 | `missing_key` | No API key provided. |
 | 400 | `invalid_region` | Region code on key not found. |
+| 400 | `unsupported_filter` | An `f_` parameter that is not in the [Filtering](#filtering) table. `param` names it. |
+| 400 | `invalid_filter` | A filter value of the wrong shape (for example `f_sf=abc` or a seconds timestamp in `f_dstart`). `param` and `message` say what was expected. |
+| 400 | `filters_not_supported` | An `f_` parameter on a multi-region or global key. |
 | 401 | `invalid_key` | API key not found. |
 | 403 | `no_region` | No region assigned to this key. |
 | 429 | `rate_limit_exceeded` | Daily request limit reached. |
@@ -351,7 +405,7 @@ Instead of a single region's payload, a global key returns an envelope containin
 | `region_count` | integer | Number of sections in `regions`. Note this field arrives **after** the `regions` array — use a standard JSON parser rather than assuming key order. |
 | `regions_skipped` | integer | Regions omitted because they have no coverage data yet. |
 
-`?include=repeaters` works exactly as for regional keys, adding a `repeaters` array to each section.
+`?include=repeaters` works exactly as for regional keys, adding a `repeaters` array to each section. Sections do not carry `radio_configs` or `filters`; those belong to single-region and group responses.
 
 ### Response Size and Pagination
 
