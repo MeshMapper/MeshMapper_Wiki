@@ -33,6 +33,9 @@ These are granted automatically by the system based on wardriving milestones:
 | **Explorer 1** | Map 1,000 or more unique grid squares |
 | **Explorer 2** | Map 5,000 or more unique grid squares |
 | **Explorer 3** | Map 10,000 or more unique grid squares |
+| **Airtime Saver** | 250 or more verified squares where Smart Pinging held a ping |
+| **Airtime God** | 2,500 or more verified squares where Smart Pinging held a ping |
+| **Airtime Legend** | 10,000 or more verified squares where Smart Pinging held a ping |
 | **Global Leader** | Rank in the top 10 on the global leaderboard (all-time, weekly, or top explorers) |
 
 !!! info "Update Interval"

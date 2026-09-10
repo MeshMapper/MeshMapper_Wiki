@@ -127,6 +127,18 @@ Minimum distance you must move before the next auto-ping. Prevents spamming from
 - Enabled by default
 - Cannot be changed during auto-ping
 
+### Smart Pinging
+
+Defers auto pings in squares that already have recent coverage, so your airtime goes where it adds something new. See [Smart Pinging](app_wardriving_modes.md#smart-pinging) for how it behaves on the road.
+
+- **Enabled by default**
+- Tap the **(i)** beside the switch for a short explanation inside the app
+- **Defer pings in squares covered within**: the window, in days, that makes a square count as covered. Enter any whole number from **1 to 365**. Default **14 days**. Shown only while the switch is on.
+- Applies to Hybrid, Passive and Active modes. Never affects manual pings, Trace Mode or passive RX listening.
+- Deferred squares still earn leaderboard points (1.5 each) once MeshMapper verifies them
+- May be enforced by regional admin (shown in amber). When enforced, the switch is locked on and the window is the region's.
+- Cannot be changed during auto-ping
+
 ---
 
 ## Modes

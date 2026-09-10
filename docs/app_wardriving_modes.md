@@ -112,6 +112,35 @@ Targets a **specific repeater** by hex ID for focused signal testing.
 
 ---
 
+## Smart Pinging
+
+Smart Pinging holds back auto pings in squares that MeshMapper has already mapped recently, so your airtime goes where it adds something new. It is **on by default** and applies to Hybrid, Passive and Active modes.
+
+**What happens:**
+
+1. While you are connected, the app keeps MeshMapper's recent coverage for the area around you loaded.
+2. When an auto ping is due in a square that already has a recent two-way (green) or discovery (cyan) result, the ping is **deferred** instead of sent. The countdown reads **"Deferred"** while it waits.
+3. The deferred ping is kept, not dropped. As soon as you reach a square with no recent coverage (and have moved your minimum ping distance), it goes out and the interval restarts.
+4. Only one ping is ever held. If the next interval is deferred too, it takes the place of the one waiting.
+
+**What counts as covered:** a square with a green or cyan result inside your Smart Pinging window (default 14 days). Squares follow your [Grid Mode](app_settings_reference.md#grid-mode) setting, so what is deferred is exactly what is already painted on the map.
+
+**Never deferred:**
+
+- Manual pings
+- Trace Mode
+- Passive listening to other mesh traffic (RX), which is free coverage
+- Anywhere the coverage data cannot be loaded (no network, Offline Mode, outside a zone). The ping simply goes out.
+
+!!! note "Deferred is not Skipped"
+    A ping that fails the minimum distance rule reads "Skipped" and is dropped. A deferred ping reads "Deferred" and is still owed. A square that is both covered and too close reads "Deferred".
+
+**You keep your points.** Every square where a ping was held is reported to MeshMapper, checked against the region's own coverage data, and credited at **1.5 points** once verified (once per 300m square per session). Verified squares also count toward the Airtime awards and the Top Airtime Savers leaderboard. See [Top Airtime Savers](leaderboards.md#top-airtime-savers).
+
+To turn Smart Pinging off or change the window, see [Smart Pinging](app_settings_reference.md#smart-pinging) in the Settings Reference. Regional admins can enforce it for their zone, in which case the switch is locked on.
+
+---
+
 ## TX Capacity Limits
 
 Regional admins set a **maximum number of active TX wardrivers** per zone (for example, 5). This prevents too many users from flooding the mesh simultaneously.

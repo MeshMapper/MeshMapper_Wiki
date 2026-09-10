@@ -57,6 +57,12 @@
 ??? question "Why isn't my recent data showing on the leaderboard?"
     Leaderboards and profile statistics are regenerated about once a day, so new contributions can take up to 24 hours to appear. The coverage map itself updates in near-real-time.
 
+??? question "Why does the app show Deferred instead of sending a ping?"
+    Smart Pinging is holding that ping because the square you are in already has recent coverage on the map. The ping is kept, not dropped: it goes out the moment you reach a square with nothing recent, and you are credited for the square you crossed without transmitting. It is on by default. See [Smart Pinging](app_wardriving_modes.md#smart-pinging), or turn it off in the app's Ping Settings.
+
+??? question "Do I lose leaderboard points when Smart Pinging holds a ping?"
+    No. Each square where a ping was held is reported to MeshMapper, checked against the region's own coverage data, and credited at 1.5 points once verified. Verified squares also count toward the Airtime Saver, Airtime God and Airtime Legend awards and the Top Airtime Savers board. Like the rest of the leaderboard, the credit appears after the next daily update.
+
 ---
 
 ## Mobile App
