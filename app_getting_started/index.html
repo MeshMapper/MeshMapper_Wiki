@@ -2714,7 +2714,7 @@
 <p>After tapping <strong>Continue</strong>, your phone will ask for location permission. Grant "While Using the App" at minimum.</p>
 <div class="admonition warning">
 <p class="admonition-title">iOS Background Location</p>
-<p>If you want to run MeshMapper in the background on iOS (e.g., wardriving with the screen off), you need to manually enable "Background Location" in the MeshMapper Settings tab. Apple restricts apps from requesting background location directly, so the user must enable it themselves. Without this, iOS will throttle or stop GPS updates when the app is not in the foreground.</p>
+<p>If you want to run MeshMapper in the background on iOS (e.g., wardriving with the screen off), you need to manually enable "Background Location" under Settings &gt; General in MeshMapper. Apple restricts apps from requesting background location directly, so the user must enable it themselves. Without this, iOS will throttle or stop GPS updates when the app is not in the foreground.</p>
 </div>
 <hr>
 <h2 id="connecting-to-your-radio">Connecting to Your Radio<a class="headerlink" href="#connecting-to-your-radio" title="Permanent link">¶</a></h2>
@@ -2804,7 +2804,7 @@
 <ul>
 <li>The app sends a channel message to #wardriving</li>
 <li>This message <strong>floods the entire mesh network</strong>, with every repeater relaying it onward</li>
-<li><strong>Your GPS position is not in the on-air message.</strong> By default the message carries a short anonymous token — your coordinates are sent only to the MeshMapper server over the internet. (You can opt in to broadcasting coordinates on the air via Settings &gt; Ping Settings &gt; Broadcast My Coordinates.)</li>
+<li><strong>Your GPS position is not in the on-air message.</strong> By default the message carries a short anonymous token, and your coordinates are sent only to the MeshMapper server over the internet. (You can opt in to broadcasting coordinates on the air via Settings &gt; Wardriving &gt; Broadcast My Coordinates.)</li>
 <li>If your regional admin has configured a <strong>scope</strong>, the message stays within that region instead</li>
 <li>The app listens for <strong>5 seconds</strong> to see which repeaters echoed your message back</li>
 <li>On the backend, MeshMapper uses <strong>MQTT observers</strong> that also listen to the #wardriving channel. If an observer receives your message, the backend marks that ping as <strong>bidirectional (bidir)</strong></li>

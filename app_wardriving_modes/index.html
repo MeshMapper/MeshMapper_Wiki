@@ -961,6 +961,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#smart-pinging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Smart Pinging
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#tx-capacity-limits" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2643,6 +2654,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#smart-pinging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Smart Pinging
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#tx-capacity-limits" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2734,7 +2756,7 @@
 <h2 id="hybrid-mode">Hybrid Mode<a class="headerlink" href="#hybrid-mode" title="Permanent link">¶</a></h2>
 <p><em>Thanks to HerculesMulligan for coming up with the idea for this mode.</em></p>
 <p>Hybrid Mode is the <strong>recommended default</strong> for wardriving. It alternates between channel messages (TX) and discovery requests at your configured interval.</p>
-<p><strong>To start:</strong> Tap the <strong>Hybrid Mode</strong> button in the Controls panel on the Map tab. (Enabled by default. If disabled in Settings, this button shows as "Active Mode" instead.)</p>
+<p><strong>To start:</strong> Tap the <strong>Hybrid Mode</strong> button in the Controls panel on the Map tab. (Hybrid is on by default. The button only appears while <strong>Flood Traffic</strong> is on under Settings &gt; Wardriving &gt; Modes, which is off on a fresh install. If Hybrid Mode is switched off there, this button shows as "Active Mode" instead.)</p>
 <p><strong>What happens each interval (alternating):</strong></p>
 <ul>
 <li><strong>1</strong> Discovery request (direct query, does not flood the mesh)</li>
@@ -2773,7 +2795,7 @@
 <h2 id="active-mode">Active Mode<a class="headerlink" href="#active-mode" title="Permanent link">¶</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Legacy mode</p>
-<p>Hybrid Mode has replaced Active Mode as the default and is recommended for all wardriving. Active Mode is kept for backward compatibility but Hybrid produces richer data with less mesh traffic. To use Active Mode, disable Hybrid Mode in Settings &gt; Modes.</p>
+<p>Hybrid Mode has replaced Active Mode as the default and is recommended for all wardriving. Active Mode is kept for backward compatibility but Hybrid produces richer data with less mesh traffic. To use Active Mode, disable Hybrid Mode in Settings &gt; Wardriving &gt; Modes.</p>
 </div>
 <p>Sends only channel messages (no discovery requests) at a regular interval (15, 30, or 60 seconds).</p>
 <p><strong>What happens each interval:</strong></p>
@@ -2796,6 +2818,30 @@
 4. Successful traces → posted to API. Failed traces → logged locally, shown as grey markers on noise floor graph.</p>
 <p><strong>What it produces:</strong> Point-to-point signal quality over time and distance.</p>
 <p><strong>When to use:</strong> Antenna alignment, evaluating a specific repeater's coverage, diagnosing signal quality to a particular node.</p>
+<hr>
+<h2 id="smart-pinging">Smart Pinging<a class="headerlink" href="#smart-pinging" title="Permanent link">¶</a></h2>
+<p>Smart Pinging holds back auto pings in squares that MeshMapper has already mapped recently, so your airtime goes where it adds something new. It is <strong>on by default</strong> and applies to Hybrid, Passive and Active modes.</p>
+<p><strong>What happens:</strong></p>
+<ol>
+<li>While you are connected, the app keeps MeshMapper's recent coverage for the area around you loaded.</li>
+<li>When an auto ping is due in a square that already has a recent two-way (green) or discovery (cyan) result, the ping is <strong>deferred</strong> instead of sent. The countdown reads <strong>"Deferred"</strong> while it waits.</li>
+<li>The deferred ping is kept, not dropped. As soon as you reach a square with no recent coverage (and have moved your minimum ping distance), it goes out and the interval restarts.</li>
+<li>Only one ping is ever held. If the next interval is deferred too, it takes the place of the one waiting.</li>
+</ol>
+<p><strong>What counts as covered:</strong> a square with a green or cyan result inside your Smart Pinging window (default 14 days). Squares follow your <a href="../app_settings_reference/#grid-mode">Grid Mode</a> setting, so what is deferred is exactly what is already painted on the map.</p>
+<p><strong>Never deferred:</strong></p>
+<ul>
+<li>Manual pings</li>
+<li>Trace Mode</li>
+<li>Passive listening to other mesh traffic (RX), which is free coverage</li>
+<li>Anywhere the coverage data cannot be loaded (no network, Offline Mode, outside a zone). The ping simply goes out.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Deferred is not Skipped</p>
+<p>A ping that fails the minimum distance rule reads "Skipped" and is dropped. A deferred ping reads "Deferred" and is still owed. A square that is both covered and too close reads "Deferred".</p>
+</div>
+<p><strong>You keep your points.</strong> Every square where a ping was held is reported to MeshMapper, checked against the region's own coverage data, and credited at <strong>1.5 points</strong> once verified (once per 300m square per session). Verified squares also count toward the Airtime awards and the Top Airtime Savers leaderboard. See <a href="../leaderboards/#top-airtime-savers">Top Airtime Savers</a>.</p>
+<p>To turn Smart Pinging off or change the window, see <a href="../app_settings_reference/#smart-pinging">Smart Pinging</a> in the Settings Reference. Regional admins can enforce it for their zone, in which case the switch is locked on.</p>
 <hr>
 <h2 id="tx-capacity-limits">TX Capacity Limits<a class="headerlink" href="#tx-capacity-limits" title="Permanent link">¶</a></h2>
 <p>Regional admins set a <strong>maximum number of active TX wardrivers</strong> per zone (for example, 5). This prevents too many users from flooding the mesh simultaneously.</p>
@@ -2874,7 +2920,7 @@
 </div>
 <hr>
 <h2 id="sound-notifications">Sound Notifications<a class="headerlink" href="#sound-notifications" title="Permanent link">¶</a></h2>
-<p>If enabled (Settings &gt; Ping Settings &gt; Sound Notifications):</p>
+<p>If enabled (Settings &gt; General &gt; Sound Notifications):</p>
 <ul>
 <li><strong>TX sent or Discovery sent:</strong> Transmitted packet sound</li>
 <li><strong>Repeater echo or RX received:</strong> Received packet sound</li>

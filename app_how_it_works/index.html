@@ -1090,6 +1090,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-smart-pinging-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Smart Pinging Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#packet-filtering-and-validation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2871,6 +2882,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-smart-pinging-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Smart Pinging Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#packet-filtering-and-validation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3168,6 +3190,20 @@
 <li><strong>Logging</strong>: Successful traces → uploaded to API. Failed traces (no response within 5s) → logged locally, shown as grey markers on noise floor graph.</li>
 </ol>
 <hr>
+<h2 id="how-smart-pinging-works">How Smart Pinging Works<a class="headerlink" href="#how-smart-pinging-works" title="Permanent link">¶</a></h2>
+<p>Smart Pinging is the app's way of not repeating work the map already shows. It is on by default and applies to Hybrid, Passive and Active modes.</p>
+<ol>
+<li><strong>Coverage lookup</strong>: While connected, the app keeps MeshMapper's recent coverage for roughly 500m around you loaded. It uses the same vector tiles the map draws, filtered to two-way (green) and discovery (cyan) results inside your Smart Pinging window. The lookup re-checks after every 100m of movement and refreshes tiles older than 5 minutes at the next 100m. Squares you cover yourself during the session (a heard TX, an answered discovery) are marked covered immediately.</li>
+<li><strong>The check</strong>: When an auto ping (TX or discovery) is due, the app looks up the square under your current GPS fix. The square is the cell of your Grid Mode setting (300m, or 100m in Detailed). A recent green or cyan result there means the ping is deferred, and the countdown reads "Deferred". The check runs before the minimum distance rule, so a covered square reads "Deferred" rather than "Skipped".</li>
+<li><strong>The hold</strong>: A deferred ping is banked in a single slot. On every GPS fix the app asks whether you have reached a square with no recent coverage and moved at least your minimum ping distance since the last ping of that kind. If so, the banked ping goes out and the interval timer restarts. A later deferral replaces an earlier one, so at most one ping is ever waiting. The regular interval keeps running underneath, so a phone that never reaches a fresh square still tries at its normal cadence.</li>
+<li><strong>Fail open</strong>: If the coverage data is not loaded yet, a fetch failed, you are outside a zone, or you are in Offline Mode, the lookup answers "unknown" and the ping is sent as normal. Smart Pinging only ever holds a ping it knows to be redundant.</li>
+<li><strong>Credit</strong>: A deferred ping posts no coverage row, so on its own it would cost you the point that ping would have earned. Instead the app reports a small <code>DEFER</code> item for each square where it held a ping (one per 300m square per session, whatever your Grid Mode) in the normal upload batch. MeshMapper verifies the square really was covered in its own data, drops any it cannot confirm, and credits the accepted ones at 1.5 points each. Accepted squares also drive the Airtime awards and the Top Airtime Savers leaderboard.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Manual pings, Trace Mode and passive RX listening are never deferred. RX is free coverage, and the other two are you asking for a specific measurement.</p>
+</div>
+<hr>
 <h2 id="packet-filtering-and-validation">Packet Filtering and Validation<a class="headerlink" href="#packet-filtering-and-validation" title="Permanent link">¶</a></h2>
 <p>Every packet goes through a strict validation pipeline before being accepted. If a packet fails any step, it is dropped immediately.</p>
 <h3 id="1-path-length-check">1 Path length check<a class="headerlink" href="#1-path-length-check" title="Permanent link">¶</a></h3>
@@ -3255,7 +3291,7 @@
 <p><strong>Two filter methods:</strong></p>
 <ol>
 <li><strong>RSSI threshold</strong>: RSSI equal to or stronger (closer to 0) than -30 dBm → automatically dropped (device is right next to you)</li>
-<li><strong>User-configured repeater ID</strong>: Specify your repeater's hex ID in Settings &gt; Filtering &gt; CARpeater Filter. Echoes from that repeater are stripped before upload.</li>
+<li><strong>User-configured repeater ID</strong>: Set your repeater's full public key in Settings &gt; Wardriving &gt; CARpeater Filter. Echoes from that repeater are stripped before upload.</li>
 </ol>
 <p>Both can be adjusted or disabled in Settings for testing.</p>
 <hr>
@@ -3268,7 +3304,7 @@
 </ul>
 <p><strong>Key details:</strong></p>
 <ul>
-<li>Configurable in Settings &gt; Radio &gt; TX Bytes (firmware 1.14+ required)</li>
+<li>Configurable in Settings &gt; Wardriving &gt; Radio &gt; TX Bytes (firmware 1.14+ required)</li>
 <li>RX auto-detects path size regardless of your TX setting</li>
 <li>Regional administrators can require a specific TX path setting in the admin panel</li>
 </ul>

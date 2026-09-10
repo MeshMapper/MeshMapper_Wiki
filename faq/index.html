@@ -2680,7 +2680,7 @@
 </details>
 <details class="question">
 <summary>Does the wardriving app broadcast my location on the mesh?</summary>
-<p>Not by default. TX pings sent on the #wardriving channel carry a short anonymous token instead of coordinates — your GPS position travels only to the MeshMapper server over the internet. Anyone listening on the channel sees the token, not where you are. If you <em>want</em> your live position visible on the air (e.g., so local mesh users can follow your drive), enable <strong>Broadcast My Coordinates</strong> in the app's Ping Settings.</p>
+<p>Not by default. TX pings sent on the #wardriving channel carry a short anonymous token instead of coordinates, and your GPS position travels only to the MeshMapper server over the internet. Anyone listening on the channel sees the token, not where you are. If you <em>want</em> your live position visible on the air (e.g., so local mesh users can follow your drive), enable <strong>Broadcast My Coordinates</strong> under Settings &gt; Wardriving in the app.</p>
 </details>
 <details class="question">
 <summary>Can I view or delete the data I have contributed?</summary>
@@ -2689,6 +2689,14 @@
 <details class="question">
 <summary>Why isn't my recent data showing on the leaderboard?</summary>
 <p>Leaderboards and profile statistics are regenerated about once a day, so new contributions can take up to 24 hours to appear. The coverage map itself updates in near-real-time.</p>
+</details>
+<details class="question">
+<summary>Why does the app show Deferred instead of sending a ping?</summary>
+<p>Smart Pinging is holding that ping because the square you are in already has recent coverage on the map. The ping is kept, not dropped: it goes out the moment you reach a square with nothing recent, and you are credited for the square you crossed without transmitting. It is on by default. See <a href="../app_wardriving_modes/#smart-pinging">Smart Pinging</a>, or turn it off under Settings &gt; Wardriving in the app.</p>
+</details>
+<details class="question">
+<summary>Do I lose leaderboard points when Smart Pinging holds a ping?</summary>
+<p>No. Each square where a ping was held is reported to MeshMapper, checked against the region's own coverage data, and credited at 1.5 points once verified. Verified squares also count toward the Airtime Saver, Airtime God and Airtime Legend awards and the Top Airtime Savers board. Like the rest of the leaderboard, the credit appears after the next daily update.</p>
 </details>
 <hr>
 <h2 id="mobile-app">Mobile App<a class="headerlink" href="#mobile-app" title="Permanent link">¶</a></h2>

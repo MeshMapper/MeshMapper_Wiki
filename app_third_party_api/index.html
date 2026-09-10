@@ -1140,8 +1140,30 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#defer-type-defer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DEFER (type: "DEFER")
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#batch-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Batch Examples
+      
+    </span>
+  </a>
   
 </li>
       
@@ -1183,6 +1205,17 @@
     <span class="md-ellipsis">
       
         Rate and Volume
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-meshmapper-links-are-paste-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why meshmapper:// links are paste-only
       
     </span>
   </a>
@@ -2716,8 +2749,30 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#defer-type-defer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DEFER (type: "DEFER")
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#batch-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Batch Examples
+      
+    </span>
+  </a>
   
 </li>
       
@@ -2759,6 +2814,17 @@
     <span class="md-ellipsis">
       
         Rate and Volume
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-meshmapper-links-are-paste-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why meshmapper:// links are paste-only
       
     </span>
   </a>
@@ -2832,7 +2898,7 @@
 <tr>
 <td><code>type</code></td>
 <td><code>string</code></td>
-<td>Ping type: <code>"TX"</code>, <code>"RX"</code>, <code>"DISC"</code>, or <code>"TRACE"</code></td>
+<td>Ping type: <code>"TX"</code>, <code>"RX"</code>, <code>"DISC"</code>, <code>"TRACE"</code>, or <code>"DEFER"</code>. A <code>DEFER</code> carries only the common <code>lat</code>, <code>lon</code>, <code>timestamp</code>, <code>contact</code> and <code>iata</code> fields plus <code>held</code> (see below); it has no <code>external_antenna</code>, <code>noisefloor</code>, <code>altitude</code> or <code>power</code>.</td>
 </tr>
 <tr>
 <td><code>lat</code></td>
@@ -2858,6 +2924,11 @@
 <td><code>noisefloor</code></td>
 <td><code>integer\|null</code></td>
 <td>Ambient noise floor in dBm (e.g., -103). Null if unavailable.</td>
+</tr>
+<tr>
+<td><code>altitude</code></td>
+<td><code>integer\|absent</code></td>
+<td>Altitude of the fix in whole meters (e.g., <code>123</code>). Absent when the phone did not know its altitude. iOS reports height above mean sea level. Android usually reports height above the WGS84 ellipsoid, but Android 14 and later substitutes mean sea level when the fix carries it, so one device can report either. The two references can differ by up to about 100 m.</td>
 </tr>
 <tr>
 <td><code>power</code></td>
@@ -2900,6 +2971,7 @@
   "lat": 45.26974,
   "lon": -75.77746,
   "noisefloor": -103,
+  "altitude": 84,
   "heard_repeats": "4e(12.25),77(8.50)",
   "timestamp": 1768762843,
   "external_antenna": false,
@@ -2914,6 +2986,7 @@
   "lat": 45.27001,
   "lon": -75.77802,
   "noisefloor": -101,
+  "altitude": 86,
   "heard_repeats": "None",
   "timestamp": 1768762873,
   "external_antenna": false,
@@ -3080,6 +3153,98 @@
   "iata": "YOW"
 }
 </code></pre>
+<h3 id="defer-type-defer">DEFER (type: "DEFER")<a class="headerlink" href="#defer-type-defer" title="Permanent link">¶</a></h3>
+<p>A square where the app's smart pinging held a TX ping or a discovery request because MeshMapper already had recent coverage there. The app reports it so MeshMapper can credit the square; you receive it because it may help a mapper keeping its own coverage.</p>
+<p><strong>A deferral is unverified.</strong> MeshMapper checks each one against its own coverage data and silently discards any it cannot confirm, but the batch answer does not say which items were kept, and the app forwards the whole batch after the upload succeeds. Treat a <code>DEFER</code> as "the app believed this square was covered", not as a confirmed observation.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>held</code></td>
+<td><code>string</code></td>
+<td>Which kind of ping was held: <code>"tx"</code> (a channel ping) or <code>"disc"</code> (a discovery request).</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>external_antenna</code>, <code>noisefloor</code>, <code>altitude</code> and <code>power</code> fields are not present on a <code>DEFER</code>. At most one <code>DEFER</code> is sent per 300 m square per MeshMapper session.</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-json">{
+  "type": "DEFER",
+  "lat": 45.26974,
+  "lon": -75.77746,
+  "timestamp": 1757400000,
+  "held": "tx",
+  "contact": "D873B1F2",
+  "iata": "YOW"
+}
+</code></pre>
+<h2 id="batch-examples">Batch Examples<a class="headerlink" href="#batch-examples" title="Permanent link">¶</a></h2>
+<p>A batch is whatever the app uploaded to MeshMapper in that round, so one request can mix every type above. <code>DEFER</code> items only appear from app version 1.4.0 onward, and only while the user has Smart Pinging on (the default) in Active, Passive or Hybrid mode, so your endpoint must accept batches both with and without them. Dispatch on <code>type</code> and ignore any value you do not handle rather than rejecting the batch: a <code>4xx</code> is shown to the user as an error.</p>
+<p><strong>Batch without a DEFER</strong> (a TX ping and a passive RX observation):</p>
+<pre><code class="language-json">{
+  "data": [
+    {
+      "type": "TX",
+      "lat": 45.26974,
+      "lon": -75.77746,
+      "noisefloor": -103,
+      "altitude": 84,
+      "heard_repeats": "4e(12.25),77(8.50)",
+      "timestamp": 1768762843,
+      "external_antenna": false,
+      "power": "0.3w",
+      "contact": "D873B1F2",
+      "iata": "YOW"
+    },
+    {
+      "type": "RX",
+      "lat": 45.26950,
+      "lon": -75.77700,
+      "noisefloor": -105,
+      "heard_repeats": "4e(12.00)",
+      "timestamp": 1768762900,
+      "external_antenna": false,
+      "power": "0.3w",
+      "contact": "D873B1F2",
+      "iata": "YOW"
+    }
+  ]
+}
+</code></pre>
+<p><strong>Batch with a DEFER</strong> (the next TX ping was held because the square already had recent coverage, while passive RX logging carried on):</p>
+<pre><code class="language-json">{
+  "data": [
+    {
+      "type": "DEFER",
+      "lat": 45.27210,
+      "lon": -75.78120,
+      "timestamp": 1768762933,
+      "held": "tx",
+      "contact": "D873B1F2",
+      "iata": "YOW"
+    },
+    {
+      "type": "RX",
+      "lat": 45.27222,
+      "lon": -75.78140,
+      "noisefloor": -104,
+      "heard_repeats": "77(9.75)",
+      "timestamp": 1768762941,
+      "external_antenna": false,
+      "power": "0.3w",
+      "contact": "D873B1F2",
+      "iata": "YOW"
+    }
+  ]
+}
+</code></pre>
+<p>Note that the <code>DEFER</code> has no <code>noisefloor</code>, <code>altitude</code>, <code>external_antenna</code> or <code>power</code>, while the <code>RX</code> beside it does.</p>
 <h2 id="expected-response">Expected Response<a class="headerlink" href="#expected-response" title="Permanent link">¶</a></h2>
 <p>Your endpoint should return any <code>2xx</code> HTTP status code on success. The response body is ignored by MeshMapper.</p>
 <table>
@@ -3130,6 +3295,7 @@
 <ul>
 <li><strong>HTTPS required</strong>: MeshMapper validates that the configured URL uses HTTPS. HTTP endpoints are rejected at the settings level.</li>
 <li><strong>API key in header</strong>: The user-configured API key is sent as <code>X-API-Key</code> header, not in the request body.</li>
+<li><strong>No MeshMapper credentials</strong>: The MeshMapper API key and session ID are never included in forwarded requests. You receive only the raw ping data.</li>
 <li><strong>Contact key is opt-in</strong>: The <code>contact</code> field (device public key prefix) is controlled by the user via "Include Contact Key" toggle. It defaults to ON but can be disabled.</li>
 <li><strong>Fire-and-forget</strong>: Custom API errors never affect MeshMapper's primary data submission. A broken custom endpoint cannot disrupt wardriving.</li>
 </ul>
@@ -3140,6 +3306,11 @@
 <li><strong>Session duration</strong>: Wardriving sessions commonly last 30 minutes to several hours.</li>
 <li><strong>Concurrent users</strong>: Plan for multiple users if distributing your endpoint URL. Each user sends independently.</li>
 </ul>
+<h2 id="why-meshmapper-links-are-paste-only">Why <code>meshmapper://</code> links are paste-only<a class="headerlink" href="#why-meshmapper-links-are-paste-only" title="Permanent link">¶</a></h2>
+<p>The <code>meshmapper://custom-api?...</code> format is deliberately <strong>not</strong> registered as
+an OS URL scheme. Tapping one does nothing; it has to be copied and imported
+from Settings. The app registers <code>meshmapper-auth://callback</code> instead (portal
+sign-in) precisely so that claiming a scheme never hijacks these config links.</p>
 
 
 
