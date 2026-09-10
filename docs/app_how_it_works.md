@@ -108,6 +108,21 @@ Trace pings target a specific repeater by hex ID:
 
 ---
 
+## How Smart Pinging Works
+
+Smart Pinging is the app's way of not repeating work the map already shows. It is on by default and applies to Hybrid, Passive and Active modes.
+
+1. **Coverage lookup**: While connected, the app keeps MeshMapper's recent coverage for roughly 500m around you loaded. It uses the same vector tiles the map draws, filtered to two-way (green) and discovery (cyan) results inside your Smart Pinging window. The lookup re-checks after every 100m of movement and refreshes tiles older than 5 minutes at the next 100m. Squares you cover yourself during the session (a heard TX, an answered discovery) are marked covered immediately.
+2. **The check**: When an auto ping (TX or discovery) is due, the app looks up the square under your current GPS fix. The square is the cell of your Grid Mode setting (300m, or 100m in Detailed). A recent green or cyan result there means the ping is deferred, and the countdown reads "Deferred". The check runs before the minimum distance rule, so a covered square reads "Deferred" rather than "Skipped".
+3. **The hold**: A deferred ping is banked in a single slot. On every GPS fix the app asks whether you have reached a square with no recent coverage and moved at least your minimum ping distance since the last ping of that kind. If so, the banked ping goes out and the interval timer restarts. A later deferral replaces an earlier one, so at most one ping is ever waiting. The regular interval keeps running underneath, so a phone that never reaches a fresh square still tries at its normal cadence.
+4. **Fail open**: If the coverage data is not loaded yet, a fetch failed, you are outside a zone, or you are in Offline Mode, the lookup answers "unknown" and the ping is sent as normal. Smart Pinging only ever holds a ping it knows to be redundant.
+5. **Credit**: A deferred ping posts no coverage row, so on its own it would cost you the point that ping would have earned. Instead the app reports a small `DEFER` item for each square where it held a ping (one per 300m square per session, whatever your Grid Mode) in the normal upload batch. MeshMapper verifies the square really was covered in its own data, drops any it cannot confirm, and credits the accepted ones at 1.5 points each. Accepted squares also drive the Airtime awards and the Top Airtime Savers leaderboard.
+
+!!! note
+    Manual pings, Trace Mode and passive RX listening are never deferred. RX is free coverage, and the other two are you asking for a specific measurement.
+
+---
+
 ## Packet Filtering and Validation
 
 Every packet goes through a strict validation pipeline before being accepted. If a packet fails any step, it is dropped immediately.
@@ -206,7 +221,7 @@ A "carpeater" (car + repeater) is a repeater mounted in/on your vehicle. It will
 **Two filter methods:**
 
 1. **RSSI threshold**: RSSI equal to or stronger (closer to 0) than -30 dBm → automatically dropped (device is right next to you)
-2. **User-configured repeater ID**: Specify your repeater's hex ID in Settings > Filtering > CARpeater Filter. Echoes from that repeater are stripped before upload.
+2. **User-configured repeater ID**: Set your repeater's full public key in Settings > Wardriving > CARpeater Filter. Echoes from that repeater are stripped before upload.
 
 Both can be adjusted or disabled in Settings for testing.
 
@@ -222,7 +237,7 @@ Each packet carries a "path" showing which repeaters it traveled through, with e
 
 **Key details:**
 
-- Configurable in Settings > Radio > TX Bytes (firmware 1.14+ required)
+- Configurable in Settings > Wardriving > Radio > TX Bytes (firmware 1.14+ required)
 - RX auto-detects path size regardless of your TX setting
 - Regional administrators can require a specific TX path setting in the admin panel
 

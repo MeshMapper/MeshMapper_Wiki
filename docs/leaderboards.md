@@ -20,7 +20,7 @@ At the top of the page, you will find high-level metrics for the current region.
 
 ## User Leaderboards
 
-User rankings are based on the number of valid data points contributed. 1 Ping = 1 Point.
+User rankings are based on the number of valid data points contributed. 1 Ping = 1 Point. A square where the app's Smart Pinging held a ping counts for 1.5 points once verified, in the same totals (see [Top Airtime Savers](#top-airtime-savers)).
 
   - **Top Contributors (7 Days)**: A rolling window of activity over the last week. This is useful for seeing who is currently active in the community.
   - **All Time Legends**: The total accumulation of contributions since the region was onboarded.
@@ -33,6 +33,9 @@ This leaderboard rewards **exploration** — covering new ground rather than re-
 | **1st** | **Gold** Number |
 | **2nd** | **Silver** Number |
 | **3rd** | **Bronze** Number |
+
+### Top Airtime Savers
+This leaderboard rewards **restraint**. When the app's [Smart Pinging](app_wardriving_modes.md#smart-pinging) holds a ping in a square that already has recent coverage, the square is reported, verified against the region's own coverage data, and credited at **1.5 points**. Each square counts once per session on the 300m grid, whatever the user's Grid Mode setting. This board ranks users by those points alone; the same points are also included in the All Time and 7 Day totals above.
 
 ## Repeater Leaderboards
 
@@ -57,6 +60,7 @@ The [Global Leaderboard](https://meshmapper.net/global_leaderboard.php) aggregat
   - **Global Stats**: Combined totals across all regions — data points, ping breakdowns, repeater count, contributors, total grid squares, active regions, and observer counts (with a per-broker breakdown).
   - **Top Contributors (7 Days)** and **All Time Legends**: Cross-region user rankings with each user's primary region shown.
   - **Top Explorers**: Aggregated first-mapper grid square counts across all regions.
+  - **Top Airtime Savers**: Cross-region Smart Pinging credit, ranked by points.
   - **Region Rankings**: **Most Repeaters**, **Most Grid Squares**, **Most Data Points**, and **Most Contributors** — regions ranked against each other.
   - **Best Repeaters (Ping Count)** and **Best Repeaters (Max Range)**: Repeater rankings drawn from every region, with links back to the originating regional map. The Ping Count table includes unique grid square counts alongside total ping counts — click the column headers to sort by either metric.
 

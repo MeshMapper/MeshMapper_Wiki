@@ -48,7 +48,7 @@ It also discloses that your location data is uploaded to the MeshMapper API and 
 After tapping **Continue**, your phone will ask for location permission. Grant "While Using the App" at minimum.
 
 !!! warning "iOS Background Location"
-    If you want to run MeshMapper in the background on iOS (e.g., wardriving with the screen off), you need to manually enable "Background Location" in the MeshMapper Settings tab. Apple restricts apps from requesting background location directly, so the user must enable it themselves. Without this, iOS will throttle or stop GPS updates when the app is not in the foreground.
+    If you want to run MeshMapper in the background on iOS (e.g., wardriving with the screen off), you need to manually enable "Background Location" under Settings > General in MeshMapper. Apple restricts apps from requesting background location directly, so the user must enable it themselves. Without this, iOS will throttle or stop GPS updates when the app is not in the foreground.
 
 ---
 
@@ -104,7 +104,7 @@ Once both are set, tap **Send Ping**:
 
 - The app sends a channel message to #wardriving
 - This message **floods the entire mesh network**, with every repeater relaying it onward
-- **Your GPS position is not in the on-air message.** By default the message carries a short anonymous token — your coordinates are sent only to the MeshMapper server over the internet. (You can opt in to broadcasting coordinates on the air via Settings > Ping Settings > Broadcast My Coordinates.)
+- **Your GPS position is not in the on-air message.** By default the message carries a short anonymous token, and your coordinates are sent only to the MeshMapper server over the internet. (You can opt in to broadcasting coordinates on the air via Settings > Wardriving > Broadcast My Coordinates.)
 - If your regional admin has configured a **scope**, the message stays within that region instead
 - The app listens for **5 seconds** to see which repeaters echoed your message back
 - On the backend, MeshMapper uses **MQTT observers** that also listen to the #wardriving channel. If an observer receives your message, the backend marks that ping as **bidirectional (bidir)**

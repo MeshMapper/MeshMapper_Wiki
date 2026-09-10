@@ -95,7 +95,7 @@ These show the **backend's view** of coverage, combining data from all wardriver
 - **DEAD** (brown): A repeater heard it, but no other radio received the repeat
 - **DROP** (red): No repeats heard AND did not reach a backend observer. Also includes failed discovery requests if the region has "Count DISC as failed" enabled, meaning the backend tracks a failed discovery as no coverage at that location.
 
-The overlay renders from the same vector coverage tiles as the web map, using your selected **Grid Mode** (Simplified 300m or Detailed 100m — see Settings > Map Management) and Color Vision palette. After a successful upload, your own newly-mapped cells refresh in place within about 10 seconds — you can watch your coverage appear as you drive.
+The overlay renders from the same vector coverage tiles as the web map, using your selected **Grid Mode** (Simplified 300m or Detailed 100m, see Settings > Map) and Color Vision palette. After a successful upload, your own newly-mapped cells refresh in place within about 10 seconds, so you can watch your coverage appear as you drive.
 
 **Tap to inspect:**
 
@@ -302,7 +302,7 @@ For a detailed walkthrough of the connection process, see the [Connection Guide]
 
 ## Settings Tab
 
-The Settings tab contains all user preferences and configuration options. Settings are organized into sections: General, Map Management, Ping Settings, Modes, Filtering, Radio, Data, Offline Sessions, API Endpoints, About, Exit (Android only), and Debug.
+The Settings tab contains all user preferences and configuration options. It is a list of folders, each opening its own page: General, Map, Wardriving, Data, MeshMapper Account (mobile only), API Endpoints, Apple Watch (iOS, once a watch has been paired), About & Support, and Developer Tools (hidden until unlocked).
 
 Some settings are locked while auto-ping is running to prevent mid-session changes that could affect data consistency. A yellow banner at the top indicates when settings are locked.
 
