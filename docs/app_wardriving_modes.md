@@ -29,7 +29,7 @@ Controls lock during the 5-second window and API upload.
 
 Hybrid Mode is the **recommended default** for wardriving. It alternates between channel messages (TX) and discovery requests at your configured interval.
 
-**To start:** Tap the **Hybrid Mode** button in the Controls panel on the Map tab. (Enabled by default. If disabled in Settings, this button shows as "Active Mode" instead.)
+**To start:** Tap the **Hybrid Mode** button in the Controls panel on the Map tab. (Hybrid is on by default. The button only appears while **Flood Traffic** is on under Settings > Wardriving > Modes, which is off on a fresh install. If Hybrid Mode is switched off there, this button shows as "Active Mode" instead.)
 
 **What happens each interval (alternating):**
 
@@ -78,7 +78,7 @@ No channel messages (no mesh flooding at all). Sends **discovery requests** ever
 ## Active Mode
 
 !!! warning "Legacy mode"
-    Hybrid Mode has replaced Active Mode as the default and is recommended for all wardriving. Active Mode is kept for backward compatibility but Hybrid produces richer data with less mesh traffic. To use Active Mode, disable Hybrid Mode in Settings > Modes.
+    Hybrid Mode has replaced Active Mode as the default and is recommended for all wardriving. Active Mode is kept for backward compatibility but Hybrid produces richer data with less mesh traffic. To use Active Mode, disable Hybrid Mode in Settings > Wardriving > Modes.
 
 Sends only channel messages (no discovery requests) at a regular interval (15, 30, or 60 seconds).
 
@@ -200,7 +200,7 @@ Regardless of mode, all data follows the same pipeline:
 
 ## Sound Notifications
 
-If enabled (Settings > Ping Settings > Sound Notifications):
+If enabled (Settings > General > Sound Notifications):
 
 - **TX sent or Discovery sent:** Transmitted packet sound
 - **Repeater echo or RX received:** Received packet sound

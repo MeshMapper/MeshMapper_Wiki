@@ -221,7 +221,7 @@ A "carpeater" (car + repeater) is a repeater mounted in/on your vehicle. It will
 **Two filter methods:**
 
 1. **RSSI threshold**: RSSI equal to or stronger (closer to 0) than -30 dBm → automatically dropped (device is right next to you)
-2. **User-configured repeater ID**: Specify your repeater's hex ID in Settings > Filtering > CARpeater Filter. Echoes from that repeater are stripped before upload.
+2. **User-configured repeater ID**: Set your repeater's full public key in Settings > Wardriving > CARpeater Filter. Echoes from that repeater are stripped before upload.
 
 Both can be adjusted or disabled in Settings for testing.
 
@@ -237,7 +237,7 @@ Each packet carries a "path" showing which repeaters it traveled through, with e
 
 **Key details:**
 
-- Configurable in Settings > Radio > TX Bytes (firmware 1.14+ required)
+- Configurable in Settings > Wardriving > Radio > TX Bytes (firmware 1.14+ required)
 - RX auto-detects path size regardless of your TX setting
 - Regional administrators can require a specific TX path setting in the admin panel
 

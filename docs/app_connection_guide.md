@@ -150,11 +150,11 @@ If you don't have internet, or the MeshMapper API is in maintenance mode, use **
 - Zone validation is skipped (zone chip shows a grey dash)
 - All ping data (TX, RX, DISC) is saved to local session files
 - Session files are named by date (e.g., "2026-03-20.json")
-- Manage sessions in **Settings > Offline Sessions**
+- Manage sessions in **Settings > Data > Offline Sessions**
 
 **When you are back online:**
 
-1. Open **Settings > Offline Sessions**
+1. Open **Settings > Data > Offline Sessions**
 2. Tap upload button next to each session to send to MeshMapper
 3. Or download session files for backup
 

@@ -178,7 +178,7 @@ This is **normal behavior**:
 
 **Solutions:**
 
-- Enable in Settings > Ping Settings > Sound Notifications
+- Enable in Settings > General > Sound Notifications
 - Check phone volume and ringer mode
 
 ### Audio hangs or freezes
@@ -212,10 +212,10 @@ This is **normal behavior**:
 
 To capture detailed logs for a bug report:
 
-1. Go to **Settings > Debug**
+1. Go to **Settings > About & Support > Debug Logs**
 2. Enable **Debug Logs** (orange "LOGGING" badge confirms)
 3. Reproduce the issue
-4. Use **Submit Feedback** (Settings > About) or the **Upload** button in Debug section
+4. Use **Submit Feedback** (Settings > About & Support) or the **Upload** button in the Debug Logs section
 
 Logs include timestamped entries for BLE communication, GPS events, ping lifecycle, API calls, and more.
 
@@ -223,7 +223,7 @@ Logs include timestamped entries for BLE communication, GPS events, ping lifecyc
 
 ## Reporting Bugs
 
-1. Go to **Settings > About > Submit Feedback**
+1. Go to **Settings > About & Support > Submit Feedback**
 2. Describe the issue (what you expected vs what happened)
 3. Optionally enable "Upload debug logs" and select which log files to include
 4. Submit — a confirmation toast appears with a "View" link to track your report
