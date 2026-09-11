@@ -2898,7 +2898,7 @@
 <tr>
 <td><code>type</code></td>
 <td><code>string</code></td>
-<td>Ping type: <code>"TX"</code>, <code>"RX"</code>, <code>"DISC"</code>, <code>"TRACE"</code>, or <code>"DEFER"</code>. A <code>DEFER</code> carries only the common <code>lat</code>, <code>lon</code>, <code>timestamp</code>, <code>contact</code> and <code>iata</code> fields plus <code>held</code> (see below); it has no <code>external_antenna</code>, <code>noisefloor</code>, <code>altitude</code> or <code>power</code>.</td>
+<td>Ping type: <code>"TX"</code>, <code>"RX"</code>, <code>"DISC"</code>, <code>"TRACE"</code>, or <code>"DEFER"</code>. A <code>DEFER</code> carries only the common <code>lat</code>, <code>lon</code>, <code>timestamp</code>, <code>contact</code>, <code>iata</code> and <code>radio_freq</code> fields plus <code>held</code> (see below); it has no <code>external_antenna</code>, <code>noisefloor</code>, <code>altitude</code> or <code>power</code>.</td>
 </tr>
 <tr>
 <td><code>lat</code></td>
@@ -2929,6 +2929,11 @@
 <td><code>altitude</code></td>
 <td><code>integer\|absent</code></td>
 <td>Altitude of the fix in whole meters (e.g., <code>123</code>). Absent when the phone did not know its altitude. iOS reports height above mean sea level. Android usually reports height above the WGS84 ellipsoid, but Android 14 and later substitutes mean sea level when the fix carries it, so one device can report either. The two references can differ by up to about 100 m.</td>
+</tr>
+<tr>
+<td><code>radio_freq</code></td>
+<td><code>string\|absent</code></td>
+<td>The radio configuration the item was recorded under, as <code>freqMHz,bwKHz,SF,CR</code> (e.g. <code>"910.525,62.5,7,5"</code>). Absent when the radio did not report its parameters. Present on every type, <code>DEFER</code> included.</td>
 </tr>
 <tr>
 <td><code>power</code></td>
@@ -2972,6 +2977,7 @@
   "lon": -75.77746,
   "noisefloor": -103,
   "altitude": 84,
+  "radio_freq": "910.525,62.5,7,5",
   "heard_repeats": "4e(12.25),77(8.50)",
   "timestamp": 1768762843,
   "external_antenna": false,
@@ -2987,6 +2993,7 @@
   "lon": -75.77802,
   "noisefloor": -101,
   "altitude": 86,
+  "radio_freq": "910.525,62.5,7,5",
   "heard_repeats": "None",
   "timestamp": 1768762873,
   "external_antenna": false,
@@ -3172,16 +3179,17 @@
 </tr>
 </tbody>
 </table>
-<p>The <code>external_antenna</code>, <code>noisefloor</code>, <code>altitude</code> and <code>power</code> fields are not present on a <code>DEFER</code>. At most one <code>DEFER</code> is sent per 300 m square per MeshMapper session.</p>
+<p>The <code>external_antenna</code>, <code>noisefloor</code>, <code>altitude</code> and <code>power</code> fields are not present on a <code>DEFER</code>. A <code>DEFER</code> carries <code>lat</code>, <code>lon</code>, <code>timestamp</code>, <code>contact</code>, <code>iata</code>, <code>held</code> and <code>radio_freq</code>. At most one <code>DEFER</code> is sent per 300 m square per MeshMapper session.</p>
 <p><strong>Example:</strong></p>
 <pre><code class="language-json">{
   "type": "DEFER",
   "lat": 45.26974,
   "lon": -75.77746,
   "timestamp": 1757400000,
-  "held": "tx",
   "contact": "D873B1F2",
-  "iata": "YOW"
+  "iata": "YOW",
+  "radio_freq": "910.525,62.5,7,5",
+  "held": "tx"
 }
 </code></pre>
 <h2 id="batch-examples">Batch Examples<a class="headerlink" href="#batch-examples" title="Permanent link">¶</a></h2>
@@ -3195,6 +3203,7 @@
       "lon": -75.77746,
       "noisefloor": -103,
       "altitude": 84,
+      "radio_freq": "910.525,62.5,7,5",
       "heard_repeats": "4e(12.25),77(8.50)",
       "timestamp": 1768762843,
       "external_antenna": false,
@@ -3225,9 +3234,10 @@
       "lat": 45.27210,
       "lon": -75.78120,
       "timestamp": 1768762933,
-      "held": "tx",
       "contact": "D873B1F2",
-      "iata": "YOW"
+      "iata": "YOW",
+      "radio_freq": "910.525,62.5,7,5",
+      "held": "tx"
     },
     {
       "type": "RX",
