@@ -60,9 +60,9 @@ When a new repeater appears on the network with an ID that is indistinguishable 
 
 ### 2. Map Appearance
 
-  - **Red Icons**: Both repeaters will appear on the map with **Red** icons (instead of the standard Pink, Orange or Grey).
+  - **Red Chips**: Both repeaters will appear on the map with a **Red** edge on their chip (instead of the usual Green, Pink or Grey). The map legend calls this state **Ambiguous ID**.
   - **Popups**: Clicking on the repeater will show its status as "Duplicate" and will list the repeaters that are in collision with it.
-  - **Pings**: Clicking a grid square on the map that has a repeater involved in an active collision will draw red dashed lines to each repeater in the collision group (and list distance), allowing the viewer to make their own assumption on which repeater was actually involved.
+  - **Pings**: Clicking a grid square on the map that has a repeater involved in an active collision will draw red lines to each repeater in the collision group (and list distance), allowing the viewer to make their own assumption on which repeater was actually involved.
   - **Leaderboards**: Both repeaters are immediately removed from all Leaderboards (Best Repeaters, Max Range, etc.) both on the local region and globally to prevent skewed statistics.
 
 ### 3. Impact on Collected Data
@@ -113,9 +113,9 @@ If both repeaters are active and legitimate (a true collision between two live d
 
 | State | Indicator | Meaning |
 | --- | --- | --- |
-| **Active** | Green / Grey Icon | Normal operation. Unique ID. |
-| **New** | Orange Icon | Recently discovered (less than 14 days old). |
-| **Excluded** | **Red Icon** | **Duplicate ID Detected.** Data from this repeater is currently untrusted. |
+| **Active** | Green Chip Edge | Normal operation. Unique ID. |
+| **New** | Pink Chip Edge | Recently discovered (less than 14 days old). |
+| **Excluded** (shown on the map as **Ambiguous ID**) | **Red Chip Edge** | **Duplicate ID Detected.** Data from this repeater is currently untrusted. |
 
 ## Multi-Byte Hop Support
 
