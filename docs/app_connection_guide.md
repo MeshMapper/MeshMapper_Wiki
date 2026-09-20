@@ -197,4 +197,7 @@ When you start auto-ping, MeshMapper enables background operation to keep Blueto
 - **iOS**: Uses declared background modes (bluetooth-central, location). For best results, enable "Background Location" in Settings to upgrade to "Always" location permission, which prevents iOS from throttling during extended sessions.
 - **Web**: Not available. Browser tab must remain active for Web Bluetooth.
 
+!!! warning "Android screen-off wardriving"
+    Some Android phones may pause wardriving when the screen is off. If this happens, open **Android Settings > Apps > MeshMapper > App battery usage** and select **Unrestricted**. This may increase battery use.
+
 The background service starts automatically with auto-ping and stops when you stop auto-ping or disconnect.
