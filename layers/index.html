@@ -3192,7 +3192,7 @@
 </tr>
 <tr>
 <td><strong>Repeaters</strong></td>
-<td>The icons representing repeater nodes.</td>
+<td>The chips representing repeater nodes. Each one carries its hex ID, with its state on the chip's left edge and border. See <a href="../visuals/#repeaters">Repeaters</a>.</td>
 </tr>
 <tr>
 <td><strong>Repeater Coverage</strong></td>
@@ -3204,7 +3204,11 @@
 </tr>
 <tr>
 <td><strong>Repeater Neighbours</strong></td>
-<td>Draws lines between repeaters that have heard each other directly, with full support for multi-byte repeater identification. When enabled, coverage pings fade into the background to make the neighbour lines easier to trace. Lines older than 7 days are automatically hidden. <br> - <strong>Green Dashed</strong>: Heard recently (≤ 3 days). <br> - <strong>Orange Solid</strong>: Heard 4-7 days ago.</td>
+<td>Draws lines between repeaters that are known to reach each other, with full support for multi-byte repeater identification. When enabled, coverage pings fade into the background to make the neighbour lines easier to trace. All four kinds are drawn solid, so the colour is what tells them apart. Inferred lines are hidden once the region's retention window closes, which is 7 days unless the region administrator changed it. <br> - <strong>Green</strong>: Inferred, seen in a packet path an observer heard within the last 3 days. <br> - <strong>Orange</strong>: Inferred, older than 3 days. <br> - <strong>Blue</strong>: Reported by the repeater over the air. <br> - <strong>Purple</strong>: Uploaded from the app by an admin. <br> See <a href="../visuals/#links-between-repeaters">Links Between Repeaters</a>.</td>
+</tr>
+<tr>
+<td><strong>Backbone</strong></td>
+<td>The smallest set of repeaters whose links together carry half the region's traffic, with <strong>gold</strong> chips for the sites and coloured lines (trunks) between them. Each chip's label shows that repeater's own share. Switching this on hides every repeater that is not a backbone site, turns <strong>Repeaters</strong> on, and turns <strong>Repeater Neighbours</strong> off. See <a href="../visuals/#the-backbone">The Backbone</a>.</td>
 </tr>
 <tr>
 <td><strong>Effective Coverage</strong></td>
