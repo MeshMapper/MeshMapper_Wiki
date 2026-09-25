@@ -46,6 +46,7 @@ nav:
     - Admin Portal: admins.md
     - Webhooks: webhooks.md
     - Coverage API: coverage-api.md
+    - Zones API: zones-api.md
     - Data Upload: dataupload.md
   
   - Support:
