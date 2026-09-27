@@ -7,13 +7,13 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/reportbugs/">
+        <link rel="canonical" href="https://meshmapper.net/scopes-api/">
       
       
-        <link rel="prev" href="../troubleshooting/">
+        <link rel="prev" href="../zones-api/">
       
       
-        <link rel="next" href="../systemstatus/">
+        <link rel="next" href="../dataupload/">
       
       
         
@@ -24,7 +24,7 @@
     
     
       
-        <title>Report Bugs &amp; Features - MeshMapper Wiki</title>
+        <title>Scopes API - MeshMapper Wiki</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#report-bugs-request-features" class="md-skip">
+        <a href="#scopes-api" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Report Bugs &amp; Features
+              Scopes API
             
           </span>
         </div>
@@ -1182,18 +1182,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked="">
         
           
           <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
@@ -1214,7 +1216,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1369,10 +1371,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../scopes-api/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scopes API
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1388,6 +1417,98 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Response">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#top-level-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Top-level fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scope-entry-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scope entry fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caching
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1432,20 +1553,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked="">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
         
           
           <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
@@ -1466,7 +1585,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1509,19 +1628,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../reportbugs/" class="md-nav__link">
         
   
   
@@ -1537,7 +1647,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -2490,6 +2599,86 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Response">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#top-level-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Top-level fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scope-entry-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scope entry fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caching
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2505,13 +2694,137 @@
 
 
 
-<h1 id="report-bugs-request-features">Report Bugs &amp; Request Features<a class="headerlink" href="#report-bugs-request-features" title="Permanent link">¶</a></h1>
-<p>MeshMapper is actively being developed using community feedback, and bugs are expected.</p>
-<p>You can submit a ticket easily using our guided form:</p>
-<p><a href="https://meshmapper.net?createticket" target="_blank" style="background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; margin: 10px 0;">Submit Bug or Feature Request</a></p>
-<p>Alternatively, you can report bugs directly on the MeshMapper Central Issue Tracking and Project Planning Github repo here:</p>
-<p><a href="https://github.com/MeshMapper/MeshMapper_Project">https://github.com/MeshMapper/MeshMapper_Project</a></p>
-<p>We also welcome ideas and suggestions to improve MeshMapper.  MeshMapper is a community-driven product and all feedback is welcome.</p>
+<h1 id="scopes-api">Scopes API<a class="headerlink" href="#scopes-api" title="Permanent link">¶</a></h1>
+<p>The Scopes API lists the Mesh Scopes a region's repeaters carry, with a repeater count per scope. Use it to show which scopes are active in a region without scraping the map. No key is needed.</p>
+<pre><code>GET https://yow.meshmapper.net/get_scopes.php
+</code></pre>
+<ul>
+<li>On a <strong>region</strong> site: that region's own repeaters.</li>
+<li>On a <strong>group</strong> site (e.g. <code>pnw.meshmapper.net</code>): every enabled member region's repeaters, combined.</li>
+</ul>
+<p>There are no parameters.</p>
+<div class="admonition note">
+<p class="admonition-title">Fair use</p>
+<p>Public, cached for 5 minutes, and rate limited to 60 requests per minute per IP address. Cache the results, respect <code>ETag</code>, and don't poll more than once every few minutes. Accessing anything that isn't a published API, or scraping pages for data, is not allowed; see the warning on the <a href="../coverage-api/">Coverage API</a> page.</p>
+</div>
+<h2 id="response">Response<a class="headerlink" href="#response" title="Permanent link">¶</a></h2>
+<pre><code class="language-json">{
+  "generated_at": "2026-09-27T16:58:49Z",
+  "region": "YOW",
+  "zones": ["YOW"],
+  "repeaters": 5,
+  "scoped": 3,
+  "scopes": [
+    { "name": "yow", "repeaters": 2, "default": 1, "monitored": true, "wardriving": true },
+    { "name": "pnw", "repeaters": 1, "default": 0, "monitored": false, "wardriving": false },
+    { "name": "mon", "repeaters": 0, "default": 0, "monitored": true, "wardriving": false }
+  ]
+}
+</code></pre>
+<h3 id="top-level-fields">Top-level fields<a class="headerlink" href="#top-level-fields" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>generated_at</code></td>
+<td>When this answer was built.</td>
+</tr>
+<tr>
+<td><code>region</code></td>
+<td>The region code this page serves, uppercase. On a group site this is the group's own code.</td>
+</tr>
+<tr>
+<td><code>zones</code></td>
+<td>The region codes counted in this answer: one code on a region site, every enabled member on a group site.</td>
+</tr>
+<tr>
+<td><code>repeaters</code></td>
+<td>How many of this page's repeaters are enabled and public. This is the same population the map's Scope Finder tool checks, <strong>not</strong> the population MeshMapper's Scope Onboarding leaderboard uses: that board only counts repeaters inside the region's own drawn boundary, so a region with repeaters placed outside its boundary can show a different total there.</td>
+</tr>
+<tr>
+<td><code>scoped</code></td>
+<td>How many of those repeaters carry at least one Mesh Scope, by any evidence, or put a scope on their own adverts (even one MeshMapper can't name yet). A repeater whose only answer is <code>✱ Not set</code> doesn't count.</td>
+</tr>
+<tr>
+<td><code>scopes</code></td>
+<td>One entry per scope name seen on this page, plus every name on the region's Scopes to Monitor list or set as its Wardriving Scope, even at zero repeaters. Sorted by <code>repeaters</code> highest first, then by name.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="scope-entry-fields">Scope entry fields<a class="headerlink" href="#scope-entry-fields" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>The scope name, as configured on the repeaters that carry it.</td>
+</tr>
+<tr>
+<td><code>repeaters</code></td>
+<td>How many of this page's repeaters carry this scope.</td>
+</tr>
+<tr>
+<td><code>default</code></td>
+<td>Of those, how many put this scope on their own adverts (as opposed to only being reported or observed carrying it).</td>
+</tr>
+<tr>
+<td><code>monitored</code></td>
+<td><code>true</code> when this name is on the region's Scopes to Monitor list right now.</td>
+</tr>
+<tr>
+<td><code>wardriving</code></td>
+<td><code>true</code> when this is the region's configured Wardriving Scope, the name it asks wardrivers' apps to use.</td>
+</tr>
+</tbody>
+</table>
+<p>Names and counts only. There is no per-repeater list, no repeater ID, and no key of any kind in this response.</p>
+<h2 id="caching">Caching<a class="headerlink" href="#caching" title="Permanent link">¶</a></h2>
+<p>Sends <code>Cache-Control: public, max-age=300</code> and a strong <code>ETag</code>. Send the <code>ETag</code> back in <code>If-None-Match</code> to get <code>304 Not Modified</code> with no body when nothing changed. <code>generated_at</code> isn't part of the <code>ETag</code>.</p>
+<h2 id="errors">Errors<a class="headerlink" href="#errors" title="Permanent link">¶</a></h2>
+<p>Errors are JSON: <code>{"error": "&lt;code&gt;"}</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th><code>error</code></th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>404</td>
+<td><code>zone_not_found</code></td>
+<td>The region is unknown, pending or turned off.</td>
+</tr>
+<tr>
+<td>429</td>
+<td><code>rate_limited</code></td>
+<td>Over 60 requests in a minute. Wait for the <code>Retry-After</code> header (seconds).</td>
+</tr>
+<tr>
+<td>503</td>
+<td><code>unavailable</code></td>
+<td>Temporary server problem. Try again later.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">¶</a></h2>
+<pre><code class="language-python">import httpx
+
+r = httpx.get("https://yow.meshmapper.net/get_scopes.php").json()
+for s in r["scopes"]:
+    print(s["name"], s["repeaters"], "of", r["repeaters"])
+</code></pre>
 
 
 
