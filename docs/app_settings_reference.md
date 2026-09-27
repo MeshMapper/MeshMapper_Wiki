@@ -187,7 +187,7 @@ After each discovery, asks the repeaters it found which scopes they carry (the n
 - Requires companion firmware **1.16.0 or newer**. **1.17.0 or newer is recommended**, see below.
 - Cannot be changed during auto-ping
 
-**Companion firmware 1.16 and a full contact list.** To ask a repeater that is not saved as a contact on your radio, the radio needs a free slot in its contact list. Companion firmware 1.16 cannot make that room when the list is full, so it refuses the request and nothing is sent. The log shows **Radio contact list full**, and from then on, for the rest of that connection, the app only asks repeaters that are saved as contacts. Settings shows a note while this applies. Companion firmware **1.17.0 or newer** fixes it by keeping room for these requests. Removing some contacts from your radio also works.
+**Companion firmware 1.16 and a full contact list.** To ask a repeater that is not saved as a contact on your radio, the radio needs a free slot in its contact list. Companion firmware 1.16 cannot make that room when the list is full, so it refuses the request and nothing is sent. The log shows **Radio contact list full**, and from then on, for the rest of that connection, the app only asks repeaters that are saved as contacts. The Errors tab in the log also gets one entry explaining it. Companion firmware **1.17.0 or newer** fixes it by keeping room for these requests. Removing some contacts from your radio also works.
 
 **Why a repeater may not answer.** "No response from repeater" in the log is normal and does not mean the repeater is broken or out of date:
 
