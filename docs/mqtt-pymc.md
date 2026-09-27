@@ -6,7 +6,7 @@ These instructions cover adding the MeshMapper MQTT broker to an existing pyMC-R
 
 ## Prerequisites
 
-  - A Raspberry Pi running pyMC-Repeater with LetsMesh already configured and working
+  - A Raspberry Pi with pyMC-Repeater installed and working
 
 ## Adding the MeshMapper Broker
 

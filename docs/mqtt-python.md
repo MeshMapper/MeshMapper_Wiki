@@ -1,6 +1,6 @@
 # MeshCore Packet Capture
 
-These instructions are for the community [meshcore-packet-capture](https://github.com/agessaman/meshcore-packet-capture) project from agessaman/HerculesMulligan.  A single observer can connect to both the LetsMesh and MeshMapper brokers.
+These instructions are for the community [meshcore-packet-capture](https://github.com/agessaman/meshcore-packet-capture) project from agessaman/HerculesMulligan.
 
 ## Prerequisites
 
@@ -24,7 +24,7 @@ sudo apt install -y python3 python3.12-venv curl git
 
 ### 3. Install the MeshCore Decoder
 
-The MeshCore decoder is required for authentication when sending packets to the brokers:
+The MeshCore decoder is required for authentication when sending packets to the broker:
 
 ```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
@@ -68,19 +68,15 @@ Enter your region's **3-letter IATA code** (e.g., `SEA`, `LAX`, `YOW`, `LON`). T
 You may optionally configure:
 
   - **Owner Public Key**: The public key of the observer owner (64 hex characters)
-  - **Owner Email**: Contact email for the LetsMesh Analyzer
+  - **Owner Email**: A contact email
 
-These are optional, apply to LetsMesh only, and can be skipped if you wish.
+MeshMapper doesn't use these, so you can skip them.
 
 ### 8. MQTT Broker Configuration
 
-#### LetsMesh Broker
+The script will ask whether to enable the LetsMesh Packet Analyzer. MeshMapper doesn't need it, so that's up to you.
 
-The script will ask whether to enable the LetsMesh Packet Analyzer. This connects to both the US and EU LetsMesh servers for redundancy. Recommended to enable.
-
-#### MeshMapper Broker
-
-When prompted to configure additional brokers, select "1" additonal, and add the MeshMapper broker with the following settings:
+When prompted to configure additional brokers, select "1" additional, and add the MeshMapper broker with the following settings:
 
 | Setting | Value |
 | --- | --- |
