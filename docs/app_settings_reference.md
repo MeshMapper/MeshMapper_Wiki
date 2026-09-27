@@ -193,7 +193,9 @@ After each discovery, asks the repeaters it found which scopes they carry (the n
 - **The answer can be lost on the way back.** An answer is longer than a discovery reply, so a repeater at the edge of range, or on a busy channel, can answer discovery and still miss this one.
 - **Older repeater firmware ignores the request.** Repeaters need firmware **1.12.0 or newer** to answer.
 
-A repeater that does not answer is not marked as checked, so the app asks it again on a later discovery. Nothing is uploaded for a request that goes unanswered.
+A repeater that does not answer is not marked as checked, but your phone leaves it alone for a while before asking again: 15 minutes after the first miss, doubling after each further miss, up to 2 hours. An answer clears that wait. This keeps one phone from using up a busy repeater's limit. Nothing is uploaded for a request that goes unanswered.
+
+While scope discovery is on, the app also refreshes its repeater list when Passive or Hybrid starts and every 15 minutes while it runs, so a repeater another driver has just checked is skipped sooner.
 
 #### Auto-Stop After Idle
 
