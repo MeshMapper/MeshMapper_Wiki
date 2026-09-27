@@ -1151,6 +1151,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#scopes-type-scopes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SCOPES (type: "SCOPES")
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2788,6 +2799,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#scopes-type-scopes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SCOPES (type: "SCOPES")
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2926,7 +2948,7 @@
 <tr>
 <td><code>type</code></td>
 <td><code>string</code></td>
-<td>Ping type: <code>"TX"</code>, <code>"RX"</code>, <code>"DISC"</code>, <code>"TRACE"</code>, or <code>"DEFER"</code>. A <code>DEFER</code> carries only the common <code>lat</code>, <code>lon</code>, <code>timestamp</code>, <code>contact</code>, <code>iata</code> and <code>radio_freq</code> fields plus <code>held</code> (see below); it has no <code>external_antenna</code>, <code>noisefloor</code>, <code>altitude</code> or <code>power</code>.</td>
+<td>Ping type: <code>"TX"</code>, <code>"RX"</code>, <code>"DISC"</code>, <code>"TRACE"</code>, <code>"DEFER"</code>, or <code>"SCOPES"</code>. A <code>DEFER</code> carries only the common <code>lat</code>, <code>lon</code>, <code>timestamp</code>, <code>contact</code>, <code>iata</code> and <code>radio_freq</code> fields plus <code>held</code> (see below); it has no <code>external_antenna</code>, <code>noisefloor</code>, <code>altitude</code> or <code>power</code>. A <code>SCOPES</code> carries only the common <code>timestamp</code>, <code>lat</code>, <code>lon</code>, <code>contact</code>, <code>iata</code> and <code>radio_freq</code> fields plus <code>public_key</code> and <code>scopes</code> (see below); it has no <code>external_antenna</code>, <code>noisefloor</code>, <code>altitude</code> or <code>power</code> either.</td>
 </tr>
 <tr>
 <td><code>lat</code></td>
@@ -3220,8 +3242,45 @@
   "held": "tx"
 }
 </code></pre>
+<h3 id="scopes-type-scopes">SCOPES (type: "SCOPES")<a class="headerlink" href="#scopes-type-scopes" title="Permanent link">¶</a></h3>
+<p>A repeater's answer to a direct scope discovery question, sent after a discovery finds the repeater. MeshMapper asks a discovered repeater which channels or contacts it passes, and the repeater answers with a list of scope names.</p>
+<p><strong>A SCOPES answer is unverified.</strong> MeshMapper checks each answer against a discovery the same radio reported and discards any it cannot confirm, but the batch answer does not say which were kept, and the app forwards the whole batch after the upload succeeds. A long answer can also be incomplete: the repeater leaves out names that do not fit in its reply.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>public_key</code></td>
+<td><code>string</code></td>
+<td>Full 32-byte public key of the answering repeater (64 hex chars, upper case).</td>
+</tr>
+<tr>
+<td><code>scopes</code></td>
+<td><code>array of string</code></td>
+<td>The scope names exactly as the repeater sent them, case-sensitive. <code>"*"</code> means the repeater passes unscoped traffic. May be empty. At most 33 entries.</td>
+</tr>
+</tbody>
+</table>
+<p><code>lat</code> and <code>lon</code> are where the discovery that found the repeater was made, not where the answer arrived. <code>timestamp</code> is when the answer arrived. The <code>external_antenna</code>, <code>noisefloor</code>, <code>altitude</code> and <code>power</code> fields are not present on a <code>SCOPES</code> item.</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-json">{
+  "type": "SCOPES",
+  "public_key": "A3B2C1D4E5F6A7B8C9D0E1F2A3B4C5D6E7F8A9B0C1D2E3F4A5B6C7D8E9F0A1B2",
+  "scopes": ["ROOM1", "*"],
+  "timestamp": 1768763050,
+  "lat": 45.26980,
+  "lon": -75.77750,
+  "contact": "D873B1F2",
+  "iata": "YOW"
+}
+</code></pre>
 <h2 id="batch-examples">Batch Examples<a class="headerlink" href="#batch-examples" title="Permanent link">¶</a></h2>
-<p>A batch is whatever the app uploaded to MeshMapper in that round, so one request can mix every type above. <code>DEFER</code> items only appear from app version 1.4.0 onward, and only while the user has Smart Pinging on (the default) in Active, Passive or Hybrid mode, so your endpoint must accept batches both with and without them. Dispatch on <code>type</code> and ignore any value you do not handle rather than rejecting the batch: a <code>4xx</code> is shown to the user as an error.</p>
+<p>A batch is whatever the app uploaded to MeshMapper in that round, so one request can mix every type above. <code>DEFER</code> items only appear from app version 1.4.0 onward, and only while the user has Smart Pinging on (the default) in Active, Passive or Hybrid mode, so your endpoint must accept batches both with and without them. <code>SCOPES</code> items only appear from the app version that ships this feature, and only while scope discovery is on, either enforced by the region or switched on by the user, so your endpoint must accept batches with and without them too. Dispatch on <code>type</code> and ignore any value you do not handle rather than rejecting the batch: a <code>4xx</code> is shown to the user as an error.</p>
 <p><strong>Batch without a DEFER</strong> (a TX ping and a passive RX observation):</p>
 <pre><code class="language-json">{
   "data": [
