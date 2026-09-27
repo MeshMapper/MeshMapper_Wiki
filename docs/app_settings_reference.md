@@ -178,7 +178,7 @@ Defers auto pings in squares that already have recent coverage, so your airtime 
 
 #### Scope Discovery
 
-Asks repeaters which channels or contacts they pass as you discover them, to help build a network topology map.
+After each discovery, asks the repeaters it found which scopes they carry (the named regions that decide which flood traffic a repeater forwards), so the map can show which repeater carries which scope. Up to 3 of the strongest repeaters are asked, one at a time, and each request is a short direct message to a repeater in range. Pings keep their normal schedule. Every request shows in the log tab under **SCP**.
 
 - **Disabled by default**
 - Tap the **(i)** beside the switch for details inside the app
@@ -186,6 +186,14 @@ Asks repeaters which channels or contacts they pass as you discover them, to hel
 - May be enforced by regional admin (shown in amber). When enforced, the switch is locked on and the window is the region's.
 - Requires companion firmware **1.16.0 or newer**
 - Cannot be changed during auto-ping
+
+**Why a repeater may not answer.** "No response from repeater" in the log is normal and does not mean the repeater is broken or out of date:
+
+- **Each repeater answers at most 4 anonymous requests every 3 minutes.** That limit is built into the repeater firmware and is shared by everyone asking it anything anonymously (scope, owner and clock requests, from any app). Once it is used up, the repeater stays silent until the 3 minutes pass. Busy repeaters on high sites, heard by many radios, reach this limit most often.
+- **The answer can be lost on the way back.** An answer is longer than a discovery reply, so a repeater at the edge of range, or on a busy channel, can answer discovery and still miss this one.
+- **Older repeater firmware ignores the request.** Repeaters need firmware **1.12.0 or newer** to answer.
+
+A repeater that does not answer is not marked as checked, so the app asks it again on a later discovery. Nothing is uploaded for a request that goes unanswered.
 
 #### Auto-Stop After Idle
 
