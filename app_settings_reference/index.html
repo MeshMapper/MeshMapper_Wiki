@@ -4543,7 +4543,7 @@
 <li>Cannot be changed during auto-ping</li>
 </ul>
 <h4 id="scope-discovery">Scope Discovery<a class="headerlink" href="#scope-discovery" title="Permanent link">¶</a></h4>
-<p>Asks repeaters which channels or contacts they pass as you discover them, to help build a network topology map.</p>
+<p>After each discovery, asks the repeaters it found which scopes they carry (the named regions that decide which flood traffic a repeater forwards), so the map can show which repeater carries which scope. Up to 3 of the strongest repeaters are asked, one at a time, and each request is a short direct message to a repeater in range. Pings keep their normal schedule. Every request shows in the log tab under <strong>SCP</strong>.</p>
 <ul>
 <li><strong>Disabled by default</strong></li>
 <li>Tap the <strong>(i)</strong> beside the switch for details inside the app</li>
@@ -4552,6 +4552,13 @@
 <li>Requires companion firmware <strong>1.16.0 or newer</strong></li>
 <li>Cannot be changed during auto-ping</li>
 </ul>
+<p><strong>Why a repeater may not answer.</strong> "No response from repeater" in the log is normal and does not mean the repeater is broken or out of date:</p>
+<ul>
+<li><strong>Each repeater answers at most 4 anonymous requests every 3 minutes.</strong> That limit is built into the repeater firmware and is shared by everyone asking it anything anonymously (scope, owner and clock requests, from any app). Once it is used up, the repeater stays silent until the 3 minutes pass. Busy repeaters on high sites, heard by many radios, reach this limit most often.</li>
+<li><strong>The answer can be lost on the way back.</strong> An answer is longer than a discovery reply, so a repeater at the edge of range, or on a busy channel, can answer discovery and still miss this one.</li>
+<li><strong>Older repeater firmware ignores the request.</strong> Repeaters need firmware <strong>1.12.0 or newer</strong> to answer.</li>
+</ul>
+<p>A repeater that does not answer is not marked as checked, so the app asks it again on a later discovery. Nothing is uploaded for a request that goes unanswered.</p>
 <h4 id="auto-stop-after-idle">Auto-Stop After Idle<a class="headerlink" href="#auto-stop-after-idle" title="Permanent link">¶</a></h4>
 <ul>
 <li>Automatically stops auto-ping after <strong>30 minutes without GPS movement</strong></li>
