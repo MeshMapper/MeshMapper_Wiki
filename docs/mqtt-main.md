@@ -1,22 +1,16 @@
 # MeshMapper MQTT Setup
 
-An **MQTT observer** is a MeshCore node that acts as the "ears" of MeshMapper — it listens for mesh traffic and publishes it to an MQTT broker, where MeshMapper picks it up for processing. Each region requires at least one observer connected to either the **LetsMesh** or **MeshMapper** broker (or both for redundancy).
+An **MQTT observer** is a MeshCore node that acts as the "ears" of MeshMapper — it listens for mesh traffic and publishes it to an MQTT broker, where MeshMapper picks it up for processing. Each region needs at least one observer connected to the **MeshMapper** broker.
 
-## Available Brokers
+## MeshMapper Broker
 
-An observer can connect to one or both of the following brokers:
-
-| Broker | Host | Port | Transport | Authentication |
-| --- | --- | --- | --- | --- |
-| **MeshMapper** | `mqtt.meshmapper.net` | 443 | WebSockets + TLS | Device signing |
-| **LetsMesh** | `mqtt-us-v1.letsmesh.net` / `mqtt-eu-v1.letsmesh.net` | 443 | WebSockets + TLS | Device signing |
-
-!!! tip "Redundancy"
-    Connecting to both brokers is recommended but not required. Data received from multiple brokers is automatically deduplicated by MeshMapper.
+| Host | Port | Transport | Authentication |
+| --- | --- | --- | --- |
+| `mqtt.meshmapper.net` | 443 | WebSockets + TLS | Device signing |
 
 ## MQTT Observer Methods
 
-There are four ways to set up a MeshCore MQTT observer that collects packets and forwards them to LetsMesh or MeshMapper.
+There are four ways to set up a MeshCore MQTT observer that collects packets and forwards them to MeshMapper.
 
 ### 1. MeshCore Packet Capture (Python)
 
