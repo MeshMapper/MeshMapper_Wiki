@@ -176,6 +176,17 @@ Defers auto pings in squares that already have recent coverage, so your airtime 
 - May be enforced by regional admin (shown in amber). When enforced, the switch is locked on and the window is the region's.
 - Cannot be changed during auto-ping
 
+#### Scope Discovery
+
+Asks repeaters which channels or contacts they pass as you discover them, to help build a network topology map.
+
+- **Disabled by default**
+- Tap the **(i)** beside the switch for details inside the app
+- **Check every**: the window, in days, that makes a scope answer from a repeater count as fresh. Enter any whole number from **7 to 365**. Default **14 days**. Shown only while the switch is on.
+- May be enforced by regional admin (shown in amber). When enforced, the switch is locked on and the window is the region's.
+- Requires companion firmware **1.16.0 or newer**
+- Cannot be changed during auto-ping
+
 #### Auto-Stop After Idle
 
 - Automatically stops auto-ping after **30 minutes without GPS movement**

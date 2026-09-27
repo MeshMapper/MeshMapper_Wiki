@@ -32,7 +32,7 @@ Every ping object contains a `type` field that determines which additional field
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `type` | `string` | Ping type: `"TX"`, `"RX"`, `"DISC"`, `"TRACE"`, or `"DEFER"`. A `DEFER` carries only the common `lat`, `lon`, `timestamp`, `contact`, `iata` and `radio_freq` fields plus `held` (see below); it has no `external_antenna`, `noisefloor`, `altitude` or `power`. |
+| `type` | `string` | Ping type: `"TX"`, `"RX"`, `"DISC"`, `"TRACE"`, `"DEFER"`, or `"SCOPES"`. A `DEFER` carries only the common `lat`, `lon`, `timestamp`, `contact`, `iata` and `radio_freq` fields plus `held` (see below); it has no `external_antenna`, `noisefloor`, `altitude` or `power`. A `SCOPES` carries only the common `timestamp`, `lat`, `lon`, `contact`, `iata` and `radio_freq` fields plus `public_key` and `scopes` (see below); it has no `external_antenna`, `noisefloor`, `altitude` or `power` either. |
 | `lat` | `number` | Latitude (WGS84, decimal degrees) |
 | `lon` | `number` | Longitude (WGS84, decimal degrees) |
 | `timestamp` | `integer` | Unix timestamp in seconds |
@@ -225,9 +225,37 @@ The `external_antenna`, `noisefloor`, `altitude` and `power` fields are not pres
 }
 ```
 
+### SCOPES (type: "SCOPES")
+
+A repeater's answer to a direct scope discovery question, sent after a discovery finds the repeater. MeshMapper asks a discovered repeater which channels or contacts it passes, and the repeater answers with a list of scope names.
+
+**A SCOPES answer is unverified.** MeshMapper checks each answer against a discovery the same radio reported and discards any it cannot confirm, but the batch answer does not say which were kept, and the app forwards the whole batch after the upload succeeds. A long answer can also be incomplete: the repeater leaves out names that do not fit in its reply.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `public_key` | `string` | Full 32-byte public key of the answering repeater (64 hex chars, upper case). |
+| `scopes` | `array of string` | The scope names exactly as the repeater sent them, case-sensitive. `"*"` means the repeater passes unscoped traffic. May be empty. At most 33 entries. |
+
+`lat` and `lon` are where the discovery that found the repeater was made, not where the answer arrived. `timestamp` is when the answer arrived. The `external_antenna`, `noisefloor`, `altitude` and `power` fields are not present on a `SCOPES` item.
+
+**Example:**
+
+```json
+{
+  "type": "SCOPES",
+  "public_key": "A3B2C1D4E5F6A7B8C9D0E1F2A3B4C5D6E7F8A9B0C1D2E3F4A5B6C7D8E9F0A1B2",
+  "scopes": ["ROOM1", "*"],
+  "timestamp": 1768763050,
+  "lat": 45.26980,
+  "lon": -75.77750,
+  "contact": "D873B1F2",
+  "iata": "YOW"
+}
+```
+
 ## Batch Examples
 
-A batch is whatever the app uploaded to MeshMapper in that round, so one request can mix every type above. `DEFER` items only appear from app version 1.4.0 onward, and only while the user has Smart Pinging on (the default) in Active, Passive or Hybrid mode, so your endpoint must accept batches both with and without them. Dispatch on `type` and ignore any value you do not handle rather than rejecting the batch: a `4xx` is shown to the user as an error.
+A batch is whatever the app uploaded to MeshMapper in that round, so one request can mix every type above. `DEFER` items only appear from app version 1.4.0 onward, and only while the user has Smart Pinging on (the default) in Active, Passive or Hybrid mode, so your endpoint must accept batches both with and without them. `SCOPES` items only appear from the app version that ships this feature, and only while scope discovery is on, either enforced by the region or switched on by the user, so your endpoint must accept batches with and without them too. Dispatch on `type` and ignore any value you do not handle rather than rejecting the batch: a `4xx` is shown to the user as an error.
 
 **Batch without a DEFER** (a TX ping and a passive RX observation):
 
