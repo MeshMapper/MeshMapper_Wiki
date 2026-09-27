@@ -4558,7 +4558,8 @@
 <li><strong>The answer can be lost on the way back.</strong> An answer is longer than a discovery reply, so a repeater at the edge of range, or on a busy channel, can answer discovery and still miss this one.</li>
 <li><strong>Older repeater firmware ignores the request.</strong> Repeaters need firmware <strong>1.12.0 or newer</strong> to answer.</li>
 </ul>
-<p>A repeater that does not answer is not marked as checked, so the app asks it again on a later discovery. Nothing is uploaded for a request that goes unanswered.</p>
+<p>A repeater that does not answer is not marked as checked, but your phone leaves it alone for a while before asking again: 15 minutes after the first miss, doubling after each further miss, up to 2 hours. An answer clears that wait. This keeps one phone from using up a busy repeater's limit. Nothing is uploaded for a request that goes unanswered.</p>
+<p>While scope discovery is on, the app also refreshes its repeater list when Passive or Hybrid starts and every 15 minutes while it runs, so a repeater another driver has just checked is skipped sooner.</p>
 <h4 id="auto-stop-after-idle">Auto-Stop After Idle<a class="headerlink" href="#auto-stop-after-idle" title="Permanent link">¶</a></h4>
 <ul>
 <li>Automatically stops auto-ping after <strong>30 minutes without GPS movement</strong></li>
