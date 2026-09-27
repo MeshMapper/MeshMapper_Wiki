@@ -428,10 +428,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#available-brokers" class="md-nav__link">
+  <a href="#meshmapper-broker" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Available Brokers
+        MeshMapper Broker
       
     </span>
   </a>
@@ -2580,10 +2580,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#available-brokers" class="md-nav__link">
+  <a href="#meshmapper-broker" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Available Brokers
+        MeshMapper Broker
       
     </span>
   </a>
@@ -2669,13 +2669,11 @@
 
 
 <h1 id="meshmapper-mqtt-setup">MeshMapper MQTT Setup<a class="headerlink" href="#meshmapper-mqtt-setup" title="Permanent link">¶</a></h1>
-<p>An <strong>MQTT observer</strong> is a MeshCore node that acts as the "ears" of MeshMapper — it listens for mesh traffic and publishes it to an MQTT broker, where MeshMapper picks it up for processing. Each region requires at least one observer connected to either the <strong>LetsMesh</strong> or <strong>MeshMapper</strong> broker (or both for redundancy).</p>
-<h2 id="available-brokers">Available Brokers<a class="headerlink" href="#available-brokers" title="Permanent link">¶</a></h2>
-<p>An observer can connect to one or both of the following brokers:</p>
+<p>An <strong>MQTT observer</strong> is a MeshCore node that acts as the "ears" of MeshMapper — it listens for mesh traffic and publishes it to an MQTT broker, where MeshMapper picks it up for processing. Each region needs at least one observer connected to the <strong>MeshMapper</strong> broker.</p>
+<h2 id="meshmapper-broker">MeshMapper Broker<a class="headerlink" href="#meshmapper-broker" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
-<th>Broker</th>
 <th>Host</th>
 <th>Port</th>
 <th>Transport</th>
@@ -2684,27 +2682,15 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>MeshMapper</strong></td>
 <td><code>mqtt.meshmapper.net</code></td>
-<td>443</td>
-<td>WebSockets + TLS</td>
-<td>Device signing</td>
-</tr>
-<tr>
-<td><strong>LetsMesh</strong></td>
-<td><code>mqtt-us-v1.letsmesh.net</code> / <code>mqtt-eu-v1.letsmesh.net</code></td>
 <td>443</td>
 <td>WebSockets + TLS</td>
 <td>Device signing</td>
 </tr>
 </tbody>
 </table>
-<div class="admonition tip">
-<p class="admonition-title">Redundancy</p>
-<p>Connecting to both brokers is recommended but not required. Data received from multiple brokers is automatically deduplicated by MeshMapper.</p>
-</div>
 <h2 id="mqtt-observer-methods">MQTT Observer Methods<a class="headerlink" href="#mqtt-observer-methods" title="Permanent link">¶</a></h2>
-<p>There are four ways to set up a MeshCore MQTT observer that collects packets and forwards them to LetsMesh or MeshMapper.</p>
+<p>There are four ways to set up a MeshCore MQTT observer that collects packets and forwards them to MeshMapper.</p>
 <h3 id="1-meshcore-packet-capture-python">1. MeshCore Packet Capture (Python)<a class="headerlink" href="#1-meshcore-packet-capture-python" title="Permanent link">¶</a></h3>
 <p>This method uses a dedicated companion device (e.g., Raspberry Pi) connected to your MeshCore radio via USB, BLE, or TCP. A Python service runs continuously, capturing packets and publishing them to MQTT.</p>
 <ul>

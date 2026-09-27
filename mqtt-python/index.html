@@ -564,34 +564,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="8. MQTT Broker Configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#letsmesh-broker" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        LetsMesh Broker
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#meshmapper-broker" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        MeshMapper Broker
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
@@ -2804,34 +2776,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="8. MQTT Broker Configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#letsmesh-broker" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        LetsMesh Broker
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#meshmapper-broker" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        MeshMapper Broker
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
@@ -2901,7 +2845,7 @@
 
 
 <h1 id="meshcore-packet-capture">MeshCore Packet Capture<a class="headerlink" href="#meshcore-packet-capture" title="Permanent link">¶</a></h1>
-<p>These instructions are for the community <a href="https://github.com/agessaman/meshcore-packet-capture">meshcore-packet-capture</a> project from agessaman/HerculesMulligan.  A single observer can connect to both the LetsMesh and MeshMapper brokers.</p>
+<p>These instructions are for the community <a href="https://github.com/agessaman/meshcore-packet-capture">meshcore-packet-capture</a> project from agessaman/HerculesMulligan.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
 <ul>
 <li>A MeshCore-compatible device (e.g., T1000e, Heltec, T-Beam) to act as your observer node</li>
@@ -2917,7 +2861,7 @@
 sudo apt install -y python3 python3.12-venv curl git
 </code></pre>
 <h3 id="3-install-the-meshcore-decoder">3. Install the MeshCore Decoder<a class="headerlink" href="#3-install-the-meshcore-decoder" title="Permanent link">¶</a></h3>
-<p>The MeshCore decoder is required for authentication when sending packets to the brokers:</p>
+<p>The MeshCore decoder is required for authentication when sending packets to the broker:</p>
 <pre><code class="language-bash">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 source ~/.bashrc
 nvm install --lts
@@ -2965,14 +2909,12 @@ npm install -g @michaelhart/meshcore-decoder
 <p>You may optionally configure:</p>
 <ul>
 <li><strong>Owner Public Key</strong>: The public key of the observer owner (64 hex characters)</li>
-<li><strong>Owner Email</strong>: Contact email for the LetsMesh Analyzer</li>
+<li><strong>Owner Email</strong>: A contact email</li>
 </ul>
-<p>These are optional, apply to LetsMesh only, and can be skipped if you wish.</p>
+<p>MeshMapper doesn't use these, so you can skip them.</p>
 <h3 id="8-mqtt-broker-configuration">8. MQTT Broker Configuration<a class="headerlink" href="#8-mqtt-broker-configuration" title="Permanent link">¶</a></h3>
-<h4 id="letsmesh-broker">LetsMesh Broker<a class="headerlink" href="#letsmesh-broker" title="Permanent link">¶</a></h4>
-<p>The script will ask whether to enable the LetsMesh Packet Analyzer. This connects to both the US and EU LetsMesh servers for redundancy. Recommended to enable.</p>
-<h4 id="meshmapper-broker">MeshMapper Broker<a class="headerlink" href="#meshmapper-broker" title="Permanent link">¶</a></h4>
-<p>When prompted to configure additional brokers, select "1" additonal, and add the MeshMapper broker with the following settings:</p>
+<p>The script will ask whether to enable the LetsMesh Packet Analyzer. MeshMapper doesn't need it, so that's up to you.</p>
+<p>When prompted to configure additional brokers, select "1" additional, and add the MeshMapper broker with the following settings:</p>
 <table>
 <thead>
 <tr>
