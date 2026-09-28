@@ -59,6 +59,8 @@ One more square colour is not a ping type at all:
 
 ## Repeaters
 
+**Ghost** means a ping identified a repeater by its full key, but that repeater has never been registered on this map, so MeshMapper does not know where to draw it. **Gone** means a repeater that was placed earlier can no longer be resolved for that ping. Neither label is a separate ping type. Ask a region admin to check the repeater's adverts and current record before changing coverage data.
+
 ### Chip Anatomy
 
 A repeater is drawn as a small dark rounded chip carrying its hex ID:

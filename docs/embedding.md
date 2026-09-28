@@ -97,6 +97,8 @@ https://yow.meshmapper.net/embed.php?lat=45.4034&lon=-75.7258&geofence=0
 
 ## Repeater ID Grid
 
+Use this grid to check whether a repeater ID prefix is available, already deployed, in conflict, or reserved. Open a cell to inspect its current status before choosing a prefix for a new repeater.
+
 You can also embed the Repeater ID Usage grid — a 16×16 visual showing which first-byte repeater IDs are available, deployed, in conflict, or reserved in a region.
 
 ### Embed URL

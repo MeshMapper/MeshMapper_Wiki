@@ -63,6 +63,8 @@ For serial connections, the script will automatically detect connected devices. 
 
 Enter your region's **3-letter IATA code** (e.g., `SEA`, `LAX`, `YOW`, `LON`). This identifies which MeshMapper region your observer belongs to.
 
+Use the code of the region that should receive the observer's reports. MQTT topics carry this code, and MeshMapper's subscriber uses it when choosing a region. If your receiver covers several regions, coordinate with their admins rather than assuming one code will place the same report in every region.
+
 ### 7. Owner Information (Optional)
 
 You may optionally configure:
