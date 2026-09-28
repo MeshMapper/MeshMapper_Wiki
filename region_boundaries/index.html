@@ -10,6 +10,10 @@
         <link rel="canonical" href="https://meshmapper.net/region_boundaries/">
       
       
+        <link rel="prev" href="../admins/">
+      
+      
+        <link rel="next" href="../webhooks/">
       
       
         
@@ -20,7 +24,7 @@
     
     
       
-        <title>Defining a Region's Boundary - MeshMapper Wiki</title>
+        <title>Region Boundaries - MeshMapper Wiki</title>
       
     
     
@@ -116,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Defining a Region's Boundary
+              Region Boundaries
             
           </span>
         </div>
@@ -1206,18 +1210,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked="">
         
           
           <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
@@ -1238,7 +1244,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1300,6 +1306,142 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Region Boundaries
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Region Boundaries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#radius-around-a-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Radius Around a Point
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manually-defined-polygon-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manually Defined Polygon Boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geojson-polygon-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        geoJSON Polygon Boundary
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="geoJSON Polygon Boundary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#importance-of-inter-region-coordination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Importance of Inter-Region Coordination
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructing-the-geojson-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constructing the geoJSON File
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2589,6 +2731,9 @@
 <h1 id="defining-a-regions-boundary">Defining a Region's Boundary<a class="headerlink" href="#defining-a-regions-boundary" title="Permanent link">¶</a></h1>
 <p>MeshMapper allows for different methods of defining a region's boundary using the web utilities in the region admin panel: defined radius around a point (default), manually defined polygon from user-input points, and imported geoJSON formatted text blocks.</p>
 <p>All of the following methods are accessed via the admin panel for each region, under the <code>Settings</code> menu. Scroll to near the bottom of the page to reach the <code>Region Boundary</code> interface.</p>
+<p>If a boundary change removed part of your area, open that editor and correct the polygon or re-import a saved GeoJSON file. The history records that a boundary changed, but it is not an undo button and does not keep a downloadable copy of the old shape. Ask a global administrator for help if you no longer have the original boundary.</p>
+<p>Use <strong>Export GeoJSON</strong> in the boundary editor to download the current shape. Save a copy before a large edit.</p>
+<p>Coordinate boundaries with neighboring region administrators. The onboarding form checks for substantial overlap, and the MeshMapper team reviews new requests before approval.</p>
 <h2 id="radius-around-a-point">Radius Around a Point<a class="headerlink" href="#radius-around-a-point" title="Permanent link">¶</a></h2>
 <p><em>Note: This method works best for isolated regions with no nearby neighbors, as adjacent neighboring regions will result in overlap or coverage gaps, resulting in potentially incorrect data inside overlaps or preventing seamless region transition for wardrivers crossing gaps.</em></p>
 <p>The default method of defining a region's boundary is by using a defined radius around a center point.  For this method, the admin drops/moves a marker pin onto the map at the center of the desired region, then sets a radius distance around that point.  The region boundaries will be circular, with no consideration given to political or geographical boundaries.</p>

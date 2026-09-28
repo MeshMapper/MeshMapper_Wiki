@@ -13,7 +13,7 @@
         <link rel="prev" href="../administratorlist/">
       
       
-        <link rel="next" href="../webhooks/">
+        <link rel="next" href="../region_boundaries/">
       
       
         
@@ -1843,6 +1843,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../region_boundaries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Region Boundaries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../webhooks/" class="md-nav__link">
         
   
@@ -3539,7 +3567,7 @@
 <h2 id="access-permissions">Access &amp; Permissions<a class="headerlink" href="#access-permissions" title="Permanent link">¶</a></h2>
 <p>Access to the Admin Portal is strictly controlled. It is not available to general users.</p>
 <ul>
-<li><strong>How to get access:</strong> Reach out to one of the <a href="https://wiki.meshmapper.net/administratorlist/">MeshMapper administrators</a> to get credentials.</li>
+<li><strong>How to get access:</strong> If the region has an administrator, ask them for an invite. If it has no administrator, ask a Moderator in the MeshMapper Discord for help with access. See <a href="../administratorlist/">Finding Your Region's Administrators</a>.</li>
 </ul>
 <h2 id="dashboard-active-sessions">Dashboard &amp; Active Sessions<a class="headerlink" href="#dashboard-active-sessions" title="Permanent link">¶</a></h2>
 <p>Upon logging in, the dashboard presents a live view of <strong>Active Sessions</strong>.</p>
@@ -3561,6 +3589,8 @@
 </ul>
 <h3 id="repeaters">Repeaters<a class="headerlink" href="#repeaters" title="Permanent link">¶</a></h3>
 <p>Manage the repeaters database.</p>
+<p>If an unknown repeater appears, first check whether an observer has received an advert with a valid name. A repeater heard only in wardriving discovery can appear as a <strong>Ghost</strong> without a name or fixed location. An admin can add or correct its record in the <strong>Repeaters</strong> tab, then check whether it is <strong>Pending</strong>, <strong>Inactive</strong>, or <strong>Excluded</strong>. Do not assign a guessed location to a moving device.</p>
+<p>A repeater can appear on a grouped map because that map reads the group's member regions. Its region record is separate from the region your browser is showing. Check the region column before editing it. After a repeater moves, a new advert can update its position unless <strong>Lock GPS Coordinates</strong> is on. Earlier pings do not move with it.</p>
 <ul>
 <li><strong>Add/Edit:</strong> Manually register repeaters or update their details (Name, Location, Power, Hop Bytes).</li>
 <li>
@@ -3662,27 +3692,14 @@
 <li><strong>Name:</strong> The username of the administrator account.</li>
 <li><strong>Contact:</strong> The contact information on file for the administrator (e.g., Discord handle, email).</li>
 <li><strong>Region:</strong> On multiregion admin panels, each administrator's entry will display which sub-regions they have been granted access to.</li>
-<li><strong>Status:</strong> Indicates whether the administrator has completed registration.<ul>
-<li><strong>Active:</strong> The administrator has claimed their account and set a key.</li>
-<li><strong>Pending Registration:</strong> The administrator has been invited but has not yet claimed their account.</li>
-</ul>
-</li>
+<li><strong>Status:</strong> Shows whether access is active or the invitation is still pending.</li>
 </ul>
 <h4 id="adding-a-new-administrator">Adding a New Administrator<a class="headerlink" href="#adding-a-new-administrator" title="Permanent link">¶</a></h4>
-<p>Region admins can invite new administrators directly from this tab by clicking <strong>+ Add Administrator</strong>.</p>
-<ol>
-<li><strong>Username</strong> <em>(required)</em>: Choose a username for the new administrator. If the administrator already has an account, a notice will appear and the form will switch to "Grant Access" mode — submitting will add your region to their existing access.</li>
-<li><strong>Contact Info</strong> <em>(required)</em>: Enter the new administrator's contact information (e.g., Discord handle or email).</li>
-<li><strong>Region Assignment</strong> <em>(required)</em>: Select which region the new administrator should have access to. On multiregion admin panels, you can assign the administrator to the multi-region group or to an individual sub-region.</li>
-</ol>
-<p>For <strong>new administrators</strong>, an invite link will be generated. Copy the link and send it to the new administrator. Invite links expire after <strong>7 days</strong>. For <strong>existing administrators</strong>, a confirmation will display that access to the region has been granted — no invite link is needed.</p>
-<p>Pending invites are displayed below the administrators table, showing the username, region, who sent the invite, and when it expires. Invites can be deleted before they are claimed.</p>
+<p>In your region's <strong>Administrators</strong> tab, click <strong>+ Add Administrator</strong>, enter the person's email address, and select a region you administer. MeshMapper emails an invite bound to that address. If email delivery fails, the panel shows a link you can pass to that person. The invite expires after seven days. A global administrator can also grant a region directly to an existing verified MeshMapper account.</p>
+<p>Pending invites can be revoked or resent from the panel.</p>
 <h4 id="registration">Registration<a class="headerlink" href="#registration" title="Permanent link">¶</a></h4>
-<p>New administrators claim their account by visiting the invite link sent to them. The link opens a confirmation page showing their username, assigned region, and who invited them. Clicking <strong>Accept Invite &amp; Create Account</strong> generates their password.</p>
-<div class="admonition warning">
-<p class="admonition-title">Password</p>
-<p>The password is shown <strong>only once</strong> during registration. The new administrator must copy it immediately. After logging in for the first time, they can change their password from the <strong>User Settings</strong> tab.</p>
-</div>
+<p>Open the invite with the matching email or Discord account. Sign in to your existing MeshMapper account, or create one and choose your own password. Accept the invite to add the region. Sign in to the admin panel with that same account.</p>
+<p>Forgot your password? Use <strong>Forgot password</strong> on the <a href="../portal/">portal</a>. If your account uses Discord sign-in, choose <strong>Sign in with Discord</strong>. The bot does not issue replacement credentials.</p>
 <h2 id="maintenance-tools">Maintenance Tools<a class="headerlink" href="#maintenance-tools" title="Permanent link">¶</a></h2>
 <p>The <strong>Tools</strong> tab contains powerful utilities for bulk operations. <strong>Use with caution.</strong></p>
 <ul>
@@ -3880,6 +3897,7 @@
 <p>Lower it in a compact region to catch more collisions at the cost of more alerts; raise it if you genuinely have extreme long-haul links. <strong>0</strong> disables the check and always auto-links.</p>
 <p>See <a href="#pending-repeater-links">Pending Repeater Links</a> for how to resolve the alerts.</p>
 <h4 id="stale-ping-cleanup-auto-delete-orphaned-pings">Stale Ping Cleanup (Auto-Delete Orphaned Pings)<a class="headerlink" href="#stale-ping-cleanup-auto-delete-orphaned-pings" title="Permanent link">¶</a></h4>
+<p>To clear coverage left behind by a repeater that moved or was removed, first review the <strong>Stale Ping Cleanup</strong> preview. Save a retention window for automatic cleanup, or use <strong>Backfill Purge Now</strong> for eligible old orphaned pings after reviewing its count. The purge is permanent; do not use it merely to hide a repeater from the map.</p>
 <p><strong>Default: Disabled. Options: Disabled / 30 / 60 / 90 days. DESTRUCTIVE.</strong></p>
 <p>Ages out <strong>orphaned</strong> pings — ones whose repeater has moved more than 100 m away or vanished entirely. These are the pings the map already shows as <strong>"(Gone)"</strong>. A ping only counts as orphaned when <em>every</em> repeater on it is gone; anything still resolving is kept.</p>
 <h5 id="the-grace-clock">The grace clock<a class="headerlink" href="#the-grace-clock" title="Permanent link">¶</a></h5>

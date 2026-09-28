@@ -1478,6 +1478,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../region_boundaries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Region Boundaries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../webhooks/" class="md-nav__link">
         
   
@@ -2868,6 +2896,7 @@
 </code></pre>
 <h2 id="verifying-your-observer">Verifying Your Observer<a class="headerlink" href="#verifying-your-observer" title="Permanent link">¶</a></h2>
 <p>Once your observer is running and connected, it will appear in your region's <strong>Admin Portal</strong> under the <a href="../admins/#observers">Observers tab</a> once packets have been received (repeater or companion adverts, or wardriving pings). You should see a checkmark under the broker(s) your observer is connected to.</p>
+<p>If PyMC says it is connected but MeshMapper shows no data, check PyMC's service logs for MQTT errors, then confirm the broker host, WebSockets, TLS and MeshCore token settings above. Confirm its IATA code matches the region and that it is publishing <code>status</code> or <code>packets</code>. An observer may appear before any repeater does: repeaters need a valid name and an advert received by an observer, and a region may hold new repeaters in <strong>Pending</strong> until an admin approves them.</p>
 
 
 
