@@ -6,7 +6,7 @@ The **MeshMapper Admin Portal** is a restricted area designed for region maintai
 
 Access to the Admin Portal is strictly controlled. It is not available to general users.
 
-  - **How to get access:** Reach out to one of the [MeshMapper administrators](https://wiki.meshmapper.net/administratorlist/) to get credentials.
+  - **How to get access:** Ask a [MeshMapper administrator](administratorlist.md) for a region invite or an access grant to your existing MeshMapper account.
 
 ## Dashboard & Active Sessions
 
@@ -31,6 +31,10 @@ This tab allows granular control over individual data points (pings).
 
 ### Repeaters
 Manage the repeaters database.
+
+If an unknown repeater appears, first check whether an observer has received an advert with a valid name. A repeater heard only in wardriving discovery can appear as a **Ghost** without a name or fixed location. An admin can add or correct its record in the **Repeaters** tab, then check whether it is **Pending**, **Inactive**, or **Excluded**. Do not assign a guessed location to a moving device.
+
+A repeater can appear on a grouped map because that map reads the group's member regions. Its region record is separate from the region your browser is showing. Check the region column before editing it. After a repeater moves, a new advert can update its position unless **Lock GPS Coordinates** is on. Earlier pings do not move with it.
 
   - **Add/Edit:** Manually register repeaters or update their details (Name, Location, Power, Hop Bytes).
   - **Status Control:**
@@ -125,28 +129,19 @@ The **Administrators** tab displays all admin accounts that have been granted ac
   - **Name:** The username of the administrator account.
   - **Contact:** The contact information on file for the administrator (e.g., Discord handle, email).
   - **Region:** On multiregion admin panels, each administrator's entry will display which sub-regions they have been granted access to.
-  - **Status:** Indicates whether the administrator has completed registration.
-      - **Active:** The administrator has claimed their account and set a key.
-      - **Pending Registration:** The administrator has been invited but has not yet claimed their account.
+  - **Status:** Shows whether access is active or the invitation is still pending.
 
 #### Adding a New Administrator
 
-Region admins can invite new administrators directly from this tab by clicking **+ Add Administrator**.
+In your region's **Administrators** tab, click **+ Add Administrator**, enter the person's email address, and select a region you administer. MeshMapper emails an invite bound to that address. If email delivery fails, the panel shows a link you can pass to that person. The invite expires after seven days. A global administrator can also grant a region directly to an existing verified MeshMapper account.
 
-  1. **Username** *(required)*: Choose a username for the new administrator. If the administrator already has an account, a notice will appear and the form will switch to "Grant Access" mode — submitting will add your region to their existing access.
-  2. **Contact Info** *(required)*: Enter the new administrator's contact information (e.g., Discord handle or email).
-  3. **Region Assignment** *(required)*: Select which region the new administrator should have access to. On multiregion admin panels, you can assign the administrator to the multi-region group or to an individual sub-region.
-
-For **new administrators**, an invite link will be generated. Copy the link and send it to the new administrator. Invite links expire after **7 days**. For **existing administrators**, a confirmation will display that access to the region has been granted — no invite link is needed.
-
-Pending invites are displayed below the administrators table, showing the username, region, who sent the invite, and when it expires. Invites can be deleted before they are claimed.
+Pending invites can be revoked or resent from the panel.
 
 #### Registration
 
-New administrators claim their account by visiting the invite link sent to them. The link opens a confirmation page showing their username, assigned region, and who invited them. Clicking **Accept Invite & Create Account** generates their password.
+Open the invite with the matching email or Discord account. Sign in to your existing MeshMapper account, or create one and choose your own password. Accept the invite to add the region. Sign in to the admin panel with that same account.
 
-!!! warning "Password"
-    The password is shown **only once** during registration. The new administrator must copy it immediately. After logging in for the first time, they can change their password from the **User Settings** tab.
+Forgot your password? Use **Forgot password** on the [portal](portal.md). If your account uses Discord sign-in, choose **Sign in with Discord**. The bot does not issue replacement credentials.
 
 ## Maintenance Tools
 
@@ -351,6 +346,8 @@ Lower it in a compact region to catch more collisions at the cost of more alerts
 See [Pending Repeater Links](#pending-repeater-links) for how to resolve the alerts.
 
 #### Stale Ping Cleanup (Auto-Delete Orphaned Pings)
+
+To clear coverage left behind by a repeater that moved or was removed, first review the **Stale Ping Cleanup** preview. Save a retention window for automatic cleanup, or use **Backfill Purge Now** for eligible old orphaned pings after reviewing its count. The purge is permanent; do not use it merely to hide a repeater from the map.
 
 **Default: Disabled. Options: Disabled / 30 / 60 / 90 days. DESTRUCTIVE.**
 
