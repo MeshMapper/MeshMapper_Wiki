@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" width="760" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Each link counts a packet once</title>
+  <desc id="d">One packet goes from A to B, then forks: B to C reaching Observer 1, and B to E reaching Observer 2. A-B was crossed once, so it gets one point even though both observers logged it. B-C and B-E each get one point because the packet really crossed both.</desc>
+  <rect width="760" height="300" rx="12" fill="#0d1117"/>
+  <defs>
+    <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9aa4b2"/>
+    </marker>
+  </defs>
+
+  <line x1="112" y1="150" x2="248" y2="150" stroke="#f5b800" stroke-width="5" marker-end="url(#arr2)"/>
+  <line x1="306" y1="134" x2="452" y2="72" stroke="#00d2ff" stroke-width="4" marker-end="url(#arr2)"/>
+  <line x1="306" y1="166" x2="452" y2="228" stroke="#00d2ff" stroke-width="4" marker-end="url(#arr2)"/>
+  <line x1="512" y1="64" x2="604" y2="64" stroke="#9aa4b2" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arr2)"/>
+  <line x1="512" y1="236" x2="604" y2="236" stroke="#9aa4b2" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arr2)"/>
+
+  <rect x="118" y="100" width="124" height="28" rx="14" fill="#f5b800" fill-opacity="0.15" stroke="#f5b800"/>
+  <text x="180" y="119" text-anchor="middle" font-size="14" font-weight="700" fill="#f5b800">A–B +1, not +2</text>
+  <text x="180" y="186" text-anchor="middle" font-size="12" fill="#9aa4b2">logged by both observers,</text>
+  <text x="180" y="202" text-anchor="middle" font-size="12" fill="#9aa4b2">crossed once</text>
+
+  <rect x="332" y="62" width="80" height="26" rx="13" fill="#00d2ff" fill-opacity="0.15" stroke="#00d2ff"/>
+  <text x="372" y="80" text-anchor="middle" font-size="14" font-weight="600" fill="#00d2ff">B–C +1</text>
+  <rect x="332" y="212" width="80" height="26" rx="13" fill="#00d2ff" fill-opacity="0.15" stroke="#00d2ff"/>
+  <text x="372" y="230" text-anchor="middle" font-size="14" font-weight="600" fill="#00d2ff">B–E +1</text>
+
+  <circle cx="80" cy="150" r="30" fill="#1f2a36" stroke="#00d2ff" stroke-width="3"/>
+  <text x="80" y="156" text-anchor="middle" font-size="18" font-weight="700" fill="#e6edf3">A</text>
+  <circle cx="280" cy="150" r="30" fill="#1f2a36" stroke="#00d2ff" stroke-width="3"/>
+  <text x="280" y="156" text-anchor="middle" font-size="18" font-weight="700" fill="#e6edf3">B</text>
+  <circle cx="482" cy="64" r="30" fill="#1f2a36" stroke="#00d2ff" stroke-width="3"/>
+  <text x="482" y="70" text-anchor="middle" font-size="18" font-weight="700" fill="#e6edf3">C</text>
+  <circle cx="482" cy="236" r="30" fill="#1f2a36" stroke="#00d2ff" stroke-width="3"/>
+  <text x="482" y="242" text-anchor="middle" font-size="18" font-weight="700" fill="#e6edf3">E</text>
+
+  <rect x="608" y="36" width="130" height="56" rx="8" fill="#16301f" stroke="#7ee787" stroke-width="3"/>
+  <text x="673" y="61" text-anchor="middle" font-size="14" font-weight="700" fill="#7ee787">Observer 1</text>
+  <text x="673" y="80" text-anchor="middle" font-size="12" fill="#b6e3bf">logs A → B → C</text>
+  <rect x="608" y="208" width="130" height="56" rx="8" fill="#16301f" stroke="#7ee787" stroke-width="3"/>
+  <text x="673" y="233" text-anchor="middle" font-size="14" font-weight="700" fill="#7ee787">Observer 2</text>
+  <text x="673" y="252" text-anchor="middle" font-size="12" fill="#b6e3bf">logs A → B → E</text>
+
+  <text x="380" y="292" text-anchor="middle" font-size="13" fill="#9aa4b2">A fork is real traffic on both branches. A shared link is one transmission, however many observers saw it.</text>
+</svg>

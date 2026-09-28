@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -10 760 270" width="760" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Which links a heard packet scores</title>
+  <desc id="d">A packet travels A to B to C and is heard by Observer 1. Links A-B and B-C each get one point. Repeater E also rebroadcast the packet but is not in the path Observer 1 logged, so it gets nothing.</desc>
+  <rect y="-10" width="760" height="270" rx="12" fill="#0d1117"/>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9aa4b2"/>
+    </marker>
+  </defs>
+
+  <!-- scored links -->
+  <line x1="112" y1="140" x2="248" y2="140" stroke="#00d2ff" stroke-width="4" marker-end="url(#arr)"/>
+  <line x1="312" y1="140" x2="448" y2="140" stroke="#00d2ff" stroke-width="4" marker-end="url(#arr)"/>
+  <!-- delivery to the observer: not a link -->
+  <line x1="512" y1="140" x2="628" y2="140" stroke="#9aa4b2" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arr)"/>
+
+  <rect x="140" y="96" width="80" height="26" rx="13" fill="#00d2ff" fill-opacity="0.15" stroke="#00d2ff"/>
+  <text x="180" y="114" text-anchor="middle" font-size="14" font-weight="600" fill="#00d2ff">A–B +1</text>
+  <rect x="340" y="96" width="80" height="26" rx="13" fill="#00d2ff" fill-opacity="0.15" stroke="#00d2ff"/>
+  <text x="380" y="114" text-anchor="middle" font-size="14" font-weight="600" fill="#00d2ff">B–C +1</text>
+  <text x="570" y="128" text-anchor="middle" font-size="12" fill="#9aa4b2">heard</text>
+
+  <!-- repeaters -->
+  <circle cx="80" cy="140" r="30" fill="#1f2a36" stroke="#00d2ff" stroke-width="3"/>
+  <text x="80" y="146" text-anchor="middle" font-size="18" font-weight="700" fill="#e6edf3">A</text>
+  <circle cx="280" cy="140" r="30" fill="#1f2a36" stroke="#00d2ff" stroke-width="3"/>
+  <text x="280" y="146" text-anchor="middle" font-size="18" font-weight="700" fill="#e6edf3">B</text>
+  <circle cx="480" cy="140" r="30" fill="#1f2a36" stroke="#00d2ff" stroke-width="3"/>
+  <text x="480" y="146" text-anchor="middle" font-size="18" font-weight="700" fill="#e6edf3">C</text>
+
+  <!-- observer -->
+  <rect x="632" y="112" width="96" height="56" rx="8" fill="#16301f" stroke="#7ee787" stroke-width="3"/>
+  <text x="680" y="137" text-anchor="middle" font-size="14" font-weight="700" fill="#7ee787">Observer 1</text>
+  <text x="680" y="156" text-anchor="middle" font-size="12" fill="#b6e3bf">logs A → B → C</text>
+
+  <!-- off-path repeater -->
+  <path d="M350 18 a42 42 0 0 1 60 0" fill="none" stroke="#5b6572" stroke-width="2" stroke-dasharray="3 4"/>
+  <path d="M338 8 a60 60 0 0 1 84 0" fill="none" stroke="#5b6572" stroke-width="2" stroke-dasharray="3 4"/>
+  <circle cx="380" cy="44" r="24" fill="#1f2a36" stroke="#5b6572" stroke-width="3"/>
+  <text x="380" y="50" text-anchor="middle" font-size="16" font-weight="700" fill="#9aa4b2">E</text>
+  <text x="420" y="40" font-size="13" fill="#9aa4b2">also rebroadcast it,</text>
+  <text x="420" y="58" font-size="13" fill="#9aa4b2">but isn't in the logged path → <tspan font-weight="700">0</tspan></text>
+
+  <text x="380" y="232" text-anchor="middle" font-size="13" fill="#9aa4b2">Only hops next to each other in a path an observer actually logged are scored. The last step into the observer is not a link.</text>
+</svg>

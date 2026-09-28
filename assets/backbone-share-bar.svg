@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 200" width="760" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Picking the backbone from traffic shares</title>
+  <desc id="d">Repeaters ranked by share: B 44 percent, C 25, A 19, D 12. B alone is below the 50 percent line. B plus C reach 69 percent, so the backbone is B and C.</desc>
+  <rect width="760" height="200" rx="12" fill="#0d1117"/>
+
+  <!-- bar: 40..720 is 0..100% (6.8 px per %) -->
+  <rect x="40"  y="70" width="299" height="48" fill="#f5b800"/>
+  <rect x="339" y="70" width="170" height="48" fill="#c99700"/>
+  <rect x="509" y="70" width="129" height="48" fill="#3b4652"/>
+  <rect x="638" y="70" width="82"  height="48" fill="#2b343e"/>
+  <line x1="339" y1="70" x2="339" y2="118" stroke="#0d1117" stroke-width="2"/>
+  <line x1="509" y1="70" x2="509" y2="118" stroke="#0d1117" stroke-width="2"/>
+  <line x1="638" y1="70" x2="638" y2="118" stroke="#0d1117" stroke-width="2"/>
+
+  <text x="189" y="100" text-anchor="middle" font-size="16" font-weight="700" fill="#1a1400">B 44%</text>
+  <text x="424" y="100" text-anchor="middle" font-size="16" font-weight="700" fill="#1a1400">C 25%</text>
+  <text x="573" y="100" text-anchor="middle" font-size="16" font-weight="700" fill="#e6edf3">A 19%</text>
+  <text x="679" y="100" text-anchor="middle" font-size="16" font-weight="700" fill="#e6edf3">D 12%</text>
+
+  <!-- 50% line -->
+  <line x1="380" y1="40" x2="380" y2="140" stroke="#ff7b72" stroke-width="3" stroke-dasharray="7 5"/>
+  <text x="380" y="32" text-anchor="middle" font-size="14" font-weight="700" fill="#ff7b72">50%</text>
+
+  <!-- backbone bracket 0..69% -->
+  <path d="M40 148 v10 h469 v-10" fill="none" stroke="#f5b800" stroke-width="2"/>
+  <text x="274" y="182" text-anchor="middle" font-size="15" font-weight="700" fill="#f5b800">Backbone = B + C (69%)</text>
+  <text x="720" y="182" text-anchor="end" font-size="13" fill="#9aa4b2">B alone falls short; C crosses the line</text>
+
+  <text x="40" y="58" font-size="12" fill="#9aa4b2">busiest first →</text>
+  <text x="720" y="58" text-anchor="end" font-size="12" fill="#9aa4b2">100%</text>
+</svg>
