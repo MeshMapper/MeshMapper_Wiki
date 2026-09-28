@@ -35,7 +35,7 @@ This method runs directly on a Heltec V3 or V4 board with no companion device ne
   - **Requires**: A Heltec V3 or V4 with the MQTT-enabled firmware flashed
   - **Best for**: The simplest hardware setup, since no secondary computer is needed
 
-Community MQTT observer firmware is available for supported boards, including Heltec V3 and V4. One option is [Offband observer firmware](https://github.com/OffbandMesh/meshcore-firmware), which provides build, flashing and configuration instructions. Check its supported boards and broker settings before flashing. MeshMapper does not maintain that firmware. If you prefer a supported setup without custom firmware, use [MeshCore Packet Capture](mqtt-python.md) or [PyMC](mqtt-pymc.md).
+Flash the observer firmware from the [MeshCore observer flasher](https://observer.gessaman.com/), built by agessaman/HerculesMulligan. It runs in your browser and walks you through flashing and setup. The source is in [agessaman/MeshCore](https://github.com/agessaman/MeshCore/tree/mqtt-bridge-implementation).
 
 ### 4. PyMC
 
