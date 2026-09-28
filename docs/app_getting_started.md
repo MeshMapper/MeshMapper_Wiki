@@ -22,6 +22,13 @@ Welcome to MeshMapper, a community-driven wardriving app for MeshCore mesh netwo
   - You can also grab the [APK from GitHub](https://github.com/MeshMapper/MeshMapper_Project/releases/) if you prefer sideloading
 - **iOS:** [Get it on the App Store](https://apps.apple.com/us/app/meshmapper/id6758073991)
 
+**Beta releases:**
+
+In the MeshMapper Discord server, open **Channels & Roles** and select **Yes** for beta testing. Then choose your platform:
+
+- **iOS:** [Join the beta in TestFlight](https://testflight.apple.com/join/PXxfr5Jr).
+- **Android:** [Download the beta APK from GitHub](https://github.com/MeshMapper/MeshMapper_Project/releases/), or [add MeshMapper to Obtainium](https://apps.obtainium.imranr.dev/redirect?r=obtainium://app/%7B%22id%22%3A%22net.meshmapper.app%22%2C%22url%22%3A%22https%3A%2F%2Fgithub.com%2FMeshMapper%2FMeshMapper_Project%22%2C%22author%22%3A%22MeshMapper%22%2C%22name%22%3A%22MeshMapper%22%2C%22preferredApkIndex%22%3A0%2C%22additionalSettings%22%3A%22%7B%5C%22includePrereleases%5C%22%3Atrue%2C%5C%22fallbackToOlderReleases%5C%22%3Atrue%7D%22%2C%22overrideSource%22%3A%22GitHub%22%7D) to follow prereleases.
+
 **Web (Chrome/Edge only):**
 
 - [wd.meshmapper.net](https://wd.meshmapper.net)

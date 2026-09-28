@@ -76,6 +76,9 @@
 ??? question "How does the app connect to my MeshCore device?"
     The app communicates with your MeshCore device over Bluetooth. See the [Connection Guide](app_connection_guide.md) for pairing instructions and troubleshooting tips.
 
+??? question "How do I join the app beta?"
+    In the MeshMapper Discord server, open **Channels & Roles** and select **Yes** for beta testing. Then use [TestFlight for iOS](https://testflight.apple.com/join/PXxfr5Jr) or the [GitHub APK for Android](https://github.com/MeshMapper/MeshMapper_Project/releases/). Android users can also [add MeshMapper to Obtainium](https://apps.obtainium.imranr.dev/redirect?r=obtainium://app/%7B%22id%22%3A%22net.meshmapper.app%22%2C%22url%22%3A%22https%3A%2F%2Fgithub.com%2FMeshMapper%2FMeshMapper_Project%22%2C%22author%22%3A%22MeshMapper%22%2C%22name%22%3A%22MeshMapper%22%2C%22preferredApkIndex%22%3A0%2C%22additionalSettings%22%3A%22%7B%5C%22includePrereleases%5C%22%3Atrue%2C%5C%22fallbackToOlderReleases%5C%22%3Atrue%7D%22%2C%22overrideSource%22%3A%22GitHub%22%7D) to follow prereleases.
+
 ??? question "How do I claim a repeater I administer?"
     Sign in to your MeshMapper account in the app, connect your companion, select the repeater on the map, then tap **Manage**. Sign in with the repeater's admin password and tap **Claim**. The claim lists your account as a repeater administrator on the map.
 
