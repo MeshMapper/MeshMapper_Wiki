@@ -11,7 +11,7 @@
     MeshMapper is completely free to use. The platform is community-driven and maintained by volunteers.
 
 ??? question "How do I get my region added to MeshMapper?"
-    Visit the [Onboarding New Regions](https://wiki.meshmapper.net/onboarding) page for a step-by-step guide on how to request a new region. You'll need to join the MeshMapper Discord server to get started.
+    Use the [new region form](onboarding.md). You need a valid email address and an observer sending data to the MeshMapper or LetsMesh MQTT broker. Linking Discord is optional.
 
 ??? question "What is a region?"
     A region is a geographic area on MeshMapper that has its own map, administrators, and settings. Regions are typically centered around a city or metropolitan area. Some regions are grouped into multi-region setups that share a single map view.
@@ -63,6 +63,9 @@
 ??? question "Do I lose leaderboard points when Smart Pinging holds a ping?"
     No. Each square where a ping was held is reported to MeshMapper, checked against the region's own coverage data, and credited at 1.5 points once verified. Verified squares also count toward the Airtime Saver, Airtime God and Airtime Legend awards and the Top Airtime Savers board. Like the rest of the leaderboard, the credit appears after the next daily update.
 
+??? question "Do coverage tiles expire when a repeater moves or disappears?"
+    Coverage remains until its underlying pings are removed or filtered out. An admin can enable [stale ping cleanup](admins.md#stale-ping-cleanup-auto-delete-orphaned-pings) for pings whose repeater moved or vanished, or preview and confirm a one-time purge. A time filter can hide older tiles without deleting their data.
+
 ---
 
 ## Mobile App
@@ -73,18 +76,115 @@
 ??? question "How does the app connect to my MeshCore device?"
     The app communicates with your MeshCore device over Bluetooth. See the [Connection Guide](app_connection_guide.md) for pairing instructions and troubleshooting tips.
 
+??? question "How do I claim a repeater I administer?"
+    Sign in to your MeshMapper account in the app, connect your companion, select the repeater on the map, then tap **Manage**. Sign in with the repeater's admin password and tap **Claim**. The claim lists your account as a repeater administrator on the map.
+
+??? question "Why does the app say my companion is unknown?"
+    The server has not recognized that radio's public key yet. Use the official MeshCore app to advertise the companion on the mesh, wait for an observer to receive it, then reconnect to MeshMapper. Check that you are in an active region with an observer.
+
+??? question "Does MeshMapper work with CarPlay or Android Auto?"
+    The iOS Live Activity can appear as a small CarPlay dashboard card on supported iOS versions. There is no full CarPlay map or Android Auto screen in the app. Android audio is designed to duck and release car audio during app sounds.
+
+??? question "What happens when I drive across a region boundary?"
+    The app pauses if it is outside every active region. When it enters another region, the server can transfer the active session to that region and the app resumes after zone authentication. A multiregion group provides a shared map for neighboring regions. Keep GPS accurate and watch the zone indicator on a long drive.
+
+??? question "Can I wardrive from an airplane?"
+    No. The app blocks or ends wardriving when GPS indicates aircraft travel. The server also flags suspiciously fast uploaded sessions for administrator review. Map an area from the ground instead.
+
 ---
 
 ## Administration
 
 ??? question "How do I become a region administrator?"
-    Region administrators are assigned during the onboarding process when a new region is created. If you'd like to help administer an existing region, reach out to the current administrator or a Moderator on Discord.
+    Volunteer in the [new region form](onboarding.md#volunteer-as-region-administrator), or ask an existing admin to invite you for their region. A global administrator can also grant a region to your existing verified MeshMapper account.
 
 ??? question "Where can I find my region's administrator?"
-    A full list of region administrators is available on the [Administrator List](https://wiki.meshmapper.net/administratorlist) page.
+    Open **Region Info** on your region's map. See [Finding Your Region's Administrators](administratorlist.md) for other ways to reach them.
 
 ??? question "I'm an admin. Where do I manage my region?"
     Region administrators can manage settings, repeaters, and sessions through the Admin Portal. See [Admin Portal](admins.md) for details.
+
+### Region setup and access
+
+??? question "How do I rename my region?"
+    Ask a global administrator to change its display name. The region editor in the global admin panel controls the name; the region's own settings panel does not.
+
+??? question "What if my region's administrator is inactive?"
+    Contact a Moderator through the [administrator contact guide](administratorlist.md). A global administrator can grant region access to another verified MeshMapper account, so an inactive administrator does not have to issue the invite.
+
+??? question "How do I split or merge regions?"
+    Coordinate the new boundaries with neighboring admins, then ask a global administrator. The global panel can merge whole regions, including their sessions, or move pings within a selected area. An area transfer does not move whole sessions. Changing a boundary alone does not move earlier data.
+
+??? question "How big should my region be?"
+    Draw a boundary around the mesh you expect to map and coordinate it with nearby regions. The onboarding form checks for substantial overlap, and the MeshMapper team reviews each request. See [Defining the Boundary](onboarding.md#defining-the-boundary).
+
+??? question "Can I use any three letters as my region code?"
+    No. Pick a recognized IATA airport code near your area. The form checks that the code is available and geographically appropriate; it will suggest nearby codes when one is too far away. See [The Onboarding Form](onboarding.md#the-onboarding-form).
+
+??? question "Why does the form say my code is already used or pending?"
+    A code can belong to only one active or pending region. Open that region's subdomain to check its pending status, and contact a Moderator if the request appears stuck. Do not submit another region with a made-up code.
+
+??? question "Why did my onboarding submission fail?"
+    Read the error shown by the form. It checks the airport code, region name, email, coordinates, radius, boundary polygon and overlap with existing regions. Correct the reported field and retry; if the form says you have submitted too often, wait a few minutes.
+
+??? question "Does my area already have a region?"
+    Check the [MeshMapper region map](https://meshmapper.net) before starting a request. If a nearby region can reasonably expand to include your area, contact its administrator first. The new-region form checks for overlap with existing boundaries.
+
+??? question "My observer is online. Why is onboarding still pending?"
+    The pending request must receive observer reports tagged for its region code through a supported MQTT broker. A connected observer that has sent no matching reports does not complete verification. Check the pending status page and [observer setup](mqtt-main.md), then wait for manual approval once verification passes.
+
+??? question "Which code should an observer use? Can a region have aliases?"
+    Set the observer's IATA topic to the region code shown in MeshMapper. Each region has one code; a multiregion group joins separate coded regions for a shared map. If you need the code changed, ask a global administrator instead of publishing under an unrelated code.
+
+??? question "How do I get a Discord region-admin role?"
+    Admin panel access and the Discord role are separate. The bot assigns the role when a Moderator grants access through the bot, but an email invite may not update Discord. If your admin access works and the role is missing, ask a Moderator to check it.
+
+??? question "Why has my admin invite not arrived?"
+    Check the email address used by the inviting admin and your spam folder. The inviter can resend or revoke a pending email invite from the admin panel. Bot-issued invites go by Discord DM, so allow DMs from the server if that route was used.
+
+??? question "Why am I no longer listed as an admin?"
+    Sign in with the MeshMapper account that received the invite and check that it was accepted. If the region is absent from that account, ask a global administrator to check its current region access. The admin panel checks current permissions when you open it.
+
+??? question "How do admins work in a multiregion group?"
+    A group administrator can work across the group's member regions; a member-region administrator keeps access to that region. Ask a global administrator to grant the group or additional region to the right verified account. See [Multiregion Administration](multiregions.md#administration).
+
+??? question "What if my admin login stopped working after an account change?"
+    Use the [portal](portal.md) **Forgot password** flow or **Sign in with Discord** for the account you linked. If login succeeds but your region is missing, ask a global administrator to check its access grant. The bot cannot reset an admin password.
+
+??? question "Is a separate portal account needed for each region?"
+    No. One verified MeshMapper account can hold access to several regions. The same login works on the portal and on each admin panel you are allowed to use.
+
+??? question "Why do my region's wardriving settings revert?"
+    If your region belongs to a multiregion group, its radio presets are controlled by the group and copied to member regions. Change them in the group admin panel, or ask a group administrator. For a standalone region, save the preset in its own **Settings** tab and check for any save error.
+
+??? question "What does the traffic scope setting do?"
+    **Wardriving Scope** is the scope the app sends its own pings in. **Scopes to Monitor** controls which scopes the map looks for in heard traffic. The wardriving scope and scopes reported by local repeaters are included automatically; add other scopes only when you need to track them.
+
+??? question "Can my region keep wardriving traffic within its own scope?"
+    Set the **Wardriving Scope** in the region or group admin settings for the radio preset your app uses. This chooses the scope of the app's outgoing pings; **Scopes to Monitor** only affects what the map tracks and does not constrain those pings.
+
+??? question "Why does my region map open in the wrong place?"
+    A single-region map starts at the region's stored centre; a group map starts around its members. Your browser may also remember a zoom level. A region admin can adjust the boundary editor's centre pin; ask a global administrator if the region's stored centre or name needs correction.
+
+??? question "Where do I edit my region description, contact details or channels?"
+    Open your region's admin panel and use **Settings** for the region message, links and public channels. Your own contact details are under **User Settings**. Ask a global administrator to change the region's display name.
+
+??? question "How do I group several companions under one contributor?"
+    Link your own devices to one [portal account](portal.md#linking-your-companion-devices). Region admins can also group companions in the admin panel's **Users** tab so their contributions appear together on leaderboards.
+
+??? question "Can duplicate leaderboard entries or old device data be merged?"
+    Link the devices you still control to one portal account. If the old device cannot be linked, ask a region administrator to inspect its companion record and the **Users** grouping. Do not delete an account or device record to try to merge history.
+
+### Portal accounts
+
+??? question "Where do I link Discord, and is it required?"
+    Sign in to the [portal](portal.md), open your account settings, and choose **Connect Discord**. It is optional for an ordinary account. A Discord-bound admin invite must be accepted while signed in with the invited Discord account.
+
+??? question "Why did Discord linking fail?"
+    If the portal says that Discord account is already linked elsewhere, sign in to the other MeshMapper account or ask a Moderator for help. If the sign-in expired or was cancelled, start the connection again from the portal. Do not create a third account to work around it.
+
+??? question "Can I merge or remove duplicate MeshMapper accounts myself?"
+    There is no account-merge button in the portal. Pick the account you want to keep and ask a Moderator to review the duplicate before deleting anything. A Discord account and a companion device can each be linked to only one portal account at a time.
 
 ---
 
@@ -115,7 +215,7 @@
     The publicly available API's are [listed here](https://wiki.meshmapper.net/coverage-api) and require the use of a provisioned API key.
 
 ??? question "Can I have access to the MeshMapper MQTT broker or raw data?"
-    No.  MeshMapper is not a data broker.
+    MeshMapper does not offer a public raw MQTT feed. For tools that need map coverage data, use the documented [Coverage API](coverage-api.md) and request an API key. A region admin can configure a broker that sends observer reports *to* MeshMapper; that is separate from read access to MeshMapper's collected data.
 
 ??? question "Is MeshMapper open source?  Can I run a local copy?"
     The MeshMapper wardriving app for Android and iOS is open source.  It can also natively be configured to send wardriving data to additional endpoints outside of MeshMapper.
