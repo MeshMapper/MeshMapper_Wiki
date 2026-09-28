@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" width="760" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">1-byte collisions break the chain, multi-byte hops resolve</title>
+  <desc id="d">Top: a 1-byte path 3A to 7F to C2 where two repeaters share 7F. Neither link scores and no 3A-C2 shortcut is invented. Bottom: the same route with 2-byte hops 3A41 to 7F12 to C2E0 resolves, and both links score.</desc>
+  <rect width="760" height="330" rx="12" fill="#0d1117"/>
+  <defs>
+    <marker id="arr3" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9aa4b2"/>
+    </marker>
+  </defs>
+
+  <text x="20" y="28" font-size="15" font-weight="700" fill="#e6edf3">1-byte path:  3A → 7F → C2</text>
+
+  <line x1="132" y1="100" x2="272" y2="100" stroke="#5b6572" stroke-width="4" stroke-dasharray="8 6"/>
+  <line x1="352" y1="100" x2="492" y2="100" stroke="#5b6572" stroke-width="4" stroke-dasharray="8 6"/>
+  <text x="202" y="92" text-anchor="middle" font-size="22" font-weight="700" fill="#ff7b72">✕</text>
+  <text x="422" y="92" text-anchor="middle" font-size="22" font-weight="700" fill="#ff7b72">✕</text>
+  <path d="M100 140 Q312 200 524 140" fill="none" stroke="#ff7b72" stroke-width="2" stroke-dasharray="4 5"/>
+  <text x="312" y="192" text-anchor="middle" font-size="13" fill="#ff7b72">no 3A–C2 shortcut either: they never heard each other directly</text>
+
+  <circle cx="100" cy="100" r="32" fill="#1f2a36" stroke="#00d2ff" stroke-width="3"/>
+  <text x="100" y="106" text-anchor="middle" font-size="17" font-weight="700" fill="#e6edf3">3A</text>
+  <circle cx="312" cy="100" r="32" fill="#2a1f1f" stroke="#ff7b72" stroke-width="3"/>
+  <text x="312" y="106" text-anchor="middle" font-size="17" font-weight="700" fill="#e6edf3">7F</text>
+  <circle cx="524" cy="100" r="32" fill="#1f2a36" stroke="#00d2ff" stroke-width="3"/>
+  <text x="524" y="106" text-anchor="middle" font-size="17" font-weight="700" fill="#e6edf3">C2</text>
+
+  <text x="574" y="74" font-size="13" fill="#9aa4b2">Two repeaters start</text>
+  <text x="574" y="92" font-size="13" fill="#9aa4b2">with 7F:</text>
+  <text x="574" y="112" font-size="13" font-family="ui-monospace, Menlo, monospace" fill="#e6edf3">7F12… Hilltop</text>
+  <text x="574" y="130" font-size="13" font-family="ui-monospace, Menlo, monospace" fill="#e6edf3">7F9B… Downtown</text>
+  <text x="574" y="150" font-size="13" fill="#ff7b72">which one? → 0 points</text>
+
+  <line x1="20" y1="214" x2="740" y2="214" stroke="#30363d" stroke-width="1"/>
+
+  <text x="20" y="244" font-size="15" font-weight="700" fill="#e6edf3">2-byte path:  3A41 → 7F12 → C2E0</text>
+
+  <line x1="132" y1="290" x2="272" y2="290" stroke="#00d2ff" stroke-width="4" marker-end="url(#arr3)"/>
+  <line x1="352" y1="290" x2="492" y2="290" stroke="#00d2ff" stroke-width="4" marker-end="url(#arr3)"/>
+  <text x="202" y="280" text-anchor="middle" font-size="14" font-weight="700" fill="#00d2ff">+1</text>
+  <text x="422" y="280" text-anchor="middle" font-size="14" font-weight="700" fill="#00d2ff">+1</text>
+
+  <circle cx="100" cy="290" r="32" fill="#1f2a36" stroke="#00d2ff" stroke-width="3"/>
+  <text x="100" y="295" text-anchor="middle" font-size="14" font-weight="700" fill="#e6edf3">3A41</text>
+  <circle cx="312" cy="290" r="32" fill="#1f2a36" stroke="#00d2ff" stroke-width="3"/>
+  <text x="312" y="295" text-anchor="middle" font-size="14" font-weight="700" fill="#e6edf3">7F12</text>
+  <circle cx="524" cy="290" r="32" fill="#1f2a36" stroke="#00d2ff" stroke-width="3"/>
+  <text x="524" y="295" text-anchor="middle" font-size="14" font-weight="700" fill="#e6edf3">C2E0</text>
+  <text x="574" y="286" font-size="13" fill="#9aa4b2">Only one repeater starts</text>
+  <text x="574" y="304" font-size="13" fill="#9aa4b2">with 7F12 → both links score</text>
+</svg>
