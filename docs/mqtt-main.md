@@ -1,6 +1,6 @@
 # MeshMapper MQTT Setup
 
-An **MQTT observer** is a MeshCore node that acts as the "ears" of MeshMapper — it listens for mesh traffic and publishes it to an MQTT broker, where MeshMapper picks it up for processing. Each region needs at least one observer connected to the **MeshMapper** broker.
+An **MQTT observer** is a MeshCore node that acts as the "ears" of MeshMapper. It listens for mesh traffic and publishes it to an MQTT broker, where MeshMapper picks it up for processing. A new region needs at least one online observer sending to either the **MeshMapper** or **LetsMesh** broker. MeshMapper recommends its own broker.
 
 ## MeshMapper Broker
 
@@ -35,8 +35,7 @@ This method runs directly on a Heltec V3 or V4 board with no companion device ne
   - **Requires**: A Heltec V3 or V4 with the MQTT-enabled firmware flashed
   - **Best for**: The simplest hardware setup, since no secondary computer is needed
 
-!!! note "Coming Soon"
-    Documentation for native MQTT firmware setup is in progress.
+Community MQTT observer firmware is available for supported boards, including Heltec V3 and V4. One option is [Offband observer firmware](https://github.com/OffbandMesh/meshcore-firmware), which provides build, flashing and configuration instructions. Check its supported boards and broker settings before flashing. MeshMapper does not maintain that firmware. If you prefer a supported setup without custom firmware, use [MeshCore Packet Capture](mqtt-python.md) or [PyMC](mqtt-pymc.md).
 
 ### 4. PyMC
 
@@ -45,3 +44,13 @@ This method uses the PyMC software, which handles MQTT configuration directly fr
   - **Requires**: A Raspberry Pi running PyMC
   - **Best for**: Anyone already running a PyMC repeater
   - **Guide**: [PyMC Repeater MQTT Setup](mqtt-pymc.md)
+
+## Common observer questions
+
+**Should I send to MeshMapper, LetsMesh or both?** Either broker can supply reports for MeshMapper. You may publish to both; MeshMapper combines reports from its configured brokers. One working broker is enough for onboarding.
+
+**Can I use a mobile observer?** It can submit reports while online, but a fixed, always-on observer is a better choice for a region's required listener. A mobile receiver cannot verify a new region while it is offline or away from that region.
+
+**Why is my observer not listed?** A broker connection by itself is not an observer report. Check that it publishes `status` or `packets` on the `meshcore/<region code>/<observer key>/...` topic, using the region's code. Then check the region admin panel's **Observers** tab and the broker checkmarks. Allow time for the first report to arrive.
+
+**Can I run a regional MQTT broker?** A region admin can register a broker in **Settings**. Provide a reachable host and port, WebSockets transport, and its required authentication credentials. MeshMapper subscribes only to that region's topics; see [Observer verification](mqtt-pymc.md#verifying-your-observer) after saving. Do not publish broker credentials in a public channel.

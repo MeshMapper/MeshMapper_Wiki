@@ -27,9 +27,9 @@ The form collects the following critical information:
 | **Region Radius** | A rough estimate (in km) of the area you intend to cover. |
 | **Region Boundary** | This is where you define your desired region boundary. We strongly encourage region admins to use geoJSON files and coordinate with neighboring regions when defining a region's boundaries. More information and geoJSON resources are available at [Region Boundaries](region_boundaries.md). |
 | **Email Address / Discord Notifications** | Enter your email address (required) and optionally - though encouraged - link your Discord account to receive notifications on the status of your application. |
-| **Additional Notes** | Use this field to provide additional details or context about your application.  If your desired region doesn't meet the [prerequisites](#Prerequisites) above and you believe an exception should be made, justify it in detail here. |
+| **Additional Notes** | Use this field to provide additional details or context about your application. If your desired region doesn't meet the [prerequisites](#prerequisites) above and you believe an exception should be made, justify it in detail here. |
 | **Public Channels** | A list of public channels used in your mesh (e.g., `Chat`, `Emergency`). This helps the wardriving app correctly identify valid traffic. |
-| **Volunteer as Administrator** | Optional but recommended. Tick this to volunteer as your region's administrator. Requires Discord to be linked. See [below](#volunteer-as-region-administrator) for details. |
+| **Volunteer as Administrator** | Optional but recommended. Tick this to volunteer as your region's administrator. See [below](#volunteer-as-region-administrator) for details. |
 
 ## Volunteer as Region Administrator
 
@@ -44,14 +44,12 @@ Enabling this option signals to the MeshMapper team that you are willing to take
 
 **Requirements:**
 
-  - You must **link your Discord account** before this option becomes available. The checkbox is disabled until Discord is connected.
+  - Provide an email address. Linking Discord is optional and lets you receive the invite by DM instead of email.
   - You must be genuinely active in your local mesh community.
 
 **What happens if you volunteer:**
 
-When your region is approved and deployed, an administrator account will be automatically created for you. Your credentials (username and a generated key) will be sent to you via Discord DM. You should log in to your region's admin panel and change your key immediately after first login.
-
-*If you already have an administrator account on another MeshMapper region, access to the new region will simply be added to your existing account.*
+When your region is approved, MeshMapper grants this region to your existing unified account or sends an invite bound to your email or linked Discord account. Open the invite, sign in or create your MeshMapper account, and accept it. The same account signs in to the portal and your region's admin panel. No generated admin key is sent.
 
 ## Defining the Boundary
 

@@ -20,7 +20,7 @@ For example, both of these work:
 | `!bug {description}` | Submits a bug report to GitHub. Can also reply to a message to use its content as the description. The bot first asks you to confirm (react ✅) after checking the [Troubleshooting](troubleshooting.md) page. The bot uses AI to generate a concise title. Rate limited to 5 per user per hour. |
 | `!issue {description}` | Alias for `!bug`. |
 | `!feature {description}` | Submits a feature request to GitHub. Works like `!bug` but creates a feature request instead (no confirmation step). |
-| `!resetpassword` | Resets your own admin password if your Discord name matches an account in the system. New credentials are sent via DM. |
+| `!resetpassword` | Points you to **Forgot password** on the MeshMapper portal. If you use Discord sign-in, no password is needed. The bot does not reset passwords or send credentials. |
 | `!myissues` | Lists your bug reports and feature requests that were submitted through the bot and their current status. |
 
 !!! note "Additional Commands"

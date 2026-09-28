@@ -72,6 +72,8 @@ When you tap a device, MeshMapper runs through nine steps automatically. You can
 
 ## Zone Authentication
 
+If **Zone check failed** appears, wait for an accurate, current GPS fix and confirm that your location is inside an active MeshMapper region. The app may report a stale clock, weak GPS, a disabled region, or an unreachable server as separate errors. If your area has no region, use [onboarding](onboarding.md) rather than choosing an unrelated region code.
+
 MeshMapper uses a zone-based authentication system. The server checks your GPS coordinates and tells you which zone you are in (if any). Each zone has a code (like "YOW" for Ottawa) and a set of rules configured by the regional admin:
 
 **Session permissions:**

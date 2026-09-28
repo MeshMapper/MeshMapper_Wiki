@@ -91,3 +91,5 @@ sudo journalctl -u pymc-repeater.service -f | grep MeshMapper
 ## Verifying Your Observer
 
 Once your observer is running and connected, it will appear in your region's **Admin Portal** under the [Observers tab](admins.md#observers) once packets have been received (repeater or companion adverts, or wardriving pings). You should see a checkmark under the broker(s) your observer is connected to.
+
+If PyMC says it is connected but MeshMapper shows no data, check PyMC's service logs for MQTT errors, then confirm the broker host, WebSockets, TLS and MeshCore token settings above. Confirm its IATA code matches the region and that it is publishing `status` or `packets`. An observer may appear before any repeater does: repeaters need a valid name and an advert received by an observer, and a region may hold new repeaters in **Pending** until an admin approves them.

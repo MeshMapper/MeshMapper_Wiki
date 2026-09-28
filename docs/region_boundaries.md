@@ -4,6 +4,12 @@ MeshMapper allows for different methods of defining a region's boundary using th
 
 All of the following methods are accessed via the admin panel for each region, under the `Settings` menu. Scroll to near the bottom of the page to reach the `Region Boundary` interface.
 
+If a boundary change removed part of your area, open that editor and correct the polygon or re-import a saved GeoJSON file. The history records that a boundary changed, but it is not an undo button and does not keep a downloadable copy of the old shape. Ask a global administrator for help if you no longer have the original boundary.
+
+Use **Export GeoJSON** in the boundary editor to download the current shape. Save a copy before a large edit.
+
+Coordinate boundaries with neighboring region administrators. The onboarding form checks for substantial overlap, and the MeshMapper team reviews new requests before approval.
+
 ## Radius Around a Point
 
 *Note: This method works best for isolated regions with no nearby neighbors, as adjacent neighboring regions will result in overlap or coverage gaps, resulting in potentially incorrect data inside overlaps or preventing seamless region transition for wardrivers crossing gaps.*

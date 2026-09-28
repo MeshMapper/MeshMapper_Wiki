@@ -17,8 +17,8 @@ You can also reach it from any region map via the **About** menu → **My Portal
 
 Forgot your password? Use the **password reset** option on the login screen — a reset link is emailed to you (valid for 1 hour).
 
-!!! info "Portal accounts vs admin accounts"
-    Portal accounts are for wardrivers and are separate from region **administrator** accounts (which are managed through the [Admin Portal](admins.md)).
+!!! info "One account for the portal and admin panels"
+    A region administrator uses the same MeshMapper account for the portal and every [admin panel](admins.md) they can access. Accept an administrator invite or have access granted to your existing verified account. You do not need a separate admin login.
 
 ---
 

@@ -144,6 +144,10 @@ This is **normal behavior**:
 
 ## Data Upload Issues
 
+If your phone has internet but the app says **Server Unreachable**, the app could not reach MeshMapper's services. Try again after checking [system status](systemstatus.md), or use offline mode and upload the saved session later. A working browser connection alone does not prove the MeshMapper service is reachable.
+
+If pings are missing from the map, check that the upload queue has cleared, the correct region map and time filters are selected, and your session was inside an active region. The map and leaderboards update on different schedules. See the upload checks below before repeating a drive.
+
 ### Queue keeps growing but nothing uploads
 
 **Causes:**

@@ -209,6 +209,8 @@ The search functionality combines quick lookups with powerful filtering options.
 ### Filter Map Data
 Clicking the **Filter** pill (tune icon) in the navigation bar opens the **Filter Map Data** panel. Filters are applied server-side — the coverage grid, click popups, charts, and ping history all reflect the same filtered dataset. Active filters appear as removable chips, and the Filter pill shows a count and lights up cyan while filters are active.
 
+To see several neighboring regions together, open their [multiregion group map](multiregions.md) if one exists. The global homepage is a region index; use a region or group map for its coverage tiles.
+
   - **Time**:
     - **Show data from**: All time, Last 30 days, Last 90 days, or Last year.
     - **From date / To date**: Specify a custom date range.
