@@ -99,7 +99,7 @@
 ## Administration
 
 ??? question "How do I become a region administrator?"
-    Volunteer in the [new region form](onboarding.md#volunteer-as-region-administrator), or ask an existing admin to invite you for their region. A global administrator can also grant a region to your existing verified MeshMapper account.
+    For a new region, volunteer in the [onboarding form](onboarding.md#volunteer-as-region-administrator). For an existing region, ask its administrator for an invite. If the region has no administrator, ask a Moderator in the MeshMapper Discord for help with access.
 
 ??? question "Where can I find my region's administrator?"
     Open **Region Info** on your region's map. See [Finding Your Region's Administrators](administratorlist.md) for other ways to reach them.

@@ -6,7 +6,7 @@ The **MeshMapper Admin Portal** is a restricted area designed for region maintai
 
 Access to the Admin Portal is strictly controlled. It is not available to general users.
 
-  - **How to get access:** Ask a [MeshMapper administrator](administratorlist.md) for a region invite or an access grant to your existing MeshMapper account.
+  - **How to get access:** If the region has an administrator, ask them for an invite. If it has no administrator, ask a Moderator in the MeshMapper Discord for help with access. See [Finding Your Region's Administrators](administratorlist.md).
 
 ## Dashboard & Active Sessions
 
