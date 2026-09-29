@@ -11,7 +11,8 @@ Common issues and how to resolve them.
 **Possible causes:**
 
 - Radio is not powered on or out of BLE range (typically 10-30m)
-- Bluetooth is disabled on your phone
+- Bluetooth is disabled on your phone (the Connect tab shows **Bluetooth is Off**)
+- Location Services are off (the Connect tab shows **Location Services Disabled**)
 - Android: Location permission not granted (required for BLE scanning)
 - Another app/device is already connected (MeshCore only supports one BLE connection at a time)
 
@@ -22,9 +23,11 @@ Common issues and how to resolve them.
 - Check Bluetooth and Location are enabled in system settings
 - Disconnect other apps connected to the device
 
+If the Connect tab shows **Region Not Available** instead of a device list, you are outside every MeshMapper zone. See [Zone shows orange dash](#zone-shows-orange-dash-outside-coverage-area).
+
 ### Connection fails at "Device Info" step
 
-Retrieves your radio's public key (required for API auth). If this fails, the entire connection fails.
+The step reads **Querying device info...** on screen. It retrieves your radio's public key (required for API auth). If this fails, the entire connection fails.
 
 **Causes:** Firmware compatibility issue or transient BLE error
 
@@ -36,17 +39,21 @@ Retrieves your radio's public key (required for API auth). If this fails, the en
 
 ### Connection fails at "Session Acquisition" step
 
-Authenticates with the MeshMapper API.
+The step reads **Acquiring API slot...** on screen. It authenticates with the MeshMapper API.
 
-**Causes:**
+If MeshMapper can't be reached at all, the screen shows **Server Unreachable**: check your internet connection, try again, or use Offline Mode. Otherwise the app shows the server's reason:
 
-- No internet connection
-- MeshMapper API in maintenance mode
-
-**Solutions:**
-
-- Check internet connection
-- Use Offline Mode during maintenance
+| Message | What to do |
+|---------|------------|
+| "Unknown device. Please advertise yourself on the mesh using the official MeshCore app." | Send an advert from the MeshCore app so MeshMapper learns your radio, then try again |
+| "App version outdated. Please update to the latest version." | Update the app |
+| "Your phone's clock is out of sync. Turn on automatic date and time in your phone settings." | Turn on automatic date and time |
+| "GPS signal is weak (need <50m). Waiting for a stronger signal..." | Wait for a better fix, or move somewhere with a clearer sky view |
+| "Device clock error. Power-cycle your device to reset it." (or the server's own wording) | Power-cycle your radio |
+| "Zone is at TX capacity. Only Passive mode works here." | Use Passive Mode, or try later |
+| "This zone is currently disabled. Try again later." | Try later |
+| "Rate limited. Please slow down." | Wait a moment before reconnecting |
+| "Service is under maintenance. Try again later." | Use Offline Mode during maintenance |
 
 ### Bluetooth disconnects unexpectedly
 
@@ -59,7 +66,7 @@ Authenticates with the MeshMapper API.
 
 **What happens:**
 
-- Auto-reconnect up to **3 attempts** (3-second delay between each, 30-second overall timeout)
+- Auto-reconnect up to **3 attempts** (3 seconds apart, 30-second overall limit)
 - Session, upload queue, and noise floor data are **preserved**
 - If auto-reconnect fails → full disconnect cleanup, manual reconnect needed
 
@@ -80,24 +87,28 @@ Authenticates with the MeshMapper API.
 - Check location permission is granted for MeshMapper
 - Enable Location Services system-wide
 - Move to a location with clear sky view
-- Android: If permanently denied, a snackbar appears with "Settings" button
+- If the permission was permanently denied, a snackbar appears ("Location permission is disabled in system settings.") with a **Settings** button
 
 ### Zone shows orange dash (outside coverage area)
 
 - You are outside any registered MeshMapper zone
-- Tap the zone chip to see nearest zone name and distance
+- Tap the GPS chip to see the nearest zone's name and distance
+- The Connect tab shows **Region Not Available**, with a **Request Region Onboarding** button
 - Travel to a registered zone, or use Offline Mode to wardrive in unregistered areas
 
-### "GPS data is stale" warnings
+### "Phone Clock Out of Sync" or "Weak GPS Signal"
 
-- Zone status queries need GPS < 60 seconds old and < 50m accuracy
-- Regular pings only check the 25m movement requirement
+A zone check can fail in two related ways:
+
+- **Phone Clock Out of Sync**: your location looks out of date because your phone's clock is wrong. This is a time problem, not a GPS problem. Turn on automatic date and time (and time zone), then tap **Retry Zone Check**.
+- **Weak GPS Signal**: zone checks need accuracy better than 50m. Move to improve accuracy, then tap **Retry Zone Check**.
+
+Pings themselves need accuracy of 100m or better, plus the minimum distance since your last ping.
 
 **Solutions:**
 
-- Make sure GPS is actively tracking (not cached)
-- Move to improve accuracy
-- iOS: Enable Background Mode in Settings for continuous tracking
+- Make sure GPS is actively tracking
+- iOS: Turn on Background Location in Settings > General for continuous tracking
 
 ---
 
@@ -105,18 +116,18 @@ Authenticates with the MeshMapper API.
 
 ### "Send Ping" button is disabled
 
-Check these requirements:
+A hint under the buttons explains most blocks. Check these requirements:
 
-- **External antenna not set** — Choose Yes or No in Controls panel
-- **Power level not set** — Device model was not recognized. Go to Settings to manually select your TX power level.
-- **Not connected** — Need active Bluetooth connection
-- **No GPS lock** — App needs valid GPS position
-- **GPS accuracy too low** — GPS accuracy is too poor (> 100m). Move to a location with better reception.
-- **Not in a zone** — Must be in a coverage zone (or use Offline Mode)
-- **TX Disabled (Offline Mode)** — TX pings are not available in Offline Mode. Only discovery and passive RX work offline.
-- **Zone Full** — All TX slots in your zone are taken. You can still use Passive Mode.
-- **Controls locked** — Ping in progress (5s listening window or API upload)
-- **Cooldown active** — Brief cooldown after a manual ping (15s) or after stopping Active/Hybrid Mode
+- **External antenna not set** ("Select antenna option") — Choose Yes or No in the Controls panel
+- **Power level not set** ("Select power level in Connect tab") — Device model was not recognized. Pick your power level in the Connect tab.
+- **Not connected** — Need an active connection to your radio
+- **No GPS lock** ("Waiting for GPS") — App needs a valid GPS position
+- **GPS accuracy too low** ("GPS signal is weak") — Accuracy is worse than 100m. Move to a location with better reception.
+- **Airborne** ("Airborne, wardriving blocked") — Wardriving from an aircraft is blocked
+- **Passive only (Offline Mode)** — TX pings are not available in Offline Mode. Only discovery and passive RX work offline.
+- **Passive only (zone full)** — All TX slots in your zone are taken, or the region allows no TX. You can still use Passive Mode.
+- **Controls locked** — A ping is in progress (its 5-second listening window). The buttons do not wait for the upload.
+- **Cooldown active** — Brief cooldown after a manual ping (15s) or after stopping Active/Hybrid Mode (5s)
 
 ### "No repeaters heard" on every ping
 
@@ -137,7 +148,8 @@ Check these requirements:
 
 This is **normal behavior**:
 
-- Pings skip when you haven't moved the minimum distance (default 25m)
+- Pings are **Skipped** when you haven't moved the minimum distance (default 25m)
+- Pings are **Deferred** by Smart Pinging when your square already has recent coverage. See [Smart Pinging](app_wardriving_modes.md#smart-pinging).
 - If "Auto-Stop After Idle" is enabled, auto-ping stops entirely after 30 minutes without movement
 
 ---
@@ -154,14 +166,14 @@ If pings are missing from the map, check that the upload queue has cleared, the 
 
 - Poor or no internet connection
 - API in maintenance mode
-- API authentication expired
 
 **Solutions:**
 
 - Check internet connection
-- Try "Force Upload" in Settings > Data > Queued Pings
+- Tap the **Force upload** button (cloud icon) in Settings > Data > Queued Pings
 - Switch to Offline Mode during maintenance
-- Disconnect and reconnect to refresh API session
+
+An expired session refreshes itself, so you don't need to reconnect for that.
 
 ### Data uploaded but not appearing on meshmapper.net
 
@@ -177,38 +189,20 @@ If pings are missing from the map, check that the upload queue has cleared, the 
 **Causes:**
 
 - Sound notifications disabled in Settings
-- Phone on silent/vibrate mode
+- The individual sound (Ping Sent, Response Received, Disconnect Alert) is switched off
+- Phone media volume turned down
 - Another app has exclusive audio focus
 
 **Solutions:**
 
-- Enable in Settings > General > Sound Notifications
-- Check phone volume and ringer mode
+- Enable in Settings > General > Sound Notifications, and check the three sounds under it
+- Check phone media volume
 
 ### Audio hangs or freezes
 
 - App has a 3-second timeout protection
-- On corruption, the app automatically resets and reloads audio assets
-- If persists, toggle Sound Notifications off and on in Settings
-
----
-
-## Web-Specific Issues
-
-### "Web Bluetooth not supported" error
-
-- Web Bluetooth only works in **Chrome** and **Edge**
-- Safari, Firefox, and other browsers are not supported
-
-### CORS errors during local development
-
-- Add the web security flag: `flutter run -d chrome --web-browser-flag="--disable-web-security"`
-
-### Web Bluetooth requires active tab
-
-- Unlike mobile, Web Bluetooth only works in the **foreground tab**
-- Switching tabs or minimizing = Bluetooth connection lost
-- No background mode for the web version
+- On a timeout, the app automatically resets the audio session and reloads the sounds
+- If it persists, toggle Sound Notifications off and on in Settings
 
 ---
 
@@ -228,8 +222,8 @@ Logs include timestamped entries for BLE communication, GPS events, ping lifecyc
 ## Reporting Bugs
 
 1. Go to **Settings > About & Support > Submit Feedback**
-2. Describe the issue (what you expected vs what happened)
-3. Optionally enable "Upload debug logs" and select which log files to include
+2. Choose **Bug** (or **Feature**), add a short title, and describe the issue (what you expected vs what happened)
+3. Optionally switch on **Include with feedback** and select which log files to include
 4. Submit — a confirmation toast appears with a "View" link to track your report
 
 Also report issues on:
