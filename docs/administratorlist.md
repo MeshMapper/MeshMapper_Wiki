@@ -23,7 +23,7 @@ Tag the MeshMapper bot in the MeshMapper Discord server:
 @MeshMapper !admins YOW
 ```
 
-Or just ask in natural language — `@MeshMapper who runs YOW?` works too. The bot replies with the region's administrators and their contact information. See [Bot Commands](botcommands.md) for more.
+Or just ask in natural language — `@MeshMapper who runs YOW?` works too. The bot replies with the names of the region's administrators. For contact details, use **Region Info** on the region's map. See [Bot Commands](botcommands.md) for more.
 
 ## Still Can't Reach Anyone?
 
@@ -36,5 +36,7 @@ If a region's administrators are unavailable or unresponsive, tag a `@Moderator`
 * **Master Administrator**: Full system access and server control.
 * **Global Administrator**: Moderator access across all regions.
 * **Region Administrator**: Access to specific geographic regions.
+
+Region administrators can invite another admin for their region from the **Admins** tab of the admin panel. The invite is emailed and expires after 7 days.
 
 Want to become an administrator for your region? See the [FAQ](faq.md#administration) and [Onboarding](onboarding.md) pages.
