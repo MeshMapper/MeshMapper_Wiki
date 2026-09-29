@@ -92,6 +92,6 @@ sudo journalctl -u pymc-repeater.service -f | grep MeshMapper
 
 ## Verifying Your Observer
 
-Once your observer is running and connected, it appears in your region's admin panel under the [Observers tab](admins.md#observers) after packets have been received (repeater or companion adverts, or wardriving pings). Its **Brokers** column shows a coloured MeshMapper badge once the broker has heard it.
+Once your observer is running and connected, it appears in your region's **Region → Observers** popup on the map after packets have been received (repeater or companion adverts, or wardriving pings). It shows as **Online** with a MeshMapper broker badge once the broker has heard it.
 
 If nothing shows up, check the logs (`sudo journalctl -u pymc-repeater.service -f`) for MQTT errors, and confirm `iata_code` matches your region.
