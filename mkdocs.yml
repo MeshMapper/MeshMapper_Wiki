@@ -1,6 +1,6 @@
 # Site Information
 site_name: MeshMapper Wiki
-site_url: https://meshmapper.net
+site_url: https://wiki.meshmapper.net/
 site_description: Community-driven visualization and analytics platform for MeshCore LoRa mesh networks
 edit_uri: ""
 
@@ -12,8 +12,9 @@ nav:
     - Onboarding New Regions: onboarding.md
     - MeshMapper MQTT Setup:
       - Overview: mqtt-main.md
-      - MeshCore Packet Capture: mqtt-python.md
+      - Native Firmware: mqtt-firmware.md
       - MeshCore-HA: mqtt-ha.md
+      - meshcoretomqtt: mqtt-python.md
       - PyMC Repeater: mqtt-pymc.md
     - Multiregions: multiregions.md
 
