@@ -3,7 +3,7 @@
 Complete reference for every setting in MeshMapper. The Settings tab is a list of folders, and each folder opens its own page. The headings below follow the app: one section per folder, then the groups you see inside it.
 
 !!! warning
-    Some settings are locked while auto-ping is running. A yellow banner appears at the top of Settings and on each folder page when this is the case. Stop auto-ping to change locked settings.
+    Some settings are locked while auto-ping is running. An amber "Some settings locked during auto-ping" banner appears at the top of Settings and on the folder pages that have locked settings. Stop auto-ping to change them.
 
 ---
 
@@ -28,14 +28,15 @@ Complete reference for every setting in MeshMapper. The Settings tab is a list o
 #### Sound Notifications
 
 - Plays sounds on ping events. Sounds follow your phone's **media volume**.
+- **Disabled by default**
 - When enabled, three individual sounds can be toggled:
-    - **Ping Sent**: Sound when a TX ping or discovery is sent
-    - **Response Received**: Sound when a repeater echo or RX is received
-    - **Disconnect Alert**: Triple beep when pinging stops unexpectedly (e.g., BLE drop mid-session)
+    - **Ping Sent** (on by default): Sound when a TX ping or discovery is sent
+    - **Response Received** (on by default): Sound when a repeater echo or RX is received
+    - **Disconnect Alert** (off by default): Triple beep when an automatic mode stops unexpectedly, such as when your radio disconnects
 - Coexists with other audio (transient focus with ducking on Android, ambient on iOS)
 - Useful when wardriving with phone mounted out of view
 
-### Location (Mobile only)
+### Location
 
 #### Background Location
 
@@ -72,7 +73,7 @@ Complete reference for every setting in MeshMapper. The Settings tab is a list o
 
 ### Map Tiles
 
-#### Offline Maps (Mobile only)
+#### Offline Maps
 
 Download map areas to your device for wardriving without a data connection. Opens the **Offline Maps** screen:
 
@@ -83,6 +84,7 @@ Download map areas to your device for wardriving without a data connection. Open
 
 - When enabled, the map uses **only** your downloaded areas, with no network tile requests at all
 - Useful for guaranteed offline operation or saving mobile data
+- While it is on, **Coverage Overlay Opacity** and **Grid Mode** are hidden
 
 ### Coverage Overlay
 
@@ -94,13 +96,13 @@ Download map areas to your device for wardriving without a data connection. Open
 
 - **Simplified** (default): 300m coverage cells, merged cells, grouped repeaters. Loads faster.
 - **Detailed**: 100m coverage cells with finer detail and non-grouped repeaters.
-- Matches the Grid Mode option on the web map
+- Matches the Grid Mode option on the meshmapper.net map
 - Also sets the square size [Smart Pinging](#smart-pinging) uses, so what is deferred matches what is painted
 
 #### Color Vision
 
 - Choose a colour palette optimised for your vision type: Default, Protanopia (red-blind), Deuteranopia (green-blind), Tritanopia (blue-blind), or Achromatopsia (monochrome)
-- Applies to the coverage overlay and map colours, matching the web map's accessibility palettes
+- Applies to the coverage overlay and map colours, matching the meshmapper.net map's accessibility palettes
 
 ### Markers
 
@@ -117,6 +119,11 @@ Download map areas to your device for wardriving without a data connection. Open
 - Shows the **Top Heard** overlay on the map with the best 3 repeaters by SNR from your most recent ping
 - Disabled by default
 
+#### Larger Top 3 Overlay
+
+- Makes the Top Heard overlay bigger for easier reading
+- Shown only while **Top Repeaters on Map** is on. Disabled by default.
+
 ---
 
 ## Wardriving
@@ -129,7 +136,8 @@ Download map areas to your device for wardriving without a data connection. Open
 
 - Renames your companion device to **"Anonymous"** on the mesh (requires a clean disconnect to reset your node name)
 - Changing while connected triggers a brief reconnection
-- Confirmation dialog when enabling or disabling while connected
+- A confirmation dialog appears every time you enable it. Disabling asks for confirmation only while connected.
+- Your public key is still sent to authenticate your session, so Anonymous Mode hides your name, not your device. You also do not appear on the public leaderboard.
 - Cannot change while auto-ping is running
 
 #### Broadcast My Coordinates
@@ -148,7 +156,7 @@ How frequently pings are sent in Active, Hybrid, and Trace modes:
 - **30 seconds**: Normal (balanced coverage and mesh load, default)
 - **60 seconds**: Slow (less coverage, little mesh load)
 - Cannot be changed during auto-ping
-- Regional admin may enforce a minimum interval. Faster choices are greyed out and marked "Set by Regional Admin".
+- Regional admin may enforce a minimum interval. Faster choices are greyed out and marked "Set by Regional Admin — slower intervals reduce congestion in your region". If your interval is faster than the region allows, it is raised when you connect.
 
 !!! note
     Does not affect Passive Mode (fixed 30-second discovery interval). In Hybrid Mode, the effective interval between channel messages is doubled since discovery requests alternate with TX.
@@ -162,7 +170,7 @@ Minimum distance you must move before the next auto-ping. Prevents spamming from
 - **Minimum**: 25m (enforced by the app)
 
 !!! note
-    Does not apply to manual pings. Cannot be changed during auto-ping.
+    Applies to every auto mode (Active, Hybrid, Passive and Trace). Does not apply to manual pings. Cannot be changed during auto-ping.
 
 #### Smart Pinging
 
@@ -171,9 +179,11 @@ Defers auto pings in squares that already have recent coverage, so your airtime 
 - **Enabled by default**
 - Tap the **(i)** beside the switch for a short explanation inside the app
 - **Defer pings in squares covered within**: the window, in days, that makes a square count as covered. Enter any whole number from **1 to 365**. Default **14 days**. Shown only while the switch is on.
+- **Show only recent coverage** (off by default): hides older coverage squares on the map so only coverage inside your window shows, which makes gaps easier to see. Shown only while the switch is on.
+- **Show Deferred Markers** (on by default): shows hollow circles on the map where pings were deferred. Shown only while the switch is on.
 - Applies to Hybrid, Passive and Active modes. Never affects manual pings, Trace Mode or passive RX listening.
 - Deferred squares still earn leaderboard points (1.5 each) once MeshMapper verifies them
-- May be enforced by regional admin (shown in amber). When enforced, the switch is locked on and the window is the region's.
+- May be enforced by regional admin (shown in amber). When enforced, the switch is locked on and the window is the region's (1, 3, 7, 14 or 30 days).
 - Cannot be changed during auto-ping
 
 #### Scope Discovery
@@ -182,22 +192,23 @@ After each discovery, asks the repeaters it found which scopes they carry (the n
 
 - **Disabled by default**
 - Tap the **(i)** beside the switch for details inside the app
-- **Check every**: the window, in days, that makes a scope answer from a repeater count as fresh. Enter any whole number from **7 to 365**. Default **14 days**. Shown only while the switch is on.
+- **Ask repeaters again after**: the window, in days, that makes a scope answer from a repeater count as fresh. Enter any whole number from **7 to 365**. Default **14 days**. Shown only while the switch is on.
 - May be enforced by regional admin (shown in amber). When enforced, the switch is locked on and the window is the region's.
-- Requires companion firmware **1.16.0 or newer**. **1.17.0 or newer is recommended**, see below.
+- Requires companion firmware **1.16.0 or newer**. **1.17.0 or newer is recommended**, see below. On older firmware the app shows "Your radio needs firmware v1.16.0 or newer for this."
+- A small **Scopes** badge shows on the running mode button while the app is asking
 - Cannot be changed during auto-ping
 
 **Companion firmware 1.16 and a full contact list.** To ask a repeater that is not saved as a contact on your radio, the radio needs a free slot in its contact list. Companion firmware 1.16 cannot make that room when the list is full, so it refuses the request and nothing is sent. The log shows **Radio contact list full**, and from then on, for the rest of that connection, the app only asks repeaters that are saved as contacts. The Errors tab in the log also gets one entry explaining it. Companion firmware **1.17.0 or newer** fixes it by keeping room for these requests. Removing some contacts from your radio also works.
 
 **Why a repeater may not answer.** "No response from repeater" in the log is normal and does not mean the repeater is broken or out of date:
 
-- **Each repeater answers at most 4 anonymous requests every 3 minutes.** That limit is built into the repeater firmware and is shared by everyone asking it anything anonymously (scope, owner and clock requests, from any app). Once it is used up, the repeater stays silent until the 3 minutes pass. Busy repeaters on high sites, heard by many radios, reach this limit most often.
+- **Repeaters only answer a few anonymous requests in a short time.** That limit is built into the repeater firmware and is shared by everyone asking it anything anonymously, from any app. Once it is used up, the repeater stays silent for a few minutes. Busy repeaters on high sites, heard by many radios, reach this limit most often.
 - **The answer can be lost on the way back.** An answer is longer than a discovery reply, so a repeater at the edge of range, or on a busy channel, can answer discovery and still miss this one.
-- **Older repeater firmware ignores the request.** Repeaters need firmware **1.12.0 or newer** to answer.
+- **Older repeater firmware ignores the request.**
 
 A repeater that does not answer is not marked as checked, but your phone leaves it alone for a while before asking again: 15 minutes after the first miss, doubling after each further miss, up to 2 hours. An answer clears that wait. This keeps one phone from using up a busy repeater's limit. Nothing is uploaded for a request that goes unanswered.
 
-While scope discovery is on, the app also refreshes its repeater list when Passive or Hybrid starts and every 15 minutes while it runs, so a repeater another driver has just checked is skipped sooner.
+While scope discovery is on, the app also refreshes its repeater list when Passive or Hybrid starts (if the list is more than 5 minutes old) and every 15 minutes while it runs, so a repeater another driver has just checked is skipped sooner.
 
 #### Auto-Stop After Idle
 
@@ -224,17 +235,17 @@ Strips your own CARpeater from results. Switching it on for the first time opens
 
 #### Regional CARpeaters
 
-- Shows how many CARpeaters have been shared for your region, with a list (name and key) when there are any. Your own is marked "Mine".
+- Shows how many CARpeaters have been shared for your region ("Filtering N regional CARpeaters"). Tap it for the list: each entry shows the repeater's name and the first 16 characters of its key. Your own is marked "Mine".
 - These are always filtered and cannot be turned off: someone else's CARpeater is in someone else's car, so neither it nor the repeater behind it may be credited
 - The list is refreshed from MeshMapper on every connect. Offline Mode keeps the last copy.
 
 #### Disable RSSI Filter
 
-By default, the app drops any packet with RSSI equal to or stronger (closer to 0) than -30 dBm because a signal that strong almost certainly came from a co-located repeater and is not meaningful coverage data. Only disable this if you are certain no co-located repeater is within range. If disabled while a CARpeater is present, your device will report false coverage data to the MeshMapper community map, degrading accuracy for everyone.
+By default, the app drops any packet with RSSI of -30 dBm or stronger (closer to 0), because a signal that strong almost certainly came from a co-located repeater and is not meaningful coverage data. Only disable this if you are certain no co-located repeater is within range. If disabled while a CARpeater is present, your device will report false coverage data to the MeshMapper community map, degrading accuracy for everyone.
 
-- Default: Drops packets with RSSI of -30 dBm or stronger (carpeater threshold)
+- Default: off. The subtitle reads "Drops signals stronger than -30 dBm".
 - Enabling allows **all signal strengths** through
-- Confirmation dialog warns about community map impact before enabling
+- A **Disable RSSI Filter?** dialog warns about community map impact before enabling
 - Cannot be changed during auto-ping
 
 ### Modes
@@ -242,16 +253,16 @@ By default, the app drops any packet with RSSI equal to or stronger (closer to 0
 #### Flood Traffic
 
 - Shows or hides the **Active Mode**, **Hybrid Mode**, and manual **Send Ping** controls (everything that sends flood channel messages)
-- **Off by default.** On a fresh install only Passive and Trace modes appear on the Map tab. Turn this on to wardrive with channel messages.
-- May be locked off by your regional admin if the region has disabled flood wardriving traffic (shown with a blue note)
+- **Off on a fresh install**, so only Passive and Trace modes appear on the Map tab until you connect. Each time you connect in a region that allows flood traffic, the app turns it on.
+- Locked off if your regional admin has disabled flood traffic for your region (shown with a blue "Set by Regional Admin" note)
 - Cannot be changed during auto-ping
 
 #### Hybrid Mode
 
-- Alternates between TX channel messages and discovery requests each interval
+- Subtitle: "Combines Active and Passive modes". Alternates between TX channel messages and discovery requests each interval.
 - Produces richer data with **50% fewer channel messages** (less mesh flooding)
-- Enabled by default across all regions. Tap the **(i)** beside the switch for how the interval timing works.
-- May be locked by regional admin (shown in amber when enforced)
+- Enabled by default. Tap the **(i)** beside the switch for how the interval timing works.
+- A regional admin can enforce it (shown in amber). When enforced, the switch is locked on.
 - Cannot be changed during auto-ping
 
 #### Discovery Drop
@@ -260,7 +271,7 @@ By default, the app drops any packet with RSSI equal to or stronger (closer to 0
 - Helps identify dead zones for network planning
 - Requires repeater firmware **1.10+** to respond to discovery requests
 - Disabled by default
-- May be enforced by regional admin (shown in amber when set)
+- May be enforced by regional admin (shown in amber). When enforced, the switch is locked on.
 - Confirmation dialog before enabling
 - Cannot be changed during auto-ping
 
@@ -316,7 +327,7 @@ This is separate from TX Bytes because traces use a different encoding in the Me
 #### Delete Channel on Disconnect
 
 - **Enabled** (default): Removes the #wardriving channel from your radio on disconnect. Keeps the radio clean.
-- **Disabled**: Channel remains. Slightly faster reconnection since it doesn't need to be recreated.
+- **Disabled**: The channel stays on your radio after you disconnect.
 
 ---
 
@@ -336,6 +347,7 @@ Shows how many items are waiting to be uploaded, with two actions beside the cou
 #### Clear Map Markers
 
 - Removes all TX, RX, discovery, and trace markers from the map display
+- Confirmation dialog included
 - Does not affect uploaded data or the upload queue
 
 ### Offline Sessions
@@ -348,15 +360,17 @@ Sessions recorded in Offline Mode. Each session shows:
 
 **Actions per session:**
 
-- **Download**: Save the raw JSON to your device (via the system share sheet on mobile). Always available.
+- **Download**: Save the raw JSON to your device (via the system share sheet). Always available.
 - **Upload**: Send to MeshMapper servers. Shown until the session has been uploaded.
-- **Delete**: Remove from local storage
+- **Delete**: Remove from local storage (asks for confirmation)
+
+Uploading needs a GPS fix, because the server checks your current location. Without one you see "GPS required - enable location services to upload". The radio usually does not need to be connected.
 
 After an upload the session shows an "Uploaded" line with where its pings were placed. Tap it for the **Upload Summary**: the number of pings credited to each region, and any that were dropped for being more than 50 km outside every region.
 
 ---
 
-## MeshMapper Account (Mobile only)
+## MeshMapper Account
 
 *Sign in to link your radios*
 
@@ -381,6 +395,12 @@ Shown once you are signed in, when the server provides it: your **Points**, **Gr
 
 !!! note
     After you connect a radio that is not yet linked, the app offers to link it. It asks at most once per radio per app session, and never while auto-ping is running.
+
+### My Repeaters
+
+- Lists the repeaters you have logged in to as an admin. Each row shows the repeater's name and key prefix, plus its region when known.
+- Tap a row to open that repeater's manage sheet
+- With none yet, it says "No repeaters claimed yet". To add one, pick a repeater on the map and tap **Manage** to log in with its admin password.
 
 ---
 
@@ -441,17 +461,22 @@ This folder appears once an Apple Watch has been paired with your phone, and sta
 
 ### Support
 
+#### Quick Guide
+
+- Opens the in-app guide to connections, modes, mapping, and data
+
 #### Submit Feedback
 
 - Opens the bug report dialog to report bugs or request features
-- Can attach debug log files if logging is enabled (select which files to include)
+- Can attach debug log files (select which files to include)
 
-#### Debug Logs (Mobile only)
+#### Debug Logs
 
 - Writes detailed debug logs to files on your device
+- **Enabled by default.** If you switch it off, the app remembers that.
 - Orange "LOGGING" badge when active
-- Timestamped entries, auto-rotate (max 10 files, max 4.5 MB per file)
-- Always disabled on app start (must re-enable each session)
+- Timestamped entries. The app keeps the newest 10 files and deletes older ones.
+- Files larger than 4.5 MB are uploaded in parts
 
 **When logs exist:**
 
