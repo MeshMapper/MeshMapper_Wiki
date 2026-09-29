@@ -1,254 +1,267 @@
 # Map Layers & Filters
 
-The MeshMapper map interface offers various layers and filtering options to customize how data is visualized. This allows users to switch between different map styles, toggle specific data types, and drill down into the data based on time, power, or equipment.
+This page walks through everything on a region map: the menus, map styles, coverage modes, overlays, tools, settings and filters.
+
+## The Navigation Bar
+
+| Item | What it does |
+| --- | --- |
+| **Switch Region** | Jump to another region or multiregion group. Type a city or code to search. |
+| **Freq** | Show only pings, repeaters and links on one radio preset (frequency / bandwidth / SF). **All** is the default. Pings from before June 2026 carry no preset and only appear under **All**. |
+| **Active Wardrivers** (car icon) | How many wardrivers had an active session when the page loaded. |
+| **Filter** | Opens [Filter Map Data](#filters). Shows a count while filters are active. |
+| **Region** | Region Info (admins, links, radio presets, settings), Contact Region, Repeater IDs, Repeater List, Observers, Leaderboard and Admin Panel. |
+| **Insights** | The packet [Analyzer and Visualize Live](#insights). |
+| **Settings** (gear) | Light / Dark Mode toggle, and **Settings** for the options under [Settings](#settings). |
 
 ## Base Layers
 
-You can switch between different underlying map styles using the **Layer Control** (stack icon) in the top-right corner of the map, under **Map Mode**.
+Switch map styles from the **Layer Control** (stack icon, top-right) under **Map Mode**:
 
-  - **Standard**: The default view (OpenFreeMap "Liberty" vector style). Best for general navigation and street names.
-  - **Bright**: A brighter vector style variant.
-  - **Dark Mode**: A high-contrast dark theme. Ideal for low-light viewing or when you want the coloured data points to stand out clearly.
-  - **Topographic**: Displays terrain features, elevation lines, and hill shading. Extremely useful for understanding line-of-sight (LOS) obstructions between repeaters.
-  - **Satellite** / **Google Satellite** / **Google Hybrid**: Aerial imagery (with street labels in Hybrid). Useful for verifying physical locations, tree cover, and landmarks.
+  - **Standard**: The default (OpenFreeMap "Liberty"). Best for general navigation and street names.
+  - **Bright**: A brighter variant.
+  - **Dark Mode**: A high-contrast dark style that makes coverage stand out.
+  - **Topographic**: Terrain, elevation lines and hill shading. Useful for spotting line-of-sight obstructions.
+  - **Satellite** / **Google Satellite** / **Google Hybrid**: Aerial imagery (Hybrid adds street labels). Useful for checking sites, tree cover and landmarks.
 
-*Note: Your selected base layer is saved in your browser and will be remembered the next time you visit. Selecting a dark or satellite base automatically switches the interface to dark mode.*
+Your choice is remembered in your browser. Turning on Dark Mode from the Settings menu also switches the map to the Dark Mode style.
 
-## Settings & Preferences
+## Coverage Modes
 
-The **Settings** menu (gear icon in the navigation bar) provides global options for the interface:
+Under **Coverage Mode** in the Layer Control, pick how coverage grid squares are coloured:
 
-*   **Theme**: Toggle between **Light Mode** and **Dark Mode**.
-    *   *Note: Switching to Dark Mode will automatically change the Base Layer to the "Dark Mode" map style.*
-*   **Units**: Switch between **Metric** (m/km) and **Imperial** (ft/mi). This setting applies to:
-    *   Distance measurements on connection lines.
-    *   Maximum range calculation.
-    *   Leaderboard statistics.
-    *   Filter panel distance filters.
-*   **Grid Mode**: Switch between **Simplified** and **Detailed** modes. **Simplified** (default) uses **300m** grid squares, merges cells, and clusters repeaters at wide zoom levels — it loads faster. **Detailed** uses **100m** grid squares with finer coverage detail and non-grouped repeaters. The coverage grid is rendered from cached vector tiles, so the cell size is fixed by the chosen mode at every zoom level.
-*   **Info Panel**: Switch between **Sidebar** and **Popup** mode for viewing ping details.
-*   **Hide Data from Missing Repeaters**: When enabled, hides coverage grid squares that reference repeaters no longer present on the map, reducing visual noise from outdated or removed infrastructure.
-*   **Follow My Location**: When enabled, the map continuously tracks your GPS position and re-centres on it every 5 seconds. Your current zoom level is preserved — only the centre point updates. A blue dot and accuracy circle show your position. Useful for wardriving or moving through a coverage area. Toggle it off to stop tracking; the marker stays at your last known position.
-*   **Default Zoom**: Set a preferred zoom level that the map loads at. Options range from Street (14) to Region (8).
-
-### My Location
-
-The **My Location** button (crosshair icon on the right side of the map) performs a one-time GPS lookup and centres the map on your current position. This works independently of the Follow My Location setting — it's a quick "where am I?" without continuous tracking.
-
-### Accessibility
-
-*   **Colour Vision**: Choose a colour palette optimised for your vision type. The setting is found under **Settings > Accessibility > Colour Vision**. Available options:
-    *   **Default** — Standard colours (unchanged).
-    *   **Protanopia** (Red-blind) — Optimised for red-green colour vision deficiency.
-    *   **Deuteranopia** (Green-blind) — Same palette as Protanopia (both are red-green CVD).
-    *   **Tritanopia** (Blue-blind) — Optimised for blue-yellow colour vision deficiency.
-    *   **Achromatopsia** (Monochrome) — Greyscale palette for total colour blindness.
-
-    Palettes are based on Wong 2011 colourblind-safe colours. When a palette is selected, all coverage grid squares, repeater markers, signal strength indicators, legend colours, summary stats, charts, and gradient layers (Effective Coverage, Signal Strength, Ping Age) update automatically. The setting is saved in your browser and persists across sessions.
-
-### Effective Coverage
-
-*   **Colour Spectrum**: Toggle between **Red → Green** (default) and **Red → Blue** (full spectrum) for the Effective Coverage layer.
-*   **Min Sample Size**: Set the minimum number of pings required in a grid square before it is displayed on the map (default: 1). Increasing this value filters out grid squares with limited data, giving a cleaner view of well-sampled areas.
-
-### Grid Transparency
-
-*   **Normal Opacity**: Adjust the fill opacity of coverage grid squares (default: 60%).
-*   **Faded Opacity**: Adjust the opacity of grid squares that are faded into the background, such as when the Repeater Neighbours layer is active (default: 15%).
-
-### Line Transparency
-
-*   **Line Opacity**: Adjust the opacity of all lines drawn on the map — including repeater neighbour lines, repeater-to-grid-square lines, and ping-to-repeater lines (default: 100%).
-
-## Overlay Layers
-
-These layers display the actual mesh network data. You can toggle them on or off individually to reduce clutter.
-
-| Layer Name | Description |
+| Mode | Colours grid squares by |
 | --- | --- |
-| **BIDIR** | **Green** grid squares showing confirmed two-way coverage (the sender heard a repeat AND the packet was also heard by at least one observer after being repeated). |
-| **TX** | **Orange** grid squares where packets were sent but no confirmation was received (no repeat heard by the sender but the packet was repeated and heard by at least one observer). |
-| **RX** | **Purple** grid squares where other repeated mesh traffic was heard by the meshmapper companion. |
-| **DISC / TRACE** | **Cyan** grid squares showing Node Discovery and Trace packets. |
-| **DEAD** | **Grey** grid squares where a repeater heard the ping, but it didn't route further (sender heard a repeat but no observer did). |
-| **DROP** | **Red** grid squares showing failed pings (neither the sender nor any observers heard repeats of the packet). |
-| **Repeaters** | The chips representing repeater nodes. Each one carries its hex ID, with its state on the chip's left edge and border. See [Repeaters](visuals.md#repeaters). |
-| **Repeater Coverage** | When a repeater is clicked, this layer draws dashed blue lines to all locations where that repeater was heard. Useful for visualizing the effective footprint of a specific repeater. |
-| **Adv. Repeater Coverage** | Similar to standard Repeater Coverage, but colour-codes the lines and grid squares based on the connection type (Green=BIDIR, Orange=TX, etc.) instead of using a uniform blue. Lines are labelled as **In** or **Out** to indicate whether the ping originated inside or outside the region boundary. |
-| **Repeater Neighbours** | Draws lines between repeaters that are known to reach each other, with full support for multi-byte repeater identification. When enabled, coverage pings fade into the background to make the neighbour lines easier to trace. All four kinds are drawn solid, so the colour is what tells them apart. Inferred lines are hidden once the region's retention window closes, which is 7 days unless the region administrator changed it. <br> - **Green**: Inferred, seen in a packet path an observer heard within the last 3 days. <br> - **Orange**: Inferred, older than 3 days. <br> - **Blue**: Reported by the repeater over the air. <br> - **Purple**: Uploaded from the app by an admin. <br> See [Links Between Repeaters](visuals.md#links-between-repeaters). |
-| **Backbone** | The smallest set of repeaters whose links together carry half the region's traffic, with **gold** chips for the sites and coloured lines (trunks) between them. Each chip's label shows that repeater's own share. Switching this on hides every repeater that is not a backbone site, turns **Repeaters** on, and turns **Repeater Neighbours** off. See [The Backbone](visuals.md#the-backbone). |
-| **Effective Coverage** | Filters the map to show only locations with confirmed reliable connectivity, removing noise and edge-case pings for a cleaner view of where the mesh truly delivers. Each ping type is given a numerical value (BIDIR being the highest and DROP being the lowest) and these values are averaged across each grid square.|
-| **Signal Strength** | Colour-codes coverage grid squares by signal strength (SNR), making it easy to identify strong and weak zones across the map at a glance. ≤ -1 dB displays in red and ≥ 5 dB in green, with everything else in between. |
-| **Ping Age** | Colour-codes grid squares based on how recently they were last pinged. Green indicates recent activity and red indicates stale coverage. The green and red age thresholds are adjustable from the Settings panel, making it easy to identify areas that may need remapping. |
-| **Noise Floor** | A coverage mode that colour-codes grid squares by RF noise level. **Green** = quiet, **Red** = loud. Select it from the **Coverage Mode** section. See [Noise Floor](#noise-floor) below for details. |
-| **Neighbor Zones** | Small pins showing the location of nearby MeshMapper regions. Clicking them will take you to that map. |
-| **Neighbour Zone Boundaries** | Draws a dashed outline showing the official boundary (polygon or radius) of each neighbouring region. Requires **Neighbor Zones** to be enabled — it will be automatically turned off when Neighbor Zones is disabled, and restored when it is re-enabled. |
-| **Region Boundary** | A black outline showing the official area covered by the current map zone. |
+| **Standard** | Ping type (BIDIR, TX, RX, and so on). The default. |
+| **Effective Coverage** | How reliable coverage is. Each ping type gets a score (BIDIR 3, TX / RX / DISC 2, DEAD 1, DROP 0), averaged per grid square. |
+| **Signal Strength** | Signal-to-noise ratio (SNR): ≤ -1 dB is red, ≥ 5 dB is green. |
+| **Ping Age** | How recently the square was pinged: green under 30 days, red over 90 days (adjustable in [Settings](#settings)). |
+| **Noise Floor** | Background RF noise: green is quiet, red is loud. See [Noise Floor](#noise-floor). |
+
+### Ping Types
+
+In **Standard** mode, the **Coverage** group lets you turn each ping type on or off. It's greyed out in the other modes.
+
+| Type | Colour | Meaning |
+| --- | --- | --- |
+| **BIDIR** | Green | Heard repeats from the mesh **and** successfully routed through it. |
+| **TX** | Orange | Successfully routed through, but no repeats heard back. |
+| **RX** | Purple | Heard mesh traffic but did not transmit. |
+| **DISC/TRACE** | Cyan | A discovery or trace reply was heard. |
+| **DEAD** | Grey | A repeater heard it, but no other radio received the repeat. |
+| **DROP** | Red | No repeats heard **and** no successful route. |
+
+See [Ping Types Defined](visuals.md#ping-types-defined) for more detail.
 
 ### Noise Floor
 
-The **Noise Floor** coverage mode visualizes the RF noise environment across the map by colour-coding grid squares. It helps identify areas with high interference versus quiet areas with clean signal conditions.
+Every companion reports a **noise floor** reading (in dBm) with each ping: the level of background RF interference at that spot. Closer to 0 dBm is loud; very negative (e.g. -120 dBm) is quiet.
 
-#### What It Shows
+Different radios report different absolute values, so MeshMapper shows a **noise delta** instead: how much louder a spot is than that companion's usual baseline.
 
-Every companion reports a **noise floor** reading (in dBm) with each ping it submits. The noise floor represents the level of background RF interference the radio is experiencing at that location. A reading closer to 0 dBm is "loud" (lots of interference), while a very negative value like -120 dBm is "quiet."
+  1. Once a companion has at least 5 readings, its **baseline** is its 10th-percentile reading (roughly the quietest conditions it sees).
+  2. Each reading is scored as the difference from that baseline.
+  3. Baselines are recalculated regularly.
 
-Because different radios and antennas report different absolute noise values, MeshMapper doesn't display the raw readings directly. Instead, it calculates a **noise delta** — how much louder or quieter a location is compared to that device's baseline.
+For example, with a baseline of **-110 dBm**, a reading of **-90 dBm** is **+20 dB**: 100× noisier than usual. Readings in the same grid square are averaged.
 
-#### How Calibration Works
+A **Noise Floor** legend (Quiet → Loud) appears in the bottom-right while this mode is on.
 
-MeshMapper automatically calibrates each companion's baseline:
+## Overlays
 
-1. After enough data has been collected (at least 5 readings), MeshMapper calculates the companion's **10th percentile** noise floor — essentially the quietest conditions that companion typically experiences.
-2. This becomes the companion's **baseline**.
-3. Every data point is then scored as a **delta** (difference) from that baseline.
-4. Every day a new calibration is done to update that companion's noise delta.
+Toggle these in the Layer Control. Some may be greyed out as **Disabled by Administrator** in regions that hide them.
 
-For example, if your companion's baseline is **-110 dBm** and you submit a reading of **-90 dBm**, the delta is **+20** — meaning that location is 20 dB (100X) noisier than your device sees under typical quiet conditions.
-
-This per-companion calibration ensures that readings from different hardware/setups are comparable on the same map. All readings for a single location are averaged and displayed accordingly.
-
-#### Reading the Colours
-
-Grid squares are colour-coded on a gradient from green to red:
-
-| Colour | Meaning |
+| Overlay | What it shows |
 | --- | --- |
-| **Green** | Quiet — at or near the companion's baseline noise level. |
-| **Yellow** | Moderate — some elevated noise above baseline. |
-| **Red** | Loud — significantly above baseline, indicating high interference. |
+| **Repeaters** | Repeater chips, each with its hex ID and state. See [Repeaters](visuals.md#repeaters). |
+| **Repeater Coverage** | Click a repeater to see where it was heard: grid squares and dashed lines coloured by ping type (DROP is left out). With this overlay off, the squares show in plain blue with no lines. |
+| **Repeater Neighbours** | Lines between repeaters that reach each other. **Green**: seen in a packet path in the last 3 days. **Orange**: seen longer ago. **Blue**: reported by the repeater. **Purple**: uploaded from the app. Coverage fades while this is on. See [Links Between Repeaters](visuals.md#links-between-repeaters). |
+| **Repeater Scopes** | Which repeaters carry a mesh scope, and the links between them. See [Repeater Scopes](#repeater-scopes). |
+| **Backbone** | The repeaters and links that carry half of the region's traffic, in **gold**. Only backbone repeaters are shown while it's on. See [Backbone](backbone.md) for how it's calculated. |
+| **Neighbour Zones** | Pins for nearby MeshMapper regions. Click one to open that map. |
+| **Neighbour Zone Boundaries** | Dashed outlines of nearby regions. Needs **Neighbour Zones** on. |
+| **Region Boundary** | This region's boundary (black, or white on dark and satellite maps). |
 
-A **Noise Floor** legend appears in the bottom-right of the map when this mode is active, showing the gradient scale from Quiet to Loud.
+Only one of **Repeater Neighbours**, **Repeater Scopes** and **Backbone** can be on at a time. Turning one on turns the others off.
 
-Like the other coverage modes, Noise Floor fully supports the [colour vision accessibility options](#accessibility), so all colour blindness palettes apply to noise grid squares and the legend.
+### Repeater Scopes
 
-!!! tip
-    To enable, select **Noise Floor** from the **Coverage Mode** section in the Layer Control (stack icon) in the top-right corner of the map.
+MeshCore repeaters can be set up with named **scopes** (e.g. `yow`). A message tagged with a scope is only forwarded by repeaters that carry that scope. **✱ Not set** means the repeater only passes messages with no scope.
 
-### Legacy Data Layer
+Turn on **Repeater Scopes** and pick a scope from the bar at the bottom of the map. The map shows only the repeaters that carry it, and draws a link between two of them when both carry it. The bar shows how many repeaters and links match.
 
-Regions with imported historical data will have a **Legacy** layer available. This layer displays data points uploaded via CSV but does not show connection lines or contribute to repeater statistics due to the lack of verifiable repeater association. See [Data Upload](https://wiki.meshmapper.net/dataupload/) for more details.
+MeshMapper learns a repeater's scopes three ways:
+
+  - **I** (Inferred): seen forwarding traffic in that scope.
+  - **R** (Reported): the repeater listed it when an observer asked.
+  - **U** (Uploaded): a wardriver's app asked the repeater and uploaded its answer.
+
+A **★** marks the repeater's default scope (the one on its own adverts). Repeaters with firmware older than v1.12 can't answer scope queries.
+
+To check whether a scope name is in use in your region, use the [Scope Finder](#scope-finder).
 
 ## Map Tools
 
+Open **Map Tools** (the tools icon on the map). One tool is open at a time.
+
 ### Line of Sight
 
-The **Line of Sight** tool is available from the map toolbar and allows you to check terrain clearance between any number of points on the map. Click to place two (or more) points (or click directly on repeaters) and MeshMapper will fetch the elevation profile and show whether the path is clear or obstructed. When a repeater is selected as one of the endpoints, you can adjust its elevation above ground for more accurate results.
+Check terrain clearance between two or more points.
+
+  1. Click the map or a repeater to place points **A** and **B** (or type coordinates). Use **Add Point** for more.
+  2. Set each point's **Height** above ground. Points placed on a repeater start at 3 m.
+  3. Check the **Freq** (defaults to your region's most-used frequency).
+  4. Click **Calculate**.
+
+The result shows the elevation profile (with earth curvature) and the first Fresnel zone, and rates each leg: **Line of Sight CLEAR**, **Minor Fresnel Intrusion**, **Fresnel Zone Partially Blocked** (less than 60% clear) or **Line of Sight OBSTRUCTED**. On the map, green is clear and red is blocked.
+
+### Antenna Coverage
+
+Estimate how far a radio at a spot could reach, using terrain.
+
+  1. Tap the map (or a repeater) to place the pin.
+  2. Pick the transmit **power** (14–30 dBm, default 22) and set the **TX** and **RX heights** (defaults 6 m and 2 m). The frequency is set from your region's most-used band.
+  3. Optionally open **Advanced** for sensitivity, spreading factor, antenna gains, cable loss, fade margin and environment. The defaults suit most setups.
+
+The map shades **Strong** (red), **Likely** (orange) and **Fringe** (yellow) areas, and shows how far each reaches plus the approximate area covered.
+
+!!! note
+    This is an estimate from bare-ground terrain. Buildings, trees, antennas and weather all change real-world range. Treat it as a guide, not a guarantee.
 
 ### Coverage Timeline
 
-The **Coverage Timeline** tool provides an animated playback of how a region's coverage has grown over time, from the region's earliest data to the present day. It is available from the **Map Tools** (wrench icon) control.
+An animated playback of how the region's coverage grew, from its earliest data to today. A playback bar at the bottom lets you **Play/Pause**, **drag** to jump to a date, and click the speed to cycle **1x → 2x → 4x → 0.5x**.
 
-When activated, a playback bar appears at the bottom of the screen with controls to:
+### Scope Finder
 
-- **Play/Pause** — automatically advance the timeline
-- **Scrub** — drag the slider to jump to a specific point in time
-- **Speed** — click the speed label to cycle through playback speeds (0.5x, 1x, 2x, 4x)
-
-The playback runs on the live vector coverage data, so you can watch coverage fill in as wardrivers contributed data over weeks and months.
+Test whether a scope name is used in your region. Type the name (e.g. `yow`) and click **Find**. MeshMapper checks it against the region's recent scoped traffic and tells you whether it's already tracked, found, only weakly matched, or not found. If a scope is found but not yet monitored, a region admin can add it under **Repeaters, Neighbours & Scopes** in the admin panel.
 
 ### 3D Terrain
 
-The **3D Terrain** control (landscape icon at the top of the map controls) drapes the map — including all coverage data — over real elevation terrain:
+The **3D Terrain** control (landscape icon, top of the map controls) drapes the map and coverage over real terrain.
 
-- **Enable 3D** — Toggles the terrain on or off
-- **Hillshade relief** — Adds shaded relief for depth
-- **Exaggeration** — A slider (0.5×–2.5×) to emphasize elevation differences
-- **Tilt/rotate** the view by right-dragging (or ctrl-dragging) the map
+  - **Enable 3D**: turn terrain on or off.
+  - **Hillshade relief**: add shaded relief.
+  - **Exaggeration**: 0.5× to 2.5× (default 1.4×).
+  - Right-drag (or Ctrl-drag) to tilt and rotate.
 
-3D terrain makes it much easier to see how hills and valleys shape your region's RF coverage.
+### My Location
 
-### Packet Analyzer
+The **Show My Location** button (top-right) finds your position once and zooms to it. For continuous tracking, turn on **Follow My Location** in [Settings](#settings).
 
-The **Packet Analyzer** provides a real-time view of raw MeshCore packets flowing through the region's MQTT observers. It is accessible from the map toolbar. The analyzer can be opened in a new tab for a full-screen experience using the pop-out button.
+## Insights
 
-The **Live Visualization** mode (accessed via the "Visualize Live" button in the analyzer) draws animated lines on the map showing how packets are moving through the region's repeaters in real time.
+The **Insights** menu has two packet tools:
 
-## Linking to a Specific Location
+  - **Analyzer**: opens the MeshMapper packet analyzer for this region in a new tab, showing raw packets heard by the region's observers.
+  - **Visualize Live**: animates packets on the map in real time. Each packet is an orange dot that travels its actual path through the repeaters to the observer that heard it, and repeaters flash as it passes. Click **Exit Live Visualization** to stop.
 
-You can open a region's map pre-centred on an exact spot by adding `lat`, `lon`, and (optionally) `zoom` query parameters to its URL. This is useful for sharing a precise location — a specific repeater site, a coverage gap, or a spot you want someone else to look at — without them having to pan and zoom to find it.
+## Settings
+
+Open **Settings** from the gear menu. Settings are saved in your browser.
+
+### Map Display
+
+  - **Units**: **Metric** (m/km) or **Imperial** (ft/mi). Applies to distances on the map, filters and leaderboards.
+  - **Grid Mode**: **Simplified** (default) uses 300 m grid squares, merges cells and groups repeaters at wide zoom, and loads faster. **Detailed** uses 100 m grid squares and shows every repeater. Changing it reloads the page.
+  - **Default Zoom**: the zoom the map opens at, from **14 - Street** to **8 - Region**.
+  - **Info Panel**: show details in a **Sidebar** or a **Popup**.
+
+### Map Behaviour
+
+  - **Hide Missing-Repeater Data**: hide pings from repeaters no longer on the network.
+  - **Follow My Location**: keep the map centred on your GPS position (updated every 5 seconds, keeping your zoom). A blue dot and accuracy circle show where you are.
+
+### Accessibility
+
+**Colour Vision** changes the colours used across the map (grid squares, repeaters, lines, legends, charts and coverage modes):
+
+  - **Default**
+  - **Protanopia (Red-blind)**
+  - **Deuteranopia (Green-blind)**: same palette as Protanopia.
+  - **Tritanopia (Blue-blind)**
+  - **Achromatopsia (Monochrome)**
+
+### Effective Coverage
+
+  - **Colour Spectrum**: **Red → Green** (default) or **Red → Blue**.
+  - **Min Sample Size**: hide grid squares with fewer pings than this (1–20, default 1).
+
+### Ping Age
+
+  - **Green (under)**: squares pinged more recently than this are green (default 30 days).
+  - **Red (over)**: squares older than this are red (default 90 days).
+
+### Transparency
+
+  - **Normal Opacity**: coverage grid squares (default 60%).
+  - **Faded Opacity**: grid squares faded into the background, e.g. behind Repeater Neighbours (default 15%).
+  - **Line Opacity**: all lines on the map (default 100%).
+
+## Filters
+
+Click **Filter** in the navigation bar to open **Filter Map Data**. Filters apply everywhere: grid squares, popups, charts and ping history. Active filters show as removable chips, and applying them keeps your current map view.
+
+  - **Time**
+    - **Show data from**: All time, Last 30 days, Last 90 days or Last year.
+    - **From date / To date**: a custom date range.
+  - **Signal**
+    - **Transmit power**: Any power, 0.3 W, 0.6 W or 1.0 W.
+    - **Min / Max signal**: signal-to-noise ratio (dB).
+  - **Location**
+    - **Min / Max distance**: distance between the ping and the repeater (in your units).
+  - **Repeaters**
+    - **Repeater name or ID**: show only matching repeaters.
+    - **ID width**: pings whose path uses 1-, 2- or 3-byte repeater IDs. This is not the number of hops.
+    - **Ping mentions repeater**: pings that went through or were heard from a repeater. Pings where that repeater's ID is ambiguous are left out.
+    - **Repeater Scope**: repeaters carrying a scope (only shown when the region has scopes).
+    - **Only external antennas**: pings collected with an external antenna.
+    - **Only repeaters with the wrong time**: repeaters whose clock is off by more than 120 seconds.
+
+To filter by radio preset, use **Freq** in the navigation bar.
+
+## Sharing a Map View
+
+The address bar updates as you move around and change layers, so copying the URL shares exactly what you see. Repeater and ping popups also have a **Copy Link** button.
+
+You can also build links by hand:
 
 ```
-https://[IATA].meshmapper.net/?lat=45.4034&lon=-75.7258&zoom=15
+https://yow.meshmapper.net/?lat=45.4236&lon=-75.7009&zoom=16&m=sat&l=rep.nbr.rb
 ```
 
-| Parameter | Type | Default | Description |
-| --- | --- | --- | --- |
-| `lat` | float | Region centre | Latitude to centre the map on (−90 to 90). |
-| `lon` | float | Region centre | Longitude to centre the map on (−180 to 180). |
-| `zoom` | integer | `13` | Map zoom level. Clamped to the 3–19 range. |
+| Parameter | What it does |
+| --- | --- |
+| `lat`, `lon` | Centre the map here. Both are needed. |
+| `zoom` | Zoom level, 3–19 (default 13). Decimals work. |
+| `location` | A place name or address to look up and centre on (zoom 15), e.g. `location=Parliament%20Hill,%20Ottawa`. `lat`/`lon` win if both are given. |
+| `m` | Base map: `std`, `brt`, `dark`, `topo`, `sat`, `gsat` or `ghyb`. |
+| `l` | Overlays to turn on, separated by dots: `rep` Repeaters, `rcov` Repeater Coverage, `nbr` Repeater Neighbours, `sc` Repeater Scopes, `bb` Backbone, `nz` Neighbour Zones, `nzb` Neighbour Zone Boundaries, `rb` Region Boundary. Anything left out is off. |
+| `cm` | Coverage mode: `std`, `eff`, `sig`, `age` or `noise`. |
+| `preset` | Radio preset: `all`, or `freq,bw,sf` (e.g. `910.525,62.5,7`). |
+| `repeater` | Open a repeater by its ID or full public key. |
+| `ping` | Open the grid square at `lat,lon`. |
+| `repeater_list`, `repeater_ids`, `observers` | Open that list on load. |
+| `live` | Start Visualize Live on load. |
+| `coverage-only` | Open in [Coverage Only Mode](#coverage-only-mode). |
 
-**Example — open the YOW map centred on Parliament Hill at zoom 16:**
-
-```
-https://yow.meshmapper.net/?lat=45.4236&lon=-75.7009&zoom=16
-```
-
-!!! note
-    - Both `lat` and `lon` must be present and valid for the deep link to take effect. If either is missing or out of range, the map ignores it and loads normally at the region's default view.
-    - The deep-link position is preserved even after the coverage data finishes loading — the map will not snap back to the region's default extent.
-    - A `lat`/`lon` deep link takes precedence over the `location` place-name search (below).
+Settings from a link only apply to that visit; they don't change your saved preferences.
 
 !!! tip
-    To share a read-only, embeddable version of the map at a fixed location instead, see [Map Embedding](embedding.md) — it accepts the same `lat`/`lon`/`zoom` parameters on the `embed.php` view.
-
-### Searching by Place Name
-
-If you don't have exact coordinates, append `location=` with a place name or address instead. The map geocodes it and centres there on load:
-
-```
-https://yow.meshmapper.net/?location=Parliament%20Hill,%20Ottawa
-```
-
-If both are supplied, an explicit `lat`/`lon` deep link always wins over `location`.
-
-## Search & Filters
-
-The search functionality combines quick lookups with powerful filtering options.
-
-### Filter Map Data
-Clicking the **Filter** pill (tune icon) in the navigation bar opens the **Filter Map Data** panel. Filters are applied server-side — the coverage grid, click popups, charts, and ping history all reflect the same filtered dataset. Active filters appear as removable chips, and the Filter pill shows a count and lights up cyan while filters are active.
-
-To see several neighboring regions together, open their [multiregion group map](multiregions.md) if one exists. The global homepage is a region index; use a region or group map for its coverage tiles.
-
-  - **Time**:
-    - **Show data from**: All time, Last 30 days, Last 90 days, or Last year.
-    - **From date / To date**: Specify a custom date range.
-  - **Signal**:
-    - **Transmit power**: Any power, 0.3 W, 0.6 W, or 1.0 W.
-    - **Radio config**: Filter by the radio preset (frequency / bandwidth / SF / CR) the wardriver's device reported — useful in regions where multiple radio configurations are in use.
-    - **Min / Max signal**: Filter pings by Signal-to-Noise Ratio (dB).
-  - **Location**:
-    - **Min / Max distance**: Filter pings by distance from the heard repeater (in your selected units).
-  - **Repeaters**:
-    - **Repeater name or ID**: Show only specific repeaters by name or hex ID.
-    - **Hops away**: Filter by hop count (1, 2, or 3 hops).
-    - **Ping mentions repeater**: Find pings that routed through or were heard from a specific repeater by its name or ID. This filter automatically excludes pings associated with duplicate repeater IDs or known collisions and displays a warning message when this occurs.
-    - **Only external antennas**: Show only data points collected with an external antenna.
-    - **Only repeaters with the wrong time**: Show only repeaters whose embedded clock is off by more than 120 seconds. Useful for identifying repeaters that need their time set correctly.
-  - **User**:
-    - **User name**: Filter pings by the (full or partial) username of the wardriver (if enabled for the region).
-
-!!! tip "Filters preserve your map position"
-    Applying, resetting, or changing filters no longer resets the map to its default centre and zoom. Your current view is preserved so you can refine filters while staying focused on a specific area.
+    To embed a read-only map in another site, see [Map Embedding](embedding.md).
 
 ## Coverage Only Mode
 
-For users on older hardware, mobile devices with limited resources, or slow internet connections, MeshMapper offers a **Coverage Only Mode**.
+For older devices or slow connections, **Coverage Only Mode** loads just the coverage grid as lightweight tiles.
 
-  - **How it works**: Instead of the full interactive interface, this mode loads just the coverage grid as lightweight map tiles from the server, skipping repeaters, popups, and all the interactive machinery.
-  - **Performance**: This significantly reduces memory usage and load times, making the map usable on almost any device regardless of processing power.
-  - **Limitations**:
-    - **No interactivity**: You cannot click on grid squares to see pings or repeater paths.
-    - **No filtering**: Advanced filters (Time, Power, User) are disabled.
-    - **Simplified View**: Only the coverage grid is shown; repeaters and lines are hidden.
-  - **How to access**:
-    - A "Switch to Coverage Only" button will appear on the loading screen.
+  - **How to open it**: click **Switch to Coverage Only** on the loading screen, or add `?coverage-only` to the map's URL.
+  - **What you lose**: no overlays, no clicking on grid squares, no filters, and no Map Tools or 3D. Base maps and My Location still work.
+  - **To leave**: click **Exit Coverage Only**.
 
 ## Private Repeaters
 
-Operators can opt-out of location sharing by appending the "no entry" emoji (🚫) to the end of their repeater's name.
+Repeater owners can hide a repeater's location by adding the "no entry" emoji (🚫) to the start or end of its name.
 
-  - **Map**: The Name, Location, and ID are removed from the map and the **Repeaters** layer.
-  - **Pings**: Coverage pings are kept and visible in the grid layers, but the repeater details are masked.
-  - **Leaderboards**: The name is replaced with "(private repeater)", but stats are still calculated.
+  - **Map**: the repeater isn't drawn. It's listed as **Hidden** in the Repeater IDs list, so its ID isn't reused by mistake.
+  - **Pings**: coverage is kept, but the repeater shows as **(hidden)** with no lines or distances.
+  - **Leaderboards**: the name shows as "(private repeater)", but its stats still count.

@@ -1,6 +1,6 @@
 # Backbone
 
-The **Backbone** layer highlights the repeaters that carry most of a region's traffic. A repeater is a **backbone site** when it belongs to the smallest group of repeaters that, together, carry **half** of everything MeshMapper observed in the region over the last 7 days (the default; a region admin can change it).
+The **Backbone** layer highlights the repeaters that carry most of a region's traffic. A repeater is a **backbone site** when it belongs to the smallest group of repeaters that, together, carry **half** of the traffic MeshMapper has observed on the region's links.
 
 This page explains what "traffic" means here, how each repeater's share is worked out, and why the numbers can move even when nothing changed on air.
 
@@ -30,6 +30,12 @@ Several observers often hear the same packet. They log different paths, and thos
 
 This keeps the score about the mesh, not about where observers happen to be. Running three observers in one house doesn't triple the score of the repeater next door.
 
+### How Long a Link Counts
+
+A link keeps adding points for as long as observers keep hearing it, so busy links build up over time. If no observer logs a link for **7 days**, it's dropped along with all its points.
+
+Region admins can change this with **Inferred, days** under **Neighbour links** in the admin panel (0 = never drop; set by the group admin for grouped regions). The same setting controls how long inferred lines stay on the Repeater Neighbours layer.
+
 ---
 
 ## From Points to Shares
@@ -38,7 +44,7 @@ Every link point is shared by the two repeaters at its ends, so each repeater co
 
 ### Worked Example
 
-A small region with repeaters A, B, C, D and E, over one week:
+A small region with repeaters A, B, C, D and E:
 
 | Packet | Heard by | Logged path | Links scored |
 |---|---|---|---|
@@ -80,9 +86,11 @@ Each hop in a path is only the first 1, 2 or 3 bytes of a repeater's Public ID. 
 
 - **1-byte collision.** In the path `3A → 7F → C2`, two repeaters in the region start with `7F`. MeshMapper can't tell which one relayed the packet, so neither `3A–7F` nor `7F–C2` scores. It also never invents a `3A–C2` link, because those two never heard each other directly.
 - **Multi-byte resolves it.** The same route as `3A41 → 7F12 → C2E0` scores both links, because only one repeater starts with `7F12`.
-- **Unknown hop.** A hop that matches no placed repeater (never adverted, or no location set) breaks the chain the same way.
+- **Unknown hop.** A hop that matches no placed repeater (never adverted, or no location set) breaks the chain the same way. So does a repeater that's **Disabled** or **Inactive**.
 - **Rescue by distance.** If exactly one of the colliding repeaters is within range of the hop next to it, MeshMapper uses that one. With the default 250 km range this rarely settles it inside a single region.
-- **Too far apart.** Two hops more than 250 km apart (or the region's own limit) are treated as a misread path and don't score.
+- **Different radio preset.** A link only counts if its radio preset matches both repeaters' current preset.
+- **Same spot.** Two repeaters at exactly the same coordinates never score.
+- **Too far apart.** Two hops more than 250 km apart are treated as a misread path and don't score. Region admins can change this limit with **Max link distance, km** under **Neighbour links** in the admin panel (set by the group admin for grouped regions).
 
 !!! tip "Multi-byte helps your score"
     Repeaters on 2- or 3-byte path hashes are credited far more reliably than 1-byte ones. Moving a repeater to multi-byte can raise its share without any change in real traffic. See [Multi-Byte Repeaters](multibyte.md).
@@ -93,11 +101,12 @@ Each hop in a path is only the first 1, 2 or 3 bytes of a repeater's Public ID. 
 
 Turn on the **Backbone** layer from the Layer Control.
 
-- **Gold repeaters** are backbone sites. Only an **active** repeater turns gold. A stale or ambiguous repeater keeps its own colour even if it scores high, so importance never hides health.
-- **The chip percentage** is that repeater's share of the region's traffic.
-- **The repeater popup** shows **Traffic rank: #n of m** with its share, and marks backbone sites.
+- **Gold repeaters** are backbone sites. Only an **active** repeater turns gold. A new, stale or ambiguous repeater keeps its own colour even if it scores high, so importance never hides health.
+- **The chip percentage** is a backbone site's share of the region's traffic. Backbone chips show it even with the layer off.
+- **The repeater popup** shows **Traffic rank: #n of m linked in region** with its share for any repeater that scores (`m` counts only repeaters with a scored link). Backbone sites also get a **Backbone Site** badge.
+- **Turning the layer on** shows only backbone sites, and turns Repeater Neighbours and Repeater Scopes off.
 - **Backbone trunks** are the lines drawn between backbone sites. Each backbone site keeps its **3 busiest** links to other backbone sites. A trunk's colour is its rank among all trunks, busiest first. Line width has no meaning.
-- On a **group** page, the whole group is scored as one pool, so a chip's share is its share of the whole page.
+- On a **group** page, the whole group is scored as one pool, so a chip's share is its share of the whole page. A packet heard in two member regions is counted once in each, so links near a member border can score a little higher.
 
 ---
 
@@ -107,17 +116,9 @@ A share is **relative**. Your percentage can drop while your repeater carries ex
 
 - **More traffic somewhere else.** A busy chat group on the other side of the region adds points to other links, and your slice of the total shrinks.
 - **An observer came or went.** A link only scores if some observer logs a path through it. A new observer downstream of your repeater makes more of its traffic visible, and losing one hides it.
-- **A neighbour moved to multi-byte, or a new collision appeared.** Links around a hop can start or stop resolving.
-- **Old traffic aged out.** The score only covers the last 7 days.
+- **A neighbour moved to multi-byte, or a new collision appeared.** Links around a hop can start or stop resolving. A new collision drops the link and its points; if it clears, the link starts again from zero.
+- **A link went quiet.** A link no observer has heard for 7 days is dropped, along with all its points.
 - **The backbone grew.** When traffic spreads over more links, it takes more repeaters to reach 50%, so each one's share is smaller.
-
-!!! info "September 2026 changes"
-    Two changes in late September 2026 moved everyone's numbers:
-
-    1. **Every flood packet now counts.** Before, the backbone was built almost entirely from adverts and `#wardriving` messages. It now uses the path of every flood packet MeshMapper hears: direct messages, every channel, adverts and the rest. The pool is much larger and weighted toward where people chat.
-    2. **Each packet counts once per link.** Before, a link scored once for every observer that logged it, which favoured repeaters near clusters of observers.
-
-    The 7-day window still holds some traffic counted the old way. Expect movement until that ages out, about a week after the changes.
 
 ---
 
@@ -129,12 +130,12 @@ It means your repeater appears in more observed paths than most. That usually tr
 
 **Why is my repeater not gold when its share is high?**
 
-Only **active** repeaters are drawn gold. A stale repeater, one that hasn't been heard recently, keeps its status colour even if it still scores. A repeater excluded for a duplicate ID doesn't score at all, because its hops can't be attributed.
+Only **active** repeaters are drawn gold. A new repeater (first seen in the last 14 days) or a stale one (not heard recently) keeps its status colour even if it scores. A repeater excluded for a duplicate ID doesn't score at all, because its hops can't be attributed.
 
-**Why does a repeater show 0%?**
+**Why does a repeater have no share or traffic rank?**
 
-No observer logged a path where it sits next to another identifiable repeater in the last 7 days. It may still be relaying traffic. It's either off the routes into observers, or its hops can't be resolved (often a 1-byte collision).
+None of its links score. It may still be relaying traffic, but either no observer has logged a path where it sits next to another identifiable repeater, or its hops can't be resolved (often a 1-byte collision). See [When a Hop Can't Be Identified](#when-a-hop-cant-be-identified).
 
 **How often does it update?**
 
-The server recalculates the backbone every time it processes new paths, currently about once an hour.
+Link points are updated about once an hour. The map works out the backbone from those points each time you load the page.
