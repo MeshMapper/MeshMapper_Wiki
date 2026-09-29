@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" width="760" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Why duplicate repeater IDs need a multiregion group</title>
+  <desc id="d">A wardriver near the border of region AAA is repeated by region BBB's repeater AA. Not grouped: AAA only knows its own AA, so the ping is linked to the wrong repeater. Grouped as CCC: MeshMapper knows both AA repeaters, so the ping counts for coverage but is not linked to either.</desc>
+  <rect width="760" height="560" rx="12" fill="#0d1117"/>
+
+  <!-- ============ Panel 1: not grouped ============ -->
+  <text x="24" y="28" font-size="16" font-weight="700" fill="#ff7b72">✗ Not grouped</text>
+
+  <rect x="16" y="44" width="360" height="156" rx="14" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  <text x="196" y="68" text-anchor="middle" font-size="14" font-weight="600" fill="#9aa4b2">Region AAA</text>
+  <rect x="384" y="44" width="360" height="156" rx="14" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  <text x="564" y="68" text-anchor="middle" font-size="14" font-weight="600" fill="#9aa4b2">Region BBB</text>
+
+  <!-- actual repeat -->
+  <line x1="368" y1="140" x2="442" y2="140" stroke="#00d2ff" stroke-width="4"/>
+  <text x="405" y="128" text-anchor="middle" font-size="12" fill="#00d2ff">repeated</text>
+  <!-- wrong link -->
+  <line x1="272" y1="140" x2="108" y2="140" stroke="#ff7b72" stroke-width="3" stroke-dasharray="8 6"/>
+  <rect x="112" y="98" width="156" height="26" rx="13" fill="#ff7b72" fill-opacity="0.15" stroke="#ff7b72"/>
+  <text x="190" y="116" text-anchor="middle" font-size="13" font-weight="600" fill="#ff7b72">linked here (wrong)</text>
+
+  <circle cx="80" cy="140" r="28" fill="#1f2a36" stroke="#9aa4b2" stroke-width="3"/>
+  <text x="80" y="146" text-anchor="middle" font-size="17" font-weight="700" fill="#e6edf3">AA</text>
+  <rect x="272" y="120" width="96" height="40" rx="8" fill="#16301f" stroke="#7ee787" stroke-width="3"/>
+  <text x="320" y="145" text-anchor="middle" font-size="13" font-weight="700" fill="#e6edf3">Wardriver</text>
+  <circle cx="470" cy="140" r="28" fill="#1f2a36" stroke="#00d2ff" stroke-width="3"/>
+  <text x="470" y="146" text-anchor="middle" font-size="17" font-weight="700" fill="#e6edf3">AA</text>
+
+  <text x="380" y="230" text-anchor="middle" font-size="13" fill="#9aa4b2">AAA only knows its own AA, so the ping is linked to the wrong repeater.</text>
+
+  <line x1="16" y1="256" x2="744" y2="256" stroke="#30363d" stroke-width="1"/>
+
+  <!-- ============ Panel 2: grouped ============ -->
+  <text x="24" y="290" font-size="16" font-weight="700" fill="#7ee787">✓ Grouped as CCC</text>
+
+  <rect x="8" y="302" width="744" height="194" rx="16" fill="none" stroke="#7ee787" stroke-width="2" stroke-dasharray="10 6"/>
+  <text x="736" y="324" text-anchor="end" font-size="13" font-weight="600" fill="#7ee787">Multiregion CCC</text>
+
+  <rect x="16" y="334" width="360" height="152" rx="14" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  <text x="196" y="358" text-anchor="middle" font-size="14" font-weight="600" fill="#9aa4b2">Region AAA</text>
+  <rect x="384" y="334" width="360" height="152" rx="14" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  <text x="564" y="358" text-anchor="middle" font-size="14" font-weight="600" fill="#9aa4b2">Region BBB</text>
+
+  <!-- duplicate candidates -->
+  <line x1="272" y1="430" x2="108" y2="430" stroke="#ff7b72" stroke-width="3" stroke-dasharray="8 6"/>
+  <line x1="368" y1="430" x2="442" y2="430" stroke="#ff7b72" stroke-width="3" stroke-dasharray="8 6"/>
+  <text x="190" y="418" text-anchor="middle" font-size="12" fill="#ff7b72">Duplicate</text>
+  <text x="405" y="418" text-anchor="middle" font-size="12" fill="#ff7b72">Duplicate</text>
+
+  <circle cx="80" cy="430" r="28" fill="#1f2a36" stroke="#9aa4b2" stroke-width="3"/>
+  <text x="80" y="436" text-anchor="middle" font-size="17" font-weight="700" fill="#e6edf3">AA</text>
+  <rect x="272" y="410" width="96" height="40" rx="8" fill="#16301f" stroke="#7ee787" stroke-width="3"/>
+  <text x="320" y="435" text-anchor="middle" font-size="13" font-weight="700" fill="#e6edf3">Wardriver</text>
+  <circle cx="470" cy="430" r="28" fill="#1f2a36" stroke="#9aa4b2" stroke-width="3"/>
+  <text x="470" y="436" text-anchor="middle" font-size="17" font-weight="700" fill="#e6edf3">AA</text>
+
+  <text x="380" y="524" text-anchor="middle" font-size="13" fill="#9aa4b2">CCC knows there are two AA repeaters, so the ping counts for coverage</text>
+  <text x="380" y="544" text-anchor="middle" font-size="13" fill="#9aa4b2">but isn't linked to either one.</text>
+</svg>
