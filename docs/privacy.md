@@ -1,6 +1,6 @@
 # Privacy Notice
 
-**Last Updated:** July 1, 2026
+**Last Updated:** September 28, 2026
 
 MeshMapper ("we", "us", or "our") operates the MeshMapper platform at meshmapper.net and its associated regional subdomains. This Privacy Notice explains how we collect, use, and protect your information when you use our services.
 
@@ -9,12 +9,14 @@ MeshMapper ("we", "us", or "our") operates the MeshMapper platform at meshmapper
 ### Account Information
 When you sign in or link your account via Discord OAuth, what we receive depends on where you authenticate:
 
-- **My MeshMapper portal:** with your permission, we receive your Discord user ID, username, avatar, and the email address associated with your Discord account. Your avatar is stored only for optional display on your public leaderboard profile, and only if you choose to enable it.
+- **My MeshMapper portal:** with your permission, we receive your Discord user ID, username, avatar, and the email address associated with your Discord account. Your Discord avatar reference is stored with your account, but it is only shown on your public leaderboard profile if you turn that option on.
 - **Region administration and the main site:** we receive only your Discord user ID and username.
 
 We use your Discord user ID to send you automated notifications, such as direct messages about your regions or pending repeaters.
 
-If you create a **My MeshMapper** portal account, we store your chosen username, your email address (used for account verification and password resets), and a hash of your password. Your email address is never displayed publicly and is not used for marketing.
+If you create a **My MeshMapper** portal account, we store your chosen username, your display name, your email address (used for account verification and password resets), a hash of your password, and when the account was created and last signed in. Your email address is never displayed publicly and is not used for marketing.
+
+If you contact us through the region onboarding form or the contact form on the website, we receive the email address and message you provide.
 
 ### Location and Coverage Data
 When you participate in wardriving sessions, the following data is collected:
@@ -24,18 +26,21 @@ When you participate in wardriving sessions, the following data is collected:
 - **Session metadata** including timestamps, region, and session identifiers
 - **Node identifiers** for mesh network repeaters and devices encountered, including your device name
 - **Device identity**, including your device's public key — a persistent, unique identifier for your mesh node
-- **Device and radio details**, such as your radio model, app version, radio frequency, transmit power, GPS accuracy, and noise-floor readings
+- **Device and radio details**, such as your radio model, app version, radio frequency, transmit power, external-antenna setting, GPS accuracy, altitude, and noise-floor readings
 
 This data is essential to the core function of MeshMapper: building community-driven RF coverage maps.
+
+MeshMapper also records publicly broadcast mesh adverts (node name, public key, and time last heard) received by observers, including from people who do not use MeshMapper.
 
 Note that by default the wardriving app does **not** broadcast your GPS coordinates over the mesh radio channel — pings carry a short anonymous token on the air, and your coordinates are transmitted only to our servers over the internet. An opt-in setting ("Broadcast My Coordinates") is available for users who want their position visible on the air.
 
 ### Technical Data
 We may collect standard technical information such as:
 
-- IP addresses (used for rate limiting and abuse prevention; full IP addresses are also recorded in server access logs, which are retained for approximately 30 days)
-- Browser user-agent strings
-- Server access logs
+- IP addresses and browser user-agents, used for rate limiting and abuse prevention. Full IP addresses are recorded in server access logs kept for about 30 days. For signed-in app sessions, we also store the IP address and user-agent last used with each app login token until that token expires (at most one year).
+- Privacy-first, cookieless website statistics run on our own servers. Your country is looked up from your IP address using a local database, and the IP address is not stored for statistics.
+- If you ask the MeshMapper Discord bot a question, your Discord username, the channel, your question and the bot's answer are logged (the most recent 1,000 interactions).
+- If you submit feedback or a bug report from the app, it includes your device's public key, app version and platform, and any debug logs you choose to attach (which include your phone's OS version and model).
 
 ## How We Use Your Information
 
@@ -57,6 +62,8 @@ We use the information we collect to:
 
 ## Data Storage and Security
 
+- The wardriving app uses your location in the background during an active wardriving session, and Bluetooth, Wi-Fi or USB to reach your radio.
+
 - All data is stored in databases on our servers.
 - Sessions are managed server-side using PHP sessions and API key authentication.
 - Data sent from the wardriving app to our servers is transmitted over secure (HTTPS/TLS) connections, and our MQTT data ingestion also runs over TLS.
@@ -76,17 +83,20 @@ MeshMapper integrates with the following third-party services:
 - **AWS Open Data Terrain Tiles** for 3D terrain elevation data
 - **Nominatim** for geocoding / location search ([Nominatim Usage Policy](https://operations.osmfoundation.org/policies/nominatim/))
 - **OpenStreetMap** for map data ([OpenStreetMap Privacy Policy](https://wiki.osmfoundation.org/wiki/Privacy_Policy))
-- **LetsMesh.net** as the MQTT broker for wardriving data ingestion ([LetsMesh](https://letsmesh.net/))
+- **MeshMapper MQTT broker** — observer data is ingested through MeshMapper's own MQTT broker over TLS. We also collect observer data published to the public LetsMesh.net broker, which is not MeshMapper infrastructure and is run under its operator's own terms ([LetsMesh](https://letsmesh.net/))
+- **Discord CDN** for loading public leaderboard avatars
+- **Email delivery** — account, invite and notification emails are sent through an email relay service
 - **GitHub** for handling in-app bug reports, which may include information you choose to submit in a report ([GitHub Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement))
 - **OpenTopoData** for elevation lookups ([OpenTopoData](https://www.opentopodata.org/))
 - **Content delivery networks** — our web interface loads fonts, scripts, and an anti-abuse CAPTCHA widget from third-party CDNs (including Google Fonts, unpkg, jsDelivr, Cloudflare cdnjs, and cap.js). These providers may receive your IP address and browser user-agent when their assets are loaded.
 
 ## Data Retention
 
-- Coverage and session data is retained indefinitely to maintain historical map accuracy.
-- Records of individual mesh repeaters that have not been heard for 30 days may be automatically removed.
-- You can view and delete your own contributed data yourself through the [My MeshMapper portal](portal.md) after verifying ownership of your device.
-- You may also request deletion of your data by contacting us at admin@meshmapper.net.
+- Coverage and session data is retained indefinitely to maintain historical map accuracy. Regions may remove pings whose repeaters have moved or disappeared.
+- Repeaters not heard for 30 days are marked inactive. Records of other mesh devices heard on the air are removed after about 30 days, and some repeater metadata expires after 90–180 days.
+- You can view your sessions and delete some or all of your contributed pings (and the leaderboard credit from them) through the [My MeshMapper portal](portal.md) after verifying ownership of your device.
+- Deleted data may remain in routine database backups until those backups are overwritten.
+- To delete your account or remaining session records, contact us at admin@meshmapper.net.
 
 ## Your Rights
 
