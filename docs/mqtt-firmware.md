@@ -12,7 +12,7 @@ These instructions cover setting up the MeshCore observer firmware to send to Me
 
 ## 1. Flash the Firmware
 
-Open the [MeshCore Observer Flasher](https://observer.gessaman.com/), pick **MQTT Observer Firmware**, select your device, and flash it from the browser.
+Open the [MeshCore Observer Flasher](https://observer.gessaman.com/), select your device, select **Repeater**, and flash it from the browser.
 
 ## 2. Configure the Observer
 
