@@ -1,6 +1,6 @@
 # MeshMapper MQTT Setup
 
-An **MQTT observer** is a MeshCore node that acts as the "ears" of MeshMapper. It listens for mesh traffic and publishes it to an MQTT broker, where MeshMapper picks it up for processing. A new region needs at least one online observer sending to either the **MeshMapper** or **LetsMesh** broker. MeshMapper recommends its own broker.
+An **MQTT observer** is a MeshCore node that acts as the "ears" of MeshMapper. It listens for mesh traffic and publishes it to the MeshMapper MQTT broker, where MeshMapper picks it up for processing. A new region needs at least one online observer sending to the **MeshMapper broker**.
 
 ## MeshMapper Broker
 
@@ -10,32 +10,32 @@ An **MQTT observer** is a MeshCore node that acts as the "ears" of MeshMapper. I
 
 ## MQTT Observer Methods
 
-There are four ways to set up a MeshCore MQTT observer that collects packets and forwards them to MeshMapper.
+There are four ways to set up a MeshCore MQTT observer that sends packets to MeshMapper.
 
-### 1. MeshCore Packet Capture (Python)
+### 1. MeshCore MQTT Native Firmware
 
-This method uses a dedicated companion device (e.g., Raspberry Pi) connected to your MeshCore radio via USB, BLE, or TCP. A Python service runs continuously, capturing packets and publishing them to MQTT.
+This method runs directly on the radio with no companion computer needed. The firmware captures packets and publishes them to MQTT over the board's built-in Wi-Fi. Most ESP-based devices with Wi-Fi are supported.
 
-  - **Requires**: A Raspberry Pi or similar always-on Linux computer, plus a MeshCore radio connected via USB or BLE
-  - **Best for**: Dedicated observer setups where you have a spare device to run the capture service
-  - **Guide**: [MeshCore Packet Capture Setup](mqtt-python.md)
+  - **Requires**: An ESP-based device with Wi-Fi
+  - **Best for**: The simplest hardware setup, since no secondary computer is needed
+  - **Guide**: [MeshCore MQTT Native Firmware Setup](mqtt-firmware.md)
+  - **Built by**: HerculesMulligan
 
 ### 2. MeshCore Home Assistant Integration
 
-If you already run Home Assistant, this is the easiest route. The MeshCore-HA integration connects to your radio via USB, Wi-Fi, or Bluetooth and forwards packets to MQTT, while also exposing mesh data as HA entities for monitoring and automation.
+The MeshCore-HA integration connects to your radio via USB, Wi-Fi, or Bluetooth and forwards packets to MQTT, while also exposing mesh data as HA entities for monitoring and automation.
 
   - **Requires**: A Home Assistant instance with a MeshCore radio accessible via USB, Wi-Fi, or Bluetooth
   - **Best for**: Users who already have Home Assistant and want observer functionality alongside mesh monitoring and automation
   - **Guide**: [MeshCore Home Assistant Setup](mqtt-ha.md)
 
-### 3. MeshCore MQTT Native Firmware
+### 3. meshcoretomqtt (Python)
 
-This method runs directly on a Heltec V3 or V4 board with no companion device needed. The firmware natively captures packets and publishes them to MQTT using the board's built-in Wi-Fi.
+This method uses an always-on computer (e.g., Raspberry Pi) connected to a MeshCore repeater by USB. A Python service runs continuously, capturing packets and publishing them to MQTT. It includes a built-in MeshMapper broker preset.
 
-  - **Requires**: A Heltec V3 or V4 with the MQTT-enabled firmware flashed
-  - **Best for**: The simplest hardware setup, since no secondary computer is needed
-
-Flash the observer firmware from the [MeshCore observer flasher](https://observer.gessaman.com/), built by agessaman/HerculesMulligan. It runs in your browser and walks you through flashing and setup. The source is in [agessaman/MeshCore](https://github.com/agessaman/MeshCore/tree/mqtt-bridge-implementation).
+  - **Requires**: A Raspberry Pi or similar always-on Linux/macOS computer, plus a MeshCore repeater with packet logging enabled, connected by USB
+  - **Best for**: Dedicated observer setups where you have a spare computer and repeater
+  - **Guide**: [meshcoretomqtt Setup](mqtt-python.md)
 
 ### 4. PyMC
 
@@ -45,12 +45,12 @@ This method uses the PyMC software, which handles MQTT configuration directly fr
   - **Best for**: Anyone already running a PyMC repeater
   - **Guide**: [PyMC Repeater MQTT Setup](mqtt-pymc.md)
 
-## Common observer questions
+## Common Observer Questions
 
-**Should I send to MeshMapper, LetsMesh or both?** Either broker can supply reports for MeshMapper. You may publish to both; MeshMapper combines reports from its configured brokers. One working broker is enough for onboarding.
+**Which broker should I send to?** The MeshMapper broker. MeshMapper also collects from LetsMesh, but that isn't our infrastructure, so we can't guarantee we'll always have access to it.
 
 **Can I use a mobile observer?** It can submit reports while online, but a fixed, always-on observer is a better choice for a region's required listener. A mobile receiver cannot verify a new region while it is offline or away from that region.
 
 **Why is my observer not listed?** A broker connection by itself is not an observer report. Check that it publishes `status` or `packets` on the `meshcore/<region code>/<observer key>/...` topic, using the region's code. Then check the region admin panel's **Observers** tab and the broker checkmarks. Allow time for the first report to arrive.
 
-**Can I run a regional MQTT broker?** A region admin can register a broker in **Settings**. Provide a reachable host and port, WebSockets transport, and its required authentication credentials. MeshMapper subscribes only to that region's topics; see [Observer verification](mqtt-pymc.md#verifying-your-observer) after saving. Do not publish broker credentials in a public channel.
+**Can my region use its own MQTT broker?** Yes. After onboarding, region admins can configure MeshMapper to also pull from their own regional broker in the admin panel under **Settings → Region Brokers**. Provide a reachable host and port, WebSockets transport, and its authentication credentials. MeshMapper subscribes only to that region's topics. Do not publish broker credentials in a public channel.

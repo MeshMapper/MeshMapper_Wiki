@@ -18,7 +18,7 @@ Select **Manage MQTT Brokers** and click **Submit**.
 
 ### 3. Add the MeshMapper Broker
 
-Click **Add Broker** and fill in the following settings:
+Click **Add Broker** and set the following. Leave everything else at its default.
 
 | Setting | Value |
 | --- | --- |
@@ -28,18 +28,9 @@ Click **Add Broker** and fill in the following settings:
 | **Transport** | WebSocket |
 | **Use TLS** | Checked |
 | **Verify TLS Certificate** | Checked |
-| **Keep Alive** | `60` |
-| **Username** | *(leave blank)* |
-| **Password** | *(leave blank)* |
 | **Use MeshCore Auth Token** | Checked |
 | **Token Audience** | `mqtt.meshmapper.net` |
-| **Owner Pub Key** | *(leave blank)* |
-| **Owner Email** | *(leave blank)* |
-| **Payload Mode** | LetsMesh-Compatible |
-| **Auth Token TTL** | `3600` |
-| **Status Topic** | *(leave default)* |
-| **Packet Topic** | *(leave default)* |
-| **Broker IATA Code** | Your region's 3-letter IATA code (e.g., `YOW`, `SEA`, `LON`) |
+| **Broker IATA Code** | Your **MeshMapper region code** (e.g. `YOW`). This must match your region, or your observer won't show up. |
 
 ### 4. Save and Exit
 
@@ -47,4 +38,6 @@ Click **Submit**, then click **Exit** to return to the integration page.
 
 ## Verifying Your Observer
 
-Once your observer is running and connected, it will appear in your region's **Admin Portal** under the [Observers tab](admins.md#observers) once packets have been received (repeater or companion adverts, or wardriving pings) You should see a checkmark under the broker(s) your observer is connected to.
+Once your observer is running and connected, it appears in your region's admin panel under the [Observers tab](admins.md#observers) after packets have been received (repeater or companion adverts, or wardriving pings). You should see a checkmark under the MeshMapper broker.
+
+If nothing shows up, check the Home Assistant logs for MQTT errors, and confirm the Broker IATA Code matches your region.

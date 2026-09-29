@@ -30,6 +30,8 @@ This is the easiest way to add MeshMapper to an existing pyMC-Repeater installat
 
 ![Restarting pyMC-Repeater from the terminal](assets/pymc-mqtt3.png)
 
+Make sure `iata_code` in your pyMC config is set to your **MeshMapper region code**, or your observer won't show up.
+
 ### Option 2. Add MeshMapper manually
 
 If you prefer, you can still add MeshMapper by editing the config file directly.
@@ -48,11 +50,11 @@ Open the pyMC-Repeater config file:
 sudo nano /etc/pymc_repeater/config.yaml
 ```
 
-Add `mqtt.meshmapper.net` to the `brokers` field under the `brokers` section:
+Under `mqtt:` → `brokers:`, add the MeshMapper entry below. If you already have other brokers listed, add this as another item in the list; don't replace them. Set `iata_code` to your **MeshMapper region code**, or your observer won't show up.
 
 ```yaml
 mqtt:
-  iata_code: <IATA> # e.g., "SFO", "LHR", "Test"
+  iata_code: <IATA> # your MeshMapper region code, e.g. "YOW"
   status_interval: 300 # How often a status message is sent (in seconds)
   owner: ""
   email: ""
@@ -62,7 +64,7 @@ mqtt:
       transport: websockets
       host: mqtt.meshmapper.net
       port: 443
-      format: letsmesh
+      format: letsmesh # packet format, leave as-is
       disallowed_packet_types: []
       retain_status: false
       tls:
@@ -90,6 +92,6 @@ sudo journalctl -u pymc-repeater.service -f | grep MeshMapper
 
 ## Verifying Your Observer
 
-Once your observer is running and connected, it will appear in your region's **Admin Portal** under the [Observers tab](admins.md#observers) once packets have been received (repeater or companion adverts, or wardriving pings). You should see a checkmark under the broker(s) your observer is connected to.
+Once your observer is running and connected, it appears in your region's admin panel under the [Observers tab](admins.md#observers) after packets have been received (repeater or companion adverts, or wardriving pings). You should see a checkmark under the MeshMapper broker.
 
-If PyMC says it is connected but MeshMapper shows no data, check PyMC's service logs for MQTT errors, then confirm the broker host, WebSockets, TLS and MeshCore token settings above. Confirm its IATA code matches the region and that it is publishing `status` or `packets`. An observer may appear before any repeater does: repeaters need a valid name and an advert received by an observer, and a region may hold new repeaters in **Pending** until an admin approves them.
+If nothing shows up, check the logs (`sudo journalctl -u pymc-repeater.service -f`) for MQTT errors, and confirm `iata_code` matches your region.
