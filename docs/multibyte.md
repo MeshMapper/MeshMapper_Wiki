@@ -1,79 +1,91 @@
 # Multi-Byte Repeaters
 
-Every packet that travels through a MeshCore mesh network carries a record of its journey — a list of the repeaters it passed through. Each repeater stamps the packet with the prefix of its Public ID, called a **hop**.
+Every packet in a MeshCore mesh carries a record of the repeaters it passed through (its **path**). Each repeater adds the first 1, 2 or 3 bytes of its Public ID to the path. Each of those entries is a **hop**.
 
-MeshMapper fully supports multi-byte hops in the wardriving app, the map, and packet analyzer.
+MeshMapper supports 1-, 2- and 3-byte hops across the wardriving app and the map.
 
 ---
 
 ## The 1-Byte Problem
 
-In 1-byte mode, repeaters are identified by just the first two hex characters of their Public ID (e.g., `A1`, `4F`, `09`). With only **254 possible combinations** (hex `01` to `FE` — `00` and `FF` are reserved by MeshCore firmware), growing regions inevitably see two different repeaters sharing the same ID.
+In 1-byte mode, a repeater is identified by just the first two hex characters of its Public ID (e.g. `A1`, `4F`, `09`). That's only **254** usable IDs (`00` and `FF` are reserved), so growing regions end up with two repeaters sharing an ID.
 
-When this happens, MeshMapper can't tell which physical repeater was actually involved in a packet's path. It enters a quarantine mode for the affected devices to protect data integrity.
+When that happens, MeshMapper can't tell which repeater a packet went through. The affected repeater is marked **Ambiguous** (red on the map). Pings still count for coverage, but they aren't linked to it.
 
-!!! tip "Learn More About Collisions"
-    For a detailed explanation of how MeshMapper detects, handles, and resolves duplicate repeater IDs, see [Duplicate Repeater IDs](duplicaterepeaterid.md).
+With 2 or 3 bytes there are tens of thousands or millions of IDs, so collisions become rare.
+
+!!! tip "How MeshMapper decides"
+    A repeater is judged at its own width, and a hop is only credited when exactly one repeater matches it. See [The Rules](duplicaterepeaterid.md#the-rules) on the Duplicate Repeater IDs page.
 
 ## Upgrading to Multi-Byte
 
-Upgrading a region from 1-byte to multi-byte hops is a gradual process — you don't need to update every device at once.  Repeaters upgraded to the latest multi-byte capable firmware will still relay packets from repeaters and companions running older 1-byte firmware.
+You don't need to upgrade every device at once. Multi-byte repeaters still relay packets from repeaters and companions on 1-byte firmware.
 
-### Step 1: Update Firmware
+### Step 1: Update the Repeater
 
-Flash repeaters and companion devices with **MeshCore firmware v1.14.1 or newer**. The firmware's hop byte configuration must be set to 2 or 3 bytes. 
+Flash the repeater with **MeshCore firmware v1.14.1 or newer**, then set its hop width from the repeater's command line.
 
-In the command line console on the repeater, for 2-byte, set:
+For 2-byte:
+
 ```
 set path.hash.mode 1
 ```
-and for 3-byte:
+
+For 3-byte:
+
 ```
 set path.hash.mode 2
 ```
 
-When done, reboot the device, then **send a flood advert**.  This will "upgrade" the repeater in MeshMapper to multi-byte capable automatically.
+Reboot the repeater, then **send a flood advert**. MeshMapper reads the width from the repeater's flood advert and updates it automatically.
 
-Repeaters and companions in the region should be running the same configuration.
+### Step 2: Set the Width for Wardrivers
 
-### Step 2: Update Region Settings
+Once most of your repeaters are upgraded, set **App Path Bytes** in the region admin panel under **Settings → Wardriving → Radio Channels** (the **Path B** column, one per radio preset). Options are **Device** (leave it to the wardriver's radio), **2** or **3**.
 
-When the majority of a regions repeaters have been upgraded to a multi-byte capable firmware, in the region's admin panel, go to **Settings** and set the **Hop Bytes** value to match your regions configuration. Changing this value triggers an automatic collision recalculation across all repeaters in the region.  (You must be an administrator of your region in order to access this setting)
+This tells the wardriving app what hop width to set on wardrivers' companion radios. It doesn't change repeaters; they get their width from their own adverts. For grouped regions, the group admin sets it.
 
-### Step 3: Automatic Detection and Upgrade
+### How MeshMapper Tracks Each Repeater
 
-As updated repeaters relay packets, MeshMapper detects the longer hop IDs automatically. It tracks hop bytes **per repeater** — so each device's byte length updates individually as it's heard on the network.
+MeshMapper tracks every repeater separately, so a region can run a mix of 1-, 2- and 3-byte repeaters.
 
-For example, if repeater `A1B2C3D4E5F6` was previously known as a 1-byte device (hop ID `A1`), the first time it's heard with a 2-byte hop (`A1B2`), MeshMapper updates its record. No manual intervention needed.
+  - **Advertised width**: taken from the repeater's latest **flood advert**. If it later adverts at 1 byte again, this goes back down.
+  - **Multibyte capable**: set the first time MeshMapper sees the repeater with a 2- or 3-byte hop, in its own advert, a wardriving ping, or any flood packet an observer hears. Once set, it stays set.
 
-!!! note "Mixed Environments"
-    During a transition period, a region may have a mix of 1-byte and 2/3-byte repeaters. MeshMapper handles this gracefully — it uses each repeater's individually tracked hop byte value for collision detection and path resolution. Two repeaters that collide at 1 byte may be perfectly distinguishable at 2 bytes.
+For example, repeater `A1B2C3D4E5F6` was known as `A1`. The first time it's heard as `A1B2`, it's marked multibyte capable and judged at 2 bytes from then on.
 
-!!! note "Packet Types"
-    Not all packet types are ingested into the MeshMapper engine responsible for processing repeater upgrades.  In order for a repeater to automatically upgrade to 2 or 3-byte capable within MeshMapper, its ID must be contained within the path of an **advert** or **wardriving** packet.  Public messages or other packet types (trace, request, etc.) will not result in an automatic upgrade.
+### Collisions Clear Up Automatically
 
-### Smart Collision Resolution
+As repeaters upgrade, old collisions resolve on their own:
 
-As repeaters upgrade, collisions that existed in 1-byte mode may automatically resolve:
+  - `AB` (1-byte) and `AB` (1-byte) **collide**: they can't be told apart.
+  - `AB12` (2-byte) and `AB9F` (2-byte) **don't**: the longer IDs tell them apart.
 
-- Repeater `AB` (1-byte) and repeater `AB` (1-byte) **are** in collision — indistinguishable.
-- After upgrading, repeater `AB12` (2-byte) and repeater `AB9F` (2-byte) are **no longer** in collision — the longer IDs differentiate them.
+When a repeater in a collision next adverts, MeshMapper re-checks it and returns it to normal if it can now be told apart.
 
-MeshMapper re-evaluates collisions as hop bytes update, restoring previously excluded repeaters to active status when they become distinguishable.
+## Tracking Your Region's Upgrade
 
-### Filtering by Hop Bytes
-
-The map's **Filter Map Data** panel includes a **Hops away** filter, allowing you to view only repeaters of a specific byte length. This is helpful for tracking firmware upgrade progress across your region — quickly see which repeaters are still running 1-byte firmware and need updating.  In addition, the **Repeater List** (Region menu) splits repeaters into **Non-Multibyte Capable** and **Multibyte Capable** tabs, based on whether each repeater has been observed advertising or processing a multibyte ID.
+  - **Repeater List** (**Region** menu): the **Non-Multibyte Capable** and **Multibyte Capable** tabs show which repeaters still need upgrading.
+  - **ID width** filter (**Filter Map Data**): show only repeaters and pings using 1-, 2- or 3-byte IDs. See [Filters](layers.md#filters).
+  - **Multibyte Upgrade Board** on the global leaderboard: ranks regions by how far their upgrade has got.
 
 ### Repeater ID Grid
 
-The Repeater ID Grid (found in **Region Info > Repeater List**) provides a visual overview of first-byte ID usage across the region. Each cell represents a possible first-byte prefix (`00` to `FF`) and is colour-coded:
+Open **Region → Repeater IDs** to see **Repeater ID Usage**: a grid of every first-byte prefix (`00` to `FF`).
 
 | Colour | Status | Meaning |
 | --- | --- | --- |
-| **Green** | Available | No repeater is using this ID in any form. |
-| **Blue** | Deployed | ID is in use with no conflicts — a single 1-byte repeater, a single multi-byte repeater, or multiple unique multi-byte repeaters sharing the same first byte. |
-| **Red** | Conflict | A 1-byte repeater shares this first byte with one or more multi-byte repeaters. This is ambiguous for legacy clients that only see the first byte. |
-| **Black** | Reserved | Reserved by MeshCore firmware (`00` and `FF`). Not available for assignment. |
+| **Green** | Available | No repeater uses this first byte. |
+| **Blue** | Deployed | In use, and every repeater here can be told apart. |
+| **Red** | Conflict | At least one repeater here can't be told apart from another: two 1-byte repeaters sharing it, or multi-byte repeaters sharing their full 2 or 3 bytes. |
+| **Dark grey** | Reserved | `00` and `FF`, reserved by MeshCore. |
 
-Clicking any cell shows the repeater(s) assigned to that prefix, including their Public ID and byte mode.
+Click a cell to see the repeaters using that prefix, with their Public ID, width, hardware and any conflict. Use the **search** box or the tag filters (**MB**, **Ambiguous**, **2-Byte**, **3-Byte**, **No Location**, **Out of Region**, **Ghost**, **Observer**, **CARpeater**) to narrow it down.
+
+Private (🚫) repeaters are listed as **Hidden** and still count towards usage and conflicts.
+
+## In the Wardriving App
+
+  - If the region sets **App Path Bytes**, the app sets that width on your companion radio and tells you when it changes.
+  - If the region leaves it to the device, you can choose the width yourself in the app's wardriving settings.
+  - Companion firmware older than 1.14 can only use 1 byte; the app will recommend a firmware update.
