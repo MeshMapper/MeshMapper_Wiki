@@ -1,128 +1,104 @@
-!!! success "Multi-Byte Hops Are Here!"
-    MeshCore firmware now supports multi-byte repeater hop identification (up to 3 bytes), and MeshMapper fully supports it. Regions running firmware with 2 or 3 byte hops will see far fewer (or zero) collisions. This requires repeaters and companions running **firmware version 1.14.0 or newer**.
-
-    For regions still running 1-byte hops, duplicate repeater IDs can be managed using the below methods, or by driving in **Hybrid** mode where **Discovery** packets are used.  **Discovery**, or **DISC**, packets associate with repeaters using their full Public ID.  [Read more about this here.](#workarounds)
-
 # Duplicate Repeater IDs
 
-As a regions mesh network grows, the likelihood of two repeaters sharing the same short identifier increases. MeshMapper has a robust system for detecting, handling, and resolving these "collisions" to ensure data integrity.
+Packets identify each repeater they pass through by a short **hop ID**: the first 1, 2 or 3 bytes of its Public ID. As a region grows, two repeaters can end up with the same hop ID. This is a **collision**, and MeshMapper can't always tell which of the two a packet went through.
 
-MeshMapper does not filter out repeaters outside of a regions defined boundry, as that would not be an accurate representation of real-world RF conditions.
+This page explains how MeshMapper decides, what you'll see, and how to fix it.
 
-!!! tip "Override Available"
-    Regions now have the ability to override MeshMapper's default duplicate ID detection logic if they prefer to visualize all data regardless of ambiguity.
+!!! tip "The best fix is multi-byte"
+    With 1-byte IDs there are only 254 to go around, so collisions are common. With 2 or 3 bytes they become rare. See [Multi-Byte Repeaters](multibyte.md) to upgrade.
 
-    [Learn how to override duplicate detection](https://wiki.meshmapper.net/overrideduplicates/)
+## The Rules
 
-## Hop Bytes: 1, 2, or 3
+MeshMapper follows two rules, on the server and on the map.
 
-MeshCore repeaters are identified in packets by appending a portion of their Public ID as a "hop" to each message they relay. The number of bytes used for this identifier is called **Hop Bytes**, and is configurable per-region in MeshMapper.
+### Rule A: When a Repeater Is Ambiguous
 
-| Hop Bytes | Hex Characters | Unique IDs | Example |
-| --- | --- | --- | --- |
-| **1** | 2 | ~254 | `A1` |
-| **2** | 4 | ~65,536 | `A1B2` |
-| **3** | 6 | ~16,777,216 | `A1B2C3` |
+A repeater is marked **Ambiguous** if it **can't be told apart from another repeater at its own width**:
 
-Region administrators can configure the Hop Bytes setting in the admin panel under **Settings**. This should match the firmware configuration of the repeaters in the region.
+  - A 1-byte repeater is judged on its first byte.
+  - A multi-byte repeater is judged at the width it advertises (at least 2 bytes).
 
-!!! info "Per-Repeater Detection"
-    MeshMapper tracks hop bytes on a per-repeater basis. If a repeater sends in a ping using a longer ID than previously seen, MeshMapper automatically updates that repeater's hop bytes value. This means a region transitioning from 1-byte to 2-byte hops will see repeaters update as they are heard.
+This is judged separately for each repeater, so a collision doesn't always flag both:
 
-### The 1-Byte Limitation
+| Repeaters | Result |
+| --- | --- |
+| `AB` (1-byte) and `AB` (1-byte) | **Both Ambiguous.** They can't be told apart. |
+| `AB` (1-byte) and `AB12` (2-byte) | **Only `AB` is Ambiguous.** A 1-byte `AB` hop could be either, but `AB12` is unique at its own width. |
+| `AB12` (2-byte) and `AB9F` (2-byte) | **Neither.** They're different at 2 bytes. |
 
-In **1-byte mode**, repeaters are identified using the first two characters of their Public ID (e.g., `A1`, `4F`, `09`). Since this is only two hexadecimal digits long, there are only **254 possible combinations** (01 to FE...00 and FF are reserved in the MeshCore firmware). As the number of repeaters in a region increases, it becomes statistically inevitable that two completely different devices will end up with the same Short ID.
+### Rule B: When a Ping's Hop Is Credited
 
-When this happens, it is called a **Collision**.
+A hop in a ping's path is credited to a repeater only if **exactly one** repeater's ID starts with that hop, at the hop's own width.
 
-With **2-byte** or **3-byte** hops, the number of available unique IDs increases dramatically, making collisions extremely unlikely in all but the largest deployments.
+  - **One match**: credited to that repeater.
+  - **More than one**: ambiguous. The ping still counts for coverage, but isn't linked to any repeater.
+  - **No match**: unknown. The ping still counts, unlinked.
 
-## How MeshMapper Handles Collisions
+### Other Rules
 
-MeshMapper prioritizes data accuracy. If two repeaters share the same short ID prefix (at the configured hop byte length), and a message repeat is heard by or is received via that prefix, the system has no way of knowing *which* physical repeater was actually involved. To prevent potentially inaccurate data from being represented on the map, MeshMapper enters a "Quarantine" mode for the affected devices.
+  - **Discovery (DISC) pings** carry the repeater's full Public ID, so they're always credited to the right repeater, even during a collision. **TRACE** pings only carry the short hop ID, so Rule B applies to them.
+  - **Corrupted adverts**: a garbled advert that makes a near-copy of a repeater's ID is recognised as the same repeater and doesn't make it Ambiguous.
+  - **Far-away matches**: if the only match is unusually far from the ping, it's held for a region admin to review instead of being linked.
+  - **Groups**: in a [multiregion group](multiregions.md), collisions are checked across every region in the group.
+  - **Outside the boundary**: repeaters outside a region's boundary are still counted (tagged **Out of Region**), because RF doesn't stop at the border.
 
-### Smart Collision Detection
+## What You'll See
 
-MeshMapper uses **per-repeater hop bytes** to determine whether two repeaters are truly in collision:
+  - **On the map**: the repeater's chip has a **red** edge (**Ambiguous** in the Legend).
+  - **In its details**: an **Ambiguous** status and a red **AMBIGUOUS ID DETECTED** box listing its **Collision Group**.
+  - **On a ping**: when you select a single ping with an ambiguous hop, red dashed **Duplicate** lines go to each possible repeater with their distance, so you can judge which was likely involved.
+  - **On leaderboards**: Ambiguous repeaters stay listed, marked with a red **\*** ("Ambiguous ID"). Pings where their hop was ambiguous don't count towards them.
+  - **For admins**: an **Ambiguous Public IDs Detected** box in the admin panel, plus an optional Discord DM and region webhook (both called **Ambiguous Repeater ID**).
 
-- Two repeaters are only considered colliding if they are **indistinguishable** at the longer of their two hop byte lengths.
-- For example, repeater `AB` (1-byte) and repeater `AB12` (2-byte) are **not** in collision, because at 2 bytes (`AB` vs `AB12`), they are distinguishable.
-- However, repeater `AB` (1-byte) and repeater `AB` (1-byte) with different full Public IDs **are** in collision, because at 1 byte they cannot be told apart.
+## What Happens to the Data
 
-This means regions transitioning from 1-byte to 2-byte firmware will see collisions automatically resolve as repeaters begin reporting longer IDs.
+A ping whose hop was ambiguous is stored as unlinked, and **stays unlinked**, even after the collision is resolved. MeshMapper won't guess later.
 
-### 1. Detection & Quarantine
-When a new repeater appears on the network with an ID that is indistinguishable from an existing device (at their respective hop byte lengths):
+When a new repeater creates a collision, MeshMapper also checks recent pings that were linked to the old repeater before the collision existed. Any that could now belong to either repeater are unlinked.
 
-  - **Both** repeaters (the existing one and the new one) are immediately flagged as **Excluded**.
-  - The system assigns the new repeater a temporary internal ID (e.g., `X1`) to differentiate it in the database and map, but it remains linked to the collision.
-  - Both repeaters are excluded from regional or global leaderboards and statistics (like maximum distance reached)
+## Avoiding Collisions
 
-### 2. Map Appearance
+### Upgrade to Multi-Byte
 
-  - **Red Chips**: Both repeaters will appear on the map with a **Red** edge on their chip (instead of the usual Green, Pink or Grey). The map legend calls this state **Ambiguous ID**.
-  - **Popups**: Clicking on the repeater will show its status as "Duplicate" and will list the repeaters that are in collision with it.
-  - **Pings**: Clicking a grid square on the map that has a repeater involved in an active collision will draw red lines to each repeater in the collision group (and list distance), allowing the viewer to make their own assumption on which repeater was actually involved.
-  - **Leaderboards**: Both repeaters are immediately removed from all Leaderboards (Best Repeaters, Max Range, etc.) both on the local region and globally to prevent skewed statistics.
+The most effective fix. Once repeaters advertise 2 or 3 bytes, most collisions clear up on their own. See [Multi-Byte Repeaters](multibyte.md).
 
-### 3. Impact on Collected Data
+### Wardrive in Hybrid Mode
 
-  - **Ambiguity**: If a ping is ingested containing a repeater that has a collision (e.g., via `A1`), MeshMapper cannot attribute that hop to a specific location with certainty.
-  - **Data Integrity**: This data is forever flagged as being ambiguous, and will never associate with a repeater (even after the collision is resolved).
+**Hybrid** mode sends **Discovery (DISC)** requests: "who's out there?" Any repeater in range (firmware 1.10+) replies with its full Public ID, so the ping is credited correctly even when its short ID collides.
 
-## Workarounds
+!!! tip "Enforce Hybrid"
+    Region admins can require Hybrid mode for a radio preset with the **Hybrid** column under **Settings → Wardriving → Radio Channels** in the admin panel. Wardrivers on that preset can't use Active mode.
 
-### Upgrade to Multi-Byte Hops
-The most effective solution is to upgrade your region's repeaters to firmware that supports **2-byte or 3-byte hops**. Once upgraded, update the **Hop Bytes** setting in your region's admin panel to match. As repeaters are heard with longer IDs, MeshMapper will automatically update their hop byte tracking and resolve false collisions.
-
-### Hybrid Wardriving Mode
-Wardrivers are encouraged to collect data in **Hybrid** mode, which utilizes **Discovery**, or **DISC**, packets.  You can think of these packets as broadcasting "Hello, who's out there?", and any repeater within hearing distance (and with compatible firmware - 1.10+) will respond with their full Public ID.  As we're not relying on only the short hop ID to make the association to the repeater, associations can be made even if the short ID of that particular repeater is in collision with another.
-
-!!! tip "Enforce Hybrid Mode"
-    If a region is large and contains many duplicate ID's, region administrators can choose to "Enforce Hybrid Mode" for their region.  This will prevent any **Active** wardriving from occuring in the region by automatically enabling Hybrid mode for wardrivers.  The option is available in the regional admin panel.
-
-## Resolution
-
-Collisions are typically resolved in one of two ways:
+## Resolving a Collision
 
 ### Automatic Cleanup
-Often a collision happens because an old, offline repeater is still in the database when a new one comes online. That resolves itself without any admin action.
 
-  - MeshMapper runs a cleanup routine every day.
-  - A colliding repeater that hasn't been heard for the region's **Repeater Inactive After** window (default 30 days) is marked **Inactive** and drops off the map.
-  - **The Survivor**: an Inactive repeater no longer counts as a competing claim on that ID, so the remaining repeater is restored to **Active** on its next advert. Its icon returns to normal, it reappears on leaderboards, and new pings associate with it properly again.
+Often a collision is an old, offline repeater still on record when a new one comes online. That fixes itself:
 
-Neither repeater is deleted. If the silent one comes back on air, it is reactivated — and if the ID is still ambiguous, both are excluded again.
+  - Every day, a repeater that hasn't been heard for the region's **Repeater Inactive After (Days)** (default 30, under **Settings → Repeaters, Neighbours & Scopes**) is marked **Inactive** and drops off the map.
+  - Inactive repeaters don't count in collisions, so the remaining repeater returns to normal on the next advert in that ID range.
+  - If the silent repeater comes back on air, it's reactivated, and if the ID still collides, it's Ambiguous again.
+
+Inactive repeaters aren't deleted unless the region has set a retention period for removing them.
 
 !!! tip "Bypass Auto Delete"
-    If a repeater is known to go offline for extended periods (seasonal deployment, remote location, etc.), administrators can enable **Bypass Auto Delete** on that repeater via the edit modal. This keeps it out of every automatic routine, including the inactive marking above — which also means it will keep its colliding partner excluded while it's away.
+    For a repeater that goes offline for long periods (seasonal, remote), admins can tick **Bypass Auto Delete** in its edit window. Automatic cleanup then skips it. It also keeps its partner Ambiguous while it's away.
 
 ### Manual Resolution
-If both repeaters are active and legitimate (a true collision between two live devices):
 
-  - Region administrators receive an alert regarding the collision.  If able, it is suggested that the administrator resolve the issue by asking the owner of the new repeater to generate a new ID.
-  - If the administrator knows the the collision has been cleared, they may manually reinstate the remaining repeater and delete the old. If the collision has not been cleared, both repeaters will enter excluded state again on next advert. 
+If both repeaters are live and genuine:
 
-!!! warning "Note"
-    As long as two (or more) repeaters are indistinguishable at their hop byte length, regardless of current status, pings will not get associated to a repeater with that ID, unless those pings are of **DISC** type (which associate using the full Public ID of the repeater).
+  - The best fix is to ask one owner to **generate a new ID** for their repeater, or to upgrade both to multi-byte.
+  - If one repeater is gone for good, a region admin can set its **Status** to **Inactive** or **Disabled** in the admin panel. The other returns to normal on the next advert.
+  - Setting an Ambiguous repeater back to **Active** doesn't stick. It's re-checked on the next advert.
 
-!!! info "TRACE vs DISC for Collisions"
-    Unlike **DISC** packets which use the full Public ID to uniquely associate with a repeater, **TRACE** packets only carry the short repeater hop ID. This means TRACE data is subject to the same prefix-based collision detection as standard BIDIR/TX/DEAD pings. In regions with active duplicate IDs, TRACE data for those repeaters will be quarantined just like other ping types.
+!!! warning "Deleting doesn't help"
+    A deleted repeater adds itself back on its next advert. Change its status instead.
 
-## Summary Table
+## Turning Detection Off
 
-| State | Indicator | Meaning |
-| --- | --- | --- |
-| **Active** | Green Chip Edge | Normal operation. Unique ID. |
-| **New** | Pink Chip Edge | Recently discovered (less than 14 days old). |
-| **Excluded** (shown on the map as **Ambiguous ID**) | **Red Chip Edge** | **Duplicate ID Detected.** Data from this repeater is currently untrusted. |
+A region can turn this off with **Disable Duplicate ID Detection Logic**, and show every possible repeater instead. See [Override Duplicate IDs](overrideduplicates.md).
 
-## Multi-Byte Hop Support
+## Repeater States
 
-MeshCore now supports multi-byte repeater hop identification, available in **firmware version 1.14.0 and newer** for both repeaters and companions. MeshMapper fully supports **1-byte**, **2-byte**, and **3-byte** hop modes across all features including collision detection, coverage mapping, leaderboards, etc.
-
-| Hop Bytes | Max Unique IDs | Suitable For |
-| --- | --- | --- |
-| **1 byte** | ~254 | Small regions with few repeaters |
-| **2 bytes** | ~65,536 | Most regions |
-| **3 bytes** | ~16,777,216 | Very large deployments |
+For every repeater state and colour (Active, New, Stale, Ambiguous, Backbone), see [Repeater States](visuals.md#repeater-states).
