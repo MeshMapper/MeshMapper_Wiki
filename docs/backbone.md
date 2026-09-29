@@ -80,7 +80,7 @@ B alone has 44%, which is short. B + C have 69%, so **the backbone is B and C**.
 
 ## When a Hop Can't Be Identified
 
-Each hop in a path is only the first 1, 2 or 3 bytes of a repeater's Public ID. MeshMapper only scores a link when **both** hops can be tied to exactly one known, placed repeater.
+Each hop in a path is only the first 1, 2 or 3 bytes of a repeater's Public ID. MeshMapper only scores a link when **both** hops can be tied to exactly one known, placed repeater (see [The Rules](duplicaterepeaterid.md#the-rules)).
 
 ![Top: a 1-byte path 3A to 7F to C2 where two repeaters share 7F. Neither link scores, and no 3A-C2 shortcut is made. Bottom: the same route as 3A41 to 7F12 to C2E0 resolves, and both links score.](assets/backbone-chain-break.svg)
 
