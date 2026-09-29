@@ -2858,7 +2858,7 @@ sudo systemctl restart mctomqtt
 <pre><code class="language-bash">curl -fsSL https://raw.githubusercontent.com/Cisien/meshcoretomqtt/main/scripts/update.sh | sudo bash
 </code></pre>
 <h2 id="verifying-your-observer">Verifying Your Observer<a class="headerlink" href="#verifying-your-observer" title="Permanent link">¶</a></h2>
-<p>Once your observer is running and connected, it appears in your region's admin panel under the <a href="../admins/#observers">Observers tab</a> after packets have been received (repeater or companion adverts, or wardriving pings). Its <strong>Brokers</strong> column shows a coloured MeshMapper badge once the broker has heard it.</p>
+<p>Once your observer is running and connected, it appears in your region's <strong>Region → Observers</strong> popup on the map after packets have been received (repeater or companion adverts, or wardriving pings). It shows as <strong>Online</strong> with a MeshMapper broker badge once the broker has heard it.</p>
 <p>If nothing shows up, check the logs (<code>sudo journalctl -u mctomqtt -f</code>) for MQTT errors, and confirm the IATA code matches your region.</p>
 
 

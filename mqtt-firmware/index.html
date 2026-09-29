@@ -2790,7 +2790,7 @@
 <li>Chrome or Edge (for flashing from the browser)</li>
 </ul>
 <h2 id="1-flash-the-firmware">1. Flash the Firmware<a class="headerlink" href="#1-flash-the-firmware" title="Permanent link">¶</a></h2>
-<p>Open the <a href="https://observer.gessaman.com/">MeshCore Observer Flasher</a>, pick <strong>MQTT Observer Firmware</strong>, select your device, and flash it from the browser.</p>
+<p>Open the <a href="https://observer.gessaman.com/">MeshCore Observer Flasher</a>, select your device, select <strong>Repeater</strong>, and flash it from the browser.</p>
 <h2 id="2-configure-the-observer">2. Configure the Observer<a class="headerlink" href="#2-configure-the-observer" title="Permanent link">¶</a></h2>
 <h3 id="option-1-setup-wizard">Option 1. Setup Wizard<a class="headerlink" href="#option-1-setup-wizard" title="Permanent link">¶</a></h3>
 <p>On first boot, the observer creates a Wi-Fi network named <strong>MeshCore-Setup-XXXX</strong>.</p>
@@ -2815,7 +2815,7 @@ reboot
 </code></pre>
 <p>The IATA code must match your MeshMapper region, or your observer won't show up. After it reboots, check the connection with <code>get mqtt.status</code>.</p>
 <h2 id="verifying-your-observer">Verifying Your Observer<a class="headerlink" href="#verifying-your-observer" title="Permanent link">¶</a></h2>
-<p>Once your observer is running and connected, it appears in your region's admin panel under the <a href="../admins/#observers">Observers tab</a> after packets have been received (repeater or companion adverts, or wardriving pings). Its <strong>Brokers</strong> column shows a coloured MeshMapper badge once the broker has heard it.</p>
+<p>Once your observer is running and connected, it appears in your region's <strong>Region → Observers</strong> popup on the map after packets have been received (repeater or companion adverts, or wardriving pings). It shows as <strong>Online</strong> with a MeshMapper broker badge once the broker has heard it.</p>
 <p>If nothing shows up, run <code>get wifi.status</code> and <code>get mqtt.status</code> on the device console, and confirm <code>mqtt.iata</code> matches your region.</p>
 
 
