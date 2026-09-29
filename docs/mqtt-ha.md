@@ -38,6 +38,6 @@ Click **Submit**, then click **Exit** to return to the integration page.
 
 ## Verifying Your Observer
 
-Once your observer is running and connected, it appears in your region's admin panel under the [Observers tab](admins.md#observers) after packets have been received (repeater or companion adverts, or wardriving pings). You should see a checkmark under the MeshMapper broker.
+Once your observer is running and connected, it appears in your region's admin panel under the [Observers tab](admins.md#observers) after packets have been received (repeater or companion adverts, or wardriving pings). Its **Brokers** column shows a coloured MeshMapper badge once the broker has heard it.
 
 If nothing shows up, check the Home Assistant logs for MQTT errors, and confirm the Broker IATA Code matches your region.

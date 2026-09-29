@@ -3,7 +3,7 @@
 MeshMapper allows for the upload of legacy coverage data via CSV upload. This feature is designed to import data collected from other systems.
 
 !!! warning "Administrator Only"
-    Due to the complexity of maintaining data integrity, only a MeshMapper Master or Global Administrator can upload legacy data.  [Please reach out to start this process](https://wiki.meshmapper.net/administratorlist/).
+    Due to the complexity of maintaining data integrity, only a MeshMapper Master or Global Administrator can upload legacy data.  [Please reach out to start this process](administratorlist.md).
 
 Uploads are done in the Master Admin panel, on the **Legacy Upload** tab, using the **Legacy Data Upload** card: pick the region, choose the CSV file, map the columns, and use **+ Add Field** for any extra columns.
 
