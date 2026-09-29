@@ -22,7 +22,7 @@ GET https://meshmapper.net/get_zones.php?country=CA
 | --- | --- | --- |
 | `country` | Yes | Two-letter country code (ISO 3166-1 alpha-2, e.g. `CA`, `US`, `GB`). Case doesn't matter. |
 
-Only enabled regions are listed. Regions that are pending or turned off never appear.
+Only enabled regions are listed. Regions that are pending or turned off never appear. A well-formed `country` with no regions returns 200 with `count: 0` and empty `zones` and `groups` arrays.
 
 ### Response
 
@@ -53,18 +53,18 @@ Only enabled regions are listed. Regions that are pending or turned off never ap
 
 | Field | Description |
 | --- | --- |
-| `code` | Region code, uppercase. Usually three letters, but can be 2 to 6 letters or digits. |
+| `code` | Region code, uppercase, three letters or digits (e.g. `YOW`). |
 | `name` | Region name as MeshMapper stores it, including the country suffix. |
 | `short_name` | `name` without the `, CC` country suffix. |
 | `country` | Two-letter country code. |
 | `lat`, `lon` | The region's center point. |
 | `url` | The region's MeshMapper site. Append `get_geojson.php` for its boundary. |
-| `has_boundary` | `true` when the region has a drawn boundary. When `false`, `get_geojson.php` returns the region with `geometry: null`. |
-| `group` | The multi-region group this region belongs to (see [Multiregions](multiregions.md)), or `null`. |
+| `has_boundary` | `true` when a boundary is stored for the region. When `false`, `get_geojson.php` returns the region with `geometry: null`. In rare cases a stored boundary can't be used, so `get_geojson.php` may still return `geometry: null` when this is `true`. |
+| `group` | The first enabled group (lowest id) this region belongs to (see [Multiregions](multiregions.md)), or `null`. A region in several groups shows only one. |
 
 ### Group fields
 
-`groups` lists each group that contains at least one of the listed regions. `members` is the group's full member list, which can include regions from other countries (`SEA` above).
+`groups` lists the group shown in each listed region's `group` field. `members` is that group's enabled member list, which can include regions from other countries (`SEA` above).
 
 | Field | Description |
 | --- | --- |
@@ -111,11 +111,14 @@ Returns a GeoJSON `FeatureCollection` ([RFC 7946](https://datatracker.ietf.org/d
 - Coordinates are `[longitude, latitude]`, as GeoJSON requires, rounded to 6 decimals (about 10 cm). The outline is never simplified.
 - The geometry is always a single `Polygon`.
 - A region with no drawn boundary has `"geometry": null` and `has_boundary: false`. MeshMapper doesn't draw a circle in its place, but `center` and `radius_km` are there if you want one.
-- `center` is `[longitude, latitude]` too.
+- `center` is `[longitude, latitude]` too. `radius_km` can be `null`.
+- If the response is cut off mid-stream, the JSON is left unclosed on purpose. Treat a parse error as "retry".
 
 ## Caching
 
-Both endpoints send `Cache-Control: public, max-age=3600` and an `ETag`. To check for changes cheaply, send the `ETag` back in `If-None-Match`; you'll get `304 Not Modified` with no body if nothing changed. `generated_at` changes on every response and isn't part of the `ETag`.
+Both endpoints send `Cache-Control: public, max-age=3600` and an `ETag`. To check for changes cheaply, send the `ETag` back in `If-None-Match`; you'll get `304 Not Modified` with no body if nothing changed. `generated_at` changes on every response and isn't part of the `ETag`. A `304` still counts against the rate limit.
+
+Responses are gzip-compressed.
 
 ## Errors
 

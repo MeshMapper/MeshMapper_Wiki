@@ -4,7 +4,7 @@ The Coverage API provides programmatic access to MeshMapper coverage grid-square
 
 ## Authentication
 
-Access requires a **Coverage** API key. Each key is scoped to a specific region, a multiregion group, or a set of adjacent regions (see [Multi-Region Keys](#multi-region-keys)), and has a daily rate limit of 100 requests.
+Access requires a **Coverage** API key. Each key is scoped to a specific region, a multiregion group, or a set of adjacent regions (see [Multi-Region Keys](#multi-region-keys)). Self-service keys have a daily limit of 100 requests; keys issued by the MeshMapper team may carry a different limit (the 429 body's `limit` field shows yours).
 
 ### Generating a Key
 
@@ -33,6 +33,7 @@ GET https://meshmapper.net/coverage.php?key=YOUR_API_KEY
 | --- | --- | --- |
 | `key` | Yes | Your Coverage API key. |
 | `include` | No | Comma-separated list of optional sections to add to the response. Currently supports `repeaters` (e.g. `?include=repeaters`) — see [Repeater Fields](#repeater-fields). |
+| `fresh` | No | `fresh=1` skips the 15-minute server cache and builds the grid now. Single-region and group keys only; multi-region and global keys return HTTP 400 `fresh_not_supported`. |
 | `f_*` | No | Filter the pings that go into the grid before it is built: by radio configuration, date, power or antenna. See [Filtering](#filtering). |
 
 ## Response Format
@@ -114,12 +115,12 @@ GET https://meshmapper.net/coverage.php?key=YOUR_API_KEY
 | `fill_color` | string | Hex fill colour matching MeshMapper's map rendering. |
 | `border_color` | string | Hex border colour matching MeshMapper's map rendering. |
 | `snr` | float or null | Average signal-to-noise ratio (dB) across the cell's pings, if available. |
-| `timestamp` | integer or null | Unix timestamp of the dominant (most recent, highest-priority) ping colouring this square. |
+| `timestamp` | integer or null | Unix timestamp of the dominant (highest-priority, then newest) ping colouring this square, as stored (seconds; some older regions store milliseconds — values above 2e10 are milliseconds). |
 | `count` | integer | Number of pings aggregated into this cell — a confidence/density indicator. |
 | `snr_min` | float or null | Lowest SNR (dB) among the cell's pings. |
 | `snr_max` | float or null | Highest SNR (dB) among the cell's pings. |
 | `status_mask` | integer | Bitmask of **all** coverage types present in the cell (OR of `type_bits`). See [Cell Quality and Status Mask](#cell-quality-and-status-mask). |
-| `first_seen` | integer or null | Unix timestamp of the **oldest** ping in the cell (`timestamp` is the newest/dominant). |
+| `first_seen` | integer or null | Unix timestamp of the **oldest** ping in the cell, as stored (seconds; some older regions store milliseconds — values above 2e10 are milliseconds). |
 | `noise` | float or null | Average noise level (dB above the receiver's noise floor) across the cell's pings. |
 | `effective` | float | Average coverage-quality score for the cell, `0`–`3` (see below). |
 
@@ -139,16 +140,17 @@ Returned in the top-level `repeaters` array **only** when the request includes `
 
 ## Coverage Types
 
-Each grid square's `coverage_type` is the **dominant** ping in that square — when multiple pings exist, the highest-priority type wins.
+Each grid square's `coverage_type` is the **dominant** ping in that square — when multiple pings exist, the highest-priority ping wins (listed highest first below). Between pings of equal priority, the newest one wins. Pending pings (status 4) are left out entirely.
 
-| Type | Colour | Priority | Description |
+| Priority | Type | Colour | Description |
 | --- | --- | --- | --- |
-| `BIDIR` | Green (`#1e7e34`) | 6 | Two-way confirmed link. |
-| `DISC` | Cyan (`#17a2b8`) | 5 | Discovery or trace packet. |
-| `TX` | Orange (`#fd7e14`) | 4 | Transmitted but not heard back. |
-| `RX` | Purple (`#6f42c1`) | 3 | Heard traffic, without transmitting. |
-| `DEAD` | Grey (`#6c757d`) | 2 | Repeater heard but no route. |
-| `DROP` | Red (`#bd2130`) | 1 | No connection. |
+| 1 (highest) | `BIDIR` with a heard repeat | Green (`#1e7e34`) | Two-way confirmed link. |
+| 2 | `DISC` | Cyan (`#17a2b8`) | Discovery or trace packet. |
+| 3 | `TX` | Orange (`#fd7e14`) | Transmitted but not heard back. |
+| 4 | `RX` | Purple (`#6f42c1`) | Heard traffic, without transmitting. |
+| 5 | `BIDIR` with no heard repeat | Green (`#1e7e34`) | Two-way link recorded, but no repeat heard. |
+| 6 | `DEAD` | Grey (`#6c757d`) | Repeater heard but no route. |
+| 7 (lowest) | `DROP` | Red (`#bd2130`) | No connection. |
 
 ## Cell Quality and Status Mask
 
@@ -205,16 +207,16 @@ Single-region and group keys accept `f_*` query parameters that narrow which pin
 
 | Parameter | Value | Description |
 | --- | --- | --- |
-| `f_radio_freq` | `906.875,250,10,5` | Exact radio configuration, the full `freqMHz,bwKHz,SF,CR` string as the app reports it. |
+| `f_radio_freq` | `906.875,250,10,5` | Exact radio configuration, the full `freqMHz,bwKHz,SF,CR` string as the app reports it. Digits, dots and commas, up to 40 characters. |
 | `f_freq` | `906.875` | Frequency in MHz. Matches the whole frequency slot, so `906` does not match `906.875` and a kHz value such as `906875` matches nothing. |
 | `f_bw` | `62.5` | Bandwidth in kHz. |
 | `f_sf` | `7` | Spreading factor, 5 to 12. |
 | `f_cr` | `5` | Coding rate, 5 to 8 (4/5 to 4/8). |
-| `f_days` | `30` | Only pings from the last N days. |
+| `f_days` | `30` | Only pings from the last N days. 1 to 5 digits, at least 1. |
 | `f_dstart` | `1756684800000` | Only pings at or after this time, as a Unix timestamp in **milliseconds**. |
 | `f_dend` | `1757289600000` | Only pings at or before this time, milliseconds. |
-| `f_power` | `20` | Transmit power, substring match against the reported value. |
-| `f_extant` | `1` | Only pings reported with an external antenna. |
+| `f_power` | `20` | Transmit power, substring match against the reported value. Letters, digits, dots, spaces and hyphens, up to 40 characters. |
+| `f_extant` | `1` | Only pings reported with an external antenna. `f_extant=0` is the same as not sending it. |
 
 `f_freq`, `f_bw`, `f_sf` and `f_cr` can be given in any combination. Each one matches its own slot of the stored configuration exactly, so `f_freq=910.525&f_bw=62.5&f_sf=7` matches every coding rate on that channel:
 
@@ -242,16 +244,17 @@ Things to know:
 - **A region that has never recorded a field returns an empty grid** for a filter on that field (zero squares, `point_count` 0) rather than the full set.
 - **Filtered responses are not cached server-side.** Every filtered request builds the grid from the region's pings, so it is slower than an unfiltered call and it counts against the daily quota like any other request. Keep filtered polling to the same 15 minute or longer cadence.
 - **Empty values are ignored.** `f_freq=` is the same as not sending it.
-- **Anything else is an error.** An unknown `f_` parameter (a typo included) returns HTTP 400 `unsupported_filter`; a malformed value returns HTTP 400 `invalid_filter`. Both carry `param` naming the offending parameter and a `message` saying what was expected. The API never silently serves the full region in place of a filter it did not understand.
+- **Anything else is an error.** An unknown `f_` parameter (a typo included) returns HTTP 400 `unsupported_filter`; a malformed value returns HTTP 400 `invalid_filter`. Both carry `param` naming the offending parameter and a `message` saying what was expected. The API never silently serves the full region in place of a filter it did not understand. These 400 errors still use up a request from your daily limit.
+- **Filtering can be briefly unavailable.** If the server can't apply filters right now it returns HTTP 503 `filters_unavailable`; try again later.
 
-Filters are not available on [multi-region](#multi-region-keys) or [global](#global-coverage-feed) keys, which return HTTP 400 `filters_not_supported`.
+Filters are not available on [multi-region](#multi-region-keys) or [global](#global-coverage-feed) keys. Any `f_` parameter on those keys, even an empty one, returns HTTP 400 `filters_not_supported`.
 
 ## HTTP Caching and Compression
 
 The API is built for efficient, low-frequency polling. Coverage data does not change second-to-second, so please poll sparingly.
 
-- **Compression.** Responses are gzip-compressed. Send `Accept-Encoding: gzip` (most HTTP clients do this automatically) to receive compressed data — payloads are roughly 9× smaller.
-- **Server-side cache.** Responses carry `Cache-Control: public, max-age=900` and are cached for up to **15 minutes**. Polling more often than that returns identical data (and still counts toward your daily limit), so a poll interval of **15 minutes or longer is recommended**. `generated_at` tells you when the cached data was built. Filtered responses (see [Filtering](#filtering)) are built on every request and are not cached on the server.
+- **Compression.** Responses are gzip-compressed. Send `Accept-Encoding: gzip` (most HTTP clients do this automatically) to receive compressed data — payloads are much smaller.
+- **Server-side cache.** Responses carry `Cache-Control: public, max-age=900` and are cached for up to **15 minutes**. Polling more often than that returns identical data (and still counts toward your daily limit), so a poll interval of **15 minutes or longer is recommended**. `generated_at` tells you when the cached data was built. Filtered responses (see [Filtering](#filtering)) are built on every request and are not cached on the server. On single-region and group keys, `fresh=1` skips the cache and rebuilds now.
 - **Conditional requests.** Each response includes an `ETag` (and `Last-Modified`). Send the `ETag` value back in an `If-None-Match` header; if nothing has changed since, you'll get a **`304 Not Modified`** with an empty body, saving you the download.
 
 ```bash
@@ -265,7 +268,7 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
 
 ## Rate Limits
 
-Each API key has a **daily** request limit (100 requests). Counters reset daily. Every request that reaches your data — including cache hits and `304 Not Modified` responses — counts toward this limit.
+Each API key has a **daily** request limit. Self-service keys get 100 requests a day; keys issued by the MeshMapper team may carry a different limit (the 429 body's `limit` field shows yours). Counters are reset by a daily job at midnight UTC. Every request that reaches your data — including cache hits and `304 Not Modified` responses — counts toward this limit.
 
 When you exceed your limit, the API returns HTTP 429:
 
@@ -280,7 +283,9 @@ When you exceed your limit, the API returns HTTP 429:
 }
 ```
 
-A separate short-term, per-IP throttle protects against bursts; exceeding it also returns HTTP 429 (with `error: rate_limited`). Spacing requests out (see [Caching](#http-caching-and-compression)) avoids both.
+`resets_in_hours` is counted from the last reset, so treat it as a rough guide; the actual reset happens at midnight UTC.
+
+A separate per-IP throttle protects against bursts: about 30 requests in a rolling window, then a 120-second lockout. Exceeding it returns HTTP 429 with `error: rate_limited` and no `Retry-After` header. Spacing requests out (see [Caching](#http-caching-and-compression)) avoids both.
 
 ## Error Responses
 
@@ -290,12 +295,17 @@ A separate short-term, per-IP throttle protects against bursts; exceeding it als
 | 400 | `invalid_region` | Region code on key not found. |
 | 400 | `unsupported_filter` | An `f_` parameter that is not in the [Filtering](#filtering) table. `param` names it. |
 | 400 | `invalid_filter` | A filter value of the wrong shape (for example `f_sf=abc` or a seconds timestamp in `f_dstart`). `param` and `message` say what was expected. |
-| 400 | `filters_not_supported` | An `f_` parameter on a multi-region or global key. |
-| 401 | `invalid_key` | API key not found. |
-| 403 | `no_region` | No region assigned to this key. |
+| 400 | `filters_not_supported` | An `f_` parameter (even an empty one) on a multi-region or global key. |
+| 400 | `fresh_not_supported` | `fresh=1` on a multi-region or global key. |
+| 400 | `too_many_regions` | A multi-region key with more than 6 member regions. |
+| 401 | `invalid_key` | API key not found, or not a Coverage key (message: `Invalid or non-Coverage API key`). |
+| 403 | `no_region` | No region assigned to this key, or the key's region has been deleted. |
 | 429 | `rate_limit_exceeded` | Daily request limit reached. |
 | 429 | `rate_limited` | Too many requests in a short period (per-IP throttle). |
 | 500 | `server_error` | Internal error (database not found, etc.). |
+| 503 | `filters_unavailable` | Filtering is temporarily unavailable. Try again later. |
+| 503 | `rebuilding` | Global feed only: a rebuild is in progress and no cached copy exists yet. Sent with `Retry-After: 300`. |
+| 507 | `over_memory_budget` | The data is too large to build in memory. Can happen on single regions as well as multi-region keys. |
 
 ## Managing Your Key
 
@@ -305,7 +315,7 @@ If you have a Coverage API key assigned to your admin account, you can view your
 
 A Coverage key can be scoped to a **set of up to 6 regions** (for example `PDX,SEA,YVR`) instead of a single region. The response merges every member region's coverage into **one grid** — the same payload shape as a single-region response — so it suits integrations that render adjacent regions as one continuous map.
 
-Multi-region keys are not self-service: like [global keys](#global-coverage-feed), they are issued by the MeshMapper team on request (the admin-panel self-service flow only creates single-region keys). Adjacent regions are the intended use — the merged grid serves them as one map.
+Multi-region keys are not self-service: like [global keys](#global-coverage-feed) and keys with a custom limit, they are issued by the MeshMapper team (Master administrators) on request (the admin-panel self-service flow only creates single-region keys). Adjacent regions are the intended use — the merged grid serves them as one map.
 
 !!! info "Multi-region keys vs. Multiregion Groups"
     A [Multiregion Group](multiregions.md) merges regions *inside* MeshMapper — shared map, leaderboards, collision detection, and admin panel. A multi-region **key** changes nothing about the regions themselves; it only merges their coverage data in this API's response. If a group already exists, a key can simply be scoped to the group's code instead. A multi-region key is for sets of regions that aren't (and shouldn't become) a group.
@@ -328,6 +338,7 @@ Identical to a single-region response — one merged `grid_squares` array, same 
   "coverage_type_counts": { "BIDIR": 1620, "TX": 214, "RX": 1467, "DISC": 305, "DEAD": 41, "DROP": 455 },
   "type_bits": { "BIDIR": 1, "TX": 2, "RX": 4, "DISC": 8, "DEAD": 16, "DROP": 32 },
   "bbox": { "minLat": 45.301, "minLon": -123.212, "maxLat": 49.394, "maxLon": -121.751 },
+  "radio_configs": { "906.875,250,10,5": 118400, "910.525,62.5,7,5": 13477 },
   "grid_squares": [ "…same grid square objects as a single-region response, all members merged…" ],
   "regions": ["PDX", "SEA", "YVR"],
   "regions_skipped": 0
@@ -341,7 +352,7 @@ Note that `regions` and `regions_skipped` arrive **after** the `grid_squares` ar
 | `region` | string | The normalized member set as a CSV, uppercased and sorted (e.g. `"PDX,SEA,YVR"`). |
 | `region_name` | string | Member region names joined with `+`. |
 | `regions` | array | The member region codes, sorted — present only on multi-region responses. |
-| `regions_skipped` | integer | Members that are registered but have no coverage data yet — present only on multi-region responses. |
+| `regions_skipped` | integer | Members whose region database does not exist yet (skipped, never fatal) — present only on multi-region responses. |
 
 ### Differences from Single-Region Keys
 
@@ -357,7 +368,7 @@ If a member region is later renamed, merged, or removed from MeshMapper, the key
 
 ### Caching and Limits
 
-Caching, compression, conditional requests, and the daily quota work exactly as for single-region keys: 15-minute server cache, `ETag` / `If-None-Match` for `304 Not Modified`, gzip, and 100 requests per day (cache hits and 304s count). Response size scales with the number of member regions — poll at 15-minute intervals or longer.
+Caching, compression, conditional requests, and the daily quota work exactly as for single-region keys: 15-minute server cache, `ETag` / `If-None-Match` for `304 Not Modified`, gzip, and the key's daily limit (cache hits and 304s count). Response size scales with the number of member regions — poll at 15-minute intervals or longer.
 
 ## Global Coverage Feed
 
@@ -405,7 +416,7 @@ Instead of a single region's payload, a global key returns an envelope containin
 | `region_count` | integer | Number of sections in `regions`. Note this field arrives **after** the `regions` array — use a standard JSON parser rather than assuming key order. |
 | `regions_skipped` | integer | Regions omitted because they have no coverage data yet. |
 
-`?include=repeaters` works exactly as for regional keys, adding a `repeaters` array to each section. Sections do not carry `radio_configs` or `filters`; those belong to single-region and group responses.
+`?include=repeaters` works exactly as for regional keys, adding a `repeaters` array to each section. Sections do not carry `radio_configs` or `filters`. `radio_configs` belongs to single-region, group and multi-region responses; `filters` only to filtered single-region and group responses.
 
 ### Response Size and Pagination
 
@@ -423,7 +434,7 @@ The global response aggregates the entire fleet, so it is cached more aggressive
 
 - The server cache lasts **6 hours** (`Cache-Control: public, max-age=21600`). Polling more often returns identical data; **once or twice a day is the intended usage**.
 - A request that arrives after the cache has expired triggers a rebuild. The response **streams region-by-region while it builds** — data starts flowing immediately, but the complete download can take a minute. Configure a generous *total* timeout in your HTTP client (the connection is never idle, so per-read timeouts are fine at their defaults). All other requests are served instantly from cache.
-- `ETag` / `If-None-Match` conditional requests work exactly as for regional keys, and a `304 Not Modified` is by far the cheapest way to poll.
+- `ETag` / `If-None-Match` conditional requests work exactly as for regional keys, and a `304 Not Modified` is by far the cheapest way to poll. The response that triggers a rebuild carries no `ETag`; the next (cached) response does.
 
 ### Differences from Regional Keys
 
@@ -431,4 +442,4 @@ The global response aggregates the entire fleet, so it is cached more aggressive
 | --- | --- |
 | `fresh=1` | HTTP 400, `fresh_not_supported` — global rebuilds are cache-driven only. |
 | `f_*` filter parameters | HTTP 400, `filters_not_supported`. |
-| Rebuild already in progress elsewhere | Served the previous cached copy; if no cached copy exists yet, HTTP 503 with `error: rebuilding` and a `Retry-After` header — retry after the indicated delay. |
+| Rebuild already in progress elsewhere | Served the previous cached copy; if no cached copy exists yet, HTTP 503 with `error: rebuilding` and `Retry-After: 300` — retry after the indicated delay. |
