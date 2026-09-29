@@ -2836,12 +2836,20 @@
 <p>Use the <a href="../onboarding/">new region form</a>. You need a valid email address and at least one observer sending data to the MeshMapper MQTT broker (see <a href="../mqtt-main/">MQTT setup</a>). Linking Discord is optional.</p>
 </details>
 <details class="question">
+<summary>How do I set up an observer?</summary>
+<p>Choose a method in the <a href="../mqtt-main/">MQTT observer setup guide</a>, then configure it to send reports for your region to the MeshMapper broker. Check <strong>Region → Observers</strong> on your region's map after the first report arrives.</p>
+</details>
+<details class="question">
 <summary>What is a region?</summary>
 <p>A region is a geographic area on MeshMapper that has its own map, administrators, and settings. Regions are typically centered around a city or metropolitan area. Some regions are grouped into multi-region setups that share a single map view.</p>
 </details>
 <details class="question">
 <summary>My repeater shows as Ambiguous. Why?</summary>
 <p>As a region's mesh network grows, two repeaters can end up sharing the same short ID. When MeshMapper can't tell a repeater apart from another at the ID width it advertises, it marks it <strong>Ambiguous</strong> and doesn't credit pings to it.  <a href="../duplicaterepeaterid/">Read more about it here</a>.</p>
+</details>
+<details class="question">
+<summary>Why isn't my repeater showing on the map?</summary>
+<p>Its advert must be heard by a connected observer, and the repeater needs location coordinates. Check <strong>Region → Observers</strong> and whether your region requires approval for new repeaters. Follow the <a href="../troubleshooting/#repeater-not-showing">repeater troubleshooting steps</a> if it still does not appear.</p>
 </details>
 <details class="question">
 <summary>Does MeshMapper support multibyte?</summary>
@@ -2856,6 +2864,10 @@
 <details class="question">
 <summary>What is wardriving?</summary>
 <p>Wardriving is the process of traveling through an area while collecting signal data from your mesh network. As you move, the MeshMapper companion app records GPS coordinates alongside signal quality data, building a picture of where your network has coverage.</p>
+</details>
+<details class="question">
+<summary>Why can I only use Passive mode?</summary>
+<p>Hybrid needs <strong>Flood Traffic</strong> enabled under <strong>Settings → Wardriving → Modes</strong>. If your region has disabled flood traffic, ask its administrator. If the zone's TX slots are full, wait for a slot and reconnect. See <a href="../app_wardriving_modes/#tx-capacity-limits">Wardriving Modes</a>.</p>
 </details>
 <details class="question">
 <summary>What do the different coverage colours mean?</summary>
@@ -2936,7 +2948,15 @@
 <h2 id="administration">Administration<a class="headerlink" href="#administration" title="Permanent link">¶</a></h2>
 <details class="question">
 <summary>How do I become a region administrator?</summary>
-<p>For a new region, volunteer in the <a href="../onboarding/#volunteer-as-region-administrator">onboarding form</a>. For an existing region, ask its administrator for an invite. If the region has no administrator, ask a Moderator in the MeshMapper Discord for help with access.</p>
+<p>For a new region, volunteer in the <a href="../onboarding/#volunteer-as-region-administrator">onboarding form</a>. After approval, you'll receive an invite to set up your admin account. For an existing region, ask its administrator for an invite. If the region has no administrator or that person is unresponsive, ask a Moderator in the MeshMapper Discord for help with access.</p>
+</details>
+<details class="question">
+<summary>How do I change my region boundary?</summary>
+<p>Open your region's admin panel and go to <strong>Settings → Region Boundary</strong>. Use <strong>Load Boundary</strong> for a suitable mapped border, coordinate with neighboring regions, then save your settings. See <a href="../region_boundaries/">Defining a Region's Boundary</a> for the steps.</p>
+</details>
+<details class="question">
+<summary>How do I request a multiregion group?</summary>
+<p>Ask a <a href="../administratorlist/">Global Administrator</a> to create the group or add your region to one. Each region keeps its own data. See <a href="../multiregions/#requesting-a-multiregion-group">Multiregion Groups</a>.</p>
 </details>
 <details class="question">
 <summary>Where can I find my region's administrator?</summary>
