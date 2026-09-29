@@ -322,7 +322,7 @@ For a detailed walkthrough of the connection process, see the [Connection Guide]
 
 ## Settings Tab
 
-The Settings tab contains all user preferences and configuration options. It is a list of folders, each opening its own page: General, Map, Wardriving, Data, MeshMapper Account, API Endpoints, Apple Watch (iOS, once a watch has been paired), About & Support, and Developer Tools (hidden until you tap the version number on About & Support seven times).
+The Settings tab contains all user preferences and configuration options. It is a list of folders, each opening its own page: General, Map, Wardriving, Data, MeshMapper Account, API Endpoints, Apple Watch (iOS, once a watch has been paired), and About & Support.
 
 Some settings are locked while auto-ping is running to prevent mid-session changes that could affect data consistency. An amber banner reading "Some settings locked during auto-ping" appears at the top while they are locked.
 

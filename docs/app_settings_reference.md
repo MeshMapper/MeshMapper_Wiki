@@ -21,7 +21,7 @@ Complete reference for every setting in MeshMapper. The Settings tab is a list o
 #### Units
 
 - **Metric** (km, m, default) or **Imperial** (mi, ft)
-- Affects distance displays throughout the app: zone distances, ping distances, GPS simulator speed
+- Affects distance displays throughout the app, such as zone and ping distances
 
 ### Sounds
 
@@ -450,7 +450,7 @@ This folder appears once an Apple Watch has been paired with your phone, and sta
 ### About
 
 - **MeshMapper**: App name and tagline
-- **Version**: Tap to copy the version to the clipboard. Seven quick taps unlock the [Developer Tools](#developer-tools) folder.
+- **Version**: Tap to copy the version to the clipboard.
 
 ### Links
 
@@ -485,24 +485,3 @@ This folder appears once an Apple Watch has been paired with your phone, and sta
 - **Share**: System share sheet
 - **Upload**: Send to the MeshMapper team for analysis
 - **Delete All**: Remove all stored log files
-
----
-
-## Developer Tools
-
-*GPS simulator*
-
-Hidden until unlocked by tapping the version seven times on About & Support.
-
-### Developer Mode
-
-- Switch it off to hide the Developer Tools folder again
-
-### GPS Simulator
-
-Replaces the phone's GPS with a simulated position, for testing without leaving the desk. An orange "SIMULATED" badge shows while it is on.
-
-- **Simulation Speed** and **Simulation Altitude** sliders
-- **Movement Pattern**: Straight Line, Circle, or Random Walk
-- **Load Route File**: Follow a KML or GPX route instead of a pattern. Shows the route name and point count once loaded, with a button to clear it.
-- **Reset Position**: Back to the start of the route, or to downtown Ottawa when no route is loaded
