@@ -129,11 +129,45 @@ Smart Pinging is the app's way of not repeating work the map already shows. It i
 
 ## How Scope Discovery Works
 
-Scope discovery asks repeaters which **regions (flood scopes)** they carry. It runs when **Scope Discovery** is on (switched on by you, or enforced by the region), your region's server offers it, and your companion firmware is 1.16.0 or newer.
+**When it runs**
 
-1. **After a discovery**: The app picks up to 3 of the strongest repeaters the discovery found that are due to be asked. A repeater is due only if nobody has asked it within the refresh interval.
-2. **The question**: One at a time, the app sends each one a short anonymous "regions" request, routed directly to it. Your pings are not delayed.
-3. **The answer**: The repeater replies with its list of region names (`*` means it passes unscoped traffic). The app uploads it as a `SCOPES` item, always after the DISC item for the discovery that found the repeater.
+Only in Passive or Hybrid. When a discovery window closes, the app arms the next ping first, then asks up to 3 of the strongest repeaters that answered which scopes they carry. The schedule never moves. In Passive the sweep is cut off before the next discovery ping, so it always fits in the gap. In Hybrid it can run until the next discovery too, which means it can overlap the TX leg in between. Active and Trace never run it.
+
+**Who controls it**
+
+The server turns it on per region through /auth. No flag from the server means the app never asks. If a region admin turns it on, the switch locks and their interval applies (7 day min). Otherwise it's the user's choice, off by default. Needs companion firmware v1.16.0+, never runs in Offline Mode.
+
+**Not asking twice**
+
+A repeater is only asked if both the server and the phone say it's due. The server tracks when anyone last got an answer, so one wardriver covers the whole region until the interval runs out. The repeater list refreshes at connect, at mode start, and every 15 min.
+
+**Sharing the radio**
+
+The companion tracks one pending request (login, status, binary/anon request). Sending any of those clears the previous tag, so the first answer would be dropped. That's why scope asks go one at a time. TX pings, discovery and trace don't touch that slot, so they can go out while we wait for a scope answer.
+
+The catch is on our side: companion replies (OK, ERR, SENT, CONTACT) carry no ID saying which command they answer. So each ask takes a short lease (4s max) covering the lookup, route swap, send and restore, only granted when nothing else is waiting on a reply. Other writes wait while it's held, then it releases while we listen for the answer. In Hybrid, a TX due during a lease can go out up to ~4s late. Echo tracking starts when the TX actually goes out, so no echoes are missed.
+
+**Zero-hop route borrow**
+
+Discovery only hears repeaters one hop away, but the radio may have that repeater saved with an old multi-hop route or as flood, which would send the request the long way or flood the mesh. So:
+
+- Not a contact: the radio sends it direct, nothing to change.
+- Already zero-hop: sent as is.
+- Anything else: the app sets the contact to zero-hop, sends, then writes the original record back byte for byte. Only that one request's path changes.
+
+A restore that misses the lease gets written first on the next lease. Accepted edge cases: a disconnect mid-swap leaves zero-hop until companion relearns the route. And if the repeater isn't a contact but its advert gets auto-added in the split second between our lookup and the send, the new contact has no route yet, so that one request floods. We see it in the reply and log it, but can't prevent it.
+
+**The answer**
+
+Each repeater gets its measured discovery reply time plus 2s, capped at 7s. A sweep never runs past 30s or the next discovery, and anything that ends the session cancels it. Move 300m from the discovery spot and the rest of the sweep is dropped.
+
+**No answer**
+
+Repeaters only answer 4 anonymous requests per 3 min across all phones, so a silent one is left alone for 15 min, doubling per miss up to 2 hours.
+
+**Full contact list on v1.16.0**
+
+v1.16.0 needs a free contact slot to ask a non-contact. If the list is full, the app confirms it, asks only saved repeaters for the rest of the connection and logs a warning. v1.17.0 fixes it.
 
 See [Scope Discovery](app_settings_reference.md#scope-discovery) for the settings.
 
