@@ -49,8 +49,8 @@ This method uses the PyMC software, which handles MQTT configuration directly fr
 
 **Which broker should I send to?** The MeshMapper broker. MeshMapper also collects from LetsMesh, but that isn't our infrastructure, so we can't guarantee we'll always have access to it.
 
-**Can I use a mobile observer?** It can submit reports while online, but a fixed, always-on observer is a better choice for a region's required listener. A mobile receiver cannot verify a new region while it is offline or away from that region.
+**Can I use a mobile observer?** No, mobile observers are highly discouraged. MeshMapper's backend is designed for fixed observers, and a mobile one doesn't provide proper coverage data and gives misleading results in some mapping modes. KiekR mobile observers are dropped at MeshMapper's ingest point. Use a fixed, always-on observer.
 
-**Why is my observer not listed?** A broker connection by itself is not an observer report. Check that it publishes `status` or `packets` on the `meshcore/<region code>/<observer key>/...` topic, using the region's code. Then check the region admin panel's **Observers** tab and its **Brokers** badges. Allow time for the first report to arrive.
+**Why is my observer not listed?** A broker connection by itself is not an observer report. Check that it publishes `status` or `packets` on the `meshcore/<region code>/<observer key>/...` topic, using the region's code. Then check the region's **Region → Observers** popup on the map. Allow time for the first report to arrive.
 
 **Can my region use its own MQTT broker?** Yes. After onboarding, region admins can configure MeshMapper to also pull from their own regional broker in the admin panel under **Settings → MQTT Brokers & Observers**. Provide a reachable host and port, WebSockets transport, and its authentication credentials. MeshMapper subscribes only to that region's topics. Do not publish broker credentials in a public channel.

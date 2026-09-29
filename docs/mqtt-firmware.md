@@ -12,7 +12,7 @@ These instructions cover setting up the MeshCore observer firmware to send to Me
 
 ## 1. Flash the Firmware
 
-Open the [MeshCore Observer Flasher](https://observer.gessaman.com/), pick **MQTT Observer Firmware**, select your device, and flash it from the browser.
+Open the [MeshCore Observer Flasher](https://observer.gessaman.com/), select your device, select **Repeater**, and flash it from the browser.
 
 ## 2. Configure the Observer
 
@@ -44,6 +44,6 @@ The IATA code must match your MeshMapper region, or your observer won't show up.
 
 ## Verifying Your Observer
 
-Once your observer is running and connected, it appears in your region's admin panel under the [Observers tab](admins.md#observers) after packets have been received (repeater or companion adverts, or wardriving pings). Its **Brokers** column shows a coloured MeshMapper badge once the broker has heard it.
+Once your observer is running and connected, it appears in your region's **Region → Observers** popup on the map after packets have been received (repeater or companion adverts, or wardriving pings). It shows as **Online** with a MeshMapper broker badge once the broker has heard it.
 
 If nothing shows up, run `get wifi.status` and `get mqtt.status` on the device console, and confirm `mqtt.iata` matches your region.
