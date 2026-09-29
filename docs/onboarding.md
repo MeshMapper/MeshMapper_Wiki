@@ -1,86 +1,86 @@
 # Onboarding a New Region
 
-MeshMapper is designed to be scalable, allowing new geographic regions to be added to the network. This guide outlines the process for community members to request a new map zone for their local mesh.
+This guide walks through requesting a new MeshMapper region for your local mesh.
 
-*Please note that all region approvals are granted at the discretion of the master and global administration team. Some circumstances may better be served by working with an existing region rather than creating a new one.*
+*All region approvals are at the discretion of the MeshMapper administration team. Sometimes working with an existing region is a better fit than creating a new one.*
 
-## Prerequisites
+## Before You Start
 
-Before requesting a new region, you must ensure the local infrastructure is ready to support it and that the new region would not be redundant or better served by making modifications to an existing region's boundaries.
+  - **No existing region**: Your area must not already be substantially covered by another region. Regions within regions are not allowed.
+  - **No nearby neighbor that could expand**: If a nearby region could reasonably be expanded to cover your area, that's preferred. A new region makes sense when your mesh is clearly separate (e.g. distance or terrain that blocks RF). If that's your case, explain why in **Additional Notes**.
+  - **An MQTT observer**: You need at least one (preferably 2-3) observer nodes online in your area, connected to the **MeshMapper MQTT broker**. Observers are the "ears" of the map. See [MeshMapper MQTT Setup](mqtt-main.md).
 
-  - **No Existing Region**: There must not be an existing region covering a substantial portion of the area desired for any new region. Regions within regions will not be allowed.
-  - **No Nearby Neighbors**: No nearby neighboring regions should exist that could reasonably be expanded to include your desired area. The details matter. If your mesh is and will likely remain distinct from a nearby neighbor (e.g. due to extreme distance or natural terrain features that block RF), then a new region would be reasonable. If your desired new region falls in this category, please explain how it is justified vs modifying a nearby existing region's boundaries in the "Additional Notes" field.
-  - **MQTT Observers**: You need at least one (preferably 2-3) nodes configured as **MQTT Clients** connected to the **MeshMapper** broker, the **LetsMesh** broker, or both.
-    - These nodes act as the "ears" of the map, reporting traffic to MeshMapper.
-    - See [MeshMapper MQTT Setup](mqtt-main.md) for detailed instructions.
+## Starting a Request
 
-## The Onboarding Form
+Open the onboarding form from [meshmapper.net](https://meshmapper.net):
 
-To start the process, open the **Region Onboarding** form — available from the [meshmapper.net](https://meshmapper.net) homepage, or from any region map via the **About** menu → **Onboard Your Region**.
+  - **Switch Region** menu → **Onboard Region**, or
+  - **About** menu → **Onboard Your Region**, or
+  - go directly to [meshmapper.net/?onboarding](https://meshmapper.net/?onboarding).
 
-The form collects the following critical information:
+The form walks you through five steps: **Code → Region → Boundary → Mesh → Submit**.
 
-| Field | Description |
-| --- | --- |
-| **IATA Code** | The 3-letter code that will identify your region in the database and URL (e.g., `yow.meshmapper.net`). *Please note that the mere existence of an IATA code does not, in and of itself, imply suitability for a MeshMapper region to be created using that code. International and regional commercial airports are strongly preferred over military or general aviation airfields.*|
-| **Region Name** | The display name for the map (e.g., "Ottawa, CA", "London, UK"). |
-| **Region Radius** | A rough estimate (in km) of the area you intend to cover. |
-| **Region Boundary** | This is where you define your desired region boundary. We strongly encourage region admins to use geoJSON files and coordinate with neighboring regions when defining a region's boundaries. More information and geoJSON resources are available at [Region Boundaries](region_boundaries.md). |
-| **Email Address / Discord Notifications** | Enter your email address (required) and optionally - though encouraged - link your Discord account to receive notifications on the status of your application. |
-| **Additional Notes** | Use this field to provide additional details or context about your application. If your desired region doesn't meet the [prerequisites](#prerequisites) above and you believe an exception should be made, justify it in detail here. |
-| **Public Channels** | A list of public channels used in your mesh (e.g., `Chat`, `Emergency`). This helps the wardriving app correctly identify valid traffic. |
-| **Volunteer as Administrator** | Optional but recommended. Tick this to volunteer as your region's administrator. See [below](#volunteer-as-region-administrator) for details. |
+## 1. Code
+
+Search for your city, airport, or code and pick your region's **IATA airport code**. It becomes your region's address (e.g. `yow.meshmapper.net`). Codes already in use are greyed out, and nearby available codes are suggested.
+
+*Having an IATA code doesn't by itself make it suitable for a region. International and regional commercial airports are strongly preferred over military or general aviation airfields. The airport must also be reasonably close to your region.*
+
+## 2. Region
+
+Confirm the **Country** and **Region Name** (filled in from the airport you picked). The name is what people see in the region list, e.g. "Ottawa, CA".
+
+## 3. Boundary
+
+MeshMapper builds your boundary from OpenStreetMap borders.
+
+  1. **Drag the pin** onto your region. Picking a code moves the map, but not the pin, so make sure you drag it.
+  2. The borders around the pin load automatically (or press **Load Boundary**). Choose a level: **State/Prov**, **County** (default), or **Local** (municipality, where available).
+  3. **Click the green areas** you want to include. Use the arrow buttons around the pin to load more areas.
+  4. Press **Continue** to merge your selection into one boundary.
+
+On the map, **purple** is existing regions, **green** is areas you can pick, and **cyan** is your selection. Areas that belong to another region can't be picked, and your boundary can't overlap an existing region.
+
+*Keep the boundary reasonable and coordinate with neighboring regions. It can be changed later as your network grows.*
+
+!!! note "Custom boundaries"
+    Drawing or importing your own GeoJSON (under **Advanced Mapping**) is only accepted in special circumstances. If you think you need one, explain why in **Additional Notes**. See [Region Boundaries](region_boundaries.md).
+
+## 4. Mesh
+
+**Public Channels**: List any public channels your mesh uses besides `#public` (e.g. `Chat`, `Emergency`). The app listens on these channels while wardriving, so more channels means more packets get decoded and verified.
+
+**Regions/Scopes**: We highly recommend your area scope its wardriving traffic. However, if scopes aren't set up on the repeaters in your mesh, every ping will show as a drop.
+
+## 5. Submit
+
+  - **E-Mail Address** (required).
+  - **Link Discord** (optional, recommended): get status updates and region alerts by Discord DM.
+  - **Volunteer as Region Administrator** (optional, recommended): see [below](#volunteer-as-region-administrator).
+  - **Additional Notes**: anything the team should know, including why an exception to the [prerequisites](#before-you-start) should be made.
 
 ## Volunteer as Region Administrator
 
-The onboarding form includes an optional **Volunteer as Region Administrator** checkbox.
+Tick **Volunteer as Region Administrator** to become your region's admin. Admins:
 
-Enabling this option signals to the MeshMapper team that you are willing to take on the administrator role for your new region. As a region administrator, you would be responsible for:
+  - manage their region's data and settings,
+  - support local wardrivers and answer questions about the map,
+  - are an active point of contact for their mesh community.
 
-  - Monitoring and managing your region's data and settings.
-  - Supporting local wardrivers and answering questions about the map.
-  - Being an active and available point of contact for your mesh community.
-    - **Please note: Admins are expected to maintain an ongoing, active presence beyond the initial onboarding process.  Admins who do not login to their account on the MeshMapper admin panel for more than 90 days are subject to being marked as inactive and/or having admin access removed.** Inactive accounts will not be consulted on changes to a region, and new admins may be added to a region at any time should no active admin accounts be present.
+You must be genuinely active in your local mesh community. Once you accept, you're listed publicly as an admin on your region's map.
 
-**Requirements:**
+When your region is approved, you'll get an invite by email, or by Discord DM if you linked Discord. Sign in or create a MeshMapper account and accept it. That one account signs you in to both the [portal](portal.md) and your region's admin panel.
 
-  - Provide an email address. Linking Discord is optional and lets you receive the invite by DM instead of email.
-  - You must be genuinely active in your local mesh community.
+!!! warning "Stay active"
+    Admins who don't sign in to the admin panel for more than 90 days may be marked inactive or have their access removed. Inactive admins aren't consulted on changes to their region, and new admins may be added if a region has no active admins.
 
-**What happens if you volunteer:**
+## After You Submit
 
-When your region is approved, MeshMapper grants this region to your existing unified account or sends an invite bound to your email or linked Discord account. Open the invite, sign in or create your MeshMapper account, and accept it. The same account signs in to the portal and your region's admin panel. No generated admin key is sent.
+  1. **Observer check**: MeshMapper checks that an observer is reporting from your region's code. This takes up to 5 minutes once your observer is online.
+  2. **Review**: The MeshMapper team reviews the request (name, boundary, conflicts with other regions, your notes).
+  3. **Go live**: Once approved, your region is live. Repeaters and pings can take up to 5 minutes to appear on the map.
 
-## Defining the Boundary
+While your request is pending, `https://<code>.meshmapper.net` shows its status, including whether an observer has been detected. You can also ask the Discord bot: `@MeshMapper !status <code>`. If you linked Discord, you'll get DMs as your request moves along.
 
-One of the most important steps is defining the geographic boundary of your region. For a more detailed look into creating region boundaries (particularly if using geoJSON files), please see [Region Boundaries](region_boundaries.md). Regardless of which method is ultimately used, look at the other regions in your area and attempt to coordinate/align with area best practices.
-
-  - **The Map Tool**: The form includes an interactive map with drawing tools.
-  - **Import GeoJSON (strongly preferred)**: Click the **Import GeoJSON** button to paste GeoJSON data directly. This is useful if you already have a boundary defined in another tool (e.g., [geojson.io](https://geojson.io)). Supported formats include `Polygon`, `MultiPolygon`, `Feature`, and `FeatureCollection`. Drag the pin to your desired load-in view when loading the region on the web.
-  - **Draw Polygon (alternate preferred)**: Use the **Polygon Tool** (pentagon icon) to draw a precise shape around your mesh's coverage area if a circle  doesn't accurately describe it.  Alternatively, click the "Auto Generate Boundry" button to have AI attempt to draw the boundry for you. Drag the pin to your desired load-in view when loading the region on the web.
-  - **Radius Around Region Center (discouraged)**: Drag the pin or enter the GPS coordinates (degrees longitude west are negative numbers) and desired radius (in km) in the fields above the map, or drag the pin to your desired center point and then set the radius.  This will generate a circular region around the pin.
-  - **Purpose**: This polygon is used to:
-    - Define where wardriving activities in your region can occur.
-    - Determine if a user is "In Zone" for authentication purposes.
-    - Render the region border on the global map.
-
-*Note: Keep the boundary reasonable. You can always modify it later, in coordination with your neighbors, as your network grows.*
-
-## Submission & Approval
-
-Once you submit the form:
-
-  - 1. **MQTT Verification**: MeshMapper servers will verify if MQTT-connected observers are sending data to the brokers at either letsmesh.net or MeshMapper (or both).
-  - 2. **Review**: If the servers are able to verify active observers, the region is presented to MeshMapper administrators for review.  Administrators will ensure the region isn't a duplicate, is named correctly, notes entered during onboarding are reviewed, etc.
-  - 3. **Activation**: Once reviewed, the region is approved and will become available for wardriving.  It can take up to 5 minutes after deployment for the MeshMapper MQTT engine to start pulling in local data.
-
-If you associated your Discord account during the onboarding process, you will receive automatic messages from MeshMapper with onboarding status.
-
-While your request is pending, your region's subdomain (`https://<code>.meshmapper.net`) shows a status page for the application, including whether MQTT observer verification has passed. You can also ask the Discord bot: `@MeshMapper !status <code>`.
-
-> [!WARNING]
-> Pending onboarding requests that have not passed MQTT verification in 3 days will automatically be deleted.
-
-## Legacy Data
-
-If you have historical coverage data from other systems, it can be imported into MeshMapper. This data will appear on a separate layer and is not included in leaderboard statistics. See [Data Upload](https://wiki.meshmapper.net/dataupload/) for format requirements.
+!!! warning
+    Requests with no detected observer after 3 days are automatically deleted. You'll get reminders by email (and Discord, if linked) until then.

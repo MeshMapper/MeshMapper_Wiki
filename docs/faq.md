@@ -119,10 +119,10 @@
     Coordinate the new boundaries with neighboring admins, then ask a global administrator. The global panel can merge whole regions, including their sessions, or move pings within a selected area. An area transfer does not move whole sessions. Changing a boundary alone does not move earlier data.
 
 ??? question "How big should my region be?"
-    Draw a boundary around the mesh you expect to map and coordinate it with nearby regions. The onboarding form checks for substantial overlap, and the MeshMapper team reviews each request. See [Defining the Boundary](onboarding.md#defining-the-boundary).
+    Draw a boundary around the mesh you expect to map and coordinate it with nearby regions. The onboarding form checks for substantial overlap, and the MeshMapper team reviews each request. See [Boundary](onboarding.md#3-boundary).
 
 ??? question "Can I use any three letters as my region code?"
-    No. Pick a recognized IATA airport code near your area. The form checks that the code is available and geographically appropriate; it will suggest nearby codes when one is too far away. See [The Onboarding Form](onboarding.md#the-onboarding-form).
+    No. Pick a recognized IATA airport code near your area. The form checks that the code is available and geographically appropriate; it will suggest nearby codes when one is too far away. See [Code](onboarding.md#1-code).
 
 ??? question "Why does the form say my code is already used or pending?"
     A code can belong to only one active or pending region. Open that region's subdomain to check its pending status, and contact a Moderator if the request appears stuck. Do not submit another region with a made-up code.
