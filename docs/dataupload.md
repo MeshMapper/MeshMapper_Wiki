@@ -3,7 +3,11 @@
 MeshMapper allows for the upload of legacy coverage data via CSV upload. This feature is designed to import data collected from other systems.
 
 !!! warning "Administrator Only"
-    Due to the complexity of maintaining data integrity, only a MeshMapper Master or Global Administratorcan upload legacy data.  [Please reach out to start this process](https://wiki.meshmapper.net/administratorlist/).
+    Due to the complexity of maintaining data integrity, only a MeshMapper Master or Global Administrator can upload legacy data.  [Please reach out to start this process](https://wiki.meshmapper.net/administratorlist/).
+
+Uploads are done in the Master Admin panel, on the **Legacy Upload** tab, using the **Legacy Data Upload** card: pick the region, choose the CSV file, map the columns, and use **+ Add Field** for any extra columns.
+
+Each upload goes to one region and **replaces all existing legacy data** for that region. Group maps show their members' legacy data combined.
 
 ## CSV Requirements
 
@@ -11,12 +15,14 @@ The uploaded file must be in **CSV** format and contain, at a minimum, the follo
 
 *   **Latitude**
 *   **Longitude**
-*   **Time** - Unix timestamp
+*   **Time** - Unix timestamp in seconds or milliseconds, or a standard date string.
 *   **Status** - See definitions below
 
-A **Coverage Radius** can also be set, which can expand each coverage point beyond the default grid size (300m x 300m).
+The header names are mapped on the upload form (defaults `lat`, `lon`, `status`, `date`).
 
-You may also include any number of additional columns (e.g., `Repeater`, `RSSI`, `SNR`), which will be stored and available for display.
+You may also include additional columns (e.g. `Repeater`, `RSSI`, `SNR`); each needs a display name. They are stored in the region's legacy database but are not currently shown on the map.
+
+Separately from the CSV, a per-region **Grid Expansion** setting (radius in squares, 0–20, default 1) sets how far each legacy point spreads in Detailed grid mode: 0 = one ~100 m square, 1 = 3×3 (~300 m), 6 = 13×13 (~1.2 km). In Simplified mode each point fills a single 300 m square.
 
 ### Status Definitions
 
@@ -30,11 +36,15 @@ The `status` column should contain an integer representing the coverage type, co
 | **3** | **DEAD** | **Grey** | **Dead** - Repeater heard the ping, but it did not make it into the wider mesh. |
 | **5** | **RX** | **Purple** | **Receive** - Heard traffic while in RX mode. |
 | **6** | **DISC** | **Cyan** | **Discovery** - Discovery packet sent and reply heard. |
-| **7** | **TRACE** | **Cyan** | **Trace** - Targeted trace request sent and reply heard from a specific repeater. |
+| **7** | **TRACE** | **Cyan** | **Trace** - Targeted trace request sent and reply heard from a specific repeater. Shown the same as DISC. |
+
+Any other status value is drawn red.
 
 ## Visualization & Limitations
 
-Legacy data appears on its own layer on the map.
+Legacy data appears on its own map layer, called **Legacy Data**. Legacy squares are never drawn where regular coverage exists.
+
+The **Manage Legacy Databases** card on the same tab lists each region's legacy data, with a **Delete** button.
 
 Unlike standard MeshMapper data, legacy uploads have the following limitations:
 
