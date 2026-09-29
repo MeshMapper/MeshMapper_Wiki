@@ -7,7 +7,7 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/portal/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/portal/">
       
       
         <link rel="prev" href="../awards/">
@@ -392,14 +392,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-firmware/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    Native Firmware
   
 
     
@@ -428,6 +428,34 @@
     
   
     MeshCore-HA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meshcoretomqtt
   
 
     
@@ -1219,6 +1247,34 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Creating an Account">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sign-in-with-discord" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sign in with Discord
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#admin-invites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Admin Invites
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2642,6 +2698,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Creating an Account">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sign-in-with-discord" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sign in with Discord
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#admin-invites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Admin Invites
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2697,31 +2781,54 @@
 <h1 id="my-meshmapper-user-portal">My MeshMapper (User Portal)<a class="headerlink" href="#my-meshmapper-user-portal" title="Permanent link">¶</a></h1>
 <p><strong>My MeshMapper</strong> is a self-service portal where wardrivers can create an account, prove ownership of their companion devices, and view and manage the data they have contributed to MeshMapper.</p>
 <p><strong>Portal URL:</strong> <a href="https://portal.meshmapper.net">https://portal.meshmapper.net</a></p>
-<p>You can also reach it from any region map via the <strong>About</strong> menu → <strong>My Portal / Sign in</strong>.</p>
+<p>You can also reach it from any region map via <strong>About → My Portal / Sign in</strong>.</p>
 <hr>
 <h2 id="creating-an-account">Creating an Account<a class="headerlink" href="#creating-an-account" title="Permanent link">¶</a></h2>
 <ol>
 <li>Open the portal and choose <strong>Register</strong>.</li>
-<li>Pick a username (3–30 characters; letters, numbers, <code>_</code>, <code>.</code>, <code>-</code>), enter your email address, and choose a password (8+ characters).</li>
+<li>Pick a username (3–30 characters; letters, numbers, <code>_</code>, <code>.</code>, <code>-</code>). Your username can't be changed later, and some names like <code>admin</code> or <code>meshmapper</code> are reserved.</li>
+<li>Enter your email address and choose a password (at least 12 characters; common passwords, or ones containing your username, email or "MeshMapper", are rejected).</li>
 <li>Check your inbox for a <strong>verification email</strong> and click the link. Verification links expire after 24 hours — you can request a new one from the login screen if needed.</li>
 <li>Once verified, log in with your username (or email) and password.</li>
 </ol>
 <p>Forgot your password? Use the <strong>password reset</strong> option on the login screen — a reset link is emailed to you (valid for 1 hour).</p>
+<h3 id="sign-in-with-discord">Sign in with Discord<a class="headerlink" href="#sign-in-with-discord" title="Permanent link">¶</a></h3>
+<p>You can also use <strong>Sign in with Discord</strong> on the login screen:</p>
+<ul>
+<li>If that Discord account is already linked, you're signed in.</li>
+<li>If its verified email matches an existing account, it links to that account automatically.</li>
+<li>Otherwise a new account is created, with no password.</li>
+</ul>
+<p>Under <strong>Settings → Discord</strong> you can <strong>Connect Discord</strong> or <strong>Disconnect</strong>, and turn on <strong>Show my Discord avatar on leaderboards</strong>.</p>
+<ul>
+<li>A Discord-only account can <strong>Set password</strong> at any time.</li>
+<li>While Discord is connected, you can <strong>Remove password (use Discord only)</strong>.</li>
+<li>You must set a password before you can disconnect Discord.</li>
+</ul>
 <div class="admonition info">
 <p class="admonition-title">One account for the portal and admin panels</p>
-<p>A region administrator uses the same MeshMapper account for the portal and every <a href="../admins/">admin panel</a> they can access. Accept an administrator invite or have access granted to your existing verified account. You do not need a separate admin login.</p>
+<p>A region administrator uses the same MeshMapper account for the portal and every <a href="../admins/">admin panel</a> they can access. You do not need a separate admin login.</p>
 </div>
+<h3 id="admin-invites">Admin Invites<a class="headerlink" href="#admin-invites" title="Permanent link">¶</a></h3>
+<p>If you're invited to be an administrator, you get an invite link. It lasts 7 days and is tied to one email address or Discord account.</p>
+<ul>
+<li>New to MeshMapper? Choose <strong>Create account &amp; accept</strong>.</li>
+<li>Already have an account? Choose <strong>Sign in &amp; accept</strong>.</li>
+<li>Already signed in? Choose <strong>Accept admin access</strong>.</li>
+</ul>
+<p>Afterwards, <strong>Go to the admin panel</strong> takes you to <a href="https://admin.meshmapper.net">admin.meshmapper.net</a>.</p>
 <hr>
 <h2 id="linking-your-companion-devices">Linking Your Companion Devices<a class="headerlink" href="#linking-your-companion-devices" title="Permanent link">¶</a></h2>
 <p>Linking a device proves you own it and connects that device's wardriving history to your account. MeshMapper uses a cryptographic proof — the portal sends your radio a random one-time challenge (a "nonce"), your radio signs it with its private key, and the server verifies the signature against the public key it already knows for that device. Nobody can claim a device they don't physically control.</p>
 <p>The in-browser signing is built on <strong>Liam Cottle's <a href="https://github.com/meshcore-dev/meshcore.js">meshcore.js</a> library</strong>, specifically his <a href="https://github.com/meshcore-dev/meshcore.js/blob/master/examples/companion_sign_data.js">companion_sign_data.js example</a> — thanks Liam!</p>
 <p><strong>To link a device:</strong></p>
 <ol>
-<li>Log in to the portal and choose to link a device.</li>
-<li>Connect your MeshCore companion to the browser via <strong>USB</strong> or <strong>Bluetooth</strong> when prompted.</li>
-<li>The portal sends a one-time challenge to your radio, which signs it and returns the signature. This happens automatically in a few seconds.</li>
-<li>Optionally give the device a label (e.g., "Car T1000"). Done!</li>
+<li>Log in to the portal and choose <strong>Link a companion</strong>.</li>
+<li>Choose <strong>Connect over Bluetooth</strong>, or <strong>USB instead</strong>. If the companion is connected to your phone, close the MeshCore app on it first.</li>
+<li>The portal sends a one-time challenge to your radio, which signs it and returns the signature. This happens automatically in a few seconds. The challenge expires after 2 minutes.</li>
+<li>Done! The device shows up under <strong>Your companions</strong> using its own name.</li>
 </ol>
+<p>You can also sign in and link companions from the MeshMapper mobile app. The app shows up under <strong>Settings → Connected apps</strong>, where you can <strong>Revoke</strong> it.</p>
 <p><strong>Browser requirements:</strong></p>
 <p>Device linking uses the Web Serial / Web Bluetooth APIs, which are only available in certain browsers. You <strong>must</strong> use:</p>
 <table>
@@ -2758,21 +2865,24 @@
 </div>
 <hr>
 <h2 id="what-you-can-do">What You Can Do<a class="headerlink" href="#what-you-can-do" title="Permanent link">¶</a></h2>
-<p>Once logged in with at least one linked device:</p>
+<p>The portal has these tabs: <strong>Overview</strong>, <strong>Regions</strong>, <strong>Sessions</strong>, <strong>Companions</strong>, <strong>Repeaters</strong> and <strong>Profile Settings</strong>.</p>
 <ul>
-<li><strong>View your sessions</strong> — Your wardriving sessions across every region, with ping counts.</li>
-<li><strong>View your pings on the map</strong> — Jump from the portal straight to a region map showing only <em>your</em> contributions ("My Pings" mode).</li>
-<li><strong>Delete your data</strong> — Remove the pings from a single session, or delete everything you've ever contributed. Deletions apply across all regions and take effect on the map immediately.</li>
-<li><strong>Set a display name</strong> — Choose the name shown on your profile and leaderboards.</li>
-<li><strong>Manage your account</strong> — Change your email address or password.</li>
+<li><strong>Overview</strong>: your points, grid squares mapped, regions driven, companions and awards.</li>
+<li><strong>Regions</strong>: the regions you've driven. <strong>View on map</strong> opens that region's map with only your pings. A "Showing all your pings" banner appears; click <strong>Exit</strong> to go back to the normal map.</li>
+<li><strong>Sessions</strong>: your wardriving sessions across every region, 50 per page. You can search, filter by region, and sort by <strong>Newest first</strong>, <strong>Oldest first</strong> or <strong>Most pings</strong>. Use <strong>View</strong> to see a session on the map, or <strong>Delete</strong> to remove its pings.</li>
+<li><strong>Companions</strong>: the devices linked to your account.</li>
+<li><strong>Repeaters</strong> ("Repeaters you administer"): repeaters you've logged in to as admin from the app. Use <strong>Edit</strong> to set Hardware, Antenna, Transmit power, Height above ground, Power source (Mains, Solar, Battery or PoE) and a Site note (up to 200 characters). Use <strong>Remove claim</strong> to drop a repeater.</li>
+<li><strong>Profile Settings</strong>: set your "Leaderboard display name — shown publicly and must be unique" (up to 60 characters, and it can't be "Anonymous"). You can also change your email (you'll need to verify the new one) or your password.</li>
 </ul>
+<p>To delete everything, use <strong>Danger zone → Delete ALL my pings</strong>. It asks you to confirm twice. Deletions apply across all regions and the map updates immediately.</p>
 <div class="admonition warning">
 <p class="admonition-title">Deletions are permanent</p>
 <p>Deleting pings from the portal permanently removes them from MeshMapper's coverage data. There is no undo.</p>
 </div>
 <hr>
 <h2 id="privacy">Privacy<a class="headerlink" href="#privacy" title="Permanent link">¶</a></h2>
-<p>The portal only ever shows you data belonging to devices you have cryptographically proven you own. Region administrators can still manage data within their own regions (see <a href="../admins/">Admin Portal</a>), but your portal account and email address are never displayed publicly.</p>
+<p>The portal only ever shows you data belonging to devices you have cryptographically proven you own. Region administrators can still manage data within their own regions (see <a href="../admins/">Admin Portal</a>).</p>
+<p>Your display name is public; your username and email are not. To hide your name on the map and leaderboards, turn on <a href="../app_connection_guide/#anonymous-mode">Anonymous Mode</a> in the app.</p>
 <p>For questions or problems with the portal, ask in the <a href="https://discord.gg/tyXbecdxgr">MeshMapper Discord</a>.</p>
 
 

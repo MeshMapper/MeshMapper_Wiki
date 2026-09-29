@@ -7,7 +7,7 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/duplicaterepeaterid/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/duplicaterepeaterid/">
       
       
         <link rel="prev" href="../multibyte/">
@@ -392,14 +392,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-firmware/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    Native Firmware
   
 
     
@@ -428,6 +428,34 @@
     
   
     MeshCore-HA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meshcoretomqtt
   
 
     
@@ -740,22 +768,44 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#hop-bytes-1-2-or-3" class="md-nav__link">
+  <a href="#the-rules" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Hop Bytes: 1, 2, or 3
+        The Rules
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Hop Bytes: 1, 2, or 3">
+    <nav class="md-nav" aria-label="The Rules">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-1-byte-limitation" class="md-nav__link">
+  <a href="#rule-a-when-a-repeater-is-ambiguous" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The 1-Byte Limitation
+        Rule A: When a Repeater Is Ambiguous
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rule-b-when-a-pings-hop-is-credited" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rule B: When a Ping's Hop Is Credited
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other Rules
       
     </span>
   </a>
@@ -768,22 +818,44 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-meshmapper-handles-collisions" class="md-nav__link">
+  <a href="#what-youll-see" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How MeshMapper Handles Collisions
+        What You'll See
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="How MeshMapper Handles Collisions">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-happens-to-the-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Happens to the Data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#avoiding-collisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Avoiding Collisions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Avoiding Collisions">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#smart-collision-detection" class="md-nav__link">
+  <a href="#upgrade-to-multi-byte" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Smart Collision Detection
+        Upgrade to Multi-Byte
       
     </span>
   </a>
@@ -791,32 +863,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#1-detection-quarantine" class="md-nav__link">
+  <a href="#wardrive-in-hybrid-mode" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Detection &amp; Quarantine
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-map-appearance" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Map Appearance
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-impact-on-collected-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Impact on Collected Data
+        Wardrive in Hybrid Mode
       
     </span>
   </a>
@@ -829,54 +879,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#workarounds" class="md-nav__link">
+  <a href="#resolving-a-collision" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Workarounds
+        Resolving a Collision
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Workarounds">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#upgrade-to-multi-byte-hops" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Upgrade to Multi-Byte Hops
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hybrid-wardriving-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Hybrid Wardriving Mode
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#resolution" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Resolution
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Resolution">
+    <nav class="md-nav" aria-label="Resolving a Collision">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -907,10 +918,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#summary-table" class="md-nav__link">
+  <a href="#turning-detection-off" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Summary Table
+        Turning Detection Off
       
     </span>
   </a>
@@ -918,10 +929,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#multi-byte-hop-support" class="md-nav__link">
+  <a href="#repeater-states" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Multi-Byte Hop Support
+        Repeater States
       
     </span>
   </a>
@@ -2779,22 +2790,44 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#hop-bytes-1-2-or-3" class="md-nav__link">
+  <a href="#the-rules" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Hop Bytes: 1, 2, or 3
+        The Rules
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Hop Bytes: 1, 2, or 3">
+    <nav class="md-nav" aria-label="The Rules">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#the-1-byte-limitation" class="md-nav__link">
+  <a href="#rule-a-when-a-repeater-is-ambiguous" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The 1-Byte Limitation
+        Rule A: When a Repeater Is Ambiguous
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rule-b-when-a-pings-hop-is-credited" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rule B: When a Ping's Hop Is Credited
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other Rules
       
     </span>
   </a>
@@ -2807,22 +2840,44 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-meshmapper-handles-collisions" class="md-nav__link">
+  <a href="#what-youll-see" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How MeshMapper Handles Collisions
+        What You'll See
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="How MeshMapper Handles Collisions">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-happens-to-the-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Happens to the Data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#avoiding-collisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Avoiding Collisions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Avoiding Collisions">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#smart-collision-detection" class="md-nav__link">
+  <a href="#upgrade-to-multi-byte" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Smart Collision Detection
+        Upgrade to Multi-Byte
       
     </span>
   </a>
@@ -2830,32 +2885,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#1-detection-quarantine" class="md-nav__link">
+  <a href="#wardrive-in-hybrid-mode" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Detection &amp; Quarantine
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-map-appearance" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Map Appearance
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-impact-on-collected-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Impact on Collected Data
+        Wardrive in Hybrid Mode
       
     </span>
   </a>
@@ -2868,54 +2901,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#workarounds" class="md-nav__link">
+  <a href="#resolving-a-collision" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Workarounds
+        Resolving a Collision
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Workarounds">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#upgrade-to-multi-byte-hops" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Upgrade to Multi-Byte Hops
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hybrid-wardriving-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Hybrid Wardriving Mode
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#resolution" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Resolution
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Resolution">
+    <nav class="md-nav" aria-label="Resolving a Collision">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2946,10 +2940,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#summary-table" class="md-nav__link">
+  <a href="#turning-detection-off" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Summary Table
+        Turning Detection Off
       
     </span>
   </a>
@@ -2957,10 +2951,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#multi-byte-hop-support" class="md-nav__link">
+  <a href="#repeater-states" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Multi-Byte Hop Support
+        Repeater States
       
     </span>
   </a>
@@ -2984,181 +2978,107 @@
 
 
 
-<div class="admonition success">
-<p class="admonition-title">Multi-Byte Hops Are Here!</p>
-<p>MeshCore firmware now supports multi-byte repeater hop identification (up to 3 bytes), and MeshMapper fully supports it. Regions running firmware with 2 or 3 byte hops will see far fewer (or zero) collisions. This requires repeaters and companions running <strong>firmware version 1.14.0 or newer</strong>.</p>
-<p>For regions still running 1-byte hops, duplicate repeater IDs can be managed using the below methods, or by driving in <strong>Hybrid</strong> mode where <strong>Discovery</strong> packets are used.  <strong>Discovery</strong>, or <strong>DISC</strong>, packets associate with repeaters using their full Public ID.  <a href="#workarounds">Read more about this here.</a></p>
-</div>
 <h1 id="duplicate-repeater-ids">Duplicate Repeater IDs<a class="headerlink" href="#duplicate-repeater-ids" title="Permanent link">¶</a></h1>
-<p>As a regions mesh network grows, the likelihood of two repeaters sharing the same short identifier increases. MeshMapper has a robust system for detecting, handling, and resolving these "collisions" to ensure data integrity.</p>
-<p>MeshMapper does not filter out repeaters outside of a regions defined boundry, as that would not be an accurate representation of real-world RF conditions.</p>
+<p>Packets identify each repeater they pass through by a short <strong>hop ID</strong>: the first 1, 2 or 3 bytes of its Public ID. As a region grows, two repeaters can end up with the same hop ID. This is a <strong>collision</strong>, and MeshMapper can't always tell which of the two a packet went through.</p>
+<p>This page explains how MeshMapper decides, what you'll see, and how to fix it.</p>
 <div class="admonition tip">
-<p class="admonition-title">Override Available</p>
-<p>Regions now have the ability to override MeshMapper's default duplicate ID detection logic if they prefer to visualize all data regardless of ambiguity.</p>
-<p><a href="https://wiki.meshmapper.net/overrideduplicates/">Learn how to override duplicate detection</a></p>
+<p class="admonition-title">The best fix is multi-byte</p>
+<p>With 1-byte IDs there are only 254 to go around, so collisions are common. With 2 or 3 bytes they become rare. See <a href="../multibyte/">Multi-Byte Repeaters</a> to upgrade.</p>
 </div>
-<h2 id="hop-bytes-1-2-or-3">Hop Bytes: 1, 2, or 3<a class="headerlink" href="#hop-bytes-1-2-or-3" title="Permanent link">¶</a></h2>
-<p>MeshCore repeaters are identified in packets by appending a portion of their Public ID as a "hop" to each message they relay. The number of bytes used for this identifier is called <strong>Hop Bytes</strong>, and is configurable per-region in MeshMapper.</p>
+<h2 id="the-rules">The Rules<a class="headerlink" href="#the-rules" title="Permanent link">¶</a></h2>
+<p>MeshMapper follows two rules, on the server and on the map.</p>
+<h3 id="rule-a-when-a-repeater-is-ambiguous">Rule A: When a Repeater Is Ambiguous<a class="headerlink" href="#rule-a-when-a-repeater-is-ambiguous" title="Permanent link">¶</a></h3>
+<p>A repeater is marked <strong>Ambiguous</strong> if it <strong>can't be told apart from another repeater at its own width</strong>:</p>
+<ul>
+<li>A 1-byte repeater is judged on its first byte.</li>
+<li>A multi-byte repeater is judged at the width it advertises (at least 2 bytes).</li>
+</ul>
+<p>This is judged separately for each repeater, so a collision doesn't always flag both:</p>
 <table>
 <thead>
 <tr>
-<th>Hop Bytes</th>
-<th>Hex Characters</th>
-<th>Unique IDs</th>
-<th>Example</th>
+<th>Repeaters</th>
+<th>Result</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>1</strong></td>
-<td>2</td>
-<td>~254</td>
-<td><code>A1</code></td>
+<td><code>AB</code> (1-byte) and <code>AB</code> (1-byte)</td>
+<td><strong>Both Ambiguous.</strong> They can't be told apart.</td>
 </tr>
 <tr>
-<td><strong>2</strong></td>
-<td>4</td>
-<td>~65,536</td>
-<td><code>A1B2</code></td>
+<td><code>AB</code> (1-byte) and <code>AB12</code> (2-byte)</td>
+<td><strong>Only <code>AB</code> is Ambiguous.</strong> A 1-byte <code>AB</code> hop could be either, but <code>AB12</code> is unique at its own width.</td>
 </tr>
 <tr>
-<td><strong>3</strong></td>
-<td>6</td>
-<td>~16,777,216</td>
-<td><code>A1B2C3</code></td>
+<td><code>AB12</code> (2-byte) and <code>AB9F</code> (2-byte)</td>
+<td><strong>Neither.</strong> They're different at 2 bytes.</td>
 </tr>
 </tbody>
 </table>
-<p>Region administrators can configure the Hop Bytes setting in the admin panel under <strong>Settings</strong>. This should match the firmware configuration of the repeaters in the region.</p>
-<div class="admonition info">
-<p class="admonition-title">Per-Repeater Detection</p>
-<p>MeshMapper tracks hop bytes on a per-repeater basis. If a repeater sends in a ping using a longer ID than previously seen, MeshMapper automatically updates that repeater's hop bytes value. This means a region transitioning from 1-byte to 2-byte hops will see repeaters update as they are heard.</p>
-</div>
-<h3 id="the-1-byte-limitation">The 1-Byte Limitation<a class="headerlink" href="#the-1-byte-limitation" title="Permanent link">¶</a></h3>
-<p>In <strong>1-byte mode</strong>, repeaters are identified using the first two characters of their Public ID (e.g., <code>A1</code>, <code>4F</code>, <code>09</code>). Since this is only two hexadecimal digits long, there are only <strong>254 possible combinations</strong> (01 to FE...00 and FF are reserved in the MeshCore firmware). As the number of repeaters in a region increases, it becomes statistically inevitable that two completely different devices will end up with the same Short ID.</p>
-<p>When this happens, it is called a <strong>Collision</strong>.</p>
-<p>With <strong>2-byte</strong> or <strong>3-byte</strong> hops, the number of available unique IDs increases dramatically, making collisions extremely unlikely in all but the largest deployments.</p>
-<h2 id="how-meshmapper-handles-collisions">How MeshMapper Handles Collisions<a class="headerlink" href="#how-meshmapper-handles-collisions" title="Permanent link">¶</a></h2>
-<p>MeshMapper prioritizes data accuracy. If two repeaters share the same short ID prefix (at the configured hop byte length), and a message repeat is heard by or is received via that prefix, the system has no way of knowing <em>which</em> physical repeater was actually involved. To prevent potentially inaccurate data from being represented on the map, MeshMapper enters a "Quarantine" mode for the affected devices.</p>
-<h3 id="smart-collision-detection">Smart Collision Detection<a class="headerlink" href="#smart-collision-detection" title="Permanent link">¶</a></h3>
-<p>MeshMapper uses <strong>per-repeater hop bytes</strong> to determine whether two repeaters are truly in collision:</p>
+<h3 id="rule-b-when-a-pings-hop-is-credited">Rule B: When a Ping's Hop Is Credited<a class="headerlink" href="#rule-b-when-a-pings-hop-is-credited" title="Permanent link">¶</a></h3>
+<p>A hop in a ping's path is credited to a repeater only if <strong>exactly one</strong> repeater's ID starts with that hop, at the hop's own width.</p>
 <ul>
-<li>Two repeaters are only considered colliding if they are <strong>indistinguishable</strong> at the longer of their two hop byte lengths.</li>
-<li>For example, repeater <code>AB</code> (1-byte) and repeater <code>AB12</code> (2-byte) are <strong>not</strong> in collision, because at 2 bytes (<code>AB</code> vs <code>AB12</code>), they are distinguishable.</li>
-<li>However, repeater <code>AB</code> (1-byte) and repeater <code>AB</code> (1-byte) with different full Public IDs <strong>are</strong> in collision, because at 1 byte they cannot be told apart.</li>
+<li><strong>One match</strong>: credited to that repeater.</li>
+<li><strong>More than one</strong>: ambiguous. The ping still counts for coverage, but isn't linked to any repeater.</li>
+<li><strong>No match</strong>: unknown. The ping still counts, unlinked.</li>
 </ul>
-<p>This means regions transitioning from 1-byte to 2-byte firmware will see collisions automatically resolve as repeaters begin reporting longer IDs.</p>
-<h3 id="1-detection-quarantine">1. Detection &amp; Quarantine<a class="headerlink" href="#1-detection-quarantine" title="Permanent link">¶</a></h3>
-<p>When a new repeater appears on the network with an ID that is indistinguishable from an existing device (at their respective hop byte lengths):</p>
+<h3 id="other-rules">Other Rules<a class="headerlink" href="#other-rules" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong>Both</strong> repeaters (the existing one and the new one) are immediately flagged as <strong>Excluded</strong>.</li>
-<li>The system assigns the new repeater a temporary internal ID (e.g., <code>X1</code>) to differentiate it in the database and map, but it remains linked to the collision.</li>
-<li>Both repeaters are excluded from regional or global leaderboards and statistics (like maximum distance reached)</li>
+<li><strong>Discovery (DISC) pings</strong> carry the repeater's full Public ID, so they're always credited to the right repeater, even during a collision. <strong>TRACE</strong> pings only carry the short hop ID, so Rule B applies to them.</li>
+<li><strong>Corrupted adverts</strong>: a garbled advert that makes a near-copy of a repeater's ID is recognised as the same repeater and doesn't make it Ambiguous.</li>
+<li><strong>Far-away matches</strong>: if the only match is unusually far from the ping, it's held for a region admin to review instead of being linked.</li>
+<li><strong>Groups</strong>: in a <a href="../multiregions/">multiregion group</a>, collisions are checked across every region in the group.</li>
+<li><strong>Outside the boundary</strong>: repeaters outside a region's boundary are still counted (tagged <strong>Out of Region</strong>), because RF doesn't stop at the border.</li>
 </ul>
-<h3 id="2-map-appearance">2. Map Appearance<a class="headerlink" href="#2-map-appearance" title="Permanent link">¶</a></h3>
+<h2 id="what-youll-see">What You'll See<a class="headerlink" href="#what-youll-see" title="Permanent link">¶</a></h2>
 <ul>
-<li><strong>Red Chips</strong>: Both repeaters will appear on the map with a <strong>Red</strong> edge on their chip (instead of the usual Green, Pink or Grey). The map legend calls this state <strong>Ambiguous ID</strong>.</li>
-<li><strong>Popups</strong>: Clicking on the repeater will show its status as "Duplicate" and will list the repeaters that are in collision with it.</li>
-<li><strong>Pings</strong>: Clicking a grid square on the map that has a repeater involved in an active collision will draw red lines to each repeater in the collision group (and list distance), allowing the viewer to make their own assumption on which repeater was actually involved.</li>
-<li><strong>Leaderboards</strong>: Both repeaters are immediately removed from all Leaderboards (Best Repeaters, Max Range, etc.) both on the local region and globally to prevent skewed statistics.</li>
+<li><strong>On the map</strong>: the repeater's chip has a <strong>red</strong> edge (<strong>Ambiguous</strong> in the Legend).</li>
+<li><strong>In its details</strong>: an <strong>Ambiguous</strong> status and a red <strong>AMBIGUOUS ID DETECTED</strong> box listing its <strong>Collision Group</strong>.</li>
+<li><strong>On a ping</strong>: when you select a single ping with an ambiguous hop, red dashed <strong>Duplicate</strong> lines go to each possible repeater with their distance, so you can judge which was likely involved.</li>
+<li><strong>On leaderboards</strong>: Ambiguous repeaters stay listed, marked with a red <strong>*</strong> ("Ambiguous ID"). Pings where their hop was ambiguous don't count towards them.</li>
+<li><strong>For admins</strong>: an <strong>Ambiguous Public IDs Detected</strong> box in the admin panel, plus an optional Discord DM and region webhook (both called <strong>Ambiguous Repeater ID</strong>).</li>
 </ul>
-<h3 id="3-impact-on-collected-data">3. Impact on Collected Data<a class="headerlink" href="#3-impact-on-collected-data" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Ambiguity</strong>: If a ping is ingested containing a repeater that has a collision (e.g., via <code>A1</code>), MeshMapper cannot attribute that hop to a specific location with certainty.</li>
-<li><strong>Data Integrity</strong>: This data is forever flagged as being ambiguous, and will never associate with a repeater (even after the collision is resolved).</li>
-</ul>
-<h2 id="workarounds">Workarounds<a class="headerlink" href="#workarounds" title="Permanent link">¶</a></h2>
-<h3 id="upgrade-to-multi-byte-hops">Upgrade to Multi-Byte Hops<a class="headerlink" href="#upgrade-to-multi-byte-hops" title="Permanent link">¶</a></h3>
-<p>The most effective solution is to upgrade your region's repeaters to firmware that supports <strong>2-byte or 3-byte hops</strong>. Once upgraded, update the <strong>Hop Bytes</strong> setting in your region's admin panel to match. As repeaters are heard with longer IDs, MeshMapper will automatically update their hop byte tracking and resolve false collisions.</p>
-<h3 id="hybrid-wardriving-mode">Hybrid Wardriving Mode<a class="headerlink" href="#hybrid-wardriving-mode" title="Permanent link">¶</a></h3>
-<p>Wardrivers are encouraged to collect data in <strong>Hybrid</strong> mode, which utilizes <strong>Discovery</strong>, or <strong>DISC</strong>, packets.  You can think of these packets as broadcasting "Hello, who's out there?", and any repeater within hearing distance (and with compatible firmware - 1.10+) will respond with their full Public ID.  As we're not relying on only the short hop ID to make the association to the repeater, associations can be made even if the short ID of that particular repeater is in collision with another.</p>
+<h2 id="what-happens-to-the-data">What Happens to the Data<a class="headerlink" href="#what-happens-to-the-data" title="Permanent link">¶</a></h2>
+<p>A ping whose hop was ambiguous is stored as unlinked, and <strong>stays unlinked</strong>, even after the collision is resolved. MeshMapper won't guess later.</p>
+<p>When a new repeater creates a collision, MeshMapper also checks recent pings that were linked to the old repeater before the collision existed. Any that could now belong to either repeater are unlinked.</p>
+<h2 id="avoiding-collisions">Avoiding Collisions<a class="headerlink" href="#avoiding-collisions" title="Permanent link">¶</a></h2>
+<h3 id="upgrade-to-multi-byte">Upgrade to Multi-Byte<a class="headerlink" href="#upgrade-to-multi-byte" title="Permanent link">¶</a></h3>
+<p>The most effective fix. Once repeaters advertise 2 or 3 bytes, most collisions clear up on their own. See <a href="../multibyte/">Multi-Byte Repeaters</a>.</p>
+<h3 id="wardrive-in-hybrid-mode">Wardrive in Hybrid Mode<a class="headerlink" href="#wardrive-in-hybrid-mode" title="Permanent link">¶</a></h3>
+<p><strong>Hybrid</strong> mode sends <strong>Discovery (DISC)</strong> requests: "who's out there?" Any repeater in range (firmware 1.10+) replies with its full Public ID, so the ping is credited correctly even when its short ID collides.</p>
 <div class="admonition tip">
-<p class="admonition-title">Enforce Hybrid Mode</p>
-<p>If a region is large and contains many duplicate ID's, region administrators can choose to "Enforce Hybrid Mode" for their region.  This will prevent any <strong>Active</strong> wardriving from occuring in the region by automatically enabling Hybrid mode for wardrivers.  The option is available in the regional admin panel.</p>
+<p class="admonition-title">Enforce Hybrid</p>
+<p>Region admins can require Hybrid mode for a radio preset with the <strong>Hybrid</strong> column under <strong>Settings → Wardriving → Radio Channels</strong> in the admin panel. Wardrivers on that preset can't use Active mode.</p>
 </div>
-<h2 id="resolution">Resolution<a class="headerlink" href="#resolution" title="Permanent link">¶</a></h2>
-<p>Collisions are typically resolved in one of two ways:</p>
+<h2 id="resolving-a-collision">Resolving a Collision<a class="headerlink" href="#resolving-a-collision" title="Permanent link">¶</a></h2>
 <h3 id="automatic-cleanup">Automatic Cleanup<a class="headerlink" href="#automatic-cleanup" title="Permanent link">¶</a></h3>
-<p>Often a collision happens because an old, offline repeater is still in the database when a new one comes online. That resolves itself without any admin action.</p>
+<p>Often a collision is an old, offline repeater still on record when a new one comes online. That fixes itself:</p>
 <ul>
-<li>MeshMapper runs a cleanup routine every day.</li>
-<li>A colliding repeater that hasn't been heard for the region's <strong>Repeater Inactive After</strong> window (default 30 days) is marked <strong>Inactive</strong> and drops off the map.</li>
-<li><strong>The Survivor</strong>: an Inactive repeater no longer counts as a competing claim on that ID, so the remaining repeater is restored to <strong>Active</strong> on its next advert. Its icon returns to normal, it reappears on leaderboards, and new pings associate with it properly again.</li>
+<li>Every day, a repeater that hasn't been heard for the region's <strong>Repeater Inactive After (Days)</strong> (default 30, under <strong>Settings → Repeaters, Neighbours &amp; Scopes</strong>) is marked <strong>Inactive</strong> and drops off the map.</li>
+<li>Inactive repeaters don't count in collisions, so the remaining repeater returns to normal on the next advert in that ID range.</li>
+<li>If the silent repeater comes back on air, it's reactivated, and if the ID still collides, it's Ambiguous again.</li>
 </ul>
-<p>Neither repeater is deleted. If the silent one comes back on air, it is reactivated — and if the ID is still ambiguous, both are excluded again.</p>
+<p>Inactive repeaters aren't deleted unless the region has set a retention period for removing them.</p>
 <div class="admonition tip">
 <p class="admonition-title">Bypass Auto Delete</p>
-<p>If a repeater is known to go offline for extended periods (seasonal deployment, remote location, etc.), administrators can enable <strong>Bypass Auto Delete</strong> on that repeater via the edit modal. This keeps it out of every automatic routine, including the inactive marking above — which also means it will keep its colliding partner excluded while it's away.</p>
+<p>For a repeater that goes offline for long periods (seasonal, remote), admins can tick <strong>Bypass Auto Delete</strong> in its edit window. Automatic cleanup then skips it. It also keeps its partner Ambiguous while it's away.</p>
 </div>
 <h3 id="manual-resolution">Manual Resolution<a class="headerlink" href="#manual-resolution" title="Permanent link">¶</a></h3>
-<p>If both repeaters are active and legitimate (a true collision between two live devices):</p>
+<p>If both repeaters are live and genuine:</p>
 <ul>
-<li>Region administrators receive an alert regarding the collision.  If able, it is suggested that the administrator resolve the issue by asking the owner of the new repeater to generate a new ID.</li>
-<li>If the administrator knows the the collision has been cleared, they may manually reinstate the remaining repeater and delete the old. If the collision has not been cleared, both repeaters will enter excluded state again on next advert. </li>
+<li>The best fix is to ask one owner to <strong>generate a new ID</strong> for their repeater, or to upgrade both to multi-byte.</li>
+<li>If one repeater is gone for good, a region admin can set its <strong>Status</strong> to <strong>Inactive</strong> or <strong>Disabled</strong> in the admin panel. The other returns to normal on the next advert.</li>
+<li>Setting an Ambiguous repeater back to <strong>Active</strong> doesn't stick. It's re-checked on the next advert.</li>
 </ul>
 <div class="admonition warning">
-<p class="admonition-title">Note</p>
-<p>As long as two (or more) repeaters are indistinguishable at their hop byte length, regardless of current status, pings will not get associated to a repeater with that ID, unless those pings are of <strong>DISC</strong> type (which associate using the full Public ID of the repeater).</p>
+<p class="admonition-title">Deleting doesn't help</p>
+<p>A deleted repeater adds itself back on its next advert. Change its status instead.</p>
 </div>
-<div class="admonition info">
-<p class="admonition-title">TRACE vs DISC for Collisions</p>
-<p>Unlike <strong>DISC</strong> packets which use the full Public ID to uniquely associate with a repeater, <strong>TRACE</strong> packets only carry the short repeater hop ID. This means TRACE data is subject to the same prefix-based collision detection as standard BIDIR/TX/DEAD pings. In regions with active duplicate IDs, TRACE data for those repeaters will be quarantined just like other ping types.</p>
-</div>
-<h2 id="summary-table">Summary Table<a class="headerlink" href="#summary-table" title="Permanent link">¶</a></h2>
-<table>
-<thead>
-<tr>
-<th>State</th>
-<th>Indicator</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Active</strong></td>
-<td>Green Chip Edge</td>
-<td>Normal operation. Unique ID.</td>
-</tr>
-<tr>
-<td><strong>New</strong></td>
-<td>Pink Chip Edge</td>
-<td>Recently discovered (less than 14 days old).</td>
-</tr>
-<tr>
-<td><strong>Excluded</strong> (shown on the map as <strong>Ambiguous ID</strong>)</td>
-<td><strong>Red Chip Edge</strong></td>
-<td><strong>Duplicate ID Detected.</strong> Data from this repeater is currently untrusted.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="multi-byte-hop-support">Multi-Byte Hop Support<a class="headerlink" href="#multi-byte-hop-support" title="Permanent link">¶</a></h2>
-<p>MeshCore now supports multi-byte repeater hop identification, available in <strong>firmware version 1.14.0 and newer</strong> for both repeaters and companions. MeshMapper fully supports <strong>1-byte</strong>, <strong>2-byte</strong>, and <strong>3-byte</strong> hop modes across all features including collision detection, coverage mapping, leaderboards, etc.</p>
-<table>
-<thead>
-<tr>
-<th>Hop Bytes</th>
-<th>Max Unique IDs</th>
-<th>Suitable For</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>1 byte</strong></td>
-<td>~254</td>
-<td>Small regions with few repeaters</td>
-</tr>
-<tr>
-<td><strong>2 bytes</strong></td>
-<td>~65,536</td>
-<td>Most regions</td>
-</tr>
-<tr>
-<td><strong>3 bytes</strong></td>
-<td>~16,777,216</td>
-<td>Very large deployments</td>
-</tr>
-</tbody>
-</table>
+<h2 id="turning-detection-off">Turning Detection Off<a class="headerlink" href="#turning-detection-off" title="Permanent link">¶</a></h2>
+<p>A region can turn this off with <strong>Disable Duplicate ID Detection Logic</strong>, and show every possible repeater instead. See <a href="../overrideduplicates/">Override Duplicate IDs</a>.</p>
+<h2 id="repeater-states">Repeater States<a class="headerlink" href="#repeater-states" title="Permanent link">¶</a></h2>
+<p>For every repeater state and colour (Active, New, Stale, Ambiguous, Backbone), see <a href="../visuals/#repeater-states">Repeater States</a>.</p>
 
 
 

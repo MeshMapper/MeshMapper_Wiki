@@ -7,31 +7,31 @@
       
       
       
-        <link rel="canonical" href="https://wiki.meshmapper.net/release-notes/260212/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/mqtt-firmware/">
       
       
-        <link rel="prev" href="../260219/">
+        <link rel="prev" href="../mqtt-main/">
       
       
-        <link rel="next" href="../260209/">
+        <link rel="next" href="../mqtt-ha/">
       
       
         
       
       
-      <link rel="icon" href="../../assets/wardrive.png">
+      <link rel="icon" href="../assets/wardrive.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
-        <title>February 12, 2026 - MeshMapper Wiki</title>
+        <title>Native Firmware - MeshMapper Wiki</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -50,15 +50,15 @@
       
     
     
-      <link rel="stylesheet" href="../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
     
-  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#meshmapper-update-admin-tools-map-enhancements-february-12-2026" class="md-skip">
+        <a href="#meshcore-mqtt-native-firmware" class="md-skip">
           Skip to content
         </a>
       
@@ -101,9 +101,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="MeshMapper Wiki" class="md-header__button md-logo" aria-label="MeshMapper Wiki" data-md-component="logo">
+    <a href=".." title="MeshMapper Wiki" class="md-header__button md-logo" aria-label="MeshMapper Wiki" data-md-component="logo">
       
-  <img src="../../assets/wardrive.png" alt="logo">
+  <img src="../assets/wardrive.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              February 12, 2026
+              Native Firmware
             
           </span>
         </div>
@@ -198,9 +198,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="MeshMapper Wiki" class="md-nav__button md-logo" aria-label="MeshMapper Wiki" data-md-component="logo">
+    <a href=".." title="MeshMapper Wiki" class="md-nav__button md-logo" aria-label="MeshMapper Wiki" data-md-component="logo">
       
-  <img src="../../assets/wardrive.png" alt="logo">
+  <img src="../assets/wardrive.png" alt="logo">
 
     </a>
     MeshMapper Wiki
@@ -215,7 +215,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   
@@ -239,18 +239,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -271,7 +273,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -289,7 +291,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../onboarding/" class="md-nav__link">
+      <a href="../onboarding/" class="md-nav__link">
         
   
   
@@ -314,18 +316,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked="">
         
           
           <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
@@ -346,7 +350,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -364,7 +368,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../mqtt-main/" class="md-nav__link">
+      <a href="../mqtt-main/" class="md-nav__link">
         
   
   
@@ -389,10 +393,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../mqtt-firmware/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Native Firmware
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -408,6 +439,98 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-flash-the-firmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Flash the Firmware
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-configure-the-observer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Configure the Observer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Configure the Observer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-1-setup-wizard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 1. Setup Wizard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-2-command-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 2. Command Line
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifying-your-observer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verifying Your Observer
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -420,7 +543,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../mqtt-ha/" class="md-nav__link">
+      <a href="../mqtt-ha/" class="md-nav__link">
         
   
   
@@ -448,7 +571,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-python/" class="md-nav__link">
         
   
   
@@ -476,7 +599,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../mqtt-pymc/" class="md-nav__link">
+      <a href="../mqtt-pymc/" class="md-nav__link">
         
   
   
@@ -512,7 +635,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../multiregions/" class="md-nav__link">
+      <a href="../multiregions/" class="md-nav__link">
         
   
   
@@ -594,7 +717,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../layers/" class="md-nav__link">
+      <a href="../layers/" class="md-nav__link">
         
   
   
@@ -622,7 +745,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../visuals/" class="md-nav__link">
+      <a href="../visuals/" class="md-nav__link">
         
   
   
@@ -650,7 +773,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../backbone/" class="md-nav__link">
+      <a href="../backbone/" class="md-nav__link">
         
   
   
@@ -678,7 +801,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../multibyte/" class="md-nav__link">
+      <a href="../multibyte/" class="md-nav__link">
         
   
   
@@ -706,7 +829,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../duplicaterepeaterid/" class="md-nav__link">
+      <a href="../duplicaterepeaterid/" class="md-nav__link">
         
   
   
@@ -734,7 +857,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../overrideduplicates/" class="md-nav__link">
+      <a href="../overrideduplicates/" class="md-nav__link">
         
   
   
@@ -816,7 +939,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../app_overview/" class="md-nav__link">
+      <a href="../app_overview/" class="md-nav__link">
         
   
   
@@ -844,7 +967,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../app_getting_started/" class="md-nav__link">
+      <a href="../app_getting_started/" class="md-nav__link">
         
   
   
@@ -872,7 +995,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../app_tabs/" class="md-nav__link">
+      <a href="../app_tabs/" class="md-nav__link">
         
   
   
@@ -900,7 +1023,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../app_wardriving_modes/" class="md-nav__link">
+      <a href="../app_wardriving_modes/" class="md-nav__link">
         
   
   
@@ -928,7 +1051,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../app_settings_reference/" class="md-nav__link">
+      <a href="../app_settings_reference/" class="md-nav__link">
         
   
   
@@ -956,7 +1079,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../app_connection_guide/" class="md-nav__link">
+      <a href="../app_connection_guide/" class="md-nav__link">
         
   
   
@@ -984,7 +1107,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../app_how_it_works/" class="md-nav__link">
+      <a href="../app_how_it_works/" class="md-nav__link">
         
   
   
@@ -1012,7 +1135,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../app_troubleshooting/" class="md-nav__link">
+      <a href="../app_troubleshooting/" class="md-nav__link">
         
   
   
@@ -1040,7 +1163,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../app_third_party_api/" class="md-nav__link">
+      <a href="../app_third_party_api/" class="md-nav__link">
         
   
   
@@ -1122,7 +1245,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../leaderboards/" class="md-nav__link">
+      <a href="../leaderboards/" class="md-nav__link">
         
   
   
@@ -1150,7 +1273,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../awards/" class="md-nav__link">
+      <a href="../awards/" class="md-nav__link">
         
   
   
@@ -1178,7 +1301,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../portal/" class="md-nav__link">
+      <a href="../portal/" class="md-nav__link">
         
   
   
@@ -1206,7 +1329,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../embedding/" class="md-nav__link">
+      <a href="../embedding/" class="md-nav__link">
         
   
   
@@ -1288,7 +1411,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../administratorlist/" class="md-nav__link">
+      <a href="../administratorlist/" class="md-nav__link">
         
   
   
@@ -1316,7 +1439,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../admins/" class="md-nav__link">
+      <a href="../admins/" class="md-nav__link">
         
   
   
@@ -1344,7 +1467,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../region_boundaries/" class="md-nav__link">
+      <a href="../region_boundaries/" class="md-nav__link">
         
   
   
@@ -1372,7 +1495,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../webhooks/" class="md-nav__link">
+      <a href="../webhooks/" class="md-nav__link">
         
   
   
@@ -1400,7 +1523,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../coverage-api/" class="md-nav__link">
+      <a href="../coverage-api/" class="md-nav__link">
         
   
   
@@ -1428,7 +1551,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../zones-api/" class="md-nav__link">
+      <a href="../zones-api/" class="md-nav__link">
         
   
   
@@ -1456,7 +1579,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../scopes-api/" class="md-nav__link">
+      <a href="../scopes-api/" class="md-nav__link">
         
   
   
@@ -1484,7 +1607,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dataupload/" class="md-nav__link">
+      <a href="../dataupload/" class="md-nav__link">
         
   
   
@@ -1566,7 +1689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../troubleshooting/" class="md-nav__link">
+      <a href="../troubleshooting/" class="md-nav__link">
         
   
   
@@ -1594,7 +1717,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reportbugs/" class="md-nav__link">
+      <a href="../reportbugs/" class="md-nav__link">
         
   
   
@@ -1622,7 +1745,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../systemstatus/" class="md-nav__link">
+      <a href="../systemstatus/" class="md-nav__link">
         
   
   
@@ -1650,7 +1773,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../botcommands/" class="md-nav__link">
+      <a href="../botcommands/" class="md-nav__link">
         
   
   
@@ -1682,20 +1805,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked="">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8">
         
           
           <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
@@ -1716,7 +1837,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1734,7 +1855,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260630/" class="md-nav__link">
+      <a href="../release-notes/260630/" class="md-nav__link">
         
   
   
@@ -1762,7 +1883,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260419/" class="md-nav__link">
+      <a href="../release-notes/260419/" class="md-nav__link">
         
   
   
@@ -1790,7 +1911,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260409/" class="md-nav__link">
+      <a href="../release-notes/260409/" class="md-nav__link">
         
   
   
@@ -1818,7 +1939,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260331/" class="md-nav__link">
+      <a href="../release-notes/260331/" class="md-nav__link">
         
   
   
@@ -1846,7 +1967,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260325/" class="md-nav__link">
+      <a href="../release-notes/260325/" class="md-nav__link">
         
   
   
@@ -1874,7 +1995,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260320/" class="md-nav__link">
+      <a href="../release-notes/260320/" class="md-nav__link">
         
   
   
@@ -1902,7 +2023,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260317/" class="md-nav__link">
+      <a href="../release-notes/260317/" class="md-nav__link">
         
   
   
@@ -1930,7 +2051,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260308/" class="md-nav__link">
+      <a href="../release-notes/260308/" class="md-nav__link">
         
   
   
@@ -1958,7 +2079,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260306/" class="md-nav__link">
+      <a href="../release-notes/260306/" class="md-nav__link">
         
   
   
@@ -1986,7 +2107,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260304/" class="md-nav__link">
+      <a href="../release-notes/260304/" class="md-nav__link">
         
   
   
@@ -2014,7 +2135,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260227/" class="md-nav__link">
+      <a href="../release-notes/260227/" class="md-nav__link">
         
   
   
@@ -2042,7 +2163,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260226/" class="md-nav__link">
+      <a href="../release-notes/260226/" class="md-nav__link">
         
   
   
@@ -2070,7 +2191,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260225/" class="md-nav__link">
+      <a href="../release-notes/260225/" class="md-nav__link">
         
   
   
@@ -2098,7 +2219,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260220/" class="md-nav__link">
+      <a href="../release-notes/260220/" class="md-nav__link">
         
   
   
@@ -2126,7 +2247,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260219/" class="md-nav__link">
+      <a href="../release-notes/260219/" class="md-nav__link">
         
   
   
@@ -2151,37 +2272,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    February 12, 2026
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../release-notes/260212/" class="md-nav__link">
         
   
   
@@ -2197,59 +2291,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-      
-        <li class="md-nav__item">
-  <a href="#new-features" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ✨ New Features
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#improvements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🛠️ Improvements
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bug-fixes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        🐛 Bug Fixes
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2262,7 +2303,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260209/" class="md-nav__link">
+      <a href="../release-notes/260209/" class="md-nav__link">
         
   
   
@@ -2290,7 +2331,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260207/" class="md-nav__link">
+      <a href="../release-notes/260207/" class="md-nav__link">
         
   
   
@@ -2318,7 +2359,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260205_2/" class="md-nav__link">
+      <a href="../release-notes/260205_2/" class="md-nav__link">
         
   
   
@@ -2346,7 +2387,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260205/" class="md-nav__link">
+      <a href="../release-notes/260205/" class="md-nav__link">
         
   
   
@@ -2374,7 +2415,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260204/" class="md-nav__link">
+      <a href="../release-notes/260204/" class="md-nav__link">
         
   
   
@@ -2402,7 +2443,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260203_2/" class="md-nav__link">
+      <a href="../release-notes/260203_2/" class="md-nav__link">
         
   
   
@@ -2430,7 +2471,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260203/" class="md-nav__link">
+      <a href="../release-notes/260203/" class="md-nav__link">
         
   
   
@@ -2458,7 +2499,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260131_2/" class="md-nav__link">
+      <a href="../release-notes/260131_2/" class="md-nav__link">
         
   
   
@@ -2486,7 +2527,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260131/" class="md-nav__link">
+      <a href="../release-notes/260131/" class="md-nav__link">
         
   
   
@@ -2514,7 +2555,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260130/" class="md-nav__link">
+      <a href="../release-notes/260130/" class="md-nav__link">
         
   
   
@@ -2542,7 +2583,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../260129/" class="md-nav__link">
+      <a href="../release-notes/260129/" class="md-nav__link">
         
   
   
@@ -2577,7 +2618,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../faq/" class="md-nav__link">
+      <a href="../faq/" class="md-nav__link">
         
   
   
@@ -2604,7 +2645,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../privacy/" class="md-nav__link">
+      <a href="../privacy/" class="md-nav__link">
         
   
   
@@ -2651,10 +2692,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#new-features" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ✨ New Features
+        Prerequisites
       
     </span>
   </a>
@@ -2662,10 +2703,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#improvements" class="md-nav__link">
+  <a href="#1-flash-the-firmware" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🛠️ Improvements
+        1. Flash the Firmware
       
     </span>
   </a>
@@ -2673,10 +2714,49 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#bug-fixes" class="md-nav__link">
+  <a href="#2-configure-the-observer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        🐛 Bug Fixes
+        2. Configure the Observer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Configure the Observer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-1-setup-wizard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 1. Setup Wizard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-2-command-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 2. Command Line
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifying-your-observer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verifying Your Observer
       
     </span>
   </a>
@@ -2700,31 +2780,43 @@
 
 
 
-<h1 id="meshmapper-update-admin-tools-map-enhancements-february-12-2026">🚀 MeshMapper Update - Admin Tools &amp; Map Enhancements (February 12, 2026)<a class="headerlink" href="#meshmapper-update-admin-tools-map-enhancements-february-12-2026" title="Permanent link">¶</a></h1>
-<h3 id="new-features">✨ New Features<a class="headerlink" href="#new-features" title="Permanent link">¶</a></h3>
+<h1 id="meshcore-mqtt-native-firmware">MeshCore MQTT Native Firmware<a class="headerlink" href="#meshcore-mqtt-native-firmware" title="Permanent link">¶</a></h1>
+<p>These instructions cover setting up the MeshCore observer firmware to send to MeshMapper. The firmware runs directly on an ESP-based radio with Wi-Fi, so no extra computer is needed. It has a built-in <strong>MeshMapper</strong> broker preset.</p>
+<p><em>The observer firmware is built by HerculesMulligan. For advanced options, see the <a href="https://observer.gessaman.com/docs">MeshCore Observer Setup Guide</a>.</em></p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
 <ul>
-<li><strong>Detailed vs. Simplified Map Views</strong> — Added a toggle in Settings to switch between "Detailed" (full grid resolution) and "Simplified" (clustered repeaters, optimized grid) modes. Simplified mode significantly improves performance on slower devices.  Simplified mode is now the default.</li>
-<li><strong>Discord Integration</strong> — Region administrators can now link their Discord!  This will allow administrators to receive notifications about their region from the MeshMapper bot (for example, when a new repeater has sent an advert and its ID is now in collision).  Find this setting in the "User Settings" tab of the admin panel.</li>
-<li><strong>Administration Popup</strong> — A new "Administration" option on the map displays the region's administrators and contact information, making it easier for visitors to reach out to local maintainers.  Visitors can send messages to the administrators through the Discord integration/MeshMapper bot here, if there is at least one region administrator with their Discord linked and that notification type is enabled.</li>
-<li><strong>Region Message</strong> — Administrators can now set a custom message (e.g., local Discord server invite, website link) that appears to visitors in the Administration popup.  This allows administrators to direct map visitors to local resources.</li>
-<li><strong>Disable Duplicate ID Detection</strong> — Added the ability for region admins to opt-out of strict duplicate ID detection. This allows regions to visualize all data even if repeater IDs collide.  <a href="../../overrideduplicates/">Read about this in more detail here.</a></li>
-<li><strong>Onboarding Status</strong> — New regions pending onboarding will display in the Maps dropdown with a landing page indicating that onboarding is pending.  Optionally linking ones Discord with the onboarding form allows for automated status updates sent directly from the MeshMapper bot.</li>
-<li><strong>Users</strong> — Region administrators now have the ability to create Users.  Creating a User allows you the ability to combine multiple companions under a single "primary" companion, which will aggregate a users statistics and contributions under that single companion on the leaderboard.  This is also the first stepping stone into a planned portal that will allow end-users the ability to manage their own contributions, see their own detailed statistics, etc.</li>
+<li>An ESP-based MeshCore device with Wi-Fi (e.g. Heltec V3/V4, Station G2)</li>
+<li>A Wi-Fi network the observer can stay connected to</li>
+<li>Chrome or Edge (for flashing from the browser)</li>
 </ul>
-<h3 id="improvements">🛠️ Improvements<a class="headerlink" href="#improvements" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Multiregion Management</strong> — Regions within a multiregion group can now be managed independently, giving local admins more control while remaining part of the larger group.</li>
-<li><strong>Admin Panel Enhancements</strong> —<ul>
-<li>Improved filtering and sorting capabilities for data management and export.</li>
-<li>Added tool parity for multiregion administrators, ensuring they have access to the same maintenance utilities as single-region admins.</li>
+<h2 id="1-flash-the-firmware">1. Flash the Firmware<a class="headerlink" href="#1-flash-the-firmware" title="Permanent link">¶</a></h2>
+<p>Open the <a href="https://observer.gessaman.com/">MeshCore Observer Flasher</a>, pick <strong>MQTT Observer Firmware</strong>, select your device, and flash it from the browser.</p>
+<h2 id="2-configure-the-observer">2. Configure the Observer<a class="headerlink" href="#2-configure-the-observer" title="Permanent link">¶</a></h2>
+<h3 id="option-1-setup-wizard">Option 1. Setup Wizard<a class="headerlink" href="#option-1-setup-wizard" title="Permanent link">¶</a></h3>
+<p>On first boot, the observer creates a Wi-Fi network named <strong>MeshCore-Setup-XXXX</strong>.</p>
+<ol>
+<li>Connect to it from your phone or computer. The setup page opens automatically (or browse to <code>http://192.168.4.1/</code>).</li>
+<li>Walk through the wizard: <strong>WiFi → radio → MQTT → review</strong>.<ul>
+<li><strong>Radio</strong>: must match the other nodes in your mesh.</li>
+<li><strong>MQTT</strong>: set the IATA code to your <strong>MeshMapper region code</strong> (e.g. <code>YOW</code>), and set slot 1 to the <strong>meshmapper</strong> preset.</li>
 </ul>
 </li>
-<li><strong>Onboarding Checks</strong> — Strengthened the validation logic during the region onboarding process to ensure configuration accuracy.</li>
-</ul>
-<h3 id="bug-fixes">🐛 Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permanent link">¶</a></h3>
-<ul>
-<li><strong>Admin Panel</strong> — Various bug fixes and stability improvements within the Admin Panel.</li>
-</ul>
+<li>Click <strong>Save &amp; reboot</strong>. The observer joins your Wi-Fi and connects to MeshMapper.</li>
+</ol>
+<h3 id="option-2-command-line">Option 2. Command Line<a class="headerlink" href="#option-2-command-line" title="Permanent link">¶</a></h3>
+<p>Connect to the device console over USB serial (115200 baud) or by repeater login from the companion app, then run:</p>
+<pre><code class="language-bash">set radio 910.525,62.5,7,5     # must match your mesh: &lt;freq&gt;,&lt;bw&gt;,&lt;sf&gt;,&lt;cr&gt;
+set name MyObserver
+set mqtt.iata YOW              # your MeshMapper region code
+set wifi.ssid YourWiFiNetwork
+set wifi.pwd YourWiFiPassword
+set mqtt1.preset meshmapper
+reboot
+</code></pre>
+<p>The IATA code must match your MeshMapper region, or your observer won't show up. After it reboots, check the connection with <code>get mqtt.status</code>.</p>
+<h2 id="verifying-your-observer">Verifying Your Observer<a class="headerlink" href="#verifying-your-observer" title="Permanent link">¶</a></h2>
+<p>Once your observer is running and connected, it appears in your region's admin panel under the <a href="../admins/#observers">Observers tab</a> after packets have been received (repeater or companion adverts, or wardriving pings). Its <strong>Brokers</strong> column shows a coloured MeshMapper badge once the broker has heard it.</p>
+<p>If nothing shows up, run <code>get wifi.status</code> and <code>get mqtt.status</code> on the device console, and confirm <code>mqtt.iata</code> matches your region.</p>
 
 
 
@@ -2774,12 +2866,12 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
-        <script src="../../javascripts/extra.js"></script>
+        <script src="../javascripts/extra.js"></script>
       
     
   

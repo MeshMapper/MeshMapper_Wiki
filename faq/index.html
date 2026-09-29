@@ -7,7 +7,7 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/faq/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/faq/">
       
       
         <link rel="prev" href="../release-notes/260129/">
@@ -392,14 +392,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-firmware/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    Native Firmware
   
 
     
@@ -428,6 +428,34 @@
     
   
     MeshCore-HA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meshcoretomqtt
   
 
     
@@ -2805,23 +2833,23 @@
 </details>
 <details class="question">
 <summary>How do I get my region added to MeshMapper?</summary>
-<p>Use the <a href="../onboarding/">new region form</a>. You need a valid email address and an observer sending data to the MeshMapper or LetsMesh MQTT broker. Linking Discord is optional.</p>
+<p>Use the <a href="../onboarding/">new region form</a>. You need a valid email address and at least one observer sending data to the MeshMapper MQTT broker (see <a href="../mqtt-main/">MQTT setup</a>). Linking Discord is optional.</p>
 </details>
 <details class="question">
 <summary>What is a region?</summary>
 <p>A region is a geographic area on MeshMapper that has its own map, administrators, and settings. Regions are typically centered around a city or metropolitan area. Some regions are grouped into multi-region setups that share a single map view.</p>
 </details>
 <details class="question">
-<summary>My repeater shows as Excluded or Duplicate.  Why?</summary>
-<p>As a regions mesh network grows, the likelihood of two repeaters sharing the same ID increases. MeshMapper has a robust system for detecting, handling, and resolving these "collisions" to ensure data integrity.  Part of this duplicate detection logic is disabling repeaters that share the same ID in order to protect data integrity.  <a href="https://wiki.meshmapper.net/duplicaterepeaterid/">Read more about it here</a>.</p>
+<summary>My repeater shows as Ambiguous. Why?</summary>
+<p>As a region's mesh network grows, two repeaters can end up sharing the same short ID. When MeshMapper can't tell a repeater apart from another at the ID width it advertises, it marks it <strong>Ambiguous</strong> and doesn't credit pings to it.  <a href="../duplicaterepeaterid/">Read more about it here</a>.</p>
 </details>
 <details class="question">
 <summary>Does MeshMapper support multibyte?</summary>
-<p>Yes, MeshMapper fully supports multibyte repeater hops/paths.  <a href="https://wiki.meshmapper.net/multibyte/">Read more about it here</a>.</p>
+<p>Yes, MeshMapper fully supports multibyte repeater hops/paths.  <a href="../multibyte/">Read more about it here</a>.</p>
 </details>
 <details class="question">
 <summary>How long does it take for my region to be onboarded?</summary>
-<p>Once the onboarding form is completed, the MeshMapper servers perform an MQTT verification.  This checks to ensure that there are observers in the region connected to the MQTT brokers at MeshMapper or letsmesh.net.  This process can take up to 5-6 minutes.  If verification is successful, the region is presented to the MeshMapper administration team for review.  The team will review to ensure boundries are set correctly, read and accomodate any notes added during onboarding, determine if the region should belong to a multiregion, etc.  Once complete, the region is deployed.  As the process after MQTT verification is manual, the time to complete can vary, but typically regions are onboarded in under 24 hours.</p>
+<p>Once the onboarding form is completed, the MeshMapper servers perform an MQTT verification.  This checks that an observer in the region is sending data to the MeshMapper MQTT broker (we also accept data seen on the public LetsMesh broker, which isn't MeshMapper infrastructure). This can take up to 5 minutes. If verification is successful, the region is presented to the MeshMapper administration team for review. The team checks that boundaries are set correctly, reads any notes added during onboarding, determine if the region should belong to a multiregion, etc.  Once complete, the region is deployed.  As the process after MQTT verification is manual, the time to complete can vary, but typically regions are onboarded in under 24 hours.</p>
 </details>
 <hr>
 <h2 id="wardriving-coverage">Wardriving &amp; Coverage<a class="headerlink" href="#wardriving-coverage" title="Permanent link">¶</a></h2>
@@ -2834,17 +2862,17 @@
 <p>Each colour represents a different type of signal interaction:</p>
 <ul>
 <li><strong>Green (BIDIR)</strong> — Two-way confirmed link</li>
-<li><strong>Orange (TX)</strong> — Sent a packet, but didn't hear back</li>
-<li><strong>Purple (RX)</strong> — Heard a response, but didn't transmit</li>
-<li><strong>Cyan (DISC)</strong> — Discovery packets received</li>
-<li><strong>Grey (DEAD)</strong> — Repeater heard, but no route available</li>
-<li><strong>Red (DROP)</strong> — Failed packet delivery</li>
+<li><strong>Orange (TX)</strong> — Transmitted and routed through the mesh, but no repeats heard back</li>
+<li><strong>Purple (RX)</strong> — Heard mesh traffic, but didn't transmit</li>
+<li><strong>Cyan (DISC/TRACE)</strong> — A discovery or trace request got a reply</li>
+<li><strong>Grey (DEAD)</strong> — A repeater heard it, but no other radio received the repeat</li>
+<li><strong>Red (DROP)</strong> — No repeats heard and no successful route</li>
 </ul>
 <p>For more detail, see <a href="../visuals/">Understanding Visuals</a>.</p>
 </details>
 <details class="question">
 <summary>Do I need the companion app to contribute data?</summary>
-<p>Yes. The MeshMapper companion app is the primary way to submit wardriving data. It is available for both Android and iOS. See <a href="https://wiki.meshmapper.net/app_getting_started">Getting Started</a> for setup instructions.</p>
+<p>Yes. The MeshMapper companion app is the primary way to submit wardriving data. It is available for both Android and iOS. See <a href="../app_getting_started/">Getting Started</a> for setup instructions.</p>
 </details>
 <details class="question">
 <summary>Does the wardriving app broadcast my location on the mesh?</summary>
@@ -2852,7 +2880,7 @@
 </details>
 <details class="question">
 <summary>Can I view or delete the data I have contributed?</summary>
-<p>Yes. Create an account on the <a href="https://wiki.meshmapper.net/portal/">My MeshMapper portal</a>, link your companion device (a quick cryptographic proof over USB or Bluetooth), and you can view your sessions, see your own pings on the map, set your leaderboard display name, and delete some or all of your contributed data.</p>
+<p>Yes. Create an account on the <a href="../portal/">My MeshMapper portal</a>, link your companion device (a quick cryptographic proof over USB or Bluetooth), and you can view your sessions, see your own pings on the map, set your leaderboard display name, and delete some or all of your contributed pings. To delete your account itself, contact admin@meshmapper.net.</p>
 </details>
 <details class="question">
 <summary>Why isn't my recent data showing on the leaderboard?</summary>
@@ -2874,11 +2902,11 @@
 <h2 id="mobile-app">Mobile App<a class="headerlink" href="#mobile-app" title="Permanent link">¶</a></h2>
 <details class="question">
 <summary>Where can I download the MeshMapper app?</summary>
-<p>The companion app is available on both the Google Play Store (Android) and the Apple App Store (iOS). Search for "MeshMapper" or visit the <a href="https://wiki.meshmapper.net/app_overview">App Overview</a> page for direct links.</p>
+<p>The companion app is available on both the Google Play Store (Android) and the Apple App Store (iOS). Search for "MeshMapper" or visit the <a href="../app_overview/">App Overview</a> page for direct links.</p>
 </details>
 <details class="question">
 <summary>How does the app connect to my MeshCore device?</summary>
-<p>The app communicates with your MeshCore device over Bluetooth. See the <a href="../app_connection_guide/">Connection Guide</a> for pairing instructions and troubleshooting tips.</p>
+<p>The app connects to your MeshCore device over Bluetooth, over TCP/Wi-Fi, or over USB on Android. See the <a href="../app_connection_guide/">Connection Guide</a> for pairing instructions and troubleshooting tips.</p>
 </details>
 <details class="question">
 <summary>How do I join the app beta?</summary>
@@ -2933,11 +2961,11 @@
 </details>
 <details class="question">
 <summary>How big should my region be?</summary>
-<p>Draw a boundary around the mesh you expect to map and coordinate it with nearby regions. The onboarding form checks for substantial overlap, and the MeshMapper team reviews each request. See <a href="../onboarding/#defining-the-boundary">Defining the Boundary</a>.</p>
+<p>Drop the pin on your area and use <strong>Load Boundary</strong> (State/Prov, County or Local) to pick an OpenStreetMap boundary that matches the mesh you expect to map, and coordinate it with nearby regions. Custom drawn or GeoJSON boundaries are for special cases only. The onboarding form checks for substantial overlap, and the MeshMapper team reviews each request. See <a href="../onboarding/#3-boundary">Boundary</a>.</p>
 </details>
 <details class="question">
 <summary>Can I use any three letters as my region code?</summary>
-<p>No. Pick a recognized IATA airport code near your area. The form checks that the code is available and geographically appropriate; it will suggest nearby codes when one is too far away. See <a href="../onboarding/#the-onboarding-form">The Onboarding Form</a>.</p>
+<p>No. Pick a recognized IATA airport code near your area. The form checks that the code is available and geographically appropriate; it will suggest nearby codes when one is too far away. See <a href="../onboarding/#1-code">Code</a>.</p>
 </details>
 <details class="question">
 <summary>Why does the form say my code is already used or pending?</summary>
@@ -2945,7 +2973,7 @@
 </details>
 <details class="question">
 <summary>Why did my onboarding submission fail?</summary>
-<p>Read the error shown by the form. It checks the airport code, region name, email, coordinates, radius, boundary polygon and overlap with existing regions. Correct the reported field and retry; if the form says you have submitted too often, wait a few minutes.</p>
+<p>Read the error shown by the form. It checks the airport code, region name, email, boundary and overlap with existing regions. Correct the reported field and retry; if the form says you have submitted too often, wait a few minutes.</p>
 </details>
 <details class="question">
 <summary>Does my area already have a region?</summary>
@@ -3005,11 +3033,11 @@
 </details>
 <details class="question">
 <summary>How do I group several companions under one contributor?</summary>
-<p>Link your own devices to one <a href="../portal/#linking-your-companion-devices">portal account</a>. Region admins can also group companions in the admin panel's <strong>Users</strong> tab so their contributions appear together on leaderboards.</p>
+<p>Link your own devices to one <a href="../portal/#linking-your-companion-devices">portal account</a>. They then appear together as one entry on the leaderboards.</p>
 </details>
 <details class="question">
 <summary>Can duplicate leaderboard entries or old device data be merged?</summary>
-<p>Link the devices you still control to one portal account. If the old device cannot be linked, ask a region administrator to inspect its companion record and the <strong>Users</strong> grouping. Do not delete an account or device record to try to merge history.</p>
+<p>Link the devices you still control to one portal account. If the old device cannot be linked, ask a Moderator on Discord for help. Do not delete an account or device record to try to merge history.</p>
 </details>
 <h3 id="portal-accounts">Portal accounts<a class="headerlink" href="#portal-accounts" title="Permanent link">¶</a></h3>
 <details class="question">
@@ -3028,11 +3056,11 @@
 <h2 id="support-contributing">Support &amp; Contributing<a class="headerlink" href="#support-contributing" title="Permanent link">¶</a></h2>
 <details class="question">
 <summary>How do I report a bug?</summary>
-<p>You can report bugs by tagging the MeshMapper bot on Discord with <code>!bug</code> followed by a description, or through the MeshMapper website and mobile app. See <a href="https://wiki.meshmapper.net/reportbugs">Report Bugs &amp; Features</a> for more info.</p>
+<p>You can report bugs by tagging the MeshMapper bot on Discord with <code>!bug</code> followed by a description, or through the MeshMapper website and mobile app. See <a href="../reportbugs/">Report Bugs &amp; Features</a> for more info.</p>
 </details>
 <details class="question">
 <summary>How do I request a feature?</summary>
-<p>Tag the MeshMapper bot on Discord with <code>!feature</code> followed by your idea, or through the MeshMapper website or mobile app. See <a href="https://wiki.meshmapper.net/reportbugs">Report Bugs &amp; Features</a> for more info.</p>
+<p>Tag the MeshMapper bot on Discord with <code>!feature</code> followed by your idea, or through the MeshMapper website or mobile app. See <a href="../reportbugs/">Report Bugs &amp; Features</a> for more info.</p>
 </details>
 <details class="question">
 <summary>Where can I get help if my question isn't answered here?</summary>
@@ -3051,7 +3079,7 @@
 <details class="question">
 <summary>Can I scrape for data or call your API's?</summary>
 <p>Unauthorized scraping or access to undocumented API's is strictly prohibited and will result in action being taken to protect MeshMapper's data and servers.</p>
-<p>The publicly available API's are <a href="https://wiki.meshmapper.net/coverage-api">listed here</a> and require the use of a provisioned API key.</p>
+<p>The publicly available APIs are <a href="../coverage-api/">listed here</a> and require the use of a provisioned API key.</p>
 </details>
 <details class="question">
 <summary>Can I have access to the MeshMapper MQTT broker or raw data?</summary>

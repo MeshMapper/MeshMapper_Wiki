@@ -7,13 +7,13 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/mqtt-main/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/mqtt-main/">
       
       
         <link rel="prev" href="../onboarding/">
       
       
-        <link rel="next" href="../mqtt-python/">
+        <link rel="next" href="../mqtt-firmware/">
       
       
         
@@ -451,10 +451,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-meshcore-packet-capture-python" class="md-nav__link">
+  <a href="#1-meshcore-mqtt-native-firmware" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. MeshCore Packet Capture (Python)
+        1. MeshCore MQTT Native Firmware
       
     </span>
   </a>
@@ -473,10 +473,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-meshcore-mqtt-native-firmware" class="md-nav__link">
+  <a href="#3-meshcoretomqtt-python" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. MeshCore MQTT Native Firmware
+        3. meshcoretomqtt (Python)
       
     </span>
   </a>
@@ -503,7 +503,7 @@
   <a href="#common-observer-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Common observer questions
+        Common Observer Questions
       
     </span>
   </a>
@@ -526,14 +526,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-firmware/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    Native Firmware
   
 
     
@@ -562,6 +562,34 @@
     
   
     MeshCore-HA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meshcoretomqtt
   
 
     
@@ -2698,10 +2726,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-meshcore-packet-capture-python" class="md-nav__link">
+  <a href="#1-meshcore-mqtt-native-firmware" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. MeshCore Packet Capture (Python)
+        1. MeshCore MQTT Native Firmware
       
     </span>
   </a>
@@ -2720,10 +2748,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-meshcore-mqtt-native-firmware" class="md-nav__link">
+  <a href="#3-meshcoretomqtt-python" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. MeshCore MQTT Native Firmware
+        3. meshcoretomqtt (Python)
       
     </span>
   </a>
@@ -2750,7 +2778,7 @@
   <a href="#common-observer-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Common observer questions
+        Common Observer Questions
       
     </span>
   </a>
@@ -2775,7 +2803,7 @@
 
 
 <h1 id="meshmapper-mqtt-setup">MeshMapper MQTT Setup<a class="headerlink" href="#meshmapper-mqtt-setup" title="Permanent link">¶</a></h1>
-<p>An <strong>MQTT observer</strong> is a MeshCore node that acts as the "ears" of MeshMapper. It listens for mesh traffic and publishes it to an MQTT broker, where MeshMapper picks it up for processing. A new region needs at least one online observer sending to either the <strong>MeshMapper</strong> or <strong>LetsMesh</strong> broker. MeshMapper recommends its own broker.</p>
+<p>An <strong>MQTT observer</strong> is a MeshCore node that acts as the "ears" of MeshMapper. It listens for mesh traffic and publishes it to the MeshMapper MQTT broker, where MeshMapper picks it up for processing. A new region needs at least one online observer sending to the <strong>MeshMapper broker</strong>.</p>
 <h2 id="meshmapper-broker">MeshMapper Broker<a class="headerlink" href="#meshmapper-broker" title="Permanent link">¶</a></h2>
 <table>
 <thead>
@@ -2796,28 +2824,29 @@
 </tbody>
 </table>
 <h2 id="mqtt-observer-methods">MQTT Observer Methods<a class="headerlink" href="#mqtt-observer-methods" title="Permanent link">¶</a></h2>
-<p>There are four ways to set up a MeshCore MQTT observer that collects packets and forwards them to MeshMapper.</p>
-<h3 id="1-meshcore-packet-capture-python">1. MeshCore Packet Capture (Python)<a class="headerlink" href="#1-meshcore-packet-capture-python" title="Permanent link">¶</a></h3>
-<p>This method uses a dedicated companion device (e.g., Raspberry Pi) connected to your MeshCore radio via USB, BLE, or TCP. A Python service runs continuously, capturing packets and publishing them to MQTT.</p>
+<p>There are four ways to set up a MeshCore MQTT observer that sends packets to MeshMapper.</p>
+<h3 id="1-meshcore-mqtt-native-firmware">1. MeshCore MQTT Native Firmware<a class="headerlink" href="#1-meshcore-mqtt-native-firmware" title="Permanent link">¶</a></h3>
+<p>This method runs directly on the radio with no companion computer needed. The firmware captures packets and publishes them to MQTT over the board's built-in Wi-Fi. Most ESP-based devices with Wi-Fi are supported.</p>
 <ul>
-<li><strong>Requires</strong>: A Raspberry Pi or similar always-on Linux computer, plus a MeshCore radio connected via USB or BLE</li>
-<li><strong>Best for</strong>: Dedicated observer setups where you have a spare device to run the capture service</li>
-<li><strong>Guide</strong>: <a href="../mqtt-python/">MeshCore Packet Capture Setup</a></li>
+<li><strong>Requires</strong>: An ESP-based device with Wi-Fi</li>
+<li><strong>Best for</strong>: The simplest hardware setup, since no secondary computer is needed</li>
+<li><strong>Guide</strong>: <a href="../mqtt-firmware/">MeshCore MQTT Native Firmware Setup</a></li>
+<li><strong>Built by</strong>: HerculesMulligan</li>
 </ul>
 <h3 id="2-meshcore-home-assistant-integration">2. MeshCore Home Assistant Integration<a class="headerlink" href="#2-meshcore-home-assistant-integration" title="Permanent link">¶</a></h3>
-<p>If you already run Home Assistant, this is the easiest route. The MeshCore-HA integration connects to your radio via USB, Wi-Fi, or Bluetooth and forwards packets to MQTT, while also exposing mesh data as HA entities for monitoring and automation.</p>
+<p>The MeshCore-HA integration connects to your radio via USB, Wi-Fi, or Bluetooth and forwards packets to MQTT, while also exposing mesh data as HA entities for monitoring and automation.</p>
 <ul>
 <li><strong>Requires</strong>: A Home Assistant instance with a MeshCore radio accessible via USB, Wi-Fi, or Bluetooth</li>
 <li><strong>Best for</strong>: Users who already have Home Assistant and want observer functionality alongside mesh monitoring and automation</li>
 <li><strong>Guide</strong>: <a href="../mqtt-ha/">MeshCore Home Assistant Setup</a></li>
 </ul>
-<h3 id="3-meshcore-mqtt-native-firmware">3. MeshCore MQTT Native Firmware<a class="headerlink" href="#3-meshcore-mqtt-native-firmware" title="Permanent link">¶</a></h3>
-<p>This method runs directly on a Heltec V3 or V4 board with no companion device needed. The firmware natively captures packets and publishes them to MQTT using the board's built-in Wi-Fi.</p>
+<h3 id="3-meshcoretomqtt-python">3. meshcoretomqtt (Python)<a class="headerlink" href="#3-meshcoretomqtt-python" title="Permanent link">¶</a></h3>
+<p>This method uses an always-on computer (e.g., Raspberry Pi) connected to a MeshCore repeater by USB. A Python service runs continuously, capturing packets and publishing them to MQTT. It includes a built-in MeshMapper broker preset.</p>
 <ul>
-<li><strong>Requires</strong>: A Heltec V3 or V4 with the MQTT-enabled firmware flashed</li>
-<li><strong>Best for</strong>: The simplest hardware setup, since no secondary computer is needed</li>
+<li><strong>Requires</strong>: A Raspberry Pi or similar always-on Linux/macOS computer, plus a MeshCore repeater with packet logging enabled, connected by USB</li>
+<li><strong>Best for</strong>: Dedicated observer setups where you have a spare computer and repeater</li>
+<li><strong>Guide</strong>: <a href="../mqtt-python/">meshcoretomqtt Setup</a></li>
 </ul>
-<p>Flash the observer firmware from the <a href="https://observer.gessaman.com/">MeshCore observer flasher</a>, built by agessaman/HerculesMulligan. It runs in your browser and walks you through flashing and setup. The source is in <a href="https://github.com/agessaman/MeshCore/tree/mqtt-bridge-implementation">agessaman/MeshCore</a>.</p>
 <h3 id="4-pymc">4. PyMC<a class="headerlink" href="#4-pymc" title="Permanent link">¶</a></h3>
 <p>This method uses the PyMC software, which handles MQTT configuration directly from its own interface.</p>
 <ul>
@@ -2825,11 +2854,11 @@
 <li><strong>Best for</strong>: Anyone already running a PyMC repeater</li>
 <li><strong>Guide</strong>: <a href="../mqtt-pymc/">PyMC Repeater MQTT Setup</a></li>
 </ul>
-<h2 id="common-observer-questions">Common observer questions<a class="headerlink" href="#common-observer-questions" title="Permanent link">¶</a></h2>
-<p><strong>Should I send to MeshMapper, LetsMesh or both?</strong> Either broker can supply reports for MeshMapper. You may publish to both; MeshMapper combines reports from its configured brokers. One working broker is enough for onboarding.</p>
+<h2 id="common-observer-questions">Common Observer Questions<a class="headerlink" href="#common-observer-questions" title="Permanent link">¶</a></h2>
+<p><strong>Which broker should I send to?</strong> The MeshMapper broker. MeshMapper also collects from LetsMesh, but that isn't our infrastructure, so we can't guarantee we'll always have access to it.</p>
 <p><strong>Can I use a mobile observer?</strong> It can submit reports while online, but a fixed, always-on observer is a better choice for a region's required listener. A mobile receiver cannot verify a new region while it is offline or away from that region.</p>
-<p><strong>Why is my observer not listed?</strong> A broker connection by itself is not an observer report. Check that it publishes <code>status</code> or <code>packets</code> on the <code>meshcore/&lt;region code&gt;/&lt;observer key&gt;/...</code> topic, using the region's code. Then check the region admin panel's <strong>Observers</strong> tab and the broker checkmarks. Allow time for the first report to arrive.</p>
-<p><strong>Can I run a regional MQTT broker?</strong> A region admin can register a broker in <strong>Settings</strong>. Provide a reachable host and port, WebSockets transport, and its required authentication credentials. MeshMapper subscribes only to that region's topics; see <a href="../mqtt-pymc/#verifying-your-observer">Observer verification</a> after saving. Do not publish broker credentials in a public channel.</p>
+<p><strong>Why is my observer not listed?</strong> A broker connection by itself is not an observer report. Check that it publishes <code>status</code> or <code>packets</code> on the <code>meshcore/&lt;region code&gt;/&lt;observer key&gt;/...</code> topic, using the region's code. Then check the region admin panel's <strong>Observers</strong> tab and its <strong>Brokers</strong> badges. Allow time for the first report to arrive.</p>
+<p><strong>Can my region use its own MQTT broker?</strong> Yes. After onboarding, region admins can configure MeshMapper to also pull from their own regional broker in the admin panel under <strong>Settings → MQTT Brokers &amp; Observers</strong>. Provide a reachable host and port, WebSockets transport, and its authentication credentials. MeshMapper subscribes only to that region's topics. Do not publish broker credentials in a public channel.</p>
 
 
 

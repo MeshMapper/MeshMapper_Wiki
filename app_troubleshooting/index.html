@@ -7,7 +7,7 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/app_troubleshooting/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/app_troubleshooting/">
       
       
         <link rel="prev" href="../app_how_it_works/">
@@ -392,14 +392,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-firmware/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    Native Firmware
   
 
     
@@ -428,6 +428,34 @@
     
   
     MeshCore-HA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meshcoretomqtt
   
 
     
@@ -1141,10 +1169,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#gps-data-is-stale-warnings" class="md-nav__link">
+  <a href="#phone-clock-out-of-sync-or-weak-gps-signal" class="md-nav__link">
     <span class="md-ellipsis">
       
-        "GPS data is stale" warnings
+        "Phone Clock Out of Sync" or "Weak GPS Signal"
       
     </span>
   </a>
@@ -1273,56 +1301,6 @@
     <span class="md-ellipsis">
       
         Audio hangs or freezes
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#web-specific-issues" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Web-Specific Issues
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Web-Specific Issues">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#web-bluetooth-not-supported-error" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        "Web Bluetooth not supported" error
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cors-errors-during-local-development" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        CORS errors during local development
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#web-bluetooth-requires-active-tab" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Web Bluetooth requires active tab
       
     </span>
   </a>
@@ -2996,10 +2974,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#gps-data-is-stale-warnings" class="md-nav__link">
+  <a href="#phone-clock-out-of-sync-or-weak-gps-signal" class="md-nav__link">
     <span class="md-ellipsis">
       
-        "GPS data is stale" warnings
+        "Phone Clock Out of Sync" or "Weak GPS Signal"
       
     </span>
   </a>
@@ -3140,56 +3118,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#web-specific-issues" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Web-Specific Issues
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Web-Specific Issues">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#web-bluetooth-not-supported-error" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        "Web Bluetooth not supported" error
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cors-errors-during-local-development" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        CORS errors during local development
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#web-bluetooth-requires-active-tab" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Web Bluetooth requires active tab
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#debug-logging" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3236,7 +3164,8 @@
 <p><strong>Possible causes:</strong></p>
 <ul>
 <li>Radio is not powered on or out of BLE range (typically 10-30m)</li>
-<li>Bluetooth is disabled on your phone</li>
+<li>Bluetooth is disabled on your phone (the Connect tab shows <strong>Bluetooth is Off</strong>)</li>
+<li>Location Services are off (the Connect tab shows <strong>Location Services Disabled</strong>)</li>
 <li>Android: Location permission not granted (required for BLE scanning)</li>
 <li>Another app/device is already connected (MeshCore only supports one BLE connection at a time)</li>
 </ul>
@@ -3247,8 +3176,9 @@
 <li>Check Bluetooth and Location are enabled in system settings</li>
 <li>Disconnect other apps connected to the device</li>
 </ul>
+<p>If the Connect tab shows <strong>Region Not Available</strong> instead of a device list, you are outside every MeshMapper zone. See <a href="#zone-shows-orange-dash-outside-coverage-area">Zone shows orange dash</a>.</p>
 <h3 id="connection-fails-at-device-info-step">Connection fails at "Device Info" step<a class="headerlink" href="#connection-fails-at-device-info-step" title="Permanent link">¶</a></h3>
-<p>Retrieves your radio's public key (required for API auth). If this fails, the entire connection fails.</p>
+<p>The step reads <strong>Querying device info...</strong> on screen. It retrieves your radio's public key (required for API auth). If this fails, the entire connection fails.</p>
 <p><strong>Causes:</strong> Firmware compatibility issue or transient BLE error</p>
 <p><strong>Solutions:</strong></p>
 <ul>
@@ -3257,17 +3187,54 @@
 <li>Power cycle the radio if the problem persists</li>
 </ul>
 <h3 id="connection-fails-at-session-acquisition-step">Connection fails at "Session Acquisition" step<a class="headerlink" href="#connection-fails-at-session-acquisition-step" title="Permanent link">¶</a></h3>
-<p>Authenticates with the MeshMapper API.</p>
-<p><strong>Causes:</strong></p>
-<ul>
-<li>No internet connection</li>
-<li>MeshMapper API in maintenance mode</li>
-</ul>
-<p><strong>Solutions:</strong></p>
-<ul>
-<li>Check internet connection</li>
-<li>Use Offline Mode during maintenance</li>
-</ul>
+<p>The step reads <strong>Acquiring API slot...</strong> on screen. It authenticates with the MeshMapper API.</p>
+<p>If MeshMapper can't be reached at all, the screen shows <strong>Server Unreachable</strong>: check your internet connection, try again, or use Offline Mode. Otherwise the app shows the server's reason:</p>
+<table>
+<thead>
+<tr>
+<th>Message</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Unknown device. Please advertise yourself on the mesh using the official MeshCore app."</td>
+<td>Send an advert from the MeshCore app so MeshMapper learns your radio, then try again</td>
+</tr>
+<tr>
+<td>"App version outdated. Please update to the latest version."</td>
+<td>Update the app</td>
+</tr>
+<tr>
+<td>"Your phone's clock is out of sync. Turn on automatic date and time in your phone settings."</td>
+<td>Turn on automatic date and time</td>
+</tr>
+<tr>
+<td>"GPS signal is weak (need &lt;50m). Waiting for a stronger signal..."</td>
+<td>Wait for a better fix, or move somewhere with a clearer sky view</td>
+</tr>
+<tr>
+<td>"Device clock error. Power-cycle your device to reset it." (or the server's own wording)</td>
+<td>Power-cycle your radio</td>
+</tr>
+<tr>
+<td>"Zone is at TX capacity. Only Passive mode works here."</td>
+<td>Use Passive Mode, or try later</td>
+</tr>
+<tr>
+<td>"This zone is currently disabled. Try again later."</td>
+<td>Try later</td>
+</tr>
+<tr>
+<td>"Rate limited. Please slow down."</td>
+<td>Wait a moment before reconnecting</td>
+</tr>
+<tr>
+<td>"Service is under maintenance. Try again later."</td>
+<td>Use Offline Mode during maintenance</td>
+</tr>
+</tbody>
+</table>
 <h3 id="bluetooth-disconnects-unexpectedly">Bluetooth disconnects unexpectedly<a class="headerlink" href="#bluetooth-disconnects-unexpectedly" title="Permanent link">¶</a></h3>
 <p><strong>Causes:</strong></p>
 <ul>
@@ -3278,7 +3245,7 @@
 </ul>
 <p><strong>What happens:</strong></p>
 <ul>
-<li>Auto-reconnect up to <strong>3 attempts</strong> (3-second delay between each, 30-second overall timeout)</li>
+<li>Auto-reconnect up to <strong>3 attempts</strong> (3 seconds apart, 30-second overall limit)</li>
 <li>Session, upload queue, and noise floor data are <strong>preserved</strong></li>
 <li>If auto-reconnect fails → full disconnect cleanup, manual reconnect needed</li>
 </ul>
@@ -3296,40 +3263,42 @@
 <li>Check location permission is granted for MeshMapper</li>
 <li>Enable Location Services system-wide</li>
 <li>Move to a location with clear sky view</li>
-<li>Android: If permanently denied, a snackbar appears with "Settings" button</li>
+<li>If the permission was permanently denied, a snackbar appears ("Location permission is disabled in system settings.") with a <strong>Settings</strong> button</li>
 </ul>
 <h3 id="zone-shows-orange-dash-outside-coverage-area">Zone shows orange dash (outside coverage area)<a class="headerlink" href="#zone-shows-orange-dash-outside-coverage-area" title="Permanent link">¶</a></h3>
 <ul>
 <li>You are outside any registered MeshMapper zone</li>
-<li>Tap the zone chip to see nearest zone name and distance</li>
+<li>Tap the GPS chip to see the nearest zone's name and distance</li>
+<li>The Connect tab shows <strong>Region Not Available</strong>, with a <strong>Request Region Onboarding</strong> button</li>
 <li>Travel to a registered zone, or use Offline Mode to wardrive in unregistered areas</li>
 </ul>
-<h3 id="gps-data-is-stale-warnings">"GPS data is stale" warnings<a class="headerlink" href="#gps-data-is-stale-warnings" title="Permanent link">¶</a></h3>
+<h3 id="phone-clock-out-of-sync-or-weak-gps-signal">"Phone Clock Out of Sync" or "Weak GPS Signal"<a class="headerlink" href="#phone-clock-out-of-sync-or-weak-gps-signal" title="Permanent link">¶</a></h3>
+<p>A zone check can fail in two related ways:</p>
 <ul>
-<li>Zone status queries need GPS &lt; 60 seconds old and &lt; 50m accuracy</li>
-<li>Regular pings only check the 25m movement requirement</li>
+<li><strong>Phone Clock Out of Sync</strong>: your location looks out of date because your phone's clock is wrong. This is a time problem, not a GPS problem. Turn on automatic date and time (and time zone), then tap <strong>Retry Zone Check</strong>.</li>
+<li><strong>Weak GPS Signal</strong>: zone checks need accuracy better than 50m. Move to improve accuracy, then tap <strong>Retry Zone Check</strong>.</li>
 </ul>
+<p>Pings themselves need accuracy of 100m or better, plus the minimum distance since your last ping.</p>
 <p><strong>Solutions:</strong></p>
 <ul>
-<li>Make sure GPS is actively tracking (not cached)</li>
-<li>Move to improve accuracy</li>
-<li>iOS: Enable Background Mode in Settings for continuous tracking</li>
+<li>Make sure GPS is actively tracking</li>
+<li>iOS: Turn on Background Location in Settings &gt; General for continuous tracking</li>
 </ul>
 <hr>
 <h2 id="ping-issues">Ping Issues<a class="headerlink" href="#ping-issues" title="Permanent link">¶</a></h2>
 <h3 id="send-ping-button-is-disabled">"Send Ping" button is disabled<a class="headerlink" href="#send-ping-button-is-disabled" title="Permanent link">¶</a></h3>
-<p>Check these requirements:</p>
+<p>A hint under the buttons explains most blocks. Check these requirements:</p>
 <ul>
-<li><strong>External antenna not set</strong> — Choose Yes or No in Controls panel</li>
-<li><strong>Power level not set</strong> — Device model was not recognized. Go to Settings to manually select your TX power level.</li>
-<li><strong>Not connected</strong> — Need active Bluetooth connection</li>
-<li><strong>No GPS lock</strong> — App needs valid GPS position</li>
-<li><strong>GPS accuracy too low</strong> — GPS accuracy is too poor (&gt; 100m). Move to a location with better reception.</li>
-<li><strong>Not in a zone</strong> — Must be in a coverage zone (or use Offline Mode)</li>
-<li><strong>TX Disabled (Offline Mode)</strong> — TX pings are not available in Offline Mode. Only discovery and passive RX work offline.</li>
-<li><strong>Zone Full</strong> — All TX slots in your zone are taken. You can still use Passive Mode.</li>
-<li><strong>Controls locked</strong> — Ping in progress (5s listening window or API upload)</li>
-<li><strong>Cooldown active</strong> — Brief cooldown after a manual ping (15s) or after stopping Active/Hybrid Mode</li>
+<li><strong>External antenna not set</strong> ("Select antenna option") — Choose Yes or No in the Controls panel</li>
+<li><strong>Power level not set</strong> ("Select power level in Connect tab") — Device model was not recognized. Pick your power level in the Connect tab.</li>
+<li><strong>Not connected</strong> — Need an active connection to your radio</li>
+<li><strong>No GPS lock</strong> ("Waiting for GPS") — App needs a valid GPS position</li>
+<li><strong>GPS accuracy too low</strong> ("GPS signal is weak") — Accuracy is worse than 100m. Move to a location with better reception.</li>
+<li><strong>Airborne</strong> ("Airborne, wardriving blocked") — Wardriving from an aircraft is blocked</li>
+<li><strong>Passive only (Offline Mode)</strong> — TX pings are not available in Offline Mode. Only discovery and passive RX work offline.</li>
+<li><strong>Passive only (zone full)</strong> — All TX slots in your zone are taken, or the region allows no TX. You can still use Passive Mode.</li>
+<li><strong>Controls locked</strong> — A ping is in progress (its 5-second listening window). The buttons do not wait for the upload.</li>
+<li><strong>Cooldown active</strong> — Brief cooldown after a manual ping (15s) or after stopping Active/Hybrid Mode (5s)</li>
 </ul>
 <h3 id="no-repeaters-heard-on-every-ping">"No repeaters heard" on every ping<a class="headerlink" href="#no-repeaters-heard-on-every-ping" title="Permanent link">¶</a></h3>
 <p><strong>Causes:</strong></p>
@@ -3348,7 +3317,8 @@
 <h3 id="pings-are-being-skipped-in-auto-ping-mode">Pings are being skipped in auto-ping mode<a class="headerlink" href="#pings-are-being-skipped-in-auto-ping-mode" title="Permanent link">¶</a></h3>
 <p>This is <strong>normal behavior</strong>:</p>
 <ul>
-<li>Pings skip when you haven't moved the minimum distance (default 25m)</li>
+<li>Pings are <strong>Skipped</strong> when you haven't moved the minimum distance (default 25m)</li>
+<li>Pings are <strong>Deferred</strong> by Smart Pinging when your square already has recent coverage. See <a href="../app_wardriving_modes/#smart-pinging">Smart Pinging</a>.</li>
 <li>If "Auto-Stop After Idle" is enabled, auto-ping stops entirely after 30 minutes without movement</li>
 </ul>
 <hr>
@@ -3360,15 +3330,14 @@
 <ul>
 <li>Poor or no internet connection</li>
 <li>API in maintenance mode</li>
-<li>API authentication expired</li>
 </ul>
 <p><strong>Solutions:</strong></p>
 <ul>
 <li>Check internet connection</li>
-<li>Try "Force Upload" in Settings &gt; Data &gt; Queued Pings</li>
+<li>Tap the <strong>Force upload</strong> button (cloud icon) in Settings &gt; Data &gt; Queued Pings</li>
 <li>Switch to Offline Mode during maintenance</li>
-<li>Disconnect and reconnect to refresh API session</li>
 </ul>
+<p>An expired session refreshes itself, so you don't need to reconnect for that.</p>
 <h3 id="data-uploaded-but-not-appearing-on-meshmappernet">Data uploaded but not appearing on meshmapper.net<a class="headerlink" href="#data-uploaded-but-not-appearing-on-meshmappernet" title="Permanent link">¶</a></h3>
 <ul>
 <li>Server-side processing may take a few minutes</li>
@@ -3380,36 +3349,20 @@
 <p><strong>Causes:</strong></p>
 <ul>
 <li>Sound notifications disabled in Settings</li>
-<li>Phone on silent/vibrate mode</li>
+<li>The individual sound (Ping Sent, Response Received, Disconnect Alert) is switched off</li>
+<li>Phone media volume turned down</li>
 <li>Another app has exclusive audio focus</li>
 </ul>
 <p><strong>Solutions:</strong></p>
 <ul>
-<li>Enable in Settings &gt; General &gt; Sound Notifications</li>
-<li>Check phone volume and ringer mode</li>
+<li>Enable in Settings &gt; General &gt; Sound Notifications, and check the three sounds under it</li>
+<li>Check phone media volume</li>
 </ul>
 <h3 id="audio-hangs-or-freezes">Audio hangs or freezes<a class="headerlink" href="#audio-hangs-or-freezes" title="Permanent link">¶</a></h3>
 <ul>
 <li>App has a 3-second timeout protection</li>
-<li>On corruption, the app automatically resets and reloads audio assets</li>
-<li>If persists, toggle Sound Notifications off and on in Settings</li>
-</ul>
-<hr>
-<h2 id="web-specific-issues">Web-Specific Issues<a class="headerlink" href="#web-specific-issues" title="Permanent link">¶</a></h2>
-<h3 id="web-bluetooth-not-supported-error">"Web Bluetooth not supported" error<a class="headerlink" href="#web-bluetooth-not-supported-error" title="Permanent link">¶</a></h3>
-<ul>
-<li>Web Bluetooth only works in <strong>Chrome</strong> and <strong>Edge</strong></li>
-<li>Safari, Firefox, and other browsers are not supported</li>
-</ul>
-<h3 id="cors-errors-during-local-development">CORS errors during local development<a class="headerlink" href="#cors-errors-during-local-development" title="Permanent link">¶</a></h3>
-<ul>
-<li>Add the web security flag: <code>flutter run -d chrome --web-browser-flag="--disable-web-security"</code></li>
-</ul>
-<h3 id="web-bluetooth-requires-active-tab">Web Bluetooth requires active tab<a class="headerlink" href="#web-bluetooth-requires-active-tab" title="Permanent link">¶</a></h3>
-<ul>
-<li>Unlike mobile, Web Bluetooth only works in the <strong>foreground tab</strong></li>
-<li>Switching tabs or minimizing = Bluetooth connection lost</li>
-<li>No background mode for the web version</li>
+<li>On a timeout, the app automatically resets the audio session and reloads the sounds</li>
+<li>If it persists, toggle Sound Notifications off and on in Settings</li>
 </ul>
 <hr>
 <h2 id="debug-logging">Debug Logging<a class="headerlink" href="#debug-logging" title="Permanent link">¶</a></h2>
@@ -3425,8 +3378,8 @@
 <h2 id="reporting-bugs">Reporting Bugs<a class="headerlink" href="#reporting-bugs" title="Permanent link">¶</a></h2>
 <ol>
 <li>Go to <strong>Settings &gt; About &amp; Support &gt; Submit Feedback</strong></li>
-<li>Describe the issue (what you expected vs what happened)</li>
-<li>Optionally enable "Upload debug logs" and select which log files to include</li>
+<li>Choose <strong>Bug</strong> (or <strong>Feature</strong>), add a short title, and describe the issue (what you expected vs what happened)</li>
+<li>Optionally switch on <strong>Include with feedback</strong> and select which log files to include</li>
 <li>Submit — a confirmation toast appears with a "View" link to track your report</li>
 </ol>
 <p>Also report issues on:</p>

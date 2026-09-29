@@ -7,13 +7,13 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/mqtt-ha/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/mqtt-ha/">
       
       
-        <link rel="prev" href="../mqtt-python/">
+        <link rel="prev" href="../mqtt-firmware/">
       
       
-        <link rel="next" href="../mqtt-pymc/">
+        <link rel="next" href="../mqtt-python/">
       
       
         
@@ -396,14 +396,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-firmware/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    Native Firmware
   
 
     
@@ -570,6 +570,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meshcoretomqtt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -2786,7 +2814,7 @@
 <h3 id="2-manage-mqtt-brokers">2. Manage MQTT Brokers<a class="headerlink" href="#2-manage-mqtt-brokers" title="Permanent link">¶</a></h3>
 <p>Select <strong>Manage MQTT Brokers</strong> and click <strong>Submit</strong>.</p>
 <h3 id="3-add-the-meshmapper-broker">3. Add the MeshMapper Broker<a class="headerlink" href="#3-add-the-meshmapper-broker" title="Permanent link">¶</a></h3>
-<p>Click <strong>Add Broker</strong> and fill in the following settings:</p>
+<p>Click <strong>Add Broker</strong> and set the following. Leave everything else at its default.</p>
 <table>
 <thead>
 <tr>
@@ -2820,18 +2848,6 @@
 <td>Checked</td>
 </tr>
 <tr>
-<td><strong>Keep Alive</strong></td>
-<td><code>60</code></td>
-</tr>
-<tr>
-<td><strong>Username</strong></td>
-<td><em>(leave blank)</em></td>
-</tr>
-<tr>
-<td><strong>Password</strong></td>
-<td><em>(leave blank)</em></td>
-</tr>
-<tr>
 <td><strong>Use MeshCore Auth Token</strong></td>
 <td>Checked</td>
 </tr>
@@ -2840,39 +2856,16 @@
 <td><code>mqtt.meshmapper.net</code></td>
 </tr>
 <tr>
-<td><strong>Owner Pub Key</strong></td>
-<td><em>(leave blank)</em></td>
-</tr>
-<tr>
-<td><strong>Owner Email</strong></td>
-<td><em>(leave blank)</em></td>
-</tr>
-<tr>
-<td><strong>Payload Mode</strong></td>
-<td>LetsMesh-Compatible</td>
-</tr>
-<tr>
-<td><strong>Auth Token TTL</strong></td>
-<td><code>3600</code></td>
-</tr>
-<tr>
-<td><strong>Status Topic</strong></td>
-<td><em>(leave default)</em></td>
-</tr>
-<tr>
-<td><strong>Packet Topic</strong></td>
-<td><em>(leave default)</em></td>
-</tr>
-<tr>
 <td><strong>Broker IATA Code</strong></td>
-<td>Your region's 3-letter IATA code (e.g., <code>YOW</code>, <code>SEA</code>, <code>LON</code>)</td>
+<td>Your <strong>MeshMapper region code</strong> (e.g. <code>YOW</code>). This must match your region, or your observer won't show up.</td>
 </tr>
 </tbody>
 </table>
 <h3 id="4-save-and-exit">4. Save and Exit<a class="headerlink" href="#4-save-and-exit" title="Permanent link">¶</a></h3>
 <p>Click <strong>Submit</strong>, then click <strong>Exit</strong> to return to the integration page.</p>
 <h2 id="verifying-your-observer">Verifying Your Observer<a class="headerlink" href="#verifying-your-observer" title="Permanent link">¶</a></h2>
-<p>Once your observer is running and connected, it will appear in your region's <strong>Admin Portal</strong> under the <a href="../admins/#observers">Observers tab</a> once packets have been received (repeater or companion adverts, or wardriving pings) You should see a checkmark under the broker(s) your observer is connected to.</p>
+<p>Once your observer is running and connected, it appears in your region's admin panel under the <a href="../admins/#observers">Observers tab</a> after packets have been received (repeater or companion adverts, or wardriving pings). Its <strong>Brokers</strong> column shows a coloured MeshMapper badge once the broker has heard it.</p>
+<p>If nothing shows up, check the Home Assistant logs for MQTT errors, and confirm the Broker IATA Code matches your region.</p>
 
 
 

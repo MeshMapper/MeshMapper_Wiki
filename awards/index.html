@@ -7,7 +7,7 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/awards/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/awards/">
       
       
         <link rel="prev" href="../leaderboards/">
@@ -392,14 +392,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-firmware/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    Native Firmware
   
 
     
@@ -428,6 +428,34 @@
     
   
     MeshCore-HA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meshcoretomqtt
   
 
     
@@ -2797,11 +2825,16 @@
 <h1 id="profiles-awards">Profiles &amp; Awards<a class="headerlink" href="#profiles-awards" title="Permanent link">¶</a></h1>
 <p>MeshMapper recognizes community contributors through a <strong>Profiles &amp; Awards</strong> system. Every companion device/user that participates in wardriving gets a profile, and awards are granted automatically for milestones or manually by administrators for special contributions.</p>
 <h3 id="viewing-profiles">Viewing Profiles<a class="headerlink" href="#viewing-profiles" title="Permanent link">¶</a></h3>
-<p>You can view any users profile by clicking their name on a regional or <a href="https://meshmapper.net/global_leaderboard.php">global leaderboard</a>. Leaderboards also have a "Profiles" search button in the header, which allows you to search for any companion by name or ID.</p>
+<p>You can view anyone's profile by clicking their name on a regional or <a href="https://meshmapper.net/global_leaderboard.php">global leaderboard</a>. Leaderboards also have a <strong>Profiles</strong> button in the header. Its search box lets you "Search by name or Public ID".</p>
+<p>The profile card shows <strong>All Time</strong>, <strong>This Week</strong>, <strong>Grid Squares</strong> and <strong>First Pings</strong> stats, along with any awards.</p>
+<ul>
+<li>A device linked to a <a href="../portal/">My MeshMapper</a> account shows the account's display name.</li>
+<li>A deleted device that nobody has claimed shows as "Orphaned device" and doesn't appear in search.</li>
+</ul>
 <h3 id="users">Users<a class="headerlink" href="#users" title="Permanent link">¶</a></h3>
-<p>When a single person operates multiple companion devices in a region, that regions administrators can combine them into a <strong>user group</strong>. All devices in the group aggregate their points under a single primary companion. The group appears as one entry on the leaderboards, and the profile displays the combined statistics.  </p>
+<p>If you run more than one companion, link them all to your <a href="../portal/">My MeshMapper account</a>. They then show as one entry on the leaderboards, and your profile shows the combined totals.</p>
 <h3 id="manage-your-own-profile-data">Manage Your Own Profile &amp; Data<a class="headerlink" href="#manage-your-own-profile-data" title="Permanent link">¶</a></h3>
-<p>Wardrivers can now create an account on the <a href="../portal/"><strong>My MeshMapper portal</strong></a>, link their companion devices, set the display name shown on leaderboards, and view or delete the data they have contributed. Additional profile features (avatar and bio self-management) are planned.</p>
+<p>Wardrivers can create an account on the <a href="../portal/"><strong>My MeshMapper portal</strong></a>, link their companion devices, set the display name shown on leaderboards, and view or delete their data. If you connect Discord, you can show your Discord avatar on leaderboards and your profile. Editing your own bio is not available yet.</p>
 <h2 id="awards">Awards<a class="headerlink" href="#awards" title="Permanent link">¶</a></h2>
 <p>Awards are visual badges displayed on a companion's profile. They come in two types:</p>
 <h3 id="automatic-awards">Automatic Awards<a class="headerlink" href="#automatic-awards" title="Permanent link">¶</a></h3>
@@ -2819,36 +2852,48 @@
 <td>Any wardriving contribution (at least 1 data point)</td>
 </tr>
 <tr>
-<td><strong>1,000 Data Points</strong></td>
+<td><strong>1000 Data Points</strong></td>
 <td>Accumulate 1,000 or more all-time points</td>
 </tr>
 <tr>
-<td><strong>5,000 Data Points</strong></td>
+<td><strong>5000 Data Points</strong></td>
 <td>Accumulate 5,000 or more all-time points</td>
 </tr>
 <tr>
-<td><strong>10,000 Data Points</strong></td>
+<td><strong>10000 Data Points</strong></td>
 <td>Accumulate 10,000 or more all-time points</td>
 </tr>
 <tr>
-<td><strong>50,000 Data Points</strong></td>
+<td><strong>50000 Data Points</strong></td>
 <td>Accumulate 50,000 or more all-time points</td>
 </tr>
 <tr>
 <td><strong>Ping Leader</strong></td>
-<td>Rank #1 on a regional leaderboard</td>
+<td>Rank #1 on a regional leaderboard. Anonymous players are skipped, so it goes to the next real #1.</td>
 </tr>
 <tr>
 <td><strong>Explorer 1</strong></td>
-<td>Map 1,000 or more unique grid squares</td>
+<td>Ping in 1,000 or more different grid squares</td>
 </tr>
 <tr>
 <td><strong>Explorer 2</strong></td>
-<td>Map 5,000 or more unique grid squares</td>
+<td>Ping in 5,000 or more different grid squares</td>
 </tr>
 <tr>
 <td><strong>Explorer 3</strong></td>
-<td>Map 10,000 or more unique grid squares</td>
+<td>Ping in 10,000 or more different grid squares</td>
+</tr>
+<tr>
+<td><strong>Pioneer 1</strong></td>
+<td>Be first to ping 500 or more grid squares</td>
+</tr>
+<tr>
+<td><strong>Pioneer 2</strong></td>
+<td>Be first to ping 1,000 or more grid squares</td>
+</tr>
+<tr>
+<td><strong>Pioneer 3</strong></td>
+<td>Be first to ping 2,500 or more grid squares</td>
 </tr>
 <tr>
 <td><strong>Airtime Saver</strong></td>
@@ -2864,16 +2909,20 @@
 </tr>
 <tr>
 <td><strong>Global Leader</strong></td>
-<td>Rank in the top 10 on the global leaderboard (all-time, weekly, or top explorers)</td>
+<td>Rank in the top 10 of a global leaderboard: All Time Legends, Top Wardrivers (7 Days), or Top Pioneers.</td>
 </tr>
 </tbody>
 </table>
+<ul>
+<li>Companions in <a href="../app_connection_guide/#anonymous-mode">Anonymous Mode</a> can still earn milestone awards, but not Ping Leader or Global Leader.</li>
+<li>Awards are never removed automatically, so Ping Leader and Global Leader stay after you drop out of first place or the top 10.</li>
+</ul>
 <div class="admonition info">
 <p class="admonition-title">Update Interval</p>
-<p>MeshMapper processes the aggregration of companion/user statistics, and auto assignment of awards, once every 24-hours.  Check back later if you've earned an award but don't yet see it.</p>
+<p>Stats and automatic awards update once a day. If you've earned an award but don't see it yet, check back tomorrow.</p>
 </div>
 <h3 id="manual-awards">Manual Awards<a class="headerlink" href="#manual-awards" title="Permanent link">¶</a></h3>
-<p>Master/Global Administrators can grant custom awards for special achievements, events, contest wins, donating to MeshMapper, or community contributions.</p>
+<p>Master Administrators can grant custom awards for special achievements, events, contest wins, donating to MeshMapper, or community contributions.</p>
 <h2 id="available-awards">Available Awards<a class="headerlink" href="#available-awards" title="Permanent link">¶</a></h2>
 <p>The table below is a list of currently available awards to be earned:</p>
 <div id="awards-table-container">
@@ -2928,7 +2977,7 @@ function openAwardImage(src, name) {
 </script>
 
 <h2 id="request-an-award-or-suggest-a-new-one">Request an Award or Suggest a New One<a class="headerlink" href="#request-an-award-or-suggest-a-new-one" title="Permanent link">¶</a></h2>
-<p>Use the form below to request a missing award or suggest a new award type for the community.</p>
+<p>Use the form below to request a missing award or suggest a new award type for the community. Your name and details are always required. The Companion ID is only needed for award requests. Requests are sent to the MeshMapper team on Discord.</p>
 <div id="award-request-form" style="max-width:560px;">
   <div style="margin-bottom:1rem;">
     <label style="font-weight:600;">Request Type</label><br>

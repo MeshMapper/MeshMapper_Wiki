@@ -7,10 +7,10 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/mqtt-pymc/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/mqtt-pymc/">
       
       
-        <link rel="prev" href="../mqtt-ha/">
+        <link rel="prev" href="../mqtt-python/">
       
       
         <link rel="next" href="../multiregions/">
@@ -396,14 +396,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-firmware/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    Native Firmware
   
 
     
@@ -432,6 +432,34 @@
     
   
     MeshCore-HA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meshcoretomqtt
   
 
     
@@ -2856,6 +2884,7 @@
 <li>Enter <code>restart</code> to restart the service.</li>
 </ol>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../assets/pymc-mqtt3.png" data-desc-position="bottom"><img alt="Restarting pyMC-Repeater from the terminal" src="../assets/pymc-mqtt3.png"></a></p>
+<p>Make sure <code>iata_code</code> in your pyMC config is set to your <strong>MeshMapper region code</strong>, or your observer won't show up.</p>
 <h3 id="option-2-add-meshmapper-manually">Option 2. Add MeshMapper manually<a class="headerlink" href="#option-2-add-meshmapper-manually" title="Permanent link">¶</a></h3>
 <p>If you prefer, you can still add MeshMapper by editing the config file directly.</p>
 <h4 id="1-stop-the-service">1. Stop the Service<a class="headerlink" href="#1-stop-the-service" title="Permanent link">¶</a></h4>
@@ -2865,9 +2894,9 @@
 <p>Open the pyMC-Repeater config file:</p>
 <pre><code class="language-bash">sudo nano /etc/pymc_repeater/config.yaml
 </code></pre>
-<p>Add <code>mqtt.meshmapper.net</code> to the <code>brokers</code> field under the <code>brokers</code> section:</p>
+<p>Under <code>mqtt:</code> → <code>brokers:</code>, add the MeshMapper entry below. If you already have other brokers listed, add this as another item in the list; don't replace them. Set <code>iata_code</code> to your <strong>MeshMapper region code</strong>, or your observer won't show up.</p>
 <pre><code class="language-yaml">mqtt:
-  iata_code: &lt;IATA&gt; # e.g., "SFO", "LHR", "Test"
+  iata_code: &lt;IATA&gt; # your MeshMapper region code, e.g. "YOW"
   status_interval: 300 # How often a status message is sent (in seconds)
   owner: ""
   email: ""
@@ -2877,7 +2906,7 @@
       transport: websockets
       host: mqtt.meshmapper.net
       port: 443
-      format: letsmesh
+      format: letsmesh # packet format, leave as-is
       disallowed_packet_types: []
       retain_status: false
       tls:
@@ -2895,8 +2924,8 @@
 <pre><code class="language-bash">sudo journalctl -u pymc-repeater.service -f | grep MeshMapper
 </code></pre>
 <h2 id="verifying-your-observer">Verifying Your Observer<a class="headerlink" href="#verifying-your-observer" title="Permanent link">¶</a></h2>
-<p>Once your observer is running and connected, it will appear in your region's <strong>Admin Portal</strong> under the <a href="../admins/#observers">Observers tab</a> once packets have been received (repeater or companion adverts, or wardriving pings). You should see a checkmark under the broker(s) your observer is connected to.</p>
-<p>If PyMC says it is connected but MeshMapper shows no data, check PyMC's service logs for MQTT errors, then confirm the broker host, WebSockets, TLS and MeshCore token settings above. Confirm its IATA code matches the region and that it is publishing <code>status</code> or <code>packets</code>. An observer may appear before any repeater does: repeaters need a valid name and an advert received by an observer, and a region may hold new repeaters in <strong>Pending</strong> until an admin approves them.</p>
+<p>Once your observer is running and connected, it appears in your region's admin panel under the <a href="../admins/#observers">Observers tab</a> after packets have been received (repeater or companion adverts, or wardriving pings). Its <strong>Brokers</strong> column shows a coloured MeshMapper badge once the broker has heard it.</p>
+<p>If nothing shows up, check the logs (<code>sudo journalctl -u pymc-repeater.service -f</code>) for MQTT errors, and confirm <code>iata_code</code> matches your region.</p>
 
 
 

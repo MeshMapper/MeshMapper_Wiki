@@ -7,7 +7,7 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/dataupload/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/dataupload/">
       
       
         <link rel="prev" href="../scopes-api/">
@@ -392,14 +392,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-firmware/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    Native Firmware
   
 
     
@@ -428,6 +428,34 @@
     
   
     MeshCore-HA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meshcoretomqtt
   
 
     
@@ -2722,18 +2750,21 @@
 <p>MeshMapper allows for the upload of legacy coverage data via CSV upload. This feature is designed to import data collected from other systems.</p>
 <div class="admonition warning">
 <p class="admonition-title">Administrator Only</p>
-<p>Due to the complexity of maintaining data integrity, only a MeshMapper Master or Global Administratorcan upload legacy data.  <a href="https://wiki.meshmapper.net/administratorlist/">Please reach out to start this process</a>.</p>
+<p>Due to the complexity of maintaining data integrity, only a MeshMapper Master or Global Administrator can upload legacy data.  <a href="../administratorlist/">Please reach out to start this process</a>.</p>
 </div>
+<p>Uploads are done in the Master Admin panel, on the <strong>Legacy Upload</strong> tab, using the <strong>Legacy Data Upload</strong> card: pick the region, choose the CSV file, map the columns, and use <strong>+ Add Field</strong> for any extra columns.</p>
+<p>Each upload goes to one region and <strong>replaces all existing legacy data</strong> for that region. Group maps show their members' legacy data combined.</p>
 <h2 id="csv-requirements">CSV Requirements<a class="headerlink" href="#csv-requirements" title="Permanent link">¶</a></h2>
 <p>The uploaded file must be in <strong>CSV</strong> format and contain, at a minimum, the following columns:</p>
 <ul>
 <li><strong>Latitude</strong></li>
 <li><strong>Longitude</strong></li>
-<li><strong>Time</strong> - Unix timestamp</li>
+<li><strong>Time</strong> - Unix timestamp in seconds or milliseconds, or a standard date string.</li>
 <li><strong>Status</strong> - See definitions below</li>
 </ul>
-<p>A <strong>Coverage Radius</strong> can also be set, which can expand each coverage point beyond the default grid size (300m x 300m).</p>
-<p>You may also include any number of additional columns (e.g., <code>Repeater</code>, <code>RSSI</code>, <code>SNR</code>), which will be stored and available for display.</p>
+<p>The header names are mapped on the upload form (defaults <code>lat</code>, <code>lon</code>, <code>status</code>, <code>date</code>).</p>
+<p>You may also include additional columns (e.g. <code>Repeater</code>, <code>RSSI</code>, <code>SNR</code>); each needs a display name. They are stored in the region's legacy database but are not currently shown on the map.</p>
+<p>Separately from the CSV, a per-region <strong>Grid Expansion</strong> setting (radius in squares, 0–20, default 1) sets how far each legacy point spreads in Detailed grid mode: 0 = one ~100 m square, 1 = 3×3 (~300 m), 6 = 13×13 (~1.2 km). In Simplified mode each point fills a single 300 m square.</p>
 <h3 id="status-definitions">Status Definitions<a class="headerlink" href="#status-definitions" title="Permanent link">¶</a></h3>
 <p>The <code>status</code> column should contain an integer representing the coverage type, consistent with MeshMapper's standard ping types:</p>
 <table>
@@ -2786,12 +2817,14 @@
 <td style="text-align: left;"><strong>7</strong></td>
 <td style="text-align: left;"><strong>TRACE</strong></td>
 <td style="text-align: left;"><strong>Cyan</strong></td>
-<td style="text-align: left;"><strong>Trace</strong> - Targeted trace request sent and reply heard from a specific repeater.</td>
+<td style="text-align: left;"><strong>Trace</strong> - Targeted trace request sent and reply heard from a specific repeater. Shown the same as DISC.</td>
 </tr>
 </tbody>
 </table>
+<p>Any other status value is drawn red.</p>
 <h2 id="visualization-limitations">Visualization &amp; Limitations<a class="headerlink" href="#visualization-limitations" title="Permanent link">¶</a></h2>
-<p>Legacy data appears on its own layer on the map.</p>
+<p>Legacy data appears on its own map layer, called <strong>Legacy Data</strong>. Legacy squares are never drawn where regular coverage exists.</p>
+<p>The <strong>Manage Legacy Databases</strong> card on the same tab lists each region's legacy data, with a <strong>Delete</strong> button.</p>
 <p>Unlike standard MeshMapper data, legacy uploads have the following limitations:</p>
 <ul>
 <li><strong>No Connection Lines</strong>: Lines connecting the ping to a repeater are not drawn.</li>

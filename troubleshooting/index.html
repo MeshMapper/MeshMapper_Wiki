@@ -7,7 +7,7 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/troubleshooting/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/troubleshooting/">
       
       
         <link rel="prev" href="../dataupload/">
@@ -392,14 +392,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-firmware/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    Native Firmware
   
 
     
@@ -428,6 +428,34 @@
     
   
     MeshCore-HA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meshcoretomqtt
   
 
     
@@ -2760,20 +2788,20 @@
 <p>Repeaters appear on the map once their adverts are heard through a connected observer. Try the following:</p>
 <ul>
 <li>Force an advert from your repeater.</li>
-<li>Confirm the region has at least one active observer by checking <strong>Region Info &gt; Observers</strong> from the map.  A repeaters advert must be picked up by one of these observers.  If observers are missing, contact your region's administrator, as they may have a whitelist of observers from which to ingest from configured.</li>
+<li>Confirm the region has at least one active observer by opening <strong>Region → Observers</strong> on the map. A repeater's advert must be picked up by one of these observers. If observers are missing, contact your region's administrator, as the region may only accept data from a list of chosen observers.</li>
 <li>If the repeater or observer was recently added, give it a few minutes to be picked up.</li>
-<li>Ensure the repeater has location coordinates configured.</li>
-<li>The region may have the option "New Repeaters Enter Pending State" enabled (check through the <strong>Region Info</strong> page), in which event the region administrator will need to approve the repeater before it is added.</li>
-<li>Repeaters that are well outside of a regions defined radius may not get added to the map as an anti-spam/anti-misconfiguration measure.  Please check with your region's administrator.</li>
+<li>Ensure the repeater has a name and location coordinates configured. Repeaters without a location are recorded but not placed on the map.</li>
+<li>The region may have <strong>New Repeaters Enter Pending</strong> enabled (shown in <strong>Region → Region Info</strong>), in which case the region administrator must approve the repeater before it appears.</li>
+<li>Repeaters well outside a region's area may not be added to the map, as an anti-spam/anti-misconfiguration measure. Please check with your region's administrator.</li>
 </ul>
-<p>If your repeater or room server is also an observer, it may not "hear" its own advert.  Another observer must be within range in order to ingest it's advert and display on the map.  If there are no other observers nearby, you can mimic the repeaters advert from a companion by using the MeshCore app, select the ellipses beside the repeater, select "Share", and then select "Zero Hop Advert".  When this is the case, however, this repeater will eventually become stale and get removed.  This process must be repeated regularly.</p>
+<p>If your repeater or room server is also an observer, it may not "hear" its own advert.  Another observer must be within range to pick up its advert and display it on the map. If there are no other observers nearby, you can relay the repeater's advert from a companion by using the MeshCore app, select the ellipses beside the repeater, select "Share", and then select "Zero Hop Advert".  When this is the case, however, this repeater will eventually become stale and get removed.  This process must be repeated regularly.</p>
 <p>If it still doesn't appear, contact your region's administrator.</p>
 </details>
 </div>
 <div id="repeater-excluded">
 <details class="question">
-<summary>My repeater shows as Excluded or Duplicate.</summary>
-<p>As a region's mesh network grows, the likelihood of two repeaters sharing the same short ID increases. MeshMapper detects these collisions and disables affected repeaters to protect data integrity. See <a href="https://wiki.meshmapper.net/duplicaterepeaterid/">Duplicate Repeater IDs</a> for a full explanation and resolution steps.</p>
+<summary>My repeater shows as Ambiguous.</summary>
+<p>As a region's mesh network grows, two repeaters can end up sharing the same short ID. When MeshMapper can't tell your repeater apart from another at the ID width it advertises, it marks it <strong>Ambiguous</strong>, because pings can't be credited to it with certainty. See <a href="../duplicaterepeaterid/">Duplicate Repeater IDs</a> for a full explanation and how to fix it.</p>
 </details>
 </div>
 <div id="map-slow">
@@ -2782,8 +2810,8 @@
 <p>Large regions with lots of data can be demanding on older devices or slow connections. Try the following:</p>
 <ul>
 <li><strong>Coverage Only Mode</strong>: A "Switch to Coverage Only" button appears on the loading screen. This loads just the coverage grid without the interactive data, significantly reducing resource usage.</li>
-<li><strong>Grid Mode</strong>: Use the "Simplified" grid mode (300m cells) from within the map settings instead of "Detailed" (100m cells).</li>
-<li><strong>Filter by time</strong>: Use the Filter panel to limit data to a recent time range (e.g. Last 30 days).</li>
+<li><strong>Grid Mode</strong>: Use <strong>Simplified</strong> (300 m squares) instead of <strong>Detailed</strong> (100 m) under <strong>Grid Mode</strong> in <a href="../layers/#settings">Settings</a>.</li>
+<li><strong>Filter by time</strong>: Use <strong>Filter → Time → Show data from</strong> to limit data to a recent range (e.g. Last 30 days).</li>
 </ul>
 </details>
 </div>
@@ -2792,25 +2820,27 @@
 <summary>Grid squares are showing unexpected colours.</summary>
 <p>Grid square colours depend on the active <strong>Coverage Mode</strong>:</p>
 <ul>
-<li><strong>Standard</strong>: Colours represent ping type (green=BIDIR, orange=TX, purple=RX, etc.)</li>
+<li><strong>Standard</strong>: Colours represent ping type (green=BIDIR, cyan=DISC/TRACE, orange=TX, purple=RX, grey=DEAD, red=DROP)</li>
 <li><strong>Effective Coverage</strong>: Averaged quality score (green=high quality, red=low quality)</li>
 <li><strong>Signal Strength</strong>: Based on SNR (green=strong, red=weak)</li>
 <li><strong>Ping Age</strong>: Based on data recency (green=recent, red=stale)</li>
 <li><strong>Noise Floor</strong>: Based on RF noise relative to each companion's baseline (green=quiet, red=loud)</li>
 </ul>
 <p>Check which mode is selected in the <strong>Coverage Mode</strong> section of the Layer Control.</p>
+<p>If data seems to be missing, also check the <strong>Freq</strong> radio preset in the navigation bar, <strong>Hide Missing-Repeater Data</strong> in Settings, and any active filters (such as <strong>ID width</strong>).</p>
 </details>
 </div>
-<div id="live-analyzer-lines">
+<div id="live-visualization-lines">
 <details class="question">
-<summary>The Live Analyzer isn't drawing lines between some repeaters, or otherwise doesn't appear to be showing all packet paths.</summary>
-<p>The Live Visualization mode in the Packet Analyzer can only draw lines/paths between repeaters that are <strong>not</strong> in a duplicate or conflict state. Because duplicate repeaters share the same identifier, the system cannot determine which physical repeater was actually involved in the packet path, so lines are not drawn to avoid displaying misleading information.  This is the same duplicate detection logic that applies elsewhere in MeshMapper.</p>
+<summary>Visualize Live isn't drawing lines between some repeaters, or doesn't seem to show all packet paths.</summary>
+<p><strong>Insights → Visualize Live</strong> can only draw paths through repeaters whose ID matches exactly one repeater. Hops through <strong>Ambiguous</strong> repeaters (IDs shared with another repeater) are skipped, because MeshMapper can't tell which repeater was actually involved. This is the same logic used elsewhere in MeshMapper; see <a href="../duplicaterepeaterid/#the-rules">The Rules</a>.</p>
 </details>
 </div>
 <div id="no-neighbours">
 <details class="question">
 <summary>I'm not seeing repeater neighbours, or the associations are old (orange).</summary>
-<p>MeshMapper determines a repeater's neighbours using the hop information contained in repeater adverts, contact adverts, or wardriving pings. These packets will need to travel between two or repeaters before getting ingested by an observer.  For example, an advert that goes directly from repeater to observer has no hops, therefore no neighbour information is available.  However, if that same advert hops to a different repeater first and then to the observer, one neighbour association can be made.  The more observers and repeaters a region has, the greater the possibility packets will jump around between repeaters and record hop/neighbour information.</p>
+<p>MeshMapper works out a repeater's neighbours from the paths of packets its observers hear. A packet needs to travel between two or more repeaters before reaching an observer.  For example, an advert that goes directly from repeater to observer has no hops, therefore no neighbour information is available.  However, if that same advert hops to a different repeater first and then to the observer, one neighbour association can be made.  The more observers and repeaters a region has, the more neighbour information is recorded.</p>
+<p>Neighbour lines are <strong>green</strong> when seen in the last 3 days and <strong>orange</strong> when older; they disappear once the region's retention window closes. Repeaters can also report their neighbours directly (<strong>blue</strong>), or a wardriver's app can upload them (<strong>purple</strong>). Links to Ambiguous repeaters aren't drawn. See <a href="../visuals/#links-between-repeaters">Links Between Repeaters</a>.</p>
 </details>
 </div>
 <hr>
@@ -2826,13 +2856,13 @@
 <li>Restart the MeshMapper app.</li>
 <li>If pairing fails repeatedly, remove the device from your phone's Bluetooth settings and re-pair.</li>
 </ol>
-<p>See the <a href="https://wiki.meshmapper.net/app_connection_guide/">Connection Guide</a> for detailed pairing instructions.</p>
+<p>See the <a href="../app_connection_guide/">Connection Guide</a> for detailed pairing instructions.</p>
 </details>
 </div>
 <div id="outside-region">
 <details class="question">
 <summary>The app says I'm outside of a region.</summary>
-<p>You need to be within a registered MeshMapper region to start a wardriving session. If there isn't a region near you, you can <a href="https://wiki.meshmapper.net/onboarding">request one</a>.</p>
+<p>You need to be within a registered MeshMapper region to start a wardriving session. If there isn't a region near you, you can <a href="../onboarding/">request one</a>.</p>
 </details>
 </div>
 <div id="gps-accuracy">
@@ -2842,7 +2872,7 @@
 <ul>
 <li>Ensure location permissions are granted to the MeshMapper app.</li>
 <li>Move to an area with a clear view of the sky (away from tall buildings or dense tree cover).</li>
-<li>Wait a minute or two for the GPS to get a solid fix before starting a session.</li>
+<li>Wait a minute or two for the GPS to get a solid fix before starting a session. Fixes less accurate than 50 m are rejected.</li>
 <li>On Android, ensure location mode is set to "High accuracy."</li>
 </ul>
 </details>
@@ -2852,7 +2882,8 @@
 <div id="cant-access-admin">
 <details class="question">
 <summary>I can't access the admin portal.</summary>
-<p>The admin portal is only available to region administrators. If you believe you should have access, confirm with the person who set up the region or contact a Moderator on Discord. See the <a href="https://wiki.meshmapper.net/administratorlist/">Administrator List</a> to find your region's admin.</p>
+<p>The admin panel (<strong>Region → Admin Panel</strong> on the map) is only available to region administrators. Sign in with your My MeshMapper account, or with <strong>Sign in with Discord</strong>. Forgot your password? Use <strong>Forgot password?</strong> to reset it yourself.</p>
+<p>If you believe you should have access, confirm with the person who set up the region or contact a Moderator on Discord. See the <a href="../administratorlist/">Administrator List</a> to find your region's admin.</p>
 </details>
 </div>
 <div id="observer-not-working">
@@ -2862,9 +2893,9 @@
 <ol>
 <li>Check that the observer device is running and connected to the MQTT broker.</li>
 <li>Verify the MQTT topic and credentials in your observer configuration.</li>
-<li>Check the <strong>Observers</strong> panel in Region Info to see if the observer is listed and its last-heard timestamp.</li>
+<li>Open <strong>Region → Observers</strong> on the map to see if the observer is listed and when it last reported.</li>
 </ol>
-<p>See <a href="https://wiki.meshmapper.net/mqtt-main/">MeshMapper MQTT Setup</a> for configuration details.</p>
+<p>See <a href="../mqtt-main/">MeshMapper MQTT Setup</a> for configuration details.</p>
 </details>
 </div>
 <hr>
@@ -2874,10 +2905,10 @@
 <li><strong>Wiki</strong>: Browse the full wiki documentation.</li>
 <li><strong>AI Bot (@MeshMapper)</strong>: The MeshMapper AI bot on Discord can answer many questions. Send it a DM, tag it in a public message, or reply to a message and tag it.</li>
 <li><strong>Discord Community</strong>: The MeshMapper community on Discord is knowledgeable and very helpful. Post your question in the appropriate channel and someone will be able to help you out.</li>
-<li><strong>Region Administrator</strong>: For issues specific to your region (settings, configuration, etc.), reach out to your <a href="https://wiki.meshmapper.net/administratorlist/">region's administrator</a>. If they're unavailable, tag a <code>@Moderator</code> in the MeshMapper Discord server. Moderators (also known as Global Administrators) have access to assist any region.</li>
+<li><strong>Region Administrator</strong>: For issues specific to your region (settings, configuration, etc.), reach out to your <a href="../administratorlist/">region's administrator</a>. If they're unavailable, tag a <code>@Moderator</code> in the MeshMapper Discord server. Moderators (also known as Global Administrators) have access to assist any region.</li>
 </ul>
 <h3 id="reporting-bugs">Reporting Bugs<a class="headerlink" href="#reporting-bugs" title="Permanent link">¶</a></h3>
-<p>Notice a bug? You can submit a ticket using the guided form on the <a href="https://wiki.meshmapper.net/reportbugs">Report Bugs &amp; Features</a> page, or tag the MeshMapper AI bot on Discord with <strong><code>!bug</code></strong> followed by a description.</p>
+<p>Notice a bug? You can submit a ticket using the guided form on the <a href="../reportbugs/">Report Bugs &amp; Features</a> page, or tag the MeshMapper AI bot on Discord with <strong><code>!bug</code></strong> followed by a description.</p>
 <h3 id="feature-requests">Feature Requests<a class="headerlink" href="#feature-requests" title="Permanent link">¶</a></h3>
 <p>MeshMapper was built using suggestions from the community. If you have an idea, tag the AI bot with <strong><code>!feature</code></strong> followed by your suggestion, or submit it through the website or mobile app.</p>
 <blockquote>

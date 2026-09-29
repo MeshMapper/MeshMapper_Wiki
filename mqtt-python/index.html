@@ -7,13 +7,13 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/mqtt-python/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/mqtt-python/">
       
       
-        <link rel="prev" href="../mqtt-main/">
+        <link rel="prev" href="../mqtt-ha/">
       
       
-        <link rel="next" href="../mqtt-ha/">
+        <link rel="next" href="../mqtt-pymc/">
       
       
         
@@ -24,7 +24,7 @@
     
     
       
-        <title>MeshCore Packet Capture - MeshMapper Wiki</title>
+        <title>meshcoretomqtt - MeshMapper Wiki</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#meshcore-packet-capture" class="md-skip">
+        <a href="#meshcoretomqtt-python" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              MeshCore Packet Capture
+              meshcoretomqtt
             
           </span>
         </div>
@@ -393,6 +393,62 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-firmware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Native Firmware
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-ha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MeshCore-HA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -412,7 +468,7 @@
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    meshcoretomqtt
   
 
     
@@ -430,7 +486,7 @@
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    meshcoretomqtt
   
 
     
@@ -479,10 +535,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-flash-a-companion-device" class="md-nav__link">
+  <a href="#1-run-the-installer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Flash a Companion Device
+        1. Run the Installer
       
     </span>
   </a>
@@ -490,10 +546,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-install-dependencies" class="md-nav__link">
+  <a href="#2-answer-the-prompts" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Install Dependencies
+        2. Answer the Prompts
       
     </span>
   </a>
@@ -501,76 +557,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-install-the-meshcore-decoder" class="md-nav__link">
+  <a href="#3-check-its-running" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Install the MeshCore Decoder
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-run-the-meshcore-packet-capture-installer" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Run the meshcore-packet-capture Installer
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-device-connection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Device Connection
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-iata-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. IATA Code
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#7-owner-information-optional" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. Owner Information (Optional)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#8-mqtt-broker-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. MQTT Broker Configuration
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#9-installation-method" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9. Installation Method
+        3. Check It's Running
       
     </span>
   </a>
@@ -583,10 +573,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#managing-the-service" class="md-nav__link">
+  <a href="#changing-the-configuration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Managing the Service
+        Changing the Configuration
       
     </span>
   </a>
@@ -594,10 +584,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#resource-limits" class="md-nav__link">
+  <a href="#updating" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Resource Limits
+        Updating
       
     </span>
   </a>
@@ -619,34 +609,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../mqtt-ha/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    MeshCore-HA
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -2775,10 +2737,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-flash-a-companion-device" class="md-nav__link">
+  <a href="#1-run-the-installer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Flash a Companion Device
+        1. Run the Installer
       
     </span>
   </a>
@@ -2786,10 +2748,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-install-dependencies" class="md-nav__link">
+  <a href="#2-answer-the-prompts" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Install Dependencies
+        2. Answer the Prompts
       
     </span>
   </a>
@@ -2797,76 +2759,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-install-the-meshcore-decoder" class="md-nav__link">
+  <a href="#3-check-its-running" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Install the MeshCore Decoder
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-run-the-meshcore-packet-capture-installer" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Run the meshcore-packet-capture Installer
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-device-connection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Device Connection
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-iata-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. IATA Code
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#7-owner-information-optional" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        7. Owner Information (Optional)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#8-mqtt-broker-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8. MQTT Broker Configuration
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#9-installation-method" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        9. Installation Method
+        3. Check It's Running
       
     </span>
   </a>
@@ -2879,10 +2775,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#managing-the-service" class="md-nav__link">
+  <a href="#changing-the-configuration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Managing the Service
+        Changing the Configuration
       
     </span>
   </a>
@@ -2890,10 +2786,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#resource-limits" class="md-nav__link">
+  <a href="#updating" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Resource Limits
+        Updating
       
     </span>
   </a>
@@ -2928,173 +2824,42 @@
 
 
 
-<h1 id="meshcore-packet-capture">MeshCore Packet Capture<a class="headerlink" href="#meshcore-packet-capture" title="Permanent link">¶</a></h1>
-<p>These instructions are for the community <a href="https://github.com/agessaman/meshcore-packet-capture">meshcore-packet-capture</a> project from agessaman/HerculesMulligan.</p>
+<h1 id="meshcoretomqtt-python">meshcoretomqtt (Python)<a class="headerlink" href="#meshcoretomqtt-python" title="Permanent link">¶</a></h1>
+<p>These instructions cover setting up the community <a href="https://github.com/Cisien/meshcoretomqtt">meshcoretomqtt</a> project from Cisien as a MeshMapper observer. It runs on an always-on computer connected to a MeshCore repeater by USB, and has a built-in <strong>MeshMapper</strong> broker preset.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
 <ul>
-<li>A MeshCore-compatible device (e.g., T1000e, Heltec, T-Beam) to act as your observer node</li>
-<li>A Raspberry Pi, Linux server, or similar always-on computer running a Debian-based OS (Raspberry Pi OS, Ubuntu, etc.)</li>
-<li>A USB cable (for serial connection) or Bluetooth support (for BLE connection)</li>
-<li>Internet access for packet forwarding</li>
+<li>A Raspberry Pi (Zero 2, 3 or 4 recommended) or similar always-on Linux or macOS computer</li>
+<li>A MeshCore repeater connected by USB, flashed with packet logging enabled (build flag <code>-D MESH_PACKET_LOGGING=1</code>) and firmware v1.8.0 or later</li>
+<li>The repeater configured with a unique name</li>
+<li>Internet access</li>
 </ul>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">¶</a></h2>
-<h3 id="1-flash-a-companion-device">1. Flash a Companion Device<a class="headerlink" href="#1-flash-a-companion-device" title="Permanent link">¶</a></h3>
-<p>Configure a Companion device using the <a href="https://flasher.meshcore.co.uk">MeshCore Flasher Tool</a> and connect it to your Raspberry Pi or Linux server via USB.  Ensure radio settings are correct for your region.</p>
-<h3 id="2-install-dependencies">2. Install Dependencies<a class="headerlink" href="#2-install-dependencies" title="Permanent link">¶</a></h3>
-<pre><code class="language-bash">sudo apt update
-sudo apt install -y python3 python3.12-venv curl git
+<h3 id="1-run-the-installer">1. Run the Installer<a class="headerlink" href="#1-run-the-installer" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash">curl -fsSL https://raw.githubusercontent.com/Cisien/meshcoretomqtt/main/install.sh | sudo bash
 </code></pre>
-<h3 id="3-install-the-meshcore-decoder">3. Install the MeshCore Decoder<a class="headerlink" href="#3-install-the-meshcore-decoder" title="Permanent link">¶</a></h3>
-<p>The MeshCore decoder is required for authentication when sending packets to the broker:</p>
-<pre><code class="language-bash">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-source ~/.bashrc
-nvm install --lts
-npm install -g @michaelhart/meshcore-decoder
-</code></pre>
-<p>Verify the installation:</p>
-<pre><code class="language-bash">which meshcore-decoder
-</code></pre>
-<h3 id="4-run-the-meshcore-packet-capture-installer">4. Run the meshcore-packet-capture Installer<a class="headerlink" href="#4-run-the-meshcore-packet-capture-installer" title="Permanent link">¶</a></h3>
-<pre><code class="language-bash">bash &lt;(curl -fsSL https://raw.githubusercontent.com/agessaman/meshcore-packet-capture/main/install.sh)
-</code></pre>
-<p>The interactive installer will walk you through the remaining configuration steps below.</p>
-<h3 id="5-device-connection">5. Device Connection<a class="headerlink" href="#5-device-connection" title="Permanent link">¶</a></h3>
-<p>You will be prompted to select a connection type:</p>
-<table>
-<thead>
-<tr>
-<th>Method</th>
-<th>Best For</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Serial</strong> (recommended)</td>
-<td>USB-connected devices</td>
-<td>Most reliable for continuous operation</td>
-</tr>
-<tr>
-<td><strong>BLE</strong></td>
-<td>T1000e and compatible devices</td>
-<td>Wireless, no cable needed</td>
-</tr>
-<tr>
-<td><strong>TCP</strong></td>
-<td>Network-connected devices</td>
-<td>For use with ser2net or TCP-to-serial bridges</td>
-</tr>
-</tbody>
-</table>
-<p>For serial connections, the script will automatically detect connected devices. Select your device from the list.</p>
-<h3 id="6-iata-code">6. IATA Code<a class="headerlink" href="#6-iata-code" title="Permanent link">¶</a></h3>
-<p>Enter your region's <strong>3-letter IATA code</strong> (e.g., <code>SEA</code>, <code>LAX</code>, <code>YOW</code>, <code>LON</code>). This identifies which MeshMapper region your observer belongs to.</p>
-<p>Use the code of the region that should receive the observer's reports. MQTT topics carry this code, and MeshMapper's subscriber uses it when choosing a region. If your receiver covers several regions, coordinate with their admins rather than assuming one code will place the same report in every region.</p>
-<h3 id="7-owner-information-optional">7. Owner Information (Optional)<a class="headerlink" href="#7-owner-information-optional" title="Permanent link">¶</a></h3>
-<p>You may optionally configure:</p>
+<p>The installer sets up everything (Python environment, a system service, and config at <code>/etc/mctomqtt/</code>) and walks you through configuration. When a prompt shows a value in brackets, pressing Enter uses it.</p>
+<h3 id="2-answer-the-prompts">2. Answer the Prompts<a class="headerlink" href="#2-answer-the-prompts" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong>Owner Public Key</strong>: The public key of the observer owner (64 hex characters)</li>
-<li><strong>Owner Email</strong>: A contact email</li>
+<li><strong>Installation method</strong>: choose <strong>1) System service</strong> (recommended).</li>
+<li><strong>Serial device</strong>: pick the USB port your repeater is connected to.</li>
+<li><strong>IATA code</strong>: enter your <strong>MeshMapper region code</strong> (e.g. <code>YOW</code>). This must match your region, or your observer won't show up.</li>
+<li><strong>MQTT Broker Configuration</strong>: choose <strong>1) Select bundled broker presets</strong>, then select <strong>meshmapper</strong>. Choose <strong>5) Finish</strong> when done.</li>
 </ul>
-<p>MeshMapper doesn't use these, so you can skip them.</p>
-<h3 id="8-mqtt-broker-configuration">8. MQTT Broker Configuration<a class="headerlink" href="#8-mqtt-broker-configuration" title="Permanent link">¶</a></h3>
-<p>The script will ask whether to enable the LetsMesh Packet Analyzer. MeshMapper doesn't need it, so that's up to you.</p>
-<p>When prompted to configure additional brokers, select "1" additional, and add the MeshMapper broker with the following settings:</p>
-<table>
-<thead>
-<tr>
-<th>Setting</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Server hostname</td>
-<td><code>mqtt.meshmapper.net</code></td>
-</tr>
-<tr>
-<td>Port</td>
-<td><code>443</code></td>
-</tr>
-<tr>
-<td>WebSockets transport</td>
-<td><strong>Yes</strong></td>
-</tr>
-<tr>
-<td>TLS/SSL encryption</td>
-<td><strong>Yes</strong></td>
-</tr>
-<tr>
-<td>Verify TLS certificates</td>
-<td><strong>Yes</strong></td>
-</tr>
-<tr>
-<td>Authentication method</td>
-<td><strong>MeshCore Auth Token</strong></td>
-</tr>
-<tr>
-<td>Token audience</td>
-<td><code>mqtt.meshmapper.net</code></td>
-</tr>
-</tbody>
-</table>
-<p>When prompted for topic configuration, select <strong>Default pattern</strong> (<code>meshcore/{IATA}/{PUBLIC_KEY}/status</code>, <code>meshcore/{IATA}/{PUBLIC_KEY}/packets</code>).</p>
-<h3 id="9-installation-method">9. Installation Method<a class="headerlink" href="#9-installation-method" title="Permanent link">¶</a></h3>
-<p>Choose how the capture software should run:</p>
-<table>
-<thead>
-<tr>
-<th>Method</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>System Service</strong> (recommended)</td>
-<td>Runs on boot via systemd, auto-restarts on failure</td>
-</tr>
-<tr>
-<td><strong>Docker Container</strong></td>
-<td>Isolated environment, easy to update</td>
-</tr>
-<tr>
-<td><strong>Manual</strong></td>
-<td>No automatic startup, run when needed</td>
-</tr>
-</tbody>
-</table>
-<p>For the recommended <strong>systemd service</strong>, the script will:</p>
-<ul>
-<li>Install and enable the service</li>
-<li>Start it immediately</li>
-<li>Verify a successful MQTT connection</li>
-</ul>
-<h2 id="managing-the-service">Managing the Service<a class="headerlink" href="#managing-the-service" title="Permanent link">¶</a></h2>
-<p>Once installed as a systemd service, use these commands:</p>
-<pre><code class="language-bash"># Start / stop / restart
-sudo systemctl start meshcore-capture
-sudo systemctl stop meshcore-capture
-sudo systemctl restart meshcore-capture
-
-# Check status
-sudo systemctl status meshcore-capture
-
-# View live logs
-sudo journalctl -u meshcore-capture -f
+<h3 id="3-check-its-running">3. Check It's Running<a class="headerlink" href="#3-check-its-running" title="Permanent link">¶</a></h3>
+<pre><code class="language-bash">sudo systemctl status mctomqtt     # Check status
+sudo journalctl -u mctomqtt -f     # View live logs
 </code></pre>
-<p>The configuration file is stored at:</p>
-<pre><code>~/.meshcore-packet-capture/.env.local
+<h2 id="changing-the-configuration">Changing the Configuration<a class="headerlink" href="#changing-the-configuration" title="Permanent link">¶</a></h2>
+<p>Your settings are in <code>/etc/mctomqtt/config.d/99-user.toml</code> and the MeshMapper preset in <code>/etc/mctomqtt/config.d/10-meshmapper.toml</code>. Don't edit <code>/etc/mctomqtt/config.toml</code>, as it's overwritten on updates.</p>
+<pre><code class="language-bash">sudo nano /etc/mctomqtt/config.d/99-user.toml
+sudo systemctl restart mctomqtt
 </code></pre>
-<h2 id="resource-limits">Resource Limits<a class="headerlink" href="#resource-limits" title="Permanent link">¶</a></h2>
-<p>The systemd service includes built-in safeguards:</p>
-<ul>
-<li><strong>Memory</strong>: 512 MB limit</li>
-<li><strong>CPU</strong>: 50% limit</li>
-<li><strong>Tasks</strong>: 200 max</li>
-<li><strong>Auto-restart</strong>: Up to 3 failures within 5 minutes before stopping</li>
-</ul>
+<h2 id="updating">Updating<a class="headerlink" href="#updating" title="Permanent link">¶</a></h2>
+<pre><code class="language-bash">curl -fsSL https://raw.githubusercontent.com/Cisien/meshcoretomqtt/main/scripts/update.sh | sudo bash
+</code></pre>
 <h2 id="verifying-your-observer">Verifying Your Observer<a class="headerlink" href="#verifying-your-observer" title="Permanent link">¶</a></h2>
-<p>Once your observer is running and connected, it will appear in your region's <strong>Admin Portal</strong> under the <a href="../admins/#observers">Observers tab</a> once packets have been received (repeater or companion adverts, or wardriving pings) You should see a checkmark under the broker(s) your observer is connected to.</p>
+<p>Once your observer is running and connected, it appears in your region's admin panel under the <a href="../admins/#observers">Observers tab</a> after packets have been received (repeater or companion adverts, or wardriving pings). Its <strong>Brokers</strong> column shows a coloured MeshMapper badge once the broker has heard it.</p>
+<p>If nothing shows up, check the logs (<code>sudo journalctl -u mctomqtt -f</code>) for MQTT errors, and confirm the IATA code matches your region.</p>
 
 
 

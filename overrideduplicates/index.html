@@ -7,7 +7,7 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/overrideduplicates/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/overrideduplicates/">
       
       
         <link rel="prev" href="../duplicaterepeaterid/">
@@ -392,14 +392,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-firmware/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    Native Firmware
   
 
     
@@ -428,6 +428,34 @@
     
   
     MeshCore-HA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meshcoretomqtt
   
 
     
@@ -779,22 +807,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#changes-to-system-behavior" class="md-nav__link">
+  <a href="#what-changes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Changes to System Behavior
+        What Changes
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Changes to System Behavior">
+    <nav class="md-nav" aria-label="What Changes">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-map-visualization" class="md-nav__link">
+  <a href="#on-the-map" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Map Visualization
+        On the Map
       
     </span>
   </a>
@@ -802,10 +830,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-data-ingestion" class="md-nav__link">
+  <a href="#when-data-comes-in" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Data Ingestion
+        When Data Comes In
       
     </span>
   </a>
@@ -813,10 +841,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-leaderboards" class="md-nav__link">
+  <a href="#leaderboards" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Leaderboards
+        Leaderboards
       
     </span>
   </a>
@@ -2673,22 +2701,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#changes-to-system-behavior" class="md-nav__link">
+  <a href="#what-changes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Changes to System Behavior
+        What Changes
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Changes to System Behavior">
+    <nav class="md-nav" aria-label="What Changes">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-map-visualization" class="md-nav__link">
+  <a href="#on-the-map" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Map Visualization
+        On the Map
       
     </span>
   </a>
@@ -2696,10 +2724,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-data-ingestion" class="md-nav__link">
+  <a href="#when-data-comes-in" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Data Ingestion
+        When Data Comes In
       
     </span>
   </a>
@@ -2707,10 +2735,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-leaderboards" class="md-nav__link">
+  <a href="#leaderboards" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Leaderboards
+        Leaderboards
       
     </span>
   </a>
@@ -2751,74 +2779,78 @@
 
 
 <h1 id="overriding-duplicate-id-detection">Overriding Duplicate ID Detection<a class="headerlink" href="#overriding-duplicate-id-detection" title="Permanent link">¶</a></h1>
-<p>MeshMapper's default behavior is to aggressively quarantine repeaters and pings with colliding ID's to ensure map accuracy (see <a href="https://wiki.meshmapper.net/duplicaterepeaterid/">Duplicate Repeater IDs</a>). However, some regions may prefer to visualize all repeaters and connections, even if the data attribution is technically ambiguous.</p>
-<p>The <strong>Disable Duplicate ID Detection Logic</strong> setting allows regions to bypass these safety checks.</p>
+<p>By default, MeshMapper won't link pings to repeaters it can't tell apart, and marks those repeaters <strong>Ambiguous</strong> (see <a href="../duplicaterepeaterid/">Duplicate Repeater IDs</a>). Some regions would rather see every possible repeater and connection, even when it's not certain which one was involved.</p>
+<p>The <strong>Disable Duplicate ID Detection Logic</strong> setting turns these checks off.</p>
 <div class="admonition danger">
 <p class="admonition-title">Data Integrity Warning</p>
-<p>Enabling this setting compromises the accuracy of the map and data.</p>
-<p>Because the system cannot distinguish between two repeaters sharing the same ID (e.g., <code>A1</code>), coverage lines may be drawn to the wrong location, and "Max Range" statistics may be falsely inflated.</p>
+<p>Turning this on makes the map less accurate. When two repeaters share an ID (e.g. <code>A1</code>), MeshMapper can't tell them apart, so lines may be drawn to the wrong repeater and <strong>Max Range</strong> may be inflated.</p>
+<p>As the admin panel warns: <em>"The MeshMapper administration team will not be available to assist with data validation or cleanup. Proceed at your own risk."</em></p>
 </div>
 <h2 id="how-to-enable">How to Enable<a class="headerlink" href="#how-to-enable" title="Permanent link">¶</a></h2>
 <ol>
-<li>Region administrators can log in to the <strong>Admin Portal</strong>.</li>
-<li>Navigate to the <strong>Settings</strong> tab.</li>
-<li>Check the box for <strong>Disable Duplicate ID Detection Logic</strong>.</li>
-<li>Click <strong>Save Settings</strong>.</li>
+<li>Sign in to your region's admin panel.</li>
+<li>Open <strong>Settings → Repeaters, Neighbours &amp; Scopes</strong>.</li>
+<li>Tick <strong>Disable Duplicate ID Detection Logic</strong>.</li>
+<li>Save your settings.</li>
 </ol>
-<p><em>Note: If your region is part of a Multi-Region Group, this setting must be enabled by a Master or Global Administrator.</em></p>
-<h2 id="changes-to-system-behavior">Changes to System Behavior<a class="headerlink" href="#changes-to-system-behavior" title="Permanent link">¶</a></h2>
-<p>When this mode is active, the system alters its logic in the following ways:</p>
-<h3 id="1-map-visualization">1. Map Visualization<a class="headerlink" href="#1-map-visualization" title="Permanent link">¶</a></h3>
+<p><em>For a region in a <a href="../multiregions/">multiregion group</a>, this is set by the group admin under </em><em>Group Defaults</em><em>.</em></p>
+<h2 id="what-changes">What Changes<a class="headerlink" href="#what-changes" title="Permanent link">¶</a></h2>
+<h3 id="on-the-map">On the Map<a class="headerlink" href="#on-the-map" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong>Icons:</strong> Repeaters involved in a collision will no longer display the red <strong>Excluded</strong> icon. They will appear as standard Active repeaters (Orange/Grey/Green).</li>
-<li><strong>Coverage Lines:</strong> The map will draw connection lines from pings to <em>all</em> repeaters that match the ID, even if the ping data is ambiguous.</li>
-<li><strong>Neighbor Lines:</strong> Neighbor lines will be drawn for every repeater sharing a colliding ID.</li>
-<li><strong>Public Warning:</strong> A warning icon will appear on the public map interface (below the Help button) to inform visitors that the region has opted out of standard validation logic.</li>
+<li><strong>Repeaters</strong>: no repeater is marked Ambiguous. Colliding repeaters show in their normal colours (green, pink or grey).</li>
+<li><strong>Ping lines</strong>: lines are drawn from pings to <strong>every</strong> repeater matching an ambiguous hop.</li>
+<li><strong>Neighbour and backbone links</strong>: drawn and counted for colliding repeaters too.</li>
+<li><strong>Public warning</strong>: an orange <strong>warning</strong> button (<strong>Data Accuracy Warning</strong>) appears at the top right of the map, telling visitors the region has turned off duplicate detection.</li>
 </ul>
-<h3 id="2-data-ingestion">2. Data Ingestion<a class="headerlink" href="#2-data-ingestion" title="Permanent link">¶</a></h3>
+<h3 id="when-data-comes-in">When Data Comes In<a class="headerlink" href="#when-data-comes-in" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong>Persistence:</strong> The system will no longer automatically force existing repeaters into "Excluded" status when a collision is detected. If you manually set a duplicate repeater to <strong>Active</strong>, it will remain Active.</li>
-<li><strong>New Collisions:</strong> To ensure admins are still aware of issues, <em>newly discovered</em> repeaters that cause a collision will still default to "Excluded" initially. However, unlike the standard mode, you can manually change them to "Active" without the system reverting your change on the next ping.  Regardless of being "Excluded", the repeater will still function as being "Active".</li>
+<li><strong>No automatic Ambiguous status</strong>: new adverts no longer trigger the check, so colliding repeaters, including new ones, stay as they are.</li>
+<li><strong>Pings</strong>: a hop that matches more than one repeater is stored against all of them instead of being left unlinked.</li>
 </ul>
-<h3 id="3-leaderboards">3. Leaderboards<a class="headerlink" href="#3-leaderboards" title="Permanent link">¶</a></h3>
+<h3 id="leaderboards">Leaderboards<a class="headerlink" href="#leaderboards" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong>Local Leaderboard:</strong> Duplicate repeaters will be included in the regional "Best Repeaters" and "Max Range" tables.</li>
-<li><strong>Global Leaderboard:</strong> To protect the integrity of the global rankings, regions with this setting enabled are <strong>excluded</strong> from the Global Leaderboard. Your repeaters will not appear.</li>
+<li><strong>Region leaderboard</strong>: colliding repeaters are included, and ambiguous pings count towards every matching repeater.</li>
+<li><strong>Global leaderboard</strong>: the region's repeaters aren't included. Its wardrivers still count.</li>
 </ul>
 <h2 id="summary-of-differences">Summary of Differences<a class="headerlink" href="#summary-of-differences" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
 <th style="text-align: left;">Feature</th>
-<th style="text-align: left;">Standard Mode</th>
-<th style="text-align: left;">Override Mode</th>
+<th style="text-align: left;">Standard</th>
+<th style="text-align: left;">Override</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Duplicate Repeater Status</strong></td>
-<td style="text-align: left;">Forced to "Excluded" (Red)</td>
-<td style="text-align: left;">Can be manually set to "Active"</td>
+<td style="text-align: left;"><strong>Colliding repeaters</strong></td>
+<td style="text-align: left;">Marked Ambiguous (red) automatically</td>
+<td style="text-align: left;">Never marked Ambiguous</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Ambiguous Pings</strong></td>
-<td style="text-align: left;">Ignored / Not drawn</td>
-<td style="text-align: left;">Drawn to all matching candidates</td>
+<td style="text-align: left;"><strong>Ambiguous pings</strong></td>
+<td style="text-align: left;">Left unlinked; Duplicate lines only on a single selected ping</td>
+<td style="text-align: left;">Linked and drawn to every matching repeater</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Neighbor Lines</strong></td>
-<td style="text-align: left;">Drawn only for unique IDs</td>
-<td style="text-align: left;">Drawn for all colliding IDs</td>
+<td style="text-align: left;"><strong>Neighbour and backbone links</strong></td>
+<td style="text-align: left;">Only between repeaters that aren't Ambiguous</td>
+<td style="text-align: left;">Include colliding repeaters</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Max Range Stats</strong></td>
-<td style="text-align: left;">Calculated only for verified unique IDs</td>
-<td style="text-align: left;">Calculated for all IDs (may be inaccurate)</td>
+<td style="text-align: left;"><strong>Max Range</strong></td>
+<td style="text-align: left;">Only from pings where the repeater's ID was clear</td>
+<td style="text-align: left;">From every matching ping (may be inflated)</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Global Leaderboard</strong></td>
-<td style="text-align: left;">Included</td>
-<td style="text-align: left;"><strong>Excluded</strong></td>
+<td style="text-align: left;"><strong>Global leaderboard</strong></td>
+<td style="text-align: left;">Repeaters included</td>
+<td style="text-align: left;">Repeaters <strong>not</strong> included</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Public map</strong></td>
+<td style="text-align: left;">No warning</td>
+<td style="text-align: left;"><strong>Data Accuracy Warning</strong> shown</td>
 </tr>
 </tbody>
 </table>

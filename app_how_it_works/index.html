@@ -7,7 +7,7 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/app_how_it_works/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/app_how_it_works/">
       
       
         <link rel="prev" href="../app_connection_guide/">
@@ -392,14 +392,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-firmware/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    Native Firmware
   
 
     
@@ -428,6 +428,34 @@
     
   
     MeshCore-HA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meshcoretomqtt
   
 
     
@@ -1129,6 +1157,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-scope-discovery-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Scope Discovery Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#packet-filtering-and-validation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1152,10 +1191,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-vehicle-mounted-carpeater-id-check-optional" class="md-nav__link">
+  <a href="#2-vehicle-mounted-carpeater-id-check" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2 Vehicle-mounted "CARpeater" ID check (optional)
+        2 Vehicle-mounted "CARpeater" ID check
       
     </span>
   </a>
@@ -1185,10 +1224,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-channel-hash-check-group_text-only" class="md-nav__link">
+  <a href="#5-channel-hash-check-grp_txt-only" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5 Channel hash check (GROUP_TEXT only)
+        5 Channel hash check (GRP_TXT only)
       
     </span>
   </a>
@@ -1196,10 +1235,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#6-decryption-group_text-only" class="md-nav__link">
+  <a href="#6-decryption-grp_txt-only" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6 Decryption (GROUP_TEXT only)
+        6 Decryption (GRP_TXT only)
       
     </span>
   </a>
@@ -1207,10 +1246,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#7-printable-character-check-group_text-only" class="md-nav__link">
+  <a href="#7-printable-character-check-grp_txt-only" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7 Printable character check (GROUP_TEXT only)
+        7 Printable character check (GRP_TXT only)
       
     </span>
   </a>
@@ -3005,6 +3044,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-scope-discovery-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Scope Discovery Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#packet-filtering-and-validation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3028,10 +3078,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-vehicle-mounted-carpeater-id-check-optional" class="md-nav__link">
+  <a href="#2-vehicle-mounted-carpeater-id-check" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2 Vehicle-mounted "CARpeater" ID check (optional)
+        2 Vehicle-mounted "CARpeater" ID check
       
     </span>
   </a>
@@ -3061,10 +3111,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-channel-hash-check-group_text-only" class="md-nav__link">
+  <a href="#5-channel-hash-check-grp_txt-only" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5 Channel hash check (GROUP_TEXT only)
+        5 Channel hash check (GRP_TXT only)
       
     </span>
   </a>
@@ -3072,10 +3122,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#6-decryption-group_text-only" class="md-nav__link">
+  <a href="#6-decryption-grp_txt-only" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6 Decryption (GROUP_TEXT only)
+        6 Decryption (GRP_TXT only)
       
     </span>
   </a>
@@ -3083,10 +3133,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#7-printable-character-check-group_text-only" class="md-nav__link">
+  <a href="#7-printable-character-check-grp_txt-only" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7 Printable character check (GROUP_TEXT only)
+        7 Printable character check (GRP_TXT only)
       
     </span>
   </a>
@@ -3227,46 +3277,50 @@
 <p>This data is aggregated with contributions from other wardrivers on the <a href="https://meshmapper.net/">MeshMapper community map</a>.</p>
 <hr>
 <h2 id="how-bluetooth-communication-works">How Bluetooth Communication Works<a class="headerlink" href="#how-bluetooth-communication-works" title="Permanent link">¶</a></h2>
-<p>MeshMapper communicates with your radio over <strong>Bluetooth Low Energy (BLE)</strong> using the UART (serial) service:</p>
+<p>MeshMapper talks to your radio over <strong>Bluetooth Low Energy (BLE)</strong>, <strong>TCP</strong> (Wi-Fi), or <strong>USB serial</strong> (Android only). Over BLE it uses the Nordic UART service (<code>6E400001-…</code>):</p>
 <ul>
-<li><strong>TX Characteristic</strong>: Write commands to the device</li>
-<li><strong>RX Characteristic</strong>: Receive notifications (responses and events) from the device</li>
+<li>The app <strong>writes</strong> commands to characteristic <code>6E400002-…</code> (the "RX" characteristic, named from the radio's side)</li>
+<li>The app <strong>receives notifications</strong> (responses and events) on characteristic <code>6E400003-…</code> (the "TX" characteristic)</li>
 </ul>
-<p>All communication follows the <strong>MeshCore Companion Protocol</strong>, a binary protocol where the app sends commands and the radio responds with data or event notifications.</p>
-<p><strong>Platform libraries:</strong></p>
-<ul>
-<li>Android / iOS: <code>flutter_blue_plus</code></li>
-<li>Web: <code>flutter_web_bluetooth</code></li>
-</ul>
+<p>All communication follows the <strong>MeshCore Companion Protocol</strong>, a binary protocol where the app sends commands and the radio responds with data or event notifications. The same protocol runs over all three links.</p>
+<p><strong>Bluetooth library:</strong> <code>flutter_blue_plus</code> on Android and iOS.</p>
 <hr>
 <h2 id="how-tx-channel-messages-work">How TX Channel Messages Work<a class="headerlink" href="#how-tx-channel-messages-work" title="Permanent link">¶</a></h2>
 <p>When you send a TX ping (manually or via auto-ping), you are sending a <strong>channel message</strong> that floods the mesh:</p>
 <ol>
-<li><strong>Message composition</strong>: By default, a short <strong>anonymous token</strong> (a keyed "wire tag" unique to your session and ping). Your GPS coordinates and power level travel to MeshMapper only via the API — they are not in the on-air message. If <strong>Broadcast My Coordinates</strong> is enabled in Settings, your GPS coordinates are appended to the message as well.</li>
-<li><strong>Encryption</strong>: AES-ECB with the #wardriving channel key (SHA-256 hash of "#wardriving"). ECB mode is mandated by the MeshCore protocol. Note that anyone with the community channel key can decrypt the message — which is why it carries a token rather than your location by default.</li>
-<li><strong>Broadcast and flooding</strong>: The encrypted message is sent via BLE as a GROUP_TEXT packet. It <strong>floods the entire mesh</strong> by default (every repeater relays it). If a <strong>flood scope</strong> is configured by the regional admin, only repeaters within the scope relay it.</li>
-<li><strong>Echo listening (5-second window)</strong>: After sending, the app opens a 5-second listening window. Every incoming packet is checked against these criteria, proceeding to step 5 if all of the following conditions are met:</li>
-<li>Packet is of the GROUP_TEXT type</li>
-<li>RSSI is NOT stronger (closer to zero) than -30 dBm (likely a vehicle-mounted "carpeater" if so). This can be overridden by the user in the MeshMapper app settings.</li>
-<li>Channel hash matches that of #wardriving</li>
-<li>Decrypted content matches that of the ping just sent</li>
+<li><strong>Message composition</strong>: By default the message is a short <strong>anonymous token</strong>, <code>MM:</code> followed by a keyed "wire tag" unique to your session and ping. Your GPS coordinates and power level travel to MeshMapper only via the API, not in the on-air message. If <strong>Broadcast My Coordinates</strong> is enabled in Settings, your coordinates are appended to the token (<code>MM:&lt;tag&gt;:lat,lon</code>).</li>
+<li><strong>Sending and encryption</strong>: The app hands the plain text to your radio with the <code>CMD_SEND_CHANNEL_TXT_MSG</code> command on the #wardriving channel. The radio encrypts it with AES-128-ECB, using the #wardriving channel key (the first 16 bytes of the SHA-256 hash of "#wardriving"). ECB mode is mandated by the MeshCore protocol. Anyone with the community channel key can decrypt the message, which is why it carries a token rather than your location by default.</li>
+<li><strong>Broadcast and flooding</strong>: The radio transmits it as a group text (GRP_TXT) packet that <strong>floods the entire mesh</strong> by default (every repeater relays it). If a <strong>flood scope</strong> is configured by the regional admin, only repeaters within the scope relay it.</li>
+<li><strong>Echo listening (5-second window)</strong>: After sending, the app opens a 5-second listening window. Every incoming packet is checked in this order, and is counted as an echo only if it passes them all:<ul>
+<li>Packet is a GRP_TXT packet</li>
 <li>Path length is &gt; 0 (the packet has traveled through at least one repeater)</li>
-<li><strong>Deduplication</strong>: If the same packet is heard from the same repeater more than once, only the one with the best SNR value is kept.</li>
+<li>If the <strong>first hop</strong> is your own CARpeater: a single-hop packet is dropped; otherwise your CARpeater's hop is stripped and the next repeater is credited, with no SNR/RSSI (those readings belong to your CARpeater)</li>
+<li>Neither the first hop nor the credited repeater is on the region's shared CARpeater list</li>
+<li>The repeater is not excluded by your CARpeater filter</li>
+<li>RSSI is NOT -30 dBm or stronger (closer to zero), which would suggest a vehicle-mounted "CARpeater". This check can be switched off in Settings, and is skipped when a CARpeater hop was stripped.</li>
+<li>Channel hash matches #wardriving</li>
+<li>Decrypted content matches the ping just sent</li>
+</ul>
+</li>
+<li><strong>Which repeater is credited</strong>: An echo that came straight from one repeater (1 hop) is credited to that repeater and goes in the TX ping's results. An echo that traveled through several repeaters (path longer than 1) is credited to the <strong>last</strong> repeater in its path, the one you heard, and is uploaded as a separate RX item at the ping's location.</li>
+<li><strong>Deduplication</strong>: If the same repeater is heard more than once, only the reading with the best SNR is kept.</li>
 <li><strong>Queuing</strong>: After the 5-second window closes, the TX ping and its echo results are added to the <strong>upload queue</strong>. A 5-second flush timer starts. When the timer expires, the queue uploads.</li>
 </ol>
+<p>A session can send at most <strong>2047</strong> TX pings (the wire tag's counter limit). When it runs out, the app uploads what is queued and disconnects; reconnect to start a new session.</p>
 <h3 id="tx-vs-rx-queuing">TX vs RX Queuing<a class="headerlink" href="#tx-vs-rx-queuing" title="Permanent link">¶</a></h3>
 <p>TX pings are queued differently from RX observations:</p>
 <ul>
-<li><strong>TX/DISC/Trace</strong> go directly into the upload queue as a single item (the ping + its results from the listening window). A <strong>5-second flush timer</strong> triggers an upload shortly after.</li>
-<li><strong>RX observations</strong> go through a <strong>two-stage pipeline</strong>: first the RX Logger batches by repeater (best SNR, 25 meter/30 second flush), then the API queue buffers up to <strong>4 RX entries per repeater</strong> before flushing to the main queue.</li>
+<li><strong>TX, DISC and Trace</strong> results go directly into the upload queue as items (a TX ping and its echoes are one item; each discovered repeater is one DISC item). A <strong>5-second flush timer</strong> triggers an upload shortly after.</li>
+<li><strong>RX observations</strong> go through a <strong>two-stage pipeline</strong>: first the RX Logger batches by repeater (best SNR, 25 meter/30 second flush), then the upload queue holds up to <strong>4 RX entries per repeater</strong> before moving them to the main queue. Any more from the same repeater before that move are dropped.</li>
 </ul>
 <hr>
 <h2 id="how-rx-observations-work">How RX Observations Work<a class="headerlink" href="#how-rx-observations-work" title="Permanent link">¶</a></h2>
-<p>While connected, the <strong>Unified RX Handler</strong> continuously monitors all incoming BLE packets from your radio, regardless of mode.</p>
+<p>While an <strong>auto mode is running</strong> (Active, Passive, Hybrid or Trace), the app logs mesh traffic your radio overhears. When no auto mode is running, the only packets it uses are the echoes of a manual ping during its 5-second window.</p>
 <ul>
-<li>Any mesh traffic the radio overhears is processed, validated, and queued for upload</li>
+<li>Mesh traffic the radio overhears is processed, validated, and queued for upload</li>
 <li>RX observations are "free data" requiring no transmission from you</li>
 <li>They capture other devices' mesh traffic, adding extra coverage data from your location</li>
+<li>An observation needs a GPS fix. Packets heard while the phone has no fix are dropped.</li>
 </ul>
 <h3 id="rx-batching-aggregation">RX Batching (Aggregation)<a class="headerlink" href="#rx-batching-aggregation" title="Permanent link">¶</a></h3>
 <p>RX packets aren't uploaded individually. Instead, they are <strong>grouped by repeater ID</strong> and aggregated before upload. This reduces API traffic and ensures the best observation is reported for each repeater at each location.</p>
@@ -3288,18 +3342,18 @@
 <h2 id="how-discovery-pings-work">How Discovery Pings Work<a class="headerlink" href="#how-discovery-pings-work" title="Permanent link">¶</a></h2>
 <p>Discovery pings use a fundamentally different mechanism than TX channel messages. Instead of flooding the mesh, discovery sends a <strong>direct control data request</strong> (zero-hop) to nearby repeaters. Note: Only repeaters and room servers with firmware 1.10.0 or newer support and will respond to discovery pings.</p>
 <ol>
-<li><strong>Request</strong>: ControlData command (0x37) with DISCOVER_REQ flag, requesting responses from repeaters and rooms in direct range. Includes a random 4-byte tag for matching.</li>
+<li><strong>Request</strong>: Control data command (0x37) with the DISCOVER_REQ flag, asking repeaters and room servers in direct range to answer. It carries a random 4-byte tag.</li>
 <li><strong>Response</strong>: Repeaters respond with node type, public key, and their assessment of signal quality from their end (remote SNR).</li>
-<li><strong>Tracking</strong>: Discovery Tracker collects responses during a 7-second window, deduplicates by public key, and filters carpeaters. Gives you <strong>bidirectional</strong> signal quality (how you hear them &amp; how they hear you).</li>
-<li><strong>Upload</strong>: "DISC" type data with repeater public key, node type, and bidirectional signal quality.</li>
+<li><strong>Tracking</strong>: The app listens for 7 seconds. It accepts answers carrying any tag, so an answer to another phone's discovery heard in that window counts too (the tag is only used to time replies to your own request). Answers are grouped by the repeater's ID (the first 1 to 3 bytes of its public key, following your TX Bytes setting), keeping the best local SNR. Answers from the region's shared CARpeaters, from your own CARpeater, and at -30 dBm or stronger (unless the RSSI filter is off) are dropped. The result is <strong>bidirectional</strong> signal quality (how you hear them &amp; how they hear you).</li>
+<li><strong>Upload</strong>: One "DISC" item per repeater, with its public key, node type, and bidirectional signal quality. If nobody answered and <strong>Discovery Drop</strong> is on, a single DISC item with no repeater is uploaded instead.</li>
 </ol>
 <hr>
 <h2 id="how-trace-pings-work">How Trace Pings Work<a class="headerlink" href="#how-trace-pings-work" title="Permanent link">¶</a></h2>
 <p>Trace pings target a specific repeater by hex ID:</p>
 <ol>
-<li><strong>Command</strong>: CMD_SEND_TRACE_PATH (0x24) as a zero-hop trace</li>
-<li><strong>Response</strong>: If in range, repeater responds with PUSH_CODE_TRACE_DATA (0x89) containing signal quality</li>
-<li><strong>Logging</strong>: Successful traces → uploaded to API. Failed traces (no response within 5s) → logged locally, shown as grey markers on noise floor graph.</li>
+<li><strong>Command</strong>: CMD_SEND_TRACE_PATH (0x24) as a zero-hop trace. The target ID is 1, 2 or 4 bytes, following your <strong>Trace Bytes</strong> setting.</li>
+<li><strong>Response</strong>: If in range, the repeater responds with PUSH_CODE_TRACE_DATA (0x89) containing signal quality</li>
+<li><strong>Logging</strong>: Successful traces → uploaded to API. Failed traces (no response within 5s) → logged locally, shown as grey markers on the noise floor graph.</li>
 </ol>
 <hr>
 <h2 id="how-smart-pinging-works">How Smart Pinging Works<a class="headerlink" href="#how-smart-pinging-works" title="Permanent link">¶</a></h2>
@@ -3308,7 +3362,7 @@
 <li><strong>Coverage lookup</strong>: While connected, the app keeps MeshMapper's recent coverage for roughly 500m around you loaded. It uses the same vector tiles the map draws, filtered to two-way (green) and discovery (cyan) results inside your Smart Pinging window. The lookup re-checks after every 100m of movement and refreshes tiles older than 5 minutes at the next 100m. Squares you cover yourself during the session (a heard TX, an answered discovery) are marked covered immediately.</li>
 <li><strong>The check</strong>: When an auto ping (TX or discovery) is due, the app looks up the square under your current GPS fix. The square is the cell of your Grid Mode setting (300m, or 100m in Detailed). A recent green or cyan result there means the ping is deferred, and the countdown reads "Deferred". The check runs before the minimum distance rule, so a covered square reads "Deferred" rather than "Skipped".</li>
 <li><strong>The hold</strong>: A deferred ping is banked in a single slot. On every GPS fix the app asks whether you have reached a square with no recent coverage and moved at least your minimum ping distance since the last ping of that kind. If so, the banked ping goes out and the interval timer restarts. A later deferral replaces an earlier one, so at most one ping is ever waiting. The regular interval keeps running underneath, so a phone that never reaches a fresh square still tries at its normal cadence.</li>
-<li><strong>Fail open</strong>: If the coverage data is not loaded yet, a fetch failed, you are outside a zone, or you are in Offline Mode, the lookup answers "unknown" and the ping is sent as normal. Smart Pinging only ever holds a ping it knows to be redundant.</li>
+<li><strong>Fail open</strong>: If the coverage data is not loaded yet, a fetch failed, you are outside a zone, or you are in Offline Mode, the ping is sent as normal. Smart Pinging only ever holds a ping it knows to be redundant.</li>
 <li><strong>Credit</strong>: A deferred ping posts no coverage row, so on its own it would cost you the point that ping would have earned. Instead the app reports a small <code>DEFER</code> item for each square where it held a ping (one per 300m square per session, whatever your Grid Mode) in the normal upload batch. MeshMapper verifies the square really was covered in its own data, drops any it cannot confirm, and credits the accepted ones at 1.5 points each. Accepted squares also drive the Airtime awards and the Top Airtime Savers leaderboard.</li>
 </ol>
 <div class="admonition note">
@@ -3316,45 +3370,62 @@
 <p>Manual pings, Trace Mode and passive RX listening are never deferred. RX is free coverage, and the other two are you asking for a specific measurement.</p>
 </div>
 <hr>
+<h2 id="how-scope-discovery-works">How Scope Discovery Works<a class="headerlink" href="#how-scope-discovery-works" title="Permanent link">¶</a></h2>
+<p>Scope discovery asks repeaters which <strong>regions (flood scopes)</strong> they carry. It runs when <strong>Scope Discovery</strong> is on (switched on by you, or enforced by the region), your region's server offers it, and your companion firmware is 1.16.0 or newer.</p>
+<ol>
+<li><strong>After a discovery</strong>: The app picks up to 3 of the strongest repeaters the discovery found that are due to be asked. A repeater is due only if nobody has asked it within the refresh interval.</li>
+<li><strong>The question</strong>: One at a time, the app sends each one a short anonymous "regions" request, routed directly to it. Your pings are not delayed.</li>
+<li><strong>The answer</strong>: The repeater replies with its list of region names (<code>*</code> means it passes unscoped traffic). The app uploads it as a <code>SCOPES</code> item, always after the DISC item for the discovery that found the repeater.</li>
+</ol>
+<p>See <a href="../app_settings_reference/#scope-discovery">Scope Discovery</a> for the settings.</p>
+<hr>
 <h2 id="packet-filtering-and-validation">Packet Filtering and Validation<a class="headerlink" href="#packet-filtering-and-validation" title="Permanent link">¶</a></h2>
-<p>Every packet goes through a strict validation pipeline before being accepted. If a packet fails any step, it is dropped immediately.</p>
+<p>Every overheard (RX) packet goes through a strict validation pipeline before being accepted. If a packet fails any step, it is dropped immediately.</p>
 <h3 id="1-path-length-check">1 Path length check<a class="headerlink" href="#1-path-length-check" title="Permanent link">¶</a></h3>
 <ul>
 <li>Packet must have traveled through <strong>at least one repeater</strong> (path length &gt; 0)</li>
 <li>Direct transmissions from nearby devices are not repeater coverage data</li>
+<li><strong>Direct-routed</strong> packets are dropped too: their path lists the route still ahead of them, not the repeater you heard</li>
 </ul>
-<h3 id="2-vehicle-mounted-carpeater-id-check-optional">2 Vehicle-mounted "CARpeater" ID check (optional)<a class="headerlink" href="#2-vehicle-mounted-carpeater-id-check-optional" title="Permanent link">¶</a></h3>
+<h3 id="2-vehicle-mounted-carpeater-id-check">2 Vehicle-mounted "CARpeater" ID check<a class="headerlink" href="#2-vehicle-mounted-carpeater-id-check" title="Permanent link">¶</a></h3>
 <ul>
-<li>If you have configured a CARpeater filter with a repeater hex ID in the MeshMapper app settings:</li>
+<li>If you have set your CARpeater's public key in the CARpeater Filter:<ul>
 <li><strong>Single hop</strong> from your CARpeater → <strong>dropped</strong> (this is just your own repeater relaying back to you, no real coverage info)</li>
-<li><strong>Multiple hops</strong> with CARpeater as last hop → CARpeater hop is <strong>stripped</strong>, second-to-last hop used as the real repeater (the packet traveled through a distant repeater first, then your CARpeater delivered it to you. The distant repeater is the real coverage data, your CARpeater just happened to be the final relay. SNR/RSSI are set to null since they reflect your CARpeater's signal, not the distant repeater's.)</li>
+<li><strong>Multiple hops</strong> with your CARpeater as the last hop → your CARpeater's hop is <strong>stripped</strong>, and the second-to-last hop is used as the real repeater (the packet traveled through a distant repeater first, then your CARpeater delivered it to you. The distant repeater is the real coverage data. SNR/RSSI are set to null since they reflect your CARpeater's signal, not the distant repeater's.)</li>
 </ul>
+</li>
+<li>If the repeater about to be credited is on the region's shared <strong>Regional CARpeaters</strong> list → <strong>dropped</strong></li>
+</ul>
+<p><strong>No GPS fix</strong>: a packet that passes the checks so far is dropped if the phone has no GPS fix, since it could not be placed on the map.</p>
 <h3 id="3-rssi-check-carpeater-failsafe">3 RSSI check (CARpeater failsafe)<a class="headerlink" href="#3-rssi-check-carpeater-failsafe" title="Permanent link">¶</a></h3>
 <ul>
 <li>Signal must be <strong>weaker (farther from zero) than -30 dBm</strong></li>
-<li>Anything stronger implies the relaying node is right next to you (likely a carpeater)</li>
+<li>Anything stronger implies the relaying node is right next to you (likely a CARpeater)</li>
 <li>Acts as a safety net even without the CARpeater ID filter</li>
-<li>Skipped if the Disable RSSI Filter option is ENABLED in app Settings or if CARpeater hop was already stripped</li>
+<li>Skipped if the Disable RSSI Filter option is ENABLED in app Settings or if a CARpeater hop was already stripped</li>
 </ul>
 <h3 id="4-packet-type-check">4 Packet type check<a class="headerlink" href="#4-packet-type-check" title="Permanent link">¶</a></h3>
 <ul>
-<li>Only two types accepted:</li>
-<li><strong>GROUP_TEXT</strong> (0x15) — Channel messages</li>
-<li><strong>ADVERT</strong> (0x11) — Node advertisements</li>
+<li>Only two payload types accepted:<ul>
+<li><strong>GRP_TXT</strong> (0x05) — Channel messages</li>
+<li><strong>ADVERT</strong> (0x04) — Node advertisements</li>
 </ul>
-<h3 id="5-channel-hash-check-group_text-only">5 Channel hash check (GROUP_TEXT only)<a class="headerlink" href="#5-channel-hash-check-group_text-only" title="Permanent link">¶</a></h3>
+</li>
+</ul>
+<h3 id="5-channel-hash-check-grp_txt-only">5 Channel hash check (GRP_TXT only)<a class="headerlink" href="#5-channel-hash-check-grp_txt-only" title="Permanent link">¶</a></h3>
 <ul>
-<li>Channel hash must match a <strong>subscribed channel</strong> (#wardriving or regional channels)</li>
+<li>Payload must be at least 3 bytes (channel hash plus MAC)</li>
+<li>Channel hash must match an <strong>allowed channel</strong>: Public, #wardriving, and your region's channels</li>
 <li>Prevents random mesh traffic from being counted as coverage data</li>
 </ul>
-<h3 id="6-decryption-group_text-only">6 Decryption (GROUP_TEXT only)<a class="headerlink" href="#6-decryption-group_text-only" title="Permanent link">¶</a></h3>
+<h3 id="6-decryption-grp_txt-only">6 Decryption (GRP_TXT only)<a class="headerlink" href="#6-decryption-grp_txt-only" title="Permanent link">¶</a></h3>
 <ul>
-<li>Payload decrypted with the matching channel's AES-ECB key</li>
+<li>Payload decrypted with the matching channel's AES-128-ECB key</li>
 <li>Dropped if decrypted data is too short (&lt; 5 bytes)</li>
 </ul>
-<h3 id="7-printable-character-check-group_text-only">7 Printable character check (GROUP_TEXT only)<a class="headerlink" href="#7-printable-character-check-group_text-only" title="Permanent link">¶</a></h3>
+<h3 id="7-printable-character-check-grp_txt-only">7 Printable character check (GRP_TXT only)<a class="headerlink" href="#7-printable-character-check-grp_txt-only" title="Permanent link">¶</a></h3>
 <ul>
-<li>At least <strong>60%</strong> of decrypted message must be printable ASCII (codes 32-126)</li>
+<li>At least <strong>60%</strong> of the decrypted message must be printable ASCII (codes 32-126)</li>
 <li>Filters corrupted packets that coincidentally have a valid channel hash</li>
 <li>60% threshold allows for emojis and Unicode in legitimate messages</li>
 </ul>
@@ -3371,44 +3442,47 @@
 <h3 id="after-validation">After validation<a class="headerlink" href="#after-validation" title="Permanent link">¶</a></h3>
 <p>Validated packets enter the RX batching pipeline (see <a href="#how-rx-observations-work">How RX Observations Work</a> above):</p>
 <ol>
-<li><strong>Grouped by repeater ID</strong> (last hop in path, the repeater that delivered the packet to you)</li>
+<li><strong>Grouped by repeater ID</strong> (last hop in path, the repeater that delivered the packet to you, or the one behind your CARpeater)</li>
 <li><strong>Best SNR kept</strong> per repeater. If multiple packets arrive from the same repeater, only the one with the strongest SNR is retained. GPS location is pinned to where you <strong>first</strong> heard that repeater.</li>
 <li><strong>Flushed to upload queue</strong> when you move <strong>25 meters</strong> from the first observation OR <strong>30 seconds</strong> pass, whichever comes first</li>
-<li>The upload queue then buffers up to <strong>4 RX entries per repeater</strong> before adding them to the main batch for API upload</li>
+<li>The upload queue then holds up to <strong>4 RX entries per repeater</strong> before adding them to the main batch for API upload</li>
 </ol>
 <hr>
 <h2 id="the-noise-floor">The Noise Floor<a class="headerlink" href="#the-noise-floor" title="Permanent link">¶</a></h2>
 <p>The noise floor is the ambient radio energy when no intentional signals are present:</p>
 <ul>
-<li>Polled every <strong>5 seconds</strong> from your radio's hardware stats while in auto-ping mode</li>
-<li>Included with every data point uploaded (TX, RX, DISC, Trace)</li>
+<li>Polled every <strong>5 seconds</strong> from your radio's stats, from the moment you connect</li>
+<li>Included with every TX, RX, DISC and Trace item uploaded</li>
 <li>Helps the community understand the radio environment at each coverage point</li>
 <li>The noise floor graph overlays ping events on the timeline for visual correlation</li>
-<li>Values are reported as dBm departure from a device's 10th percentile baseline to account for variances between hardware types. See <a href="https://wiki.meshmapper.net/layers/#how-calibration-works">How Calibration Works</a>.</li>
+<li>On the map, MeshMapper shows each reading as its difference from <strong>your own</strong> baseline (the 10th percentile of all your readings), which evens out differences between radios. See <a href="../layers/#noise-floor">Noise Floor</a>.</li>
 </ul>
 <hr>
 <h2 id="the-upload-queue">The Upload Queue<a class="headerlink" href="#the-upload-queue" title="Permanent link">¶</a></h2>
-<p>All wardriving data (TX, RX, DISC, Trace) flows through a single persistent upload queue before reaching the MeshMapper API.</p>
+<p>All wardriving data (TX, RX, DISC, Trace, plus DEFER and SCOPES items) flows through a single persistent upload queue before reaching the MeshMapper API.</p>
 <ul>
-<li><strong>Storage</strong>: Hive database on your device. If Hive becomes corrupted, falls back to in-memory queue (data lost if app closes).</li>
-<li><strong>Batch upload</strong>: Auto-flushes every <strong>15 seconds</strong> on a timer, up to <strong>50 items</strong> per batch. TX/DISC/Trace pings also trigger a <strong>5-second flush</strong> after being queued.</li>
-<li><strong>Retry logic</strong>: Failed uploads retry up to <strong>5 times</strong> with exponential backoff. Non-retryable errors (invalid data) are discarded immediately.</li>
+<li><strong>Storage</strong>: Hive database on your device. If Hive becomes corrupted, it falls back to an in-memory queue (data lost if the app closes).</li>
+<li><strong>Batch upload</strong>: Auto-flushes every <strong>15 seconds</strong> on a timer, up to <strong>50 items</strong> per batch. Queuing a TX, DISC, Trace, DEFER or SCOPES item also triggers a <strong>5-second flush</strong>. On a constrained link (such as satellite) both timers stretch to <strong>60 seconds</strong>.</li>
+<li><strong>Retry logic</strong>: A batch the server rejects is retried up to <strong>5 times</strong> with exponential backoff. Items that ran out of retries get another chance after the next successful upload.</li>
+<li><strong>No answer</strong>: If the server can't be reached, or asks the app to wait, the batch is held without using up a retry.</li>
+<li><strong>Discarded batches</strong>: A batch the server refuses for its data (<code>gps_inaccurate</code>, <code>gps_stale</code>, <code>invalid_request</code>, <code>zone_disabled</code>, <code>outofdate</code>, <code>outside_zone</code>) is dropped rather than retried. Session errors such as <code>zone_full</code> also end the session. An expired session refreshes itself and the batch waits.</li>
 <li><strong>Authentication</strong>: Handled automatically by the app</li>
-<li><strong>Fresh start</strong>: Queue is always cleared on connect and disconnect. Pings without a valid session cannot be uploaded.</li>
-<li><strong>Offline mode</strong>: When offline, pings accumulate in a separate list instead of the upload queue. They are saved to session files and can be uploaded later from Settings.</li>
+<li><strong>Fresh start</strong>: The queue is cleared when you connect. When you disconnect, the app uploads what it can first, then clears the rest. During an automatic reconnect after a dropped link, the queue and session are kept.</li>
+<li><strong>Offline mode</strong>: When offline, pings accumulate in a separate list instead of the upload queue. They are saved to session files and can be uploaded later from Settings &gt; Data.</li>
 </ul>
 <hr>
 <h2 id="carpeater-filtering">Carpeater Filtering<a class="headerlink" href="#carpeater-filtering" title="Permanent link">¶</a></h2>
 <p>A "carpeater" (car + repeater) is a repeater mounted in/on your vehicle. It will always have a very strong signal and does not provide useful coverage data.</p>
-<p><strong>Two filter methods:</strong></p>
+<p><strong>Three filter methods:</strong></p>
 <ol>
 <li><strong>RSSI threshold</strong>: RSSI equal to or stronger (closer to 0) than -30 dBm → automatically dropped (device is right next to you)</li>
-<li><strong>User-configured repeater ID</strong>: Set your repeater's full public key in Settings &gt; Wardriving &gt; CARpeater Filter. Echoes from that repeater are stripped before upload.</li>
+<li><strong>Your CARpeater</strong>: Set your repeater's full public key in Settings &gt; Wardriving &gt; CARpeater Filter. Its hop is stripped and the repeater behind it is credited instead; packets that only reached your CARpeater are dropped.</li>
+<li><strong>Regional CARpeaters</strong>: CARpeaters shared for your region are always dropped, and nothing behind them is credited.</li>
 </ol>
-<p>Both can be adjusted or disabled in Settings for testing.</p>
+<p>The RSSI threshold can be switched off in Settings (Disable RSSI Filter). See <a href="../app_settings_reference/#carpeater">CARpeater settings</a>.</p>
 <hr>
 <h2 id="multi-byte-path-support">Multi-Byte Path Support<a class="headerlink" href="#multi-byte-path-support" title="Permanent link">¶</a></h2>
-<p>Each packet carries a "path" showing which repeaters it traveled through, with each hop identified by a hash of the repeater's public key.</p>
+<p>Each packet carries a "path" showing which repeaters it traveled through, with each hop identified by the first bytes of the repeater's public key.</p>
 <ul>
 <li><strong>1 byte</strong> (default): 256 possible values, can cause collisions in large networks</li>
 <li><strong>2 bytes</strong>: ~65K values, reduced collisions</li>
@@ -3418,7 +3492,9 @@
 <ul>
 <li>Configurable in Settings &gt; Wardriving &gt; Radio &gt; TX Bytes (firmware 1.14+ required)</li>
 <li>RX auto-detects path size regardless of your TX setting</li>
-<li>Regional administrators can require a specific TX path setting in the admin panel</li>
+<li>Trace pings have their own <strong>Trace Bytes</strong> setting (1, 2 or 4 bytes)</li>
+<li>Regional administrators can require a specific TX Bytes setting in the admin panel</li>
+<li>When a hop ID matches more than one repeater, MeshMapper only credits it if exactly one repeater fits. See <a href="../duplicaterepeaterid/#the-rules">Duplicate Repeater IDs</a>.</li>
 </ul>
 <hr>
 <h2 id="platform-differences">Platform Differences<a class="headerlink" href="#platform-differences" title="Permanent link">¶</a></h2>
@@ -3428,7 +3504,6 @@
 <th>Feature</th>
 <th>Android</th>
 <th>iOS</th>
-<th>Web</th>
 </tr>
 </thead>
 <tbody>
@@ -3436,37 +3511,36 @@
 <td>BLE library</td>
 <td>flutter_blue_plus</td>
 <td>flutter_blue_plus</td>
-<td>flutter_web_bluetooth</td>
+</tr>
+<tr>
+<td>Other connections</td>
+<td>TCP, USB serial</td>
+<td>TCP</td>
 </tr>
 <tr>
 <td>Background mode</td>
 <td>Foreground service + notification</td>
 <td>Background modes (bluetooth-central, location)</td>
-<td>Not available</td>
 </tr>
 <tr>
 <td>Debug logging</td>
 <td>File-based</td>
 <td>File-based</td>
-<td>Browser console (<code>?debug=1</code>)</td>
 </tr>
 <tr>
 <td>Background location</td>
-<td>Automatic with foreground service</td>
-<td>Requires "Always" permission</td>
-<td>N/A</td>
+<td>Foreground service; Background Location asks for "Allow all the time"</td>
+<td>Background Location asks for "Always"</td>
 </tr>
 <tr>
 <td>App exit option</td>
-<td>Yes (Settings)</td>
-<td>No</td>
+<td>Yes (Settings &gt; General &gt; Close App)</td>
 <td>No</td>
 </tr>
 <tr>
 <td>Audio focus</td>
 <td>Transient with ducking</td>
 <td>Ambient category</td>
-<td>Default</td>
 </tr>
 </tbody>
 </table>
@@ -3475,11 +3549,11 @@
 <p>Your wardriving data contributes to the public coverage map at <a href="https://meshmapper.net/">meshmapper.net</a>. The data includes:</p>
 <ul>
 <li>GPS coordinates, repeater signal quality, noise floor, device power level</li>
-<li>No personal information beyond what is inherent to the mesh protocol (device public key for auth)</li>
+<li>Your device's public key, used to authenticate your session</li>
 </ul>
 <p><strong>On-air privacy:</strong> your GPS position is not broadcast over the mesh by default — TX pings carry a short anonymous token, and coordinates go only to the MeshMapper API. Enable "Broadcast My Coordinates" only if you want your live position visible on the air.</p>
-<p>If you prefer not to broadcast your device name either, enable Anonymous Mode in Settings.</p>
-<p>You can also view and manage the data you've contributed through the <a href="../portal/">My MeshMapper portal</a>.</p>
+<p>If you prefer not to broadcast your device name either, enable Anonymous Mode in Settings. Your device is renamed "Anonymous" and you are left off the public leaderboard, but your sessions are still recorded against your public key.</p>
+<p>See <a href="../privacy/">Privacy</a> for what is collected and kept. You can also view and manage the data you've contributed through the <a href="../portal/">My MeshMapper portal</a>.</p>
 
 
 

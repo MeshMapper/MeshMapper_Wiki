@@ -7,7 +7,7 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/coverage-api/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/coverage-api/">
       
       
         <link rel="prev" href="../webhooks/">
@@ -392,14 +392,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-firmware/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    Native Firmware
   
 
     
@@ -428,6 +428,34 @@
     
   
     MeshCore-HA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meshcoretomqtt
   
 
     
@@ -3297,7 +3325,7 @@
 <h1 id="coverage-api">Coverage API<a class="headerlink" href="#coverage-api" title="Permanent link">¶</a></h1>
 <p>The Coverage API provides programmatic access to MeshMapper coverage grid-square data. Use it to draw coverage grids on your own maps or integrate MeshMapper data into external tools and dashboards.</p>
 <h2 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">¶</a></h2>
-<p>Access requires a <strong>Coverage</strong> API key. Each key is scoped to a specific region, a multiregion group, or a set of adjacent regions (see <a href="#multi-region-keys">Multi-Region Keys</a>), and has a daily rate limit of 100 requests.</p>
+<p>Access requires a <strong>Coverage</strong> API key. Each key is scoped to a specific region, a multiregion group, or a set of adjacent regions (see <a href="#multi-region-keys">Multi-Region Keys</a>). Self-service keys have a daily limit of 100 requests; keys issued by the MeshMapper team may carry a different limit (the 429 body's <code>limit</code> field shows yours).</p>
 <h3 id="generating-a-key">Generating a Key<a class="headerlink" href="#generating-a-key" title="Permanent link">¶</a></h3>
 <p>Regional administrators can generate their own API key directly from the admin panel:</p>
 <ol>
@@ -3334,6 +3362,11 @@
 <td><code>include</code></td>
 <td>No</td>
 <td>Comma-separated list of optional sections to add to the response. Currently supports <code>repeaters</code> (e.g. <code>?include=repeaters</code>) — see <a href="#repeater-fields">Repeater Fields</a>.</td>
+</tr>
+<tr>
+<td><code>fresh</code></td>
+<td>No</td>
+<td><code>fresh=1</code> skips the 15-minute server cache and builds the grid now. Single-region and group keys only; multi-region and global keys return HTTP 400 <code>fresh_not_supported</code>.</td>
 </tr>
 <tr>
 <td><code>f_*</code></td>
@@ -3522,7 +3555,7 @@
 <tr>
 <td><code>timestamp</code></td>
 <td>integer or null</td>
-<td>Unix timestamp of the dominant (most recent, highest-priority) ping colouring this square.</td>
+<td>Unix timestamp of the dominant (highest-priority, then newest) ping colouring this square, as stored (seconds; some older regions store milliseconds — values above 2e10 are milliseconds).</td>
 </tr>
 <tr>
 <td><code>count</code></td>
@@ -3547,7 +3580,7 @@
 <tr>
 <td><code>first_seen</code></td>
 <td>integer or null</td>
-<td>Unix timestamp of the <strong>oldest</strong> ping in the cell (<code>timestamp</code> is the newest/dominant).</td>
+<td>Unix timestamp of the <strong>oldest</strong> ping in the cell, as stored (seconds; some older regions store milliseconds — values above 2e10 are milliseconds).</td>
 </tr>
 <tr>
 <td><code>noise</code></td>
@@ -3610,51 +3643,57 @@
 </tbody>
 </table>
 <h2 id="coverage-types">Coverage Types<a class="headerlink" href="#coverage-types" title="Permanent link">¶</a></h2>
-<p>Each grid square's <code>coverage_type</code> is the <strong>dominant</strong> ping in that square — when multiple pings exist, the highest-priority type wins.</p>
+<p>Each grid square's <code>coverage_type</code> is the <strong>dominant</strong> ping in that square — when multiple pings exist, the highest-priority ping wins (listed highest first below). Between pings of equal priority, the newest one wins. Pending pings (status 4) are left out entirely.</p>
 <table>
 <thead>
 <tr>
+<th>Priority</th>
 <th>Type</th>
 <th>Colour</th>
-<th>Priority</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>BIDIR</code></td>
+<td>1 (highest)</td>
+<td><code>BIDIR</code> with a heard repeat</td>
 <td>Green (<code>#1e7e34</code>)</td>
-<td>6</td>
 <td>Two-way confirmed link.</td>
 </tr>
 <tr>
+<td>2</td>
 <td><code>DISC</code></td>
 <td>Cyan (<code>#17a2b8</code>)</td>
-<td>5</td>
 <td>Discovery or trace packet.</td>
 </tr>
 <tr>
+<td>3</td>
 <td><code>TX</code></td>
 <td>Orange (<code>#fd7e14</code>)</td>
-<td>4</td>
 <td>Transmitted but not heard back.</td>
 </tr>
 <tr>
+<td>4</td>
 <td><code>RX</code></td>
 <td>Purple (<code>#6f42c1</code>)</td>
-<td>3</td>
 <td>Heard traffic, without transmitting.</td>
 </tr>
 <tr>
+<td>5</td>
+<td><code>BIDIR</code> with no heard repeat</td>
+<td>Green (<code>#1e7e34</code>)</td>
+<td>Two-way link recorded, but no repeat heard.</td>
+</tr>
+<tr>
+<td>6</td>
 <td><code>DEAD</code></td>
 <td>Grey (<code>#6c757d</code>)</td>
-<td>2</td>
 <td>Repeater heard but no route.</td>
 </tr>
 <tr>
+<td>7 (lowest)</td>
 <td><code>DROP</code></td>
 <td>Red (<code>#bd2130</code>)</td>
-<td>1</td>
 <td>No connection.</td>
 </tr>
 </tbody>
@@ -3727,7 +3766,7 @@ data.grid_squares.forEach(sq =&gt; {
 <tr>
 <td><code>f_radio_freq</code></td>
 <td><code>906.875,250,10,5</code></td>
-<td>Exact radio configuration, the full <code>freqMHz,bwKHz,SF,CR</code> string as the app reports it.</td>
+<td>Exact radio configuration, the full <code>freqMHz,bwKHz,SF,CR</code> string as the app reports it. Digits, dots and commas, up to 40 characters.</td>
 </tr>
 <tr>
 <td><code>f_freq</code></td>
@@ -3752,7 +3791,7 @@ data.grid_squares.forEach(sq =&gt; {
 <tr>
 <td><code>f_days</code></td>
 <td><code>30</code></td>
-<td>Only pings from the last N days.</td>
+<td>Only pings from the last N days. 1 to 5 digits, at least 1.</td>
 </tr>
 <tr>
 <td><code>f_dstart</code></td>
@@ -3767,12 +3806,12 @@ data.grid_squares.forEach(sq =&gt; {
 <tr>
 <td><code>f_power</code></td>
 <td><code>20</code></td>
-<td>Transmit power, substring match against the reported value.</td>
+<td>Transmit power, substring match against the reported value. Letters, digits, dots, spaces and hyphens, up to 40 characters.</td>
 </tr>
 <tr>
 <td><code>f_extant</code></td>
 <td><code>1</code></td>
-<td>Only pings reported with an external antenna.</td>
+<td>Only pings reported with an external antenna. <code>f_extant=0</code> is the same as not sending it.</td>
 </tr>
 </tbody>
 </table>
@@ -3796,14 +3835,15 @@ data.grid_squares.forEach(sq =&gt; {
 <li><strong>A region that has never recorded a field returns an empty grid</strong> for a filter on that field (zero squares, <code>point_count</code> 0) rather than the full set.</li>
 <li><strong>Filtered responses are not cached server-side.</strong> Every filtered request builds the grid from the region's pings, so it is slower than an unfiltered call and it counts against the daily quota like any other request. Keep filtered polling to the same 15 minute or longer cadence.</li>
 <li><strong>Empty values are ignored.</strong> <code>f_freq=</code> is the same as not sending it.</li>
-<li><strong>Anything else is an error.</strong> An unknown <code>f_</code> parameter (a typo included) returns HTTP 400 <code>unsupported_filter</code>; a malformed value returns HTTP 400 <code>invalid_filter</code>. Both carry <code>param</code> naming the offending parameter and a <code>message</code> saying what was expected. The API never silently serves the full region in place of a filter it did not understand.</li>
+<li><strong>Anything else is an error.</strong> An unknown <code>f_</code> parameter (a typo included) returns HTTP 400 <code>unsupported_filter</code>; a malformed value returns HTTP 400 <code>invalid_filter</code>. Both carry <code>param</code> naming the offending parameter and a <code>message</code> saying what was expected. The API never silently serves the full region in place of a filter it did not understand. These 400 errors still use up a request from your daily limit.</li>
+<li><strong>Filtering can be briefly unavailable.</strong> If the server can't apply filters right now it returns HTTP 503 <code>filters_unavailable</code>; try again later.</li>
 </ul>
-<p>Filters are not available on <a href="#multi-region-keys">multi-region</a> or <a href="#global-coverage-feed">global</a> keys, which return HTTP 400 <code>filters_not_supported</code>.</p>
+<p>Filters are not available on <a href="#multi-region-keys">multi-region</a> or <a href="#global-coverage-feed">global</a> keys. Any <code>f_</code> parameter on those keys, even an empty one, returns HTTP 400 <code>filters_not_supported</code>.</p>
 <h2 id="http-caching-and-compression">HTTP Caching and Compression<a class="headerlink" href="#http-caching-and-compression" title="Permanent link">¶</a></h2>
 <p>The API is built for efficient, low-frequency polling. Coverage data does not change second-to-second, so please poll sparingly.</p>
 <ul>
-<li><strong>Compression.</strong> Responses are gzip-compressed. Send <code>Accept-Encoding: gzip</code> (most HTTP clients do this automatically) to receive compressed data — payloads are roughly 9× smaller.</li>
-<li><strong>Server-side cache.</strong> Responses carry <code>Cache-Control: public, max-age=900</code> and are cached for up to <strong>15 minutes</strong>. Polling more often than that returns identical data (and still counts toward your daily limit), so a poll interval of <strong>15 minutes or longer is recommended</strong>. <code>generated_at</code> tells you when the cached data was built. Filtered responses (see <a href="#filtering">Filtering</a>) are built on every request and are not cached on the server.</li>
+<li><strong>Compression.</strong> Responses are gzip-compressed. Send <code>Accept-Encoding: gzip</code> (most HTTP clients do this automatically) to receive compressed data — payloads are much smaller.</li>
+<li><strong>Server-side cache.</strong> Responses carry <code>Cache-Control: public, max-age=900</code> and are cached for up to <strong>15 minutes</strong>. Polling more often than that returns identical data (and still counts toward your daily limit), so a poll interval of <strong>15 minutes or longer is recommended</strong>. <code>generated_at</code> tells you when the cached data was built. Filtered responses (see <a href="#filtering">Filtering</a>) are built on every request and are not cached on the server. On single-region and group keys, <code>fresh=1</code> skips the cache and rebuilds now.</li>
 <li><strong>Conditional requests.</strong> Each response includes an <code>ETag</code> (and <code>Last-Modified</code>). Send the <code>ETag</code> value back in an <code>If-None-Match</code> header; if nothing has changed since, you'll get a <strong><code>304 Not Modified</code></strong> with an empty body, saving you the download.</li>
 </ul>
 <pre><code class="language-bash"># First request — note the ETag header
@@ -3814,7 +3854,7 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
      "https://meshmapper.net/coverage.php?key=YOUR_API_KEY"
 </code></pre>
 <h2 id="rate-limits">Rate Limits<a class="headerlink" href="#rate-limits" title="Permanent link">¶</a></h2>
-<p>Each API key has a <strong>daily</strong> request limit (100 requests). Counters reset daily. Every request that reaches your data — including cache hits and <code>304 Not Modified</code> responses — counts toward this limit.</p>
+<p>Each API key has a <strong>daily</strong> request limit. Self-service keys get 100 requests a day; keys issued by the MeshMapper team may carry a different limit (the 429 body's <code>limit</code> field shows yours). Counters are reset by a daily job at midnight UTC. Every request that reaches your data — including cache hits and <code>304 Not Modified</code> responses — counts toward this limit.</p>
 <p>When you exceed your limit, the API returns HTTP 429:</p>
 <pre><code class="language-json">{
   "success": false,
@@ -3825,7 +3865,8 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
   "resets_in_hours": 12.5
 }
 </code></pre>
-<p>A separate short-term, per-IP throttle protects against bursts; exceeding it also returns HTTP 429 (with <code>error: rate_limited</code>). Spacing requests out (see <a href="#http-caching-and-compression">Caching</a>) avoids both.</p>
+<p><code>resets_in_hours</code> is counted from the last reset, so treat it as a rough guide; the actual reset happens at midnight UTC.</p>
+<p>A separate per-IP throttle protects against bursts: about 30 requests in a rolling window, then a 120-second lockout. Exceeding it returns HTTP 429 with <code>error: rate_limited</code> and no <code>Retry-After</code> header. Spacing requests out (see <a href="#http-caching-and-compression">Caching</a>) avoids both.</p>
 <h2 id="error-responses">Error Responses<a class="headerlink" href="#error-responses" title="Permanent link">¶</a></h2>
 <table>
 <thead>
@@ -3859,17 +3900,27 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
 <tr>
 <td>400</td>
 <td><code>filters_not_supported</code></td>
-<td>An <code>f_</code> parameter on a multi-region or global key.</td>
+<td>An <code>f_</code> parameter (even an empty one) on a multi-region or global key.</td>
+</tr>
+<tr>
+<td>400</td>
+<td><code>fresh_not_supported</code></td>
+<td><code>fresh=1</code> on a multi-region or global key.</td>
+</tr>
+<tr>
+<td>400</td>
+<td><code>too_many_regions</code></td>
+<td>A multi-region key with more than 6 member regions.</td>
 </tr>
 <tr>
 <td>401</td>
 <td><code>invalid_key</code></td>
-<td>API key not found.</td>
+<td>API key not found, or not a Coverage key (message: <code>Invalid or non-Coverage API key</code>).</td>
 </tr>
 <tr>
 <td>403</td>
 <td><code>no_region</code></td>
-<td>No region assigned to this key.</td>
+<td>No region assigned to this key, or the key's region has been deleted.</td>
 </tr>
 <tr>
 <td>429</td>
@@ -3886,13 +3937,28 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
 <td><code>server_error</code></td>
 <td>Internal error (database not found, etc.).</td>
 </tr>
+<tr>
+<td>503</td>
+<td><code>filters_unavailable</code></td>
+<td>Filtering is temporarily unavailable. Try again later.</td>
+</tr>
+<tr>
+<td>503</td>
+<td><code>rebuilding</code></td>
+<td>Global feed only: a rebuild is in progress and no cached copy exists yet. Sent with <code>Retry-After: 300</code>.</td>
+</tr>
+<tr>
+<td>507</td>
+<td><code>over_memory_budget</code></td>
+<td>The data is too large to build in memory. Can happen on single regions as well as multi-region keys.</td>
+</tr>
 </tbody>
 </table>
 <h2 id="managing-your-key">Managing Your Key<a class="headerlink" href="#managing-your-key" title="Permanent link">¶</a></h2>
 <p>If you have a Coverage API key assigned to your admin account, you can view your current usage and regenerate your key from the <strong>User Settings</strong> tab in your region's Admin Portal. Regenerating a key invalidates the old one immediately.</p>
 <h2 id="multi-region-keys">Multi-Region Keys<a class="headerlink" href="#multi-region-keys" title="Permanent link">¶</a></h2>
 <p>A Coverage key can be scoped to a <strong>set of up to 6 regions</strong> (for example <code>PDX,SEA,YVR</code>) instead of a single region. The response merges every member region's coverage into <strong>one grid</strong> — the same payload shape as a single-region response — so it suits integrations that render adjacent regions as one continuous map.</p>
-<p>Multi-region keys are not self-service: like <a href="#global-coverage-feed">global keys</a>, they are issued by the MeshMapper team on request (the admin-panel self-service flow only creates single-region keys). Adjacent regions are the intended use — the merged grid serves them as one map.</p>
+<p>Multi-region keys are not self-service: like <a href="#global-coverage-feed">global keys</a> and keys with a custom limit, they are issued by the MeshMapper team (Master administrators) on request (the admin-panel self-service flow only creates single-region keys). Adjacent regions are the intended use — the merged grid serves them as one map.</p>
 <div class="admonition info">
 <p class="admonition-title">Multi-region keys vs. Multiregion Groups</p>
 <p>A <a href="../multiregions/">Multiregion Group</a> merges regions <em>inside</em> MeshMapper — shared map, leaderboards, collision detection, and admin panel. A multi-region <strong>key</strong> changes nothing about the regions themselves; it only merges their coverage data in this API's response. If a group already exists, a key can simply be scoped to the group's code instead. A multi-region key is for sets of regions that aren't (and shouldn't become) a group.</p>
@@ -3912,6 +3978,7 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
   "coverage_type_counts": { "BIDIR": 1620, "TX": 214, "RX": 1467, "DISC": 305, "DEAD": 41, "DROP": 455 },
   "type_bits": { "BIDIR": 1, "TX": 2, "RX": 4, "DISC": 8, "DEAD": 16, "DROP": 32 },
   "bbox": { "minLat": 45.301, "minLon": -123.212, "maxLat": 49.394, "maxLon": -121.751 },
+  "radio_configs": { "906.875,250,10,5": 118400, "910.525,62.5,7,5": 13477 },
   "grid_squares": [ "…same grid square objects as a single-region response, all members merged…" ],
   "regions": ["PDX", "SEA", "YVR"],
   "regions_skipped": 0
@@ -3945,7 +4012,7 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
 <tr>
 <td><code>regions_skipped</code></td>
 <td>integer</td>
-<td>Members that are registered but have no coverage data yet — present only on multi-region responses.</td>
+<td>Members whose region database does not exist yet (skipped, never fatal) — present only on multi-region responses.</td>
 </tr>
 </tbody>
 </table>
@@ -3982,7 +4049,7 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
 </table>
 <p>If a member region is later renamed, merged, or removed from MeshMapper, the key is updated automatically to follow — a removed region simply drops out of the set.</p>
 <h3 id="caching-and-limits">Caching and Limits<a class="headerlink" href="#caching-and-limits" title="Permanent link">¶</a></h3>
-<p>Caching, compression, conditional requests, and the daily quota work exactly as for single-region keys: 15-minute server cache, <code>ETag</code> / <code>If-None-Match</code> for <code>304 Not Modified</code>, gzip, and 100 requests per day (cache hits and 304s count). Response size scales with the number of member regions — poll at 15-minute intervals or longer.</p>
+<p>Caching, compression, conditional requests, and the daily quota work exactly as for single-region keys: 15-minute server cache, <code>ETag</code> / <code>If-None-Match</code> for <code>304 Not Modified</code>, gzip, and the key's daily limit (cache hits and 304s count). Response size scales with the number of member regions — poll at 15-minute intervals or longer.</p>
 <h2 id="global-coverage-feed">Global Coverage Feed<a class="headerlink" href="#global-coverage-feed" title="Permanent link">¶</a></h2>
 <p>A special <strong>global</strong> Coverage key returns data for <strong>every MeshMapper region in one request</strong> — no region list to maintain on your side. Global keys are not self-service: they are issued by the MeshMapper team on request, for integrations that genuinely need fleet-wide data (reach out via the usual channels if that's you).</p>
 <p>The endpoint and authentication are identical — only the key differs:</p>
@@ -4044,7 +4111,7 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
 </tr>
 </tbody>
 </table>
-<p><code>?include=repeaters</code> works exactly as for regional keys, adding a <code>repeaters</code> array to each section. Sections do not carry <code>radio_configs</code> or <code>filters</code>; those belong to single-region and group responses.</p>
+<p><code>?include=repeaters</code> works exactly as for regional keys, adding a <code>repeaters</code> array to each section. Sections do not carry <code>radio_configs</code> or <code>filters</code>. <code>radio_configs</code> belongs to single-region, group and multi-region responses; <code>filters</code> only to filtered single-region and group responses.</p>
 <h3 id="response-size-and-pagination">Response Size and Pagination<a class="headerlink" href="#response-size-and-pagination" title="Permanent link">¶</a></h3>
 <p>Expect a download in the <strong>single-digit megabytes</strong> (gzipped); decoded, the JSON can run to tens or low hundreds of megabytes. Size scales with the number of ~300 m grid cells that have coverage — not with raw ping counts — so growth over time is gradual.</p>
 <p>There is <strong>no pagination or cursor</strong>, by design: the response is served as a single pre-built cached file, which is what keeps it fast and cheap for everyone. The per-region sections are the natural chunks instead:</p>
@@ -4058,7 +4125,7 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
 <ul>
 <li>The server cache lasts <strong>6 hours</strong> (<code>Cache-Control: public, max-age=21600</code>). Polling more often returns identical data; <strong>once or twice a day is the intended usage</strong>.</li>
 <li>A request that arrives after the cache has expired triggers a rebuild. The response <strong>streams region-by-region while it builds</strong> — data starts flowing immediately, but the complete download can take a minute. Configure a generous <em>total</em> timeout in your HTTP client (the connection is never idle, so per-read timeouts are fine at their defaults). All other requests are served instantly from cache.</li>
-<li><code>ETag</code> / <code>If-None-Match</code> conditional requests work exactly as for regional keys, and a <code>304 Not Modified</code> is by far the cheapest way to poll.</li>
+<li><code>ETag</code> / <code>If-None-Match</code> conditional requests work exactly as for regional keys, and a <code>304 Not Modified</code> is by far the cheapest way to poll. The response that triggers a rebuild carries no <code>ETag</code>; the next (cached) response does.</li>
 </ul>
 <h3 id="differences-from-regional-keys">Differences from Regional Keys<a class="headerlink" href="#differences-from-regional-keys" title="Permanent link">¶</a></h3>
 <table>
@@ -4079,7 +4146,7 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
 </tr>
 <tr>
 <td>Rebuild already in progress elsewhere</td>
-<td>Served the previous cached copy; if no cached copy exists yet, HTTP 503 with <code>error: rebuilding</code> and a <code>Retry-After</code> header — retry after the indicated delay.</td>
+<td>Served the previous cached copy; if no cached copy exists yet, HTTP 503 with <code>error: rebuilding</code> and <code>Retry-After: 300</code> — retry after the indicated delay.</td>
 </tr>
 </tbody>
 </table>

@@ -7,7 +7,7 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/app_getting_started/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/app_getting_started/">
       
       
         <link rel="prev" href="../app_overview/">
@@ -392,14 +392,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-firmware/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    Native Firmware
   
 
     
@@ -428,6 +428,34 @@
     
   
     MeshCore-HA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meshcoretomqtt
   
 
     
@@ -2783,15 +2811,15 @@
 
 
 <h1 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">¶</a></h1>
-<p>Welcome to MeshMapper, a community-driven wardriving app for MeshCore mesh network devices. MeshMapper lets you connect to a MeshCore radio over Bluetooth, send GPS-tagged pings across the mesh, and contribute coverage data to the <a href="https://meshmapper.net/">MeshMapper community map</a>.</p>
+<p>Welcome to MeshMapper, a community-driven wardriving app for MeshCore mesh network devices. MeshMapper connects to your MeshCore radio, sends pings across the mesh, and adds what it hears to the <a href="https://meshmapper.net/">MeshMapper community map</a>. Your location goes only to the MeshMapper server; by default, pings on the air carry an anonymous token, not your coordinates.</p>
 <hr>
 <h2 id="what-you-need">What You Need<a class="headerlink" href="#what-you-need" title="Permanent link">¶</a></h2>
 <ol>
 <li><strong>A MeshCore-compatible radio device</strong>
 — Any device that supports MeshCore will work with MeshMapper. It is recommended to run up-to-date firmware on your device, as some features require v1.14.0 or newer.</li>
-<li><strong>A phone or computer</strong> — Android, iOS, or a Chromium-based browser (Chrome or Edge)</li>
-<li><strong>GPS/location services</strong> enabled on your device</li>
-<li><strong>Bluetooth</strong> enabled on your device</li>
+<li><strong>An Android or iOS phone</strong></li>
+<li><strong>GPS/location services</strong> enabled on your phone</li>
+<li><strong>Bluetooth</strong> enabled on your phone (or use TCP or USB instead, see below)</li>
 </ol>
 <hr>
 <h2 id="get-the-app">Get the App<a class="headerlink" href="#get-the-app" title="Permanent link">¶</a></h2>
@@ -2802,44 +2830,45 @@
 <li><strong>iOS:</strong> <a href="https://apps.apple.com/us/app/meshmapper/id6758073991">Get it on the App Store</a></li>
 </ul>
 <p><strong>Beta releases:</strong></p>
-<p>In the MeshMapper Discord server, open <strong>Channels &amp; Roles</strong> and select <strong>Yes</strong> for beta testing. Then choose your platform:</p>
+<p>To hear about betas, join the MeshMapper Discord server, open <strong>Channels &amp; Roles</strong>, and opt in to beta testing. Then choose your platform:</p>
 <ul>
 <li><strong>iOS:</strong> <a href="https://testflight.apple.com/join/PXxfr5Jr">Join the beta in TestFlight</a>.</li>
 <li><strong>Android:</strong> <a href="https://github.com/MeshMapper/MeshMapper_Project/releases/">Download the beta APK from GitHub</a>, or <a href="https://apps.obtainium.imranr.dev/redirect?r=obtainium://app/%7B%22id%22%3A%22net.meshmapper.app%22%2C%22url%22%3A%22https%3A%2F%2Fgithub.com%2FMeshMapper%2FMeshMapper_Project%22%2C%22author%22%3A%22MeshMapper%22%2C%22name%22%3A%22MeshMapper%22%2C%22preferredApkIndex%22%3A0%2C%22additionalSettings%22%3A%22%7B%5C%22includePrereleases%5C%22%3Atrue%2C%5C%22fallbackToOlderReleases%5C%22%3Atrue%7D%22%2C%22overrideSource%22%3A%22GitHub%22%7D">add MeshMapper to Obtainium</a> to follow prereleases.</li>
 </ul>
-<p><strong>Web (Chrome/Edge only):</strong></p>
-<ul>
-<li><a href="https://wd.meshmapper.net">wd.meshmapper.net</a></li>
-<li>Requires Chrome or Edge (Safari is not supported, it lacks the Web Bluetooth API)</li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The web app is experimental and has not been widely tested. It should be technically stable, but the mobile apps are the recommended experience.</p>
-</div>
 <hr>
 <h2 id="first-launch">First Launch<a class="headerlink" href="#first-launch" title="Permanent link">¶</a></h2>
-<p>When you first open MeshMapper, you will see a <strong>location disclosure dialog</strong> explaining why the app needs GPS access. This dialog explains that MeshMapper collects your location to:</p>
+<p>When you first open MeshMapper, you will see a <strong>Location Access Required</strong> dialog explaining why the app needs GPS access. It says MeshMapper collects your location to:</p>
 <ul>
 <li>Track where you send pings on the mesh network</li>
 <li>Map coverage areas for the community</li>
 <li>Record which repeaters hear your device</li>
 </ul>
-<p>It also discloses that your location data is uploaded to the MeshMapper API and displayed on public coverage maps at meshmapper.net. If you prefer to be more anonymous, enable the Anonymous Mode feature in Settings, or wardrive in Offline Mode and never upload your sessions.</p>
+<p>It also explains that your location data is uploaded to the MeshMapper API and used for the public coverage maps at meshmapper.net, and that Offline Mode stores data on your phone without uploading it.</p>
 <div class="admonition info">
 <p class="admonition-title">What is a 'ping'?</p>
 <p>Throughout MeshMapper, "ping" refers to any packet the app sends out on the mesh. This includes channel messages (TX), discovery requests (DISC), and trace requests (TRC). Each type works differently, but they are all "pings."</p>
 </div>
 <p>After tapping <strong>Continue</strong>, your phone will ask for location permission. Grant "While Using the App" at minimum.</p>
+<p>Next, a <strong>Welcome to MeshMapper</strong> prompt offers a short tour. Tap <strong>Start Guide</strong> to open the <strong>Quick Guide</strong>, 12 short pages ("Page X of 12") covering connecting, online vs offline, privacy, the antenna setting, CARpeaters, background use, modes, Smart Pinging, map controls, results, your account, and getting help. Tap <strong>Skip Guide</strong> to skip it. You can reopen it any time from <strong>Settings &gt; About &amp; Support &gt; Quick Guide</strong>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Privacy options</p>
+<p>Two privacy settings live under <strong>Settings &gt; Wardriving &gt; Privacy</strong>:</p>
+<ul>
+<li><strong>Anonymous Mode</strong> renames your radio to "Anonymous" for mesh pings and keeps you off the public leaderboard. It hides your name only: your radio's public key is still used to sign in, and your sessions are still recorded against it.</li>
+<li><strong>Broadcast My Coordinates</strong> is off by default, so your coordinates are sent only to the MeshMapper server, not over the air.</li>
+</ul>
+<p>You can also wardrive in Offline Mode and never upload your sessions.</p>
+</div>
 <div class="admonition warning">
-<p class="admonition-title">iOS Background Location</p>
-<p>If you want to run MeshMapper in the background on iOS (e.g., wardriving with the screen off), you need to manually enable "Background Location" under Settings &gt; General in MeshMapper. Apple restricts apps from requesting background location directly, so the user must enable it themselves. Without this, iOS will throttle or stop GPS updates when the app is not in the foreground.</p>
+<p class="admonition-title">Wardriving in the background</p>
+<p>To keep wardriving on iOS with the screen off or the app in the background, turn on <strong>Background Location</strong> under Settings &gt; General in MeshMapper and allow location access <strong>Always</strong>. Without it, iOS may slow or stop GPS updates when the app is not in the foreground. Android needs no extra location permission, but some phones pause apps when the screen is off; if that happens, set MeshMapper's battery usage to <strong>Unrestricted</strong> in Android settings.</p>
 </div>
 <hr>
 <h2 id="connecting-to-your-radio">Connecting to Your Radio<a class="headerlink" href="#connecting-to-your-radio" title="Permanent link">¶</a></h2>
 <ol>
 <li><strong>Navigate to the Connect tab</strong> (the Bluetooth icon in the bottom navigation bar)</li>
 <li><strong>Make sure your radio is powered on</strong> and nearby</li>
-<li><strong>Tap "Scan for Devices"</strong> to start a Bluetooth scan. Your MeshCore device should appear in the list within a few seconds.</li>
+<li><strong>Tap "Scan"</strong> at the bottom of the screen to start a Bluetooth scan. Your MeshCore device should appear in the list within a few seconds. Scan only works when you are inside a MeshMapper zone (or in Offline Mode).</li>
 <li><strong>Tap your device</strong> to begin the connection process</li>
 </ol>
 <p>The app runs a <strong>9-step connection sequence</strong> automatically:</p>
@@ -2853,7 +2882,7 @@
 <tbody>
 <tr>
 <td>1. Connecting to device</td>
-<td>Establishes a BLE connection to your radio</td>
+<td>Opens the Bluetooth, TCP, or USB link to your radio</td>
 </tr>
 <tr>
 <td>2. Protocol handshake</td>
@@ -2872,16 +2901,16 @@
 <td>Synchronizes your radio's clock with your phone</td>
 </tr>
 <tr>
-<td>6. Acquiring API session</td>
+<td>6. Acquiring API slot</td>
 <td>Authenticates with the MeshMapper API, gets zone info and regional settings</td>
 </tr>
 <tr>
 <td>7. Setting up channel</td>
-<td>Creates the #wardriving channel on your radio</td>
+<td>Makes sure the #wardriving channel exists on your radio</td>
 </tr>
 <tr>
 <td>8. Initializing GPS</td>
-<td>Waits for a GPS lock on your phone</td>
+<td>Starts GPS tracking on your phone</td>
 </tr>
 <tr>
 <td>9. Connected</td>
@@ -2892,32 +2921,39 @@
 <p>Once complete, the Connect tab icon turns <strong>green</strong> and the label changes to "Connected."</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>MeshMapper remembers your last connected device. On future launches, you can tap the remembered device to reconnect quickly without scanning.</p>
+<p>MeshMapper remembers your last connected device. On future launches, the <strong>Last Connected Device</strong> card lets you tap <strong>Reconnect</strong> without scanning (or <strong>Forget</strong> it).</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Not just Bluetooth</p>
-<p>Bluetooth is the standard way to connect, but the Connect tab also supports <strong>TCP</strong> (network-attached radios, Android/iOS) and <strong>USB Serial</strong> (Android via OTG cable, or Chrome/Edge on the web). See the <a href="../app_connection_guide/">Connection Guide</a> for details.</p>
+<p>Bluetooth is the standard way to connect, but the Connect tab also supports <strong>TCP</strong> (network-attached radios, such as a Wi-Fi companion) and <strong>USB</strong> (Android only, via an OTG cable). Pick BLE, TCP, or USB in the bar at the bottom of the Connect tab. See the <a href="../app_connection_guide/">Connection Guide</a> for details.</p>
 </div>
 <hr>
 <h2 id="your-first-ping">Your First Ping<a class="headerlink" href="#your-first-ping" title="Permanent link">¶</a></h2>
 <p>Before you can send a ping, two things need to be set:</p>
 <ol>
-<li><strong>External antenna</strong> — On the Map tab, the Controls panel asks "External Antenna?" Tap <strong>Yes</strong> or <strong>No</strong>.</li>
-<li>This is required before any pings can be sent</li>
-<li>Select <strong>Yes</strong> if your antenna has a clear, unobstructed path to the sky (e.g., mag-mount on a car roof, antenna outside a window)</li>
-<li>Select <strong>No</strong> if your radio is inside a vehicle (cup holder, dash), inside a bag, or otherwise obstructed by metal or walls</li>
-<li>The key distinction is whether the signal is obstructed, not just whether it is an external antenna. Being inside a metal car significantly reduces range.</li>
+<li><strong>External antenna</strong> — On the Map tab, the Controls panel has an <strong>External Antenna</strong> switch with <strong>No</strong> and <strong>Yes</strong> (in landscape it is labelled <strong>Antenna</strong>, with <strong>Internal</strong> and <strong>External</strong>).</li>
+<li>This is required before any pings can be sent (the panel shows "Select antenna option" until you choose)</li>
+<li>Select <strong>No</strong> (Internal) if the antenna is inside a metal vehicle cabin, a metal box, or another enclosure that reduces reception, e.g. the radio and antenna are inside the car</li>
+<li>Select <strong>Yes</strong> (External) if nothing like that blocks the antenna, e.g. a roof-mounted antenna, a handheld radio, or walking with the radio in your pocket</li>
+<li>This does not change your radio or its power. It records how the antenna was set up so the coverage data can be read correctly.</li>
 <li>
-<p>This matters because the coverage map needs accurate data about signal conditions</p>
+<p>The app remembers your choice for each radio</p>
 </li>
 <li>
 <p><strong>Coverage zone</strong> — The status bar shows your zone status:</p>
 </li>
 <li>Green zone code (like "YOW") = you are in a zone and TX is allowed</li>
 <li>Red zone code = you are in a zone but TX is at capacity (Passive Mode only)</li>
-<li>Orange dash = you are outside any zone (or GPS is still searching)</li>
+<li>Blue zone code = your region has flood traffic turned off (Passive and Trace only)</li>
 <li>Grey zone code = you are in a zone but not yet connected</li>
+<li>Orange dash = you are outside any zone</li>
+<li>Orange "GPS..." = GPS is still searching</li>
 </ol>
+<p>If your device model was not recognised, you may also need to pick a power level on the Connect tab (the panel says "Select power level in Connect tab").</p>
+<div class="admonition note">
+<p class="admonition-title">Flood traffic</p>
+<p>Send Ping, Active Mode, and Hybrid Mode send flood traffic, so they only appear when your region allows it. Regions that have not been set up yet have flood traffic turned off by default. When flood traffic is off, or the zone is at capacity, those buttons are hidden and only Passive and Trace are available.</p>
+</div>
 <p>Once both are set, tap <strong>Send Ping</strong>:</p>
 <ul>
 <li>The app sends a channel message to #wardriving</li>
@@ -2927,6 +2963,7 @@
 <li>The app listens for <strong>5 seconds</strong> to see which repeaters echoed your message back</li>
 <li>On the backend, MeshMapper uses <strong>MQTT observers</strong> that also listen to the #wardriving channel. If an observer receives your message, the backend marks that ping as <strong>bidirectional (bidir)</strong></li>
 <li>Results appear as markers on the map and entries in the Log tab</li>
+<li>After a manual ping, Send Ping has a 15-second cooldown</li>
 </ul>
 <hr>
 <h2 id="understanding-the-status-bar">Understanding the Status Bar<a class="headerlink" href="#understanding-the-status-bar" title="Permanent link">¶</a></h2>
@@ -2935,14 +2972,14 @@
 <li><strong>Zone chip</strong> (left): Zone code when in coverage, dash when outside, "GPS..." while acquiring. Tap for details.</li>
 <li><strong>TX</strong>: Channel messages sent (flood the mesh, or scoped if your region has a scope set)</li>
 <li><strong>RX</strong>: Mesh packets passively received</li>
-<li><strong>DISC</strong>: Discovery requests sent</li>
+<li><strong>DISC</strong>: Discovery requests that got a response</li>
 <li><strong>TRC</strong>: Successful trace responses</li>
 <li><strong>Upload</strong>: Pings successfully uploaded to MeshMapper servers</li>
 </ul>
 <p>Tap any stat chip to see a description of what it means.</p>
 <hr>
 <h2 id="what-happens-to-your-data">What Happens to Your Data<a class="headerlink" href="#what-happens-to-your-data" title="Permanent link">¶</a></h2>
-<p>Every ping you send (TX), mesh packet you passively receive (RX), and discovery response (DISC) is queued for upload to the MeshMapper API. The app batches these uploads (up to 50 at a time) and sends them automatically. You can see the current queue size in Settings under "Data &gt; Queued Pings."</p>
+<p>Every ping you send (TX), mesh packet you passively receive (RX), discovery response (DISC), and trace result (TRC) is queued for upload to the MeshMapper API. The app batches these uploads (up to 50 at a time) and sends them automatically. In Offline Mode nothing is uploaded until you upload the saved session yourself from Settings &gt; Data. You can see the current queue size in Settings under "Data &gt; Queued Pings."</p>
 <p>Your data contributes to the community coverage map at <a href="https://meshmapper.net/">meshmapper.net</a>, helping everyone understand where MeshCore mesh coverage exists.</p>
 <hr>
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">¶</a></h2>

@@ -7,7 +7,7 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/app_tabs/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/app_tabs/">
       
       
         <link rel="prev" href="../app_getting_started/">
@@ -392,14 +392,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-firmware/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    Native Firmware
   
 
     
@@ -428,6 +428,34 @@
     
   
     MeshCore-HA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meshcoretomqtt
   
 
     
@@ -3242,9 +3270,9 @@
 <p>MeshMapper has five tabs accessible from the bottom navigation bar:</p>
 <ul>
 <li><strong>Map</strong> - Primary wardriving interface</li>
-<li><strong>Log</strong> - Ping and error history</li>
+<li><strong>Log</strong> - Ping, scope, and error history</li>
 <li><strong>History</strong> - Past session playback and noise floor graphs</li>
-<li><strong>Connect</strong> - Device connection management (Bluetooth, TCP, USB)</li>
+<li><strong>Connect</strong> - Device connection management (Bluetooth, TCP, USB). The label changes to <strong>Connected</strong> and the icon turns green once you are connected.</li>
 <li><strong>Settings</strong> - App configuration</li>
 </ul>
 <hr>
@@ -3266,12 +3294,23 @@
 <h3 id="the-status-bar">The Status Bar<a class="headerlink" href="#the-status-bar" title="Permanent link">¶</a></h3>
 <p>Below the app bar is the status bar with tappable stat chips:</p>
 <ul>
-<li><strong>Zone chip</strong> (left): Your current zone code. Tap for details. The popup changes based on your state: zone name and TX slots available (green), zone at TX capacity with Passive Mode suggestion (red), distance to nearest zone (orange), or "Connect to a device to start wardriving" (grey, when in zone but not connected).</li>
+<li><strong>Zone chip</strong> (left): Your current zone code. Tap for details. What it shows:<ul>
+<li><strong>Green</strong> zone code: in a zone, TX slots available (the popup shows how many)</li>
+<li><strong>Red</strong> zone code: in a zone, but the zone is at TX capacity, so only Passive works</li>
+<li><strong>Blue</strong> zone code: your regional admin has turned flood traffic off, so Active and Hybrid are unavailable (Passive and Trace still work)</li>
+<li><strong>Grey</strong> zone code: in a zone but not connected ("Connect to a device to start wardriving")</li>
+<li><strong>Orange "—"</strong>: outside any zone (the popup shows the nearest zone and its distance)</li>
+<li><strong>Orange "GPS..."</strong>: GPS is still searching</li>
+<li><strong>Grey "OFF"</strong>: location is turned off on your phone</li>
+<li><strong>Red "!"</strong>: location permission was denied</li>
+<li><strong>Grey "-"</strong>: Offline Mode (zone checks are paused)</li>
+</ul>
+</li>
 <li><strong>TX</strong> (green): Channel messages you have sent. These are flood messages that propagate across the mesh (or are regionally scoped if your zone admin has set a scope).</li>
 <li><strong>RX</strong> (purple): Mesh packets passively received.</li>
-<li><strong>DISC</strong> (cyan): Discovery requests sent.</li>
-<li><strong>TRC</strong> (blue diamond): Successful trace responses.</li>
-<li><strong>Upload</strong>: Pings successfully uploaded to the server.</li>
+<li><strong>DISC</strong> (cyan): Discovery requests that got a response.</li>
+<li><strong>TRC</strong> (cyan, route icon): Successful trace responses.</li>
+<li><strong>Upload</strong> (teal): Pings successfully uploaded to the server.</li>
 </ul>
 <p>Each stat chip animates with a bounce effect when its count increments, making it easy to notice activity. Tap any chip to see a description of what it tracks.</p>
 <h3 id="the-map">The Map<a class="headerlink" href="#the-map" title="Permanent link">¶</a></h3>
@@ -3282,21 +3321,23 @@
 <li>10m or better (green)</li>
 <li>10-30m (orange)</li>
 <li>Worse than 30m (red)</li>
-<li>"No GPS" if there is no fix (black)</li>
+<li>"No GPS" in grey if there is no fix</li>
 <li><strong>Distance from last ping</strong>: How far you have moved since your last ping. Helps you see at a glance whether you have met the minimum distance requirement for auto-ping modes.</li>
+<li><strong>Altitude</strong>: Your current altitude, when the phone reports one.</li>
 </ul>
 <h4 id="map-controls">Map Controls<a class="headerlink" href="#map-controls" title="Permanent link">¶</a></h4>
 <p>Expand the map controls panel to access:</p>
 <ul>
 <li><strong>Map Style</strong>: Cycle between Liberty (standard), Dark, Light, and Satellite map styles</li>
-<li><strong>Coverage Overlay</strong>: Toggle the MeshMapper community coverage overlay on the map. Shows coverage data reported by all wardrivers in your zone. Only available when in an onboarded region/zone.</li>
-<li><strong>Repeaters</strong>: Show or hide repeater markers</li>
-<li><strong>Region Boundary</strong>: Show or hide your region's boundary line and label</li>
-<li><strong>Auto-Follow</strong>: Centers the map on your GPS position as you move</li>
-<li><strong>Always North</strong>: Keeps north at the top. When disabled, the map can rotate with your heading.</li>
+<li><strong>Coverage Overlay</strong>: Toggle the MeshMapper community coverage overlay on the map. Shows coverage data reported by all wardrivers in your zone. Only shown when you are in an onboarded zone.</li>
+<li><strong>Repeaters</strong>: Show or hide repeater markers (shown when repeaters are loaded)</li>
+<li><strong>Region Boundary</strong>: Show or hide your region's boundary line and label (shown when your region has a boundary)</li>
+<li><strong>Center on Position</strong>: Centers the map on your GPS position and keeps following you as you move (the tooltip then reads "Following GPS"). Off by default; tap it again to stop following.</li>
+<li><strong>Always North</strong>: Keeps north at the top. When disabled, the map rotates with your heading.</li>
 <li><strong>Rotation Lock</strong>: Disables rotation gestures entirely</li>
-<li><strong>Legend</strong>: Opens a legend showing what the map markers and colours mean</li>
+<li><strong>Legend &amp; Info</strong>: Opens a legend explaining the map markers, coverage colours, repeater states, and sounds</li>
 </ul>
+<p>The app remembers your follow, north, and rotation choices.</p>
 <h4 id="markers">Markers<a class="headerlink" href="#markers" title="Permanent link">¶</a></h4>
 <p>Ping markers appear on the map as you wardrive. Tap any marker to view its details.</p>
 <p><strong>Your session markers:</strong></p>
@@ -3308,8 +3349,9 @@
 <li><strong>RX</strong> (purple): You passively received a message from the mesh</li>
 <li><strong>DISC (success)</strong> (cyan): You sent a discovery request and a repeater responded</li>
 <li><strong>DISC (fail)</strong> (grey/red): You sent a discovery request but no repeater responded. Shown as red if your region has "Count DISC as failed" enabled, meaning the backend will track a failed discovery as no coverage at that location.</li>
-<li><strong>TRC (success)</strong> (blue diamond): A trace reached the target repeater</li>
+<li><strong>TRC (success)</strong> (cyan): A trace reached the target repeater</li>
 <li><strong>TRC (fail)</strong> (grey): A trace got no response</li>
+<li><strong>Deferred</strong> (hollow yellow ring): <a href="../app_wardriving_modes/#smart-pinging">Smart Pinging</a> held a ping because this square already has recent coverage. You can hide these with <strong>Show Deferred Markers</strong> in Settings &gt; Wardriving.</li>
 </ul>
 <p><strong>Coverage overlay markers</strong> (when coverage overlay is enabled):</p>
 <p>These show the <strong>backend's view</strong> of coverage, combining data from all wardrivers and MQTT observers across the entire mesh. The backend has information your device does not, such as whether a message was received by an MQTT observer on the other side of the mesh. This is why the overlay uses different categories than your session markers.</p>
@@ -3321,21 +3363,21 @@
 <li><strong>DEAD</strong> (brown): A repeater heard it, but no other radio received the repeat</li>
 <li><strong>DROP</strong> (red): No repeats heard AND did not reach a backend observer. Also includes failed discovery requests if the region has "Count DISC as failed" enabled, meaning the backend tracks a failed discovery as no coverage at that location.</li>
 </ul>
-<p>The overlay renders from the same vector coverage tiles as the web map, using your selected <strong>Grid Mode</strong> (Simplified 300m or Detailed 100m, see Settings &gt; Map) and Color Vision palette. After a successful upload, your own newly-mapped cells refresh in place within about 10 seconds, so you can watch your coverage appear as you drive.</p>
+<p>The overlay renders from the same vector coverage tiles as the web map, using your selected <strong>Grid Mode</strong> (Simplified 300m or Detailed 100m, see Settings &gt; Map) and Color Vision palette. After a successful upload, your own newly-mapped cells refresh in place a few seconds later, so you can watch your coverage appear as you drive.</p>
 <p><strong>Tap to inspect:</strong></p>
 <ul>
 <li><strong>Tap a coverage cell</strong> to open a summary of its pings, with dashed connection lines fanning out to every repeater that heard that spot (each line labelled with distance).</li>
-<li><strong>Tap a repeater</strong> to see its details plus all the coverage cells it has been heard from, colour-coded by status, while the rest of the map dims so its footprint stands out.</li>
+<li><strong>Tap a repeater</strong> to see its details plus all the coverage cells it has been heard from, colour-coded by status, while the rest of the map dims so its footprint stands out. The repeater sheet also has a <strong>Manage</strong> button for logging in to a repeater you administer (it needs the repeater's full key and admin password).</li>
 </ul>
-<p>If "Top Repeaters on Map" is enabled in Settings, a <strong>Top Heard</strong> overlay appears on the map.</p>
+<p>If <strong>Top Repeaters on Map</strong> is enabled in Settings &gt; Map, a <strong>Top Heard</strong> overlay appears on the map. <strong>Larger Top 3 Overlay</strong> makes it bigger.</p>
 <p><strong>Top 3 slots</strong>: Shows the best 3 repeaters by SNR from your most recent ping, fully replacing on each new ping. If a ping gets no responses, the previous results stay visible. Each row has a coloured dot indicating the ping type:</p>
 <ul>
 <li>TX ping (green) - Active/Hybrid channel message</li>
 <li>Discovery ping (cyan) - Passive/Hybrid query</li>
-<li>Trace ping (blue diamond) - Trace mode, specific repeater</li>
+<li>Trace ping (cyan) - Trace mode, specific repeater</li>
 </ul>
 <p><strong>RX slot</strong>: A 4th row shows the strongest passively overheard repeater (purple) within a rolling window that matches your auto-ping interval (15s, 30s, or 60s).</p>
-<p>Each row also shows the repeater's hex ID and SNR value, colour-coded: green (good, above 5), orange (okay, -1 to 5), red (poor, below -1).</p>
+<p>Each row also shows the repeater's hex ID and SNR value, colour-coded: green (good, above 5), orange (okay, above -1 up to 5), red (poor, -1 or below).</p>
 <p>The overlay clears when you stop auto-ping, switch modes, disconnect, or clear pings/logs.</p>
 <p>Example:</p>
 <pre><code>Top Heard
@@ -3347,38 +3389,40 @@
 <h3 id="the-control-panel">The Control Panel<a class="headerlink" href="#the-control-panel" title="Permanent link">¶</a></h3>
 <p>The control panel floats at the bottom of the map and contains everything you need to wardrive:</p>
 <ul>
-<li><strong>External Antenna Selector</strong>: A "Yes / No" toggle that you must set before sending any pings. See <a href="../app_getting_started/">Getting Started</a> for when to select Yes vs No.</li>
-<li><strong>Send Ping</strong>: Sends a single channel message to #wardriving that floods the entire mesh (or is scoped to your region), then listens 5 seconds for repeater echoes. Disabled if you haven't set your antenna preference, don't have GPS, or aren't in a zone.</li>
-<li><strong>Hybrid / Active Mode</strong>: Starts automated wardriving at your configured interval. Hybrid Mode (default) alternates between channel messages and discovery requests. See <a href="../app_wardriving_modes/">Wardriving Modes</a> for details.</li>
+<li><strong>External Antenna Selector</strong>: A <strong>No / Yes</strong> switch (in landscape: <strong>Antenna</strong>, <strong>Internal / External</strong>) that you must set before sending any pings. It is remembered for each radio. See <a href="../app_getting_started/#your-first-ping">Getting Started</a> for which to choose.</li>
+<li><strong>Send Ping</strong>: Sends a single channel message to #wardriving that floods the entire mesh (or is scoped to your region), then listens 5 seconds for repeater echoes, followed by a 15-second cooldown. Disabled until you have set your antenna, have GPS, and are in a zone.</li>
+<li><strong>Hybrid / Active Mode</strong>: Starts automated wardriving at your configured interval. Hybrid Mode (on by default) alternates between channel messages and discovery requests. See <a href="../app_wardriving_modes/">Wardriving Modes</a> for details.</li>
 <li><strong>Passive Mode</strong>: Discovery-only mode (no channel messages, no mesh flooding). Sends discovery requests every 30 seconds and passively monitors mesh traffic.</li>
-<li><strong>Trace Mode</strong>: Target a specific repeater by its hex ID and send trace path requests at your configured interval.</li>
+<li><strong>Trace Mode</strong>: Target a specific repeater by typing its hex ID, or tap <strong>Choose repeater</strong> to pick one from a list. Sends trace path requests at your configured interval. Once a repeater is picked, you can also open <strong>Manage repeater</strong> from here.</li>
 <li><strong>Help</strong>: Opens a bottom sheet explaining what each button does.</li>
 </ul>
+<p>Send Ping and Hybrid/Active only appear when your region allows flood traffic and the zone has a free TX slot. If the region has flood traffic off (the default for regions that are not set up yet) or the zone is full, only Passive and Trace are shown. In Offline Mode they show <strong>Passive only</strong> and are disabled.</p>
+<p>When something is missing, a hint appears under the buttons, such as "Select antenna option", "Select power level in Connect tab", or "Waiting for GPS".</p>
 <p>You can minimize the control panel to a compact bar showing just the essential buttons, or hide it entirely (a floating "Controls" button appears to bring it back).</p>
 <h3 id="landscape-mode">Landscape Mode<a class="headerlink" href="#landscape-mode" title="Permanent link">¶</a></h3>
 <p>In landscape orientation, the app removes the traditional app bar and replaces it with a compact floating status bar at the top of the map. The control panel becomes a floating side panel on the left. Map controls appear on the right side of the map. This gives you maximum map visibility for wardriving in a car mount.</p>
 <hr>
 <h2 id="log-tab">Log Tab<a class="headerlink" href="#log-tab" title="Permanent link">¶</a></h2>
-<p>The Log tab shows a detailed record of all your wardriving activity, organized into two sub-tabs: <strong>All Pings</strong> and <strong>Errors</strong>.</p>
+<p>The Log tab (titled <strong>Logs</strong>) shows a detailed record of all your wardriving activity, organized into two sub-tabs: <strong>All Pings</strong> and <strong>Errors</strong>. Each tab label shows its entry count.</p>
 <h3 id="all-pings">All Pings<a class="headerlink" href="#all-pings" title="Permanent link">¶</a></h3>
-<p>A unified chronological view of every TX, RX, DISC, and Trace event. At the top:</p>
+<p>A unified chronological view of every TX, RX, DISC, Trace, and scope event. At the top:</p>
 <ul>
 <li><strong>Search bar</strong>: Filter entries by repeater name or hex ID. Searching by name finds all repeaters whose name contains the query. Searching by hex ID matches IDs that start with the query.</li>
-<li><strong>Filter bar</strong>: Four toggleable segments (TX, RX, DISC, TRC) each with a count badge. Tap to show/hide that type. At least one must remain active.</li>
+<li><strong>Filter bar</strong>: Five toggleable segments (TX, RX, DISC, TRC, SCP) each with a count. Tap to show/hide that type. At least one must remain active. <strong>SCP</strong> entries are scope requests the app sent to repeaters.</li>
 </ul>
 <p>Each entry is a card showing:</p>
 <ul>
-<li><strong>Type badge</strong>: Colour-coded label (green TX, purple RX, cyan DISC, cyan diamond TRC). TX entries are channel messages that flooded the mesh (or were regionally scoped).</li>
+<li><strong>Type badge</strong>: Colour-coded label (green TX, purple RX, cyan DISC, cyan TRC, amber SCP). TX entries are channel messages that flooded the mesh (or were regionally scoped).</li>
 <li><strong>Timestamp</strong>: When the event occurred</li>
 <li><strong>Location</strong>: GPS coordinates at the time of the event</li>
 <li><strong>Repeater table</strong>:</li>
-<li>TX: Table of repeaters that echoed your message, with Node ID, SNR, and RSSI</li>
+<li>TX: Table of repeaters that echoed your message directly, with Node ID, SNR, and RSSI, plus a <strong>Multi-hop Repeats</strong> table for echoes that came back over more than one hop</li>
 <li>RX: Single repeater row</li>
 <li>DISC: Table with RX SNR, RX RSSI, and TX SNR</li>
 <li>Trace: Target repeater and signal quality</li>
 </ul>
 <p><strong>Tapping a card</strong> navigates to the Map tab and centers on that event's GPS coordinates.</p>
-<p><strong>Tapping a repeater ID</strong> in any table opens a popup showing matching repeaters from the mesh database. Each match shows the repeater's name, a coloured hex ID badge, distance from your current GPS position (sorted closest first), and an Active/Stale status badge. For discovery pings, the popup uses exact 4-byte public key matching for precise identification. For TX/RX pings (which only have 1-byte path IDs), it uses prefix matching, so multiple repeaters may appear if they share the same first byte.</p>
+<p><strong>Tapping a repeater ID</strong> in any table opens a popup showing matching repeaters from the mesh database. Each match shows the repeater's name, a coloured hex ID badge, distance from your current GPS position (sorted closest first), and an Active/Stale status badge. For discovery pings, the popup matches the repeater's full public key for precise identification. For TX/RX pings (which only carry short 1 to 3 byte path IDs), it uses prefix matching, so multiple repeaters may appear if they share the same ID.</p>
 <h3 id="errors">Errors<a class="headerlink" href="#errors" title="Permanent link">¶</a></h3>
 <p>The Errors sub-tab shows warnings and errors that occurred during your session:</p>
 <ul>
@@ -3386,16 +3430,16 @@
 <li><strong>Warning</strong> (orange): Warning conditions that may need attention</li>
 <li><strong>Error</strong> (red): Errors that likely affected functionality</li>
 </ul>
-<p>A badge appears on the Log tab icon when there are unread errors.</p>
+<p>A badge appears on the Log tab icon whenever there are entries in the Errors tab.</p>
 <h3 id="log-actions">Log Actions<a class="headerlink" href="#log-actions" title="Permanent link">¶</a></h3>
 <p>The overflow menu (⋮) in the top right offers:</p>
 <ul>
 <li><strong>Copy CSV</strong>: Copies the current tab's data to your clipboard in CSV format. If you have a search filter active, only filtered entries are exported.</li>
-<li><strong>Clear all logs</strong>: Removes all TX, RX, DISC, Trace, and error log entries.</li>
+<li><strong>Clear all logs</strong>: Removes all log entries, including errors.</li>
 </ul>
 <hr>
 <h2 id="history-tab">History Tab<a class="headerlink" href="#history-tab" title="Permanent link">¶</a></h2>
-<p>The History tab (titled <strong>Session History</strong>) lists your past wardriving sessions. Each session card offers two views:</p>
+<p>The History tab (titled <strong>Session History</strong>) lists your past wardriving sessions (Active, Hybrid, Passive, and Trace). If you have none yet, it shows "No sessions recorded yet". Each session card offers two views:</p>
 <ul>
 <li><strong>View on Map</strong>: Replays the session's pings as markers on the map, zoomed to fit the session's area. Tap any marker for the same detail sheets as during live wardriving.</li>
 <li><strong>Noise Floor</strong>: Opens the interactive noise floor graph for that session (see below).</li>
@@ -3409,11 +3453,11 @@
 <li><strong>-100 to -90 dBm</strong>: Moderate noise (orange)</li>
 <li><strong>Above -90 dBm</strong>: High noise, may interfere with mesh communication (red)</li>
 </ul>
-<p>MeshMapper polls your radio's noise floor every 5 seconds while connected and in auto-ping mode.</p>
+<p>MeshMapper reads your radio's noise floor every 5 seconds while connected, and records it into the session while a wardriving mode is running.</p>
 <h3 id="session-list">Session List<a class="headerlink" href="#session-list" title="Permanent link">¶</a></h3>
 <p>Each session card shows:</p>
 <ul>
-<li><strong>Mode icon</strong>: Upload arrow for Active/Hybrid, Ear for Passive</li>
+<li><strong>Mode icon</strong>: Paper plane for Active, two arrows for Hybrid, a target for Trace, an ear for Passive</li>
 <li><strong>Mode name and date</strong>: When the session started</li>
 <li><strong>Duration</strong>: How long the session lasted</li>
 <li><strong>Sample count</strong>: How many noise floor readings were taken</li>
@@ -3421,23 +3465,25 @@
 </ul>
 <p>The currently active session appears at the top with a green <strong>"LIVE"</strong> badge.</p>
 <h3 id="full-screen-graph">Full-Screen Graph<a class="headerlink" href="#full-screen-graph" title="Permanent link">¶</a></h3>
-<p>Tap a session to open the full-screen interactive graph:</p>
+<p>Tap the <strong>Noise Floor</strong> button on a session card to open the full-screen interactive graph:</p>
 <ul>
 <li><strong>Noise floor line</strong>: Colour-coded by level (green/orange/red) over time</li>
 <li><strong>Event markers</strong>: Coloured dots marking when ping events occurred:</li>
 <li>TX channel message (green) - heard by a repeater (success)</li>
 <li>TX channel message (red) - not heard</li>
+<li>TX Multi-hop - echoed back only over multi-hop paths</li>
 <li>Passive RX received (purple)</li>
 <li>Discovery got a response (cyan)</li>
 <li>Discovery with no response (grey) - or failed discovery if "Count DISC as failed" is enabled at the region level</li>
-<li>Trace got a response (blue diamond)</li>
+<li>Trace got a response (cyan)</li>
 <li>Trace with no response (grey)</li>
+<li>Deferred (hollow yellow ring) - a ping Smart Pinging held back</li>
 </ul>
 <p><strong>Interactions</strong>:</p>
 <ul>
 <li><strong>Pinch to zoom</strong> on a specific time range (minimum 10-second visible window)</li>
 <li><strong>Drag to pan</strong> across the timeline</li>
-<li><strong>Tap a marker</strong> to open a detail sheet with event type, timestamp, interpolated noise floor, and repeater table</li>
+<li><strong>Tap a marker</strong> to open a detail sheet with event type, timestamp, noise floor, location, and repeater table, plus a <strong>View on Map</strong> button</li>
 <li><strong>Reset zoom</strong> (top right) returns to full session view</li>
 </ul>
 <p>Live sessions update every 2 seconds. If the session ends while you are viewing it, the "LIVE" badge disappears and the graph becomes a static historical view.</p>
@@ -3445,50 +3491,51 @@
 <p>Use the trash icon in the top right to delete all saved sessions. The current active session is not affected.</p>
 <hr>
 <h2 id="connect-tab">Connect Tab<a class="headerlink" href="#connect-tab" title="Permanent link">¶</a></h2>
-<p>The Connect tab manages your device connection. Its appearance changes based on your connection state.</p>
+<p>The Connect tab (titled <strong>Connection</strong>) manages your device connection. Its appearance changes based on your connection state. A bar at the bottom holds the <strong>Go Offline / Go Online</strong> button, the main action button (Scan, Connect, Cancel, or Disconnect), and, while disconnected, the connection method picker.</p>
 <h3 id="connection-methods">Connection Methods<a class="headerlink" href="#connection-methods" title="Permanent link">¶</a></h3>
-<p>A selector at the top lets you choose how to connect to your MeshCore device:</p>
+<p>The picker in the bottom bar lets you choose how to connect to your MeshCore device:</p>
 <ul>
-<li><strong>BLE</strong> (Bluetooth Low Energy) — available on all platforms. The standard way to connect.</li>
-<li><strong>TCP</strong> — available on Android and iOS. Connect to a network-attached MeshCore device by host and port (default port 5000), e.g. via a WiFi companion or a ser2net bridge. Saved connections are remembered.</li>
-<li><strong>USB</strong> — available on Android (USB OTG cable) and in the web app (Chrome/Edge via Web Serial). Connect your radio directly with a cable.</li>
+<li><strong>BLE</strong> (Bluetooth Low Energy) — the standard way to connect.</li>
+<li><strong>TCP</strong> — connect to a network-attached MeshCore device by host and port (default port 5000), e.g. via a Wi-Fi companion or a ser2net bridge. Connections that succeed are kept under <strong>Saved Connections</strong> for next time.</li>
+<li><strong>USB</strong> — Android only, with a USB OTG cable. Tap <strong>Refresh</strong> to list connected devices.</li>
 </ul>
 <h3 id="zone-status-bar">Zone Status Bar<a class="headerlink" href="#zone-status-bar" title="Permanent link">¶</a></h3>
-<p>Shown across all connection states when GPS is available:</p>
+<p>Shown at the top of the tab (except while connecting or reconnecting):</p>
 <ul>
-<li><strong>Left</strong>: City name of your current zone and IATA code. If you are outside a zone, shows distance to the nearest one.</li>
-<li><strong>Right</strong>: Open TX slots (e.g. "3/5 Open"), colour-coded: green (plenty available), orange (2 or fewer left), red (none available)</li>
+<li><strong>Left</strong>: City name of your current zone and its IATA code. Otherwise it shows the current state, such as "Outside Zone", "Checking Zone...", "Maintenance", "No Internet", "Clock Out of Sync", "GPS Unavailable", "Airborne", or "-" in Offline Mode.</li>
+<li><strong>Right</strong>: Open TX slots (e.g. "3/5 Open"), colour-coded: green (3 or more), orange (1 or 2 left), red (none available). If your region has flood traffic off, it shows a blue <strong>Flood Off</strong> chip instead; tap it for details.</li>
 </ul>
 <h3 id="disconnected">Disconnected<a class="headerlink" href="#disconnected" title="Permanent link">¶</a></h3>
 <ul>
-<li>"Go Offline" / "Go Online" button to toggle offline mode</li>
-<li>"Scan for Devices" button to start a BLE scan. Once scanning, a list of discovered devices appears with signal strength.</li>
-<li>Your last connected device shown for quick reconnection</li>
+<li><strong>Scan</strong> button to start a BLE scan. It is only enabled when you are inside a zone (or in Offline Mode) and not blocked by maintenance or an airborne check. While scanning it becomes <strong>Cancel</strong>. Discovered devices appear in a list with signal strength. With no devices, it shows "Tap Scan to search for MeshCore devices".</li>
+<li>A <strong>Last Connected Device</strong> card with <strong>Reconnect</strong>, <strong>Scan</strong>, and <strong>Forget</strong> buttons</li>
+<li><strong>Go Offline</strong> / <strong>Go Online</strong> to toggle Offline Mode</li>
 </ul>
 <h3 id="connecting">Connecting<a class="headerlink" href="#connecting" title="Permanent link">¶</a></h3>
 <ul>
-<li>Progress indicator showing the current step of the 9-step connection process</li>
-<li>Cancel button to abort the connection</li>
+<li>Progress indicator showing the current step of the 9-step connection process (for example "Acquiring API slot..."), with "Step X of 9"</li>
+<li>There is no Cancel button during these steps. <strong>Cancel</strong> does appear while scanning, while auto-reconnecting ("Attempt N of 3"), and while the app is searching for or switching zones.</li>
 </ul>
 <h3 id="connected">Connected<a class="headerlink" href="#connected" title="Permanent link">¶</a></h3>
 <ul>
-<li><strong>Radio Info</strong>:</li>
+<li><strong>Device card</strong>:</li>
 <li><strong>Companion name</strong>: The name of your connected MeshCore device</li>
-<li><strong>Power Level</strong>: The TX power your device is reporting. Tap to open the power level selector (locked during auto-ping). If your device model was auto-detected, a green banner shows the detected model and wattage. Options: ≤22dBm (0.3W), 28dBm (0.6W), 30dBm (1.0W), 33dBm (2.0W). A checkmark shows the recommended value for your device. If you override the auto-detected power, a confirmation dialog appears. "Reset to Auto" restores auto-detection. This only affects what is reported to the API, it does not change your radio's actual output.</li>
+<li><strong>Detail chips</strong>: Hardware model, firmware version, and platform (when known)</li>
+<li><strong>Power Level</strong>: The TX power your device is reporting. Tap to open the power level selector (locked during auto-ping). If your device model was auto-detected, a banner shows the detected model and wattage. Options: ≤22dBm (0.3W), 28dBm (0.6W), 30dBm (1.0W), 33dBm (2.0W). A checkmark shows the recommended value for your device. If you override the auto-detected power, a confirmation dialog appears. "Reset to Auto" restores auto-detection. This only affects what is reported to the API, it does not change your radio's actual output.</li>
+<li><strong>Radio</strong>: Your radio's frequency, bandwidth, spreading factor, and coding rate</li>
 <li><strong>Public Key</strong>: Your device's unique public key, used for authentication with the MeshMapper API. Tap to copy to clipboard.</li>
-<li><strong>Registered via</strong>: Shows your device's registration level. Devices can be registered as anonymous (no contact info), or with a signed contact URI that links the device to a MeshCore identity. Higher registration levels may grant access to additional features.</li>
-<li><strong>Regional Settings</strong>:</li>
-<li><strong>Zone</strong>: The zone you are connected to (typically a city name)</li>
-<li><strong>Scope</strong>: The flood scope configured by the regional admin for your zone</li>
-<li><strong>Channels</strong>: Additional channels configured by the regional admin</li>
-<li>"Go Offline" / "Go Online" button to toggle offline mode while connected</li>
-<li>Disconnect button</li>
+<li><strong>Registered via</strong>: How MeshMapper verified your device: <strong>Mesh</strong> (most trusted, your signed advert was heard over the mesh), <strong>API</strong> (trusted, registered with a signed advert through the MeshMapper API), or <strong>Manual</strong> (basic, added by an administrator). Tap it to open the <strong>Registration Methods</strong> explanation. Hidden in Offline Mode.</li>
+<li><strong>Regional Settings</strong> (the header shows your zone name):</li>
+<li><strong>Scope</strong>: The flood scope configured by the regional admin for your zone ("Global" if none)</li>
+<li><strong>Channels</strong>: The channels the app listens on: always <strong>Public</strong> and <strong>#wardriving</strong>, plus any regional channels your admin added</li>
+<li><strong>Go Offline</strong> / <strong>Go Online</strong> to toggle Offline Mode while connected</li>
+<li><strong>Disconnect</strong> button</li>
 </ul>
 <p>For a detailed walkthrough of the connection process, see the <a href="../app_connection_guide/">Connection Guide</a>.</p>
 <hr>
 <h2 id="settings-tab">Settings Tab<a class="headerlink" href="#settings-tab" title="Permanent link">¶</a></h2>
-<p>The Settings tab contains all user preferences and configuration options. It is a list of folders, each opening its own page: General, Map, Wardriving, Data, MeshMapper Account (mobile only), API Endpoints, Apple Watch (iOS, once a watch has been paired), About &amp; Support, and Developer Tools (hidden until unlocked).</p>
-<p>Some settings are locked while auto-ping is running to prevent mid-session changes that could affect data consistency. A yellow banner at the top indicates when settings are locked.</p>
+<p>The Settings tab contains all user preferences and configuration options. It is a list of folders, each opening its own page: General, Map, Wardriving, Data, MeshMapper Account, API Endpoints, Apple Watch (iOS, once a watch has been paired), About &amp; Support, and Developer Tools (hidden until you tap the version number on About &amp; Support seven times).</p>
+<p>Some settings are locked while auto-ping is running to prevent mid-session changes that could affect data consistency. An amber banner reading "Some settings locked during auto-ping" appears at the top while they are locked.</p>
 <p>For a complete reference of every setting, see the <a href="../app_settings_reference/">Settings Reference</a>.</p>
 
 

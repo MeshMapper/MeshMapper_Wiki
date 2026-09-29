@@ -7,7 +7,7 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/app_third_party_api/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/app_third_party_api/">
       
       
         <link rel="prev" href="../app_troubleshooting/">
@@ -392,14 +392,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-firmware/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    Native Firmware
   
 
     
@@ -428,6 +428,34 @@
     
   
     MeshCore-HA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meshcoretomqtt
   
 
     
@@ -2983,7 +3011,7 @@
 
 
 <h1 id="custom-api-endpoint-third-party-developer-guide">Custom API Endpoint - Third-Party Developer Guide<a class="headerlink" href="#custom-api-endpoint-third-party-developer-guide" title="Permanent link">¶</a></h1>
-<p>This document describes the API contract for receiving forwarded wardrive data from MeshMapper. When a user enables "Custom API Endpoint" in MeshMapper settings, every successful wardrive batch upload is also forwarded to your endpoint.</p>
+<p>This document describes the API contract for receiving forwarded wardrive data from MeshMapper. When a user enables "Custom API Endpoint" in MeshMapper settings, every successful wardrive batch upload is also forwarded to your endpoint. This includes offline sessions the user uploads later: each 50-row chunk that uploads is forwarded as its own request.</p>
 <h2 id="request-format">Request Format<a class="headerlink" href="#request-format" title="Permanent link">¶</a></h2>
 <table>
 <thead>
@@ -3016,7 +3044,7 @@
   ]
 }
 </code></pre>
-<p>The <code>data</code> array contains 1-50 ping objects per batch. Batches arrive approximately every 15-30 seconds during an active wardriving session.</p>
+<p>The <code>data</code> array contains 1-50 ping objects per batch. During a live session the app uploads about 5 seconds after each TX, DISC, TRACE, DEFER or SCOPES item is queued, and on a 15-second timer otherwise (both stretch to 60 seconds on a constrained link such as satellite). Each successful upload is forwarded once.</p>
 <h2 id="ping-object-schema">Ping Object Schema<a class="headerlink" href="#ping-object-schema" title="Permanent link">¶</a></h2>
 <p>Every ping object contains a <code>type</code> field that determines which additional fields are present.</p>
 <h3 id="common-fields-all-types">Common Fields (all types)<a class="headerlink" href="#common-fields-all-types" title="Permanent link">¶</a></h3>
@@ -3082,7 +3110,7 @@
 <tr>
 <td><code>iata</code></td>
 <td><code>string\|absent</code></td>
-<td>MeshMapper zone code (e.g., <code>"RDU"</code>, <code>"MSP"</code>, <code>"YOW"</code>). Present when the wardriver is in a zone.</td>
+<td>MeshMapper zone code (e.g., <code>"RDU"</code>, <code>"MSP"</code>, <code>"YOW"</code>). The wardriver's current zone, or the last zone the app saved when there is no current one. On an offline session upload, it is the zone the upload was made from, for the whole chunk, not where each ping was recorded.</td>
 </tr>
 </tbody>
 </table>
@@ -3100,10 +3128,21 @@
 <tr>
 <td><code>heard_repeats</code></td>
 <td><code>string</code></td>
-<td>Comma-separated repeater echoes: <code>"id(snr),id(snr)"</code> or <code>"None"</code> if no repeaters heard. IDs are hex strings (1-6 chars). SNR is in dB.</td>
+<td>Comma-separated repeater echoes: <code>"id(snr),id(snr)"</code> or <code>"None"</code> if no repeaters heard. IDs are upper-case hex: 2, 4 or 6 characters depending on the path's bytes per hop (8 is possible). SNR is in dB with two decimals, or <code>null</code> when the echo came through the user's own CARpeater (for example <code>"4E(null)"</code>).</td>
+</tr>
+<tr>
+<td><code>wire_tag</code></td>
+<td><code>string</code></td>
+<td>The anonymous tag the ping carried on air (e.g., <code>"MM:Ab3dEf9hIj"</code>).</td>
+</tr>
+<tr>
+<td><code>ping_counter</code></td>
+<td><code>integer</code></td>
+<td>The ping's number within the user's MeshMapper session.</td>
 </tr>
 </tbody>
 </table>
+<p>Echoes that reached the user through more than one repeater are not in <code>heard_repeats</code>. They arrive as separate <code>RX</code> items at the TX ping's location.</p>
 <p><strong>Example:</strong></p>
 <pre><code class="language-json">{
   "type": "TX",
@@ -3112,10 +3151,12 @@
   "noisefloor": -103,
   "altitude": 84,
   "radio_freq": "910.525,62.5,7,5",
-  "heard_repeats": "4e(12.25),77(8.50)",
+  "heard_repeats": "4E(12.25),77(8.50)",
   "timestamp": 1768762843,
   "external_antenna": false,
   "power": "0.3w",
+  "ping_counter": 42,
+  "wire_tag": "MM:Ab3dEf9hIj",
   "contact": "D873B1F2",
   "iata": "YOW"
 }
@@ -3132,12 +3173,14 @@
   "timestamp": 1768762873,
   "external_antenna": false,
   "power": "0.3w",
+  "ping_counter": 43,
+  "wire_tag": "MM:Kl2mNo4pQr",
   "contact": "D873B1F2",
   "iata": "YOW"
 }
 </code></pre>
 <h3 id="rx-ping-type-rx">RX Ping (type: "RX")<a class="headerlink" href="#rx-ping-type-rx" title="Permanent link">¶</a></h3>
-<p>A passively observed mesh packet from a nearby repeater.</p>
+<p>A passively observed mesh packet from a nearby repeater, or a TX echo that reached the user through more than one repeater.</p>
 <table>
 <thead>
 <tr>
@@ -3150,7 +3193,7 @@
 <tr>
 <td><code>heard_repeats</code></td>
 <td><code>string</code></td>
-<td>Single repeater with SNR: <code>"id(snr)"</code> (e.g., <code>"4e(12.0)"</code>).</td>
+<td>Single repeater with SNR: <code>"id(snr)"</code> (e.g., <code>"4E(12.00)"</code>). Same ID and SNR format as TX, so the SNR can be <code>null</code> (<code>"4E(null)"</code>).</td>
 </tr>
 </tbody>
 </table>
@@ -3160,7 +3203,7 @@
   "lat": 45.26950,
   "lon": -75.77700,
   "noisefloor": -105,
-  "heard_repeats": "4e(12.00)",
+  "heard_repeats": "4E(12.00)",
   "timestamp": 1768762900,
   "external_antenna": false,
   "power": "0.3w",
@@ -3182,7 +3225,7 @@
 <tr>
 <td><code>repeater_id</code></td>
 <td><code>string</code></td>
-<td>Hex ID of the discovered node (e.g., <code>"a3b2c1"</code>), or <code>"None"</code> for failed discovery.</td>
+<td>Upper-case hex ID of the discovered node: the first 2, 4 or 6 characters of its public key, following the user's path bytes setting (e.g., <code>"A3B2C1"</code>). <code>"None"</code> for a failed discovery.</td>
 </tr>
 <tr>
 <td><code>node_type</code></td>
@@ -3192,37 +3235,38 @@
 <tr>
 <td><code>local_snr</code></td>
 <td><code>number</code></td>
-<td>SNR measured locally (dB).</td>
+<td>SNR measured locally (dB). <code>0</code> if the stored value could not be read.</td>
 </tr>
 <tr>
 <td><code>local_rssi</code></td>
 <td><code>integer</code></td>
-<td>RSSI measured locally (dBm, negative).</td>
+<td>RSSI measured locally (dBm, negative). <code>0</code> if the stored value could not be read.</td>
 </tr>
 <tr>
 <td><code>remote_snr</code></td>
 <td><code>number</code></td>
-<td>SNR reported by the remote node (dB).</td>
+<td>SNR reported by the remote node (dB). <code>0</code> if the stored value could not be read.</td>
 </tr>
 <tr>
 <td><code>public_key</code></td>
 <td><code>string</code></td>
-<td>Full 32-byte public key of the node (64 hex chars).</td>
+<td>Full 32-byte public key of the node (64 upper-case hex chars).</td>
 </tr>
 </tbody>
 </table>
+<p>A failed discovery (no node answered) is only sent when the user or region has <strong>Discovery Drop</strong> on. It carries none of <code>node_type</code>, <code>local_snr</code>, <code>local_rssi</code>, <code>remote_snr</code> or <code>public_key</code>.</p>
 <p><strong>Example (successful discovery):</strong></p>
 <pre><code class="language-json">{
   "type": "DISC",
   "lat": 45.26980,
   "lon": -75.77750,
   "noisefloor": -102,
-  "repeater_id": "a3b2c1",
+  "repeater_id": "A3B2C1",
   "node_type": "REPEATER",
   "local_snr": 11.75,
   "local_rssi": -85,
   "remote_snr": 9.50,
-  "public_key": "a3b2c1d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2",
+  "public_key": "A3B2C1D4E5F6A7B8C9D0E1F2A3B4C5D6E7F8A9B0C1D2E3F4A5B6C7D8E9F0A1B2",
   "timestamp": 1768762950,
   "external_antenna": true,
   "power": "1.0w",
@@ -3262,21 +3306,22 @@
 </tr>
 <tr>
 <td><code>local_snr</code></td>
-<td><code>number</code></td>
+<td><code>number\|null</code></td>
 <td>SNR measured locally (dB).</td>
 </tr>
 <tr>
 <td><code>local_rssi</code></td>
-<td><code>integer</code></td>
+<td><code>integer\|null</code></td>
 <td>RSSI measured locally (dBm, negative).</td>
 </tr>
 <tr>
 <td><code>remote_snr</code></td>
-<td><code>number</code></td>
+<td><code>number\|null</code></td>
 <td>SNR reported by the repeater (dB).</td>
 </tr>
 </tbody>
 </table>
+<p>Only traces the repeater answered are sent.</p>
 <p><strong>Example:</strong></p>
 <pre><code class="language-json">{
   "type": "TRACE",
@@ -3327,7 +3372,7 @@
 }
 </code></pre>
 <h3 id="scopes-type-scopes">SCOPES (type: "SCOPES")<a class="headerlink" href="#scopes-type-scopes" title="Permanent link">¶</a></h3>
-<p>A repeater's answer to a direct scope discovery question, sent after a discovery finds the repeater. MeshMapper asks a discovered repeater which channels or contacts it passes, and the repeater answers with a list of scope names.</p>
+<p>A repeater's answer to a direct scope discovery question, sent after a discovery finds the repeater. The app asks a discovered repeater which regions (flood scopes) it carries, and the repeater answers with a list of region names. A <code>SCOPES</code> item is only sent after the <code>DISC</code> item for the discovery that found the repeater. If the server stops offering scope discovery, queued <code>SCOPES</code> items are dropped and never forwarded.</p>
 <p><strong>A SCOPES answer is unverified.</strong> MeshMapper checks each answer against a discovery the same radio reported and discards any it cannot confirm, but the batch answer does not say which were kept, and the app forwards the whole batch after the upload succeeds. A long answer can also be incomplete: the repeater leaves out names that do not fit in its reply.</p>
 <table>
 <thead>
@@ -3346,7 +3391,7 @@
 <tr>
 <td><code>scopes</code></td>
 <td><code>array of string</code></td>
-<td>The scope names exactly as the repeater sent them, case-sensitive. <code>"*"</code> means the repeater passes unscoped traffic. May be empty. At most 33 entries.</td>
+<td>The scope names exactly as the repeater sent them, case-sensitive. Each entry is <code>"*"</code> (the repeater passes unscoped traffic) or a name of 1 to 30 bytes that does not start with <code>#</code>. May be empty. At most 33 entries.</td>
 </tr>
 </tbody>
 </table>
@@ -3364,7 +3409,7 @@
 }
 </code></pre>
 <h2 id="batch-examples">Batch Examples<a class="headerlink" href="#batch-examples" title="Permanent link">¶</a></h2>
-<p>A batch is whatever the app uploaded to MeshMapper in that round, so one request can mix every type above. <code>DEFER</code> items only appear from app version 1.4.0 onward, and only while the user has Smart Pinging on (the default) in Active, Passive or Hybrid mode, so your endpoint must accept batches both with and without them. <code>SCOPES</code> items only appear from the app version that ships this feature, and only while scope discovery is on, either enforced by the region or switched on by the user, so your endpoint must accept batches with and without them too. Dispatch on <code>type</code> and ignore any value you do not handle rather than rejecting the batch: a <code>4xx</code> is shown to the user as an error.</p>
+<p>A batch is whatever the app uploaded to MeshMapper in that round, so one request can mix every type above. <code>DEFER</code> items only appear while the user has Smart Pinging on (the default) in Active, Passive or Hybrid mode, so your endpoint must accept batches both with and without them. <code>SCOPES</code> items only appear while scope discovery is on, either enforced by the region or switched on by the user, so your endpoint must accept batches with and without them too. Dispatch on <code>type</code> and ignore any value you do not handle rather than rejecting the batch: a <code>4xx</code> is shown to the user as an error.</p>
 <p><strong>Batch without a DEFER</strong> (a TX ping and a passive RX observation):</p>
 <pre><code class="language-json">{
   "data": [
@@ -3375,10 +3420,12 @@
       "noisefloor": -103,
       "altitude": 84,
       "radio_freq": "910.525,62.5,7,5",
-      "heard_repeats": "4e(12.25),77(8.50)",
+      "heard_repeats": "4E(12.25),77(8.50)",
       "timestamp": 1768762843,
       "external_antenna": false,
       "power": "0.3w",
+      "ping_counter": 42,
+      "wire_tag": "MM:Ab3dEf9hIj",
       "contact": "D873B1F2",
       "iata": "YOW"
     },
@@ -3387,7 +3434,7 @@
       "lat": 45.26950,
       "lon": -75.77700,
       "noisefloor": -105,
-      "heard_repeats": "4e(12.00)",
+      "heard_repeats": "4E(12.00)",
       "timestamp": 1768762900,
       "external_antenna": false,
       "power": "0.3w",
@@ -3450,17 +3497,17 @@
 </tr>
 <tr>
 <td>Timeout (&gt;10s)</td>
-<td>Error logged as timeout.</td>
+<td>Error logged as timeout (throttled to once per minute).</td>
 </tr>
 <tr>
 <td>Network error</td>
-<td>Error logged as network error.</td>
+<td>Error logged as network error (throttled to once per minute).</td>
 </tr>
 </tbody>
 </table>
 <p>MeshMapper does <strong>not</strong> retry failed custom API requests. Each batch is sent exactly once.</p>
 <h2 id="configuration-link-for-end-users">Configuration Link for End Users<a class="headerlink" href="#configuration-link-for-end-users" title="Permanent link">¶</a></h2>
-<p>As an endpoint operator, you can generate a configuration link that your users paste into their clipboard. In MeshMapper Settings &gt; API Endpoints, they tap <strong>Import from Clipboard</strong> to auto-fill the URL and API key.</p>
+<p>As an endpoint operator, you can generate a configuration link that your users copy to their clipboard. In MeshMapper Settings &gt; API Endpoints, they switch on <strong>Custom API Endpoint</strong> (and accept the "Third-Party Data Sharing" notice), then tap <strong>Import from Clipboard</strong>, which only appears once the switch is on, to auto-fill the URL and API key.</p>
 <p><strong>Format:</strong></p>
 <pre><code>meshmapper://custom-api?url=your-server.com/api/wardrive&amp;key=your-api-key-here
 </code></pre>
@@ -3468,10 +3515,11 @@
 <li><code>url</code> — Your endpoint host and path, <strong>without</strong> <code>https://</code> (MeshMapper prepends it automatically).</li>
 <li><code>key</code> — The API key the user should send. This will be set as their <code>X-API-Key</code> header value.</li>
 </ul>
+<p>The link is read as an ordinary URL query, so percent-encode any <code>&amp;</code>, <code>+</code>, <code>#</code> or <code>%</code> inside the <code>url</code> or <code>key</code> values (for example <code>&amp;</code> as <code>%26</code>). Left unencoded, they cut the value short or change it.</p>
 <p><strong>Example:</strong></p>
 <pre><code>meshmapper://custom-api?url=data.myproject.org/ingest/wardrive&amp;key=sk_live_abc123def456
 </code></pre>
-<p>The user copies this link, opens MeshMapper Settings &gt; API Endpoints, and taps "Import from Clipboard." Both fields are populated instantly.</p>
+<p>The user copies this link, opens MeshMapper Settings &gt; API Endpoints, and taps "Import from Clipboard." Both fields are populated instantly. The endpoint settings can't be changed while an auto mode is running.</p>
 <h2 id="security-notes">Security Notes<a class="headerlink" href="#security-notes" title="Permanent link">¶</a></h2>
 <ul>
 <li><strong>HTTPS required</strong>: MeshMapper validates that the configured URL uses HTTPS. HTTP endpoints are rejected at the settings level.</li>
@@ -3482,7 +3530,7 @@
 </ul>
 <h2 id="rate-and-volume">Rate and Volume<a class="headerlink" href="#rate-and-volume" title="Permanent link">¶</a></h2>
 <ul>
-<li><strong>Batch frequency</strong>: Every 15-30 seconds during active wardriving (depends on auto-ping interval and batch timer).</li>
+<li><strong>Batch frequency</strong>: About 5 seconds after each TX, DISC, TRACE, DEFER or SCOPES item, and every 15 seconds otherwise (60 seconds on a constrained link). Offline session uploads arrive as a burst of up to 50 items per request.</li>
 <li><strong>Batch size</strong>: 1-50 ping objects per request (typically 1-10).</li>
 <li><strong>Session duration</strong>: Wardriving sessions commonly last 30 minutes to several hours.</li>
 <li><strong>Concurrent users</strong>: Plan for multiple users if distributing your endpoint URL. Each user sends independently.</li>

@@ -7,7 +7,7 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/zones-api/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/zones-api/">
       
       
         <link rel="prev" href="../coverage-api/">
@@ -392,14 +392,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-firmware/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    Native Firmware
   
 
     
@@ -428,6 +428,34 @@
     
   
     MeshCore-HA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meshcoretomqtt
   
 
     
@@ -2825,7 +2853,7 @@
 </tr>
 </tbody>
 </table>
-<p>Only enabled regions are listed. Regions that are pending or turned off never appear.</p>
+<p>Only enabled regions are listed. Regions that are pending or turned off never appear. A well-formed <code>country</code> with no regions returns 200 with <code>count: 0</code> and empty <code>zones</code> and <code>groups</code> arrays.</p>
 <h3 id="response">Response<a class="headerlink" href="#response" title="Permanent link">¶</a></h3>
 <pre><code class="language-json">{
   "generated_at": "2026-09-25T15:00:00Z",
@@ -2859,7 +2887,7 @@
 <tbody>
 <tr>
 <td><code>code</code></td>
-<td>Region code, uppercase. Usually three letters, but can be 2 to 6 letters or digits.</td>
+<td>Region code, uppercase, three letters or digits (e.g. <code>YOW</code>).</td>
 </tr>
 <tr>
 <td><code>name</code></td>
@@ -2883,16 +2911,16 @@
 </tr>
 <tr>
 <td><code>has_boundary</code></td>
-<td><code>true</code> when the region has a drawn boundary. When <code>false</code>, <code>get_geojson.php</code> returns the region with <code>geometry: null</code>.</td>
+<td><code>true</code> when a boundary is stored for the region. When <code>false</code>, <code>get_geojson.php</code> returns the region with <code>geometry: null</code>. In rare cases a stored boundary can't be used, so <code>get_geojson.php</code> may still return <code>geometry: null</code> when this is <code>true</code>.</td>
 </tr>
 <tr>
 <td><code>group</code></td>
-<td>The multi-region group this region belongs to (see <a href="../multiregions/">Multiregions</a>), or <code>null</code>.</td>
+<td>The first enabled group (lowest id) this region belongs to (see <a href="../multiregions/">Multiregions</a>), or <code>null</code>. A region in several groups shows only one.</td>
 </tr>
 </tbody>
 </table>
 <h3 id="group-fields">Group fields<a class="headerlink" href="#group-fields" title="Permanent link">¶</a></h3>
-<p><code>groups</code> lists each group that contains at least one of the listed regions. <code>members</code> is the group's full member list, which can include regions from other countries (<code>SEA</code> above).</p>
+<p><code>groups</code> lists the group shown in each listed region's <code>group</code> field. <code>members</code> is that group's enabled member list, which can include regions from other countries (<code>SEA</code> above).</p>
 <table>
 <thead>
 <tr>
@@ -2953,10 +2981,12 @@
 <li>Coordinates are <code>[longitude, latitude]</code>, as GeoJSON requires, rounded to 6 decimals (about 10 cm). The outline is never simplified.</li>
 <li>The geometry is always a single <code>Polygon</code>.</li>
 <li>A region with no drawn boundary has <code>"geometry": null</code> and <code>has_boundary: false</code>. MeshMapper doesn't draw a circle in its place, but <code>center</code> and <code>radius_km</code> are there if you want one.</li>
-<li><code>center</code> is <code>[longitude, latitude]</code> too.</li>
+<li><code>center</code> is <code>[longitude, latitude]</code> too. <code>radius_km</code> can be <code>null</code>.</li>
+<li>If the response is cut off mid-stream, the JSON is left unclosed on purpose. Treat a parse error as "retry".</li>
 </ul>
 <h2 id="caching">Caching<a class="headerlink" href="#caching" title="Permanent link">¶</a></h2>
-<p>Both endpoints send <code>Cache-Control: public, max-age=3600</code> and an <code>ETag</code>. To check for changes cheaply, send the <code>ETag</code> back in <code>If-None-Match</code>; you'll get <code>304 Not Modified</code> with no body if nothing changed. <code>generated_at</code> changes on every response and isn't part of the <code>ETag</code>.</p>
+<p>Both endpoints send <code>Cache-Control: public, max-age=3600</code> and an <code>ETag</code>. To check for changes cheaply, send the <code>ETag</code> back in <code>If-None-Match</code>; you'll get <code>304 Not Modified</code> with no body if nothing changed. <code>generated_at</code> changes on every response and isn't part of the <code>ETag</code>. A <code>304</code> still counts against the rate limit.</p>
+<p>Responses are gzip-compressed.</p>
 <h2 id="errors">Errors<a class="headerlink" href="#errors" title="Permanent link">¶</a></h2>
 <p>Errors are JSON: <code>{"error": "&lt;code&gt;"}</code>.</p>
 <table>

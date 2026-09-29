@@ -7,7 +7,7 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/app_wardriving_modes/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/app_wardriving_modes/">
       
       
         <link rel="prev" href="../app_tabs/">
@@ -392,14 +392,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-firmware/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    Native Firmware
   
 
     
@@ -428,6 +428,34 @@
     
   
     MeshCore-HA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meshcoretomqtt
   
 
     
@@ -2850,25 +2878,27 @@
 
 <h1 id="wardriving-modes">Wardriving Modes<a class="headerlink" href="#wardriving-modes" title="Permanent link">¶</a></h1>
 <p>MeshMapper offers four automated wardriving modes plus manual pinging. Each mode serves a different purpose, and choosing the right one depends on your goals and environment.</p>
+<p>While a mode runs, its button turns green with an <strong>Active</strong> label underneath, and the button text counts down what happens next: <strong>Next ping Ns</strong>, <strong>Next disc Ns</strong>, <strong>Listening Ns</strong>, <strong>Deferred Ns</strong>, <strong>Skipped Ns</strong> or <strong>Stopping Ns</strong>. A small <strong>Scopes</strong> badge appears on the running Passive or Hybrid button while <a href="../app_settings_reference/#scope-discovery">Scope Discovery</a> is asking repeaters for their scopes.</p>
 <hr>
 <h2 id="manual-ping">Manual Ping<a class="headerlink" href="#manual-ping" title="Permanent link">¶</a></h2>
 <p>The simplest way to wardrive. Tap the <strong>Send Ping</strong> button on the Map tab to send a single channel message to #wardriving.</p>
 <p><strong>What happens:</strong></p>
 <ol>
-<li>The app checks GPS, zone, and that the 15-second manual cooldown has elapsed. No minimum distance requirement for manual pings.</li>
+<li>The app checks that you have a TX slot, that your antenna and power level are set, that you have a GPS fix accurate to 100 m or better, that you are not airborne, and that the 15-second manual cooldown has passed. There is no minimum distance for manual pings. Whether you are inside a zone is checked by the server.</li>
 <li>A short message is encrypted and sent as a channel message to #wardriving. This message <strong>floods the entire mesh network</strong>. If a <strong>scope</strong> is configured, it is scoped to that region instead.</li>
-<li><strong>By default, the message does not contain your GPS position</strong> — it carries a short anonymous token, and your coordinates travel only to the MeshMapper server via the API. Anyone listening on the channel sees the token, not your location. (See <a href="../app_settings_reference/#broadcast-my-coordinates">Broadcast My Coordinates</a> to opt in to on-air coordinates.)</li>
+<li><strong>By default, the message does not contain your GPS position.</strong> It carries a short anonymous token, and your coordinates travel only to the MeshMapper server via the API. Anyone listening on the channel sees the token, not your location. (See <a href="../app_settings_reference/#broadcast-my-coordinates">Broadcast My Coordinates</a> to opt in to on-air coordinates.)</li>
 <li>The app listens for <strong>5 seconds</strong> for repeater echoes</li>
 <li>Echoes are matched (decrypted and compared to what you sent) and logged as "heard repeats"</li>
 <li>Ping and echo data are queued for upload</li>
 </ol>
-<p>Controls lock during the 5-second window and API upload.</p>
+<p>The controls unlock as soon as the 5-second window ends. The upload happens in the background. Send Ping itself then shows <strong>Cooldown</strong> until its 15 seconds are up.</p>
 <p><strong>When to use:</strong> Quick testing, spot-checking a specific location, or occasional pings.</p>
 <hr>
 <h2 id="hybrid-mode">Hybrid Mode<a class="headerlink" href="#hybrid-mode" title="Permanent link">¶</a></h2>
 <p><em>Thanks to HerculesMulligan for coming up with the idea for this mode.</em></p>
 <p>Hybrid Mode is the <strong>recommended default</strong> for wardriving. It alternates between channel messages (TX) and discovery requests at your configured interval.</p>
-<p><strong>To start:</strong> Tap the <strong>Hybrid Mode</strong> button in the Controls panel on the Map tab. (Hybrid is on by default. The button only appears while <strong>Flood Traffic</strong> is on under Settings &gt; Wardriving &gt; Modes, which is off on a fresh install. If Hybrid Mode is switched off there, this button shows as "Active Mode" instead.)</p>
+<p><strong>To start:</strong> Tap the <strong>Hybrid Mode</strong> button in the Controls panel on the Map tab. Hybrid is on by default. If Hybrid Mode is switched off under Settings &gt; Wardriving &gt; Modes, this button shows as "Active Mode" instead.</p>
+<p>The button only appears while <strong>Flood Traffic</strong> is on. Flood Traffic is off on a fresh install, but the app turns it on each time you connect in a region that allows flood traffic. The button is also hidden while your zone is full (see <a href="#tx-capacity-limits">TX Capacity Limits</a>).</p>
 <p><strong>What happens each interval (alternating):</strong></p>
 <ul>
 <li><strong>1</strong> Discovery request (direct query, does not flood the mesh)</li>
@@ -2879,26 +2909,26 @@
 </ul>
 <p><strong>What it produces:</strong> TX channel messages, discovery responses, and passive RX observations, all interleaved. The richest dataset of any mode.</p>
 <p><strong>Why Hybrid is the default:</strong> 50% fewer channel messages than Active Mode while also collecting discovery data. Better for mesh health and more useful coverage data.</p>
-<p><strong>Minimum distance:</strong> Enforced between pings (configurable in Settings, default 25m). Pings pause when stationary.</p>
-<p><strong>Regional enforcement:</strong> Enabled by default across all regions because we feel it provides the best balance between mesh load and data collected. Regional admins can disable Hybrid Mode for their zone via the admin portal if it doesn't suit their region.</p>
+<p><strong>Minimum distance:</strong> Enforced between pings (configurable in Settings, default 25m). Pings are skipped while you are stationary.</p>
+<p><strong>Regional enforcement:</strong> A regional admin can require Hybrid Mode for a radio preset ("Enforce Hybrid", off by default). When it is enforced, the Hybrid Mode switch in Settings is locked on.</p>
 <div class="admonition warning">
 <p class="admonition-title">Firmware requirement</p>
 <p>The discovery half requires repeater firmware <strong>1.10 or newer</strong>. Repeaters on older firmware will not respond to discovery requests, but will still echo your channel messages normally. TX pings work with any firmware version.</p>
 </div>
 <hr>
 <h2 id="passive-mode">Passive Mode<a class="headerlink" href="#passive-mode" title="Permanent link">¶</a></h2>
-<p>No channel messages (no mesh flooding at all). Sends <strong>discovery requests</strong> every 30 seconds and passively monitors mesh traffic.</p>
-<p><strong>To start:</strong> Tap the <strong>Passive Mode</strong> button (hearing icon) in the Controls panel.</p>
+<p>No channel messages (no mesh flooding at all). Sends <strong>discovery requests</strong> every 30 seconds and listens to other mesh traffic.</p>
+<p><strong>To start:</strong> Tap the <strong>Passive Mode</strong> button (ear icon) in the Controls panel.</p>
 <p><strong>What happens:</strong></p>
 <ol>
-<li>Every 30 seconds, sends a zero-hop discovery request (direct query, not a broadcast)</li>
+<li>Every 30 seconds, sends a zero-hop discovery request (direct query, not a broadcast). Like the other auto modes, it skips the request if you have not moved your minimum ping distance, and defers it in squares with recent coverage (<a href="#smart-pinging">Smart Pinging</a>).</li>
 <li>Repeaters/rooms respond with node type, public key, and signal quality (local + remote SNR/RSSI)</li>
-<li>Discovery Tracker collects responses during a 7-second window, deduplicates by public key, and filters carpeaters (RSSI stronger than -30 or by user-configured prefix value)</li>
-<li>Unified RX Handler monitors for mesh traffic on subscribed channels</li>
-<li>All discovery responses and RX observations queued for upload</li>
+<li>Responses are collected for 7 seconds and deduplicated by public key. CARpeaters are filtered out: anything received at -30 dBm or stronger, your own CARpeater (matched by its full public key), and any CARpeater on your region's shared list.</li>
+<li>The app also listens to other mesh traffic it hears (RX)</li>
+<li>All discovery responses and RX observations are queued for upload</li>
 </ol>
 <p><strong>What it produces:</strong> Discovery data (which repeaters are in direct range, bidirectional signal quality) and passive RX observations.</p>
-<p><strong>When to use:</strong> Map repeater locations without flooding the mesh. Also the only mode available when your zone is at TX capacity (see <a href="#tx-capacity-limits">TX Capacity Limits</a>).</p>
+<p><strong>When to use:</strong> Map repeater locations without flooding the mesh. Also available when your zone is at TX capacity (see <a href="#tx-capacity-limits">TX Capacity Limits</a>).</p>
 <div class="admonition warning">
 <p class="admonition-title">Firmware requirement</p>
 <p>Discovery requests require repeater firmware <strong>1.10 or newer</strong>. Repeaters on older firmware will not respond, so Passive Mode (and the discovery half of Hybrid Mode) will not detect them.</p>
@@ -2907,29 +2937,31 @@
 <h2 id="active-mode">Active Mode<a class="headerlink" href="#active-mode" title="Permanent link">¶</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Legacy mode</p>
-<p>Hybrid Mode has replaced Active Mode as the default and is recommended for all wardriving. Active Mode is kept for backward compatibility but Hybrid produces richer data with less mesh traffic. To use Active Mode, disable Hybrid Mode in Settings &gt; Wardriving &gt; Modes.</p>
+<p>Hybrid Mode has replaced Active Mode as the default and is recommended for all wardriving. Active Mode is kept for backward compatibility but Hybrid produces richer data with less mesh traffic. To use Active Mode, turn off Hybrid Mode in Settings &gt; Wardriving &gt; Modes (not possible where your region enforces Hybrid).</p>
 </div>
 <p>Sends only channel messages (no discovery requests) at a regular interval (15, 30, or 60 seconds).</p>
 <p><strong>What happens each interval:</strong></p>
 <ol>
-<li>Checks GPS freshness and minimum distance requirement</li>
+<li>Checks your GPS fix and the minimum distance</li>
 <li>If you haven't moved far enough (based on Settings, default 25m), the ping is skipped</li>
 <li>Channel message sent (floods mesh or scoped) + 5-second echo listening window</li>
-<li>Unified RX Handler monitors for passive mesh traffic</li>
+<li>The app also listens to other mesh traffic it hears (RX)</li>
 <li>All data (TX + RX) queued for upload</li>
 </ol>
 <p><strong>What it produces:</strong> TX data (location, repeater echoes, SNR/RSSI) and passive RX observations.</p>
 <hr>
 <h2 id="trace-mode">Trace Mode<a class="headerlink" href="#trace-mode" title="Permanent link">¶</a></h2>
 <p>Targets a <strong>specific repeater</strong> by hex ID for focused signal testing.</p>
-<p><strong>To start:</strong> Tap the <strong>Trace Mode</strong> button (crosshair icon). Enter or select a repeater's hex ID.</p>
-<p><strong>What happens each interval:</strong>
-1. Sends a zero-hop trace path command to the target repeater
-2. Trace Tracker listens <strong>5 seconds</strong> for a response
-3. If the repeater responds: logs RX SNR, RX RSSI, and remote (TX) SNR
-4. Successful traces → posted to API. Failed traces → logged locally, shown as grey markers on noise floor graph.</p>
+<p><strong>To start:</strong> In the Trace row under the mode buttons (route icon), type the repeater's hex ID or tap the list button to choose it, then tap <strong>Trace Mode</strong>. The ID length follows your <a href="../app_settings_reference/#trace-bytes">Trace Bytes</a> setting.</p>
+<p><strong>What happens each interval:</strong></p>
+<ol>
+<li>Sends a zero-hop trace path command to the target repeater, at your auto-ping interval. Traces are skipped until you have moved your minimum ping distance.</li>
+<li>The app listens <strong>5 seconds</strong> for a response</li>
+<li>If the repeater responds: logs RX SNR, RX RSSI, and remote (TX) SNR</li>
+<li>Successful traces are uploaded. Failed traces are logged on the phone only, and show as grey markers on the noise floor graph.</li>
+</ol>
 <p><strong>What it produces:</strong> Point-to-point signal quality over time and distance.</p>
-<p><strong>When to use:</strong> Antenna alignment, evaluating a specific repeater's coverage, diagnosing signal quality to a particular node.</p>
+<p><strong>When to use:</strong> Antenna alignment, evaluating a specific repeater's coverage, diagnosing signal quality to a particular node. Trace Mode also works when your zone is full or your region has turned flood traffic off.</p>
 <hr>
 <h2 id="smart-pinging">Smart Pinging<a class="headerlink" href="#smart-pinging" title="Permanent link">¶</a></h2>
 <p>Smart Pinging holds back auto pings in squares that MeshMapper has already mapped recently, so your airtime goes where it adds something new. It is <strong>on by default</strong> and applies to Hybrid, Passive and Active modes.</p>
@@ -2940,6 +2972,7 @@
 <li>The deferred ping is kept, not dropped. As soon as you reach a square with no recent coverage (and have moved your minimum ping distance), it goes out and the interval restarts.</li>
 <li>Only one ping is ever held. If the next interval is deferred too, it takes the place of the one waiting.</li>
 </ol>
+<p>Each deferral leaves a hollow circle on the map. You can hide these with <strong>Show Deferred Markers</strong> in Settings.</p>
 <p><strong>What counts as covered:</strong> a square with a green or cyan result inside your Smart Pinging window (default 14 days). Squares follow your <a href="../app_settings_reference/#grid-mode">Grid Mode</a> setting, so what is deferred is exactly what is already painted on the map.</p>
 <p><strong>Never deferred:</strong></p>
 <ul>
@@ -2950,28 +2983,27 @@
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Deferred is not Skipped</p>
-<p>A ping that fails the minimum distance rule reads "Skipped" and is dropped. A deferred ping reads "Deferred" and is still owed. A square that is both covered and too close reads "Deferred".</p>
+<p>A ping that fails the minimum distance rule reads "Skipped" and is dropped. A deferred ping reads "Deferred" and is still owed.</p>
 </div>
 <p><strong>You keep your points.</strong> Every square where a ping was held is reported to MeshMapper, checked against the region's own coverage data, and credited at <strong>1.5 points</strong> once verified (once per 300m square per session). Verified squares also count toward the Airtime awards and the Top Airtime Savers leaderboard. See <a href="../leaderboards/#top-airtime-savers">Top Airtime Savers</a>.</p>
-<p>To turn Smart Pinging off or change the window, see <a href="../app_settings_reference/#smart-pinging">Smart Pinging</a> in the Settings Reference. Regional admins can enforce it for their zone, in which case the switch is locked on.</p>
+<p>To turn Smart Pinging off or change the window, see <a href="../app_settings_reference/#smart-pinging">Smart Pinging</a> in the Settings Reference. Regional admins can enforce it for their zone, in which case the switch is locked on and the window is the region's.</p>
 <hr>
 <h2 id="tx-capacity-limits">TX Capacity Limits<a class="headerlink" href="#tx-capacity-limits" title="Permanent link">¶</a></h2>
-<p>Regional admins set a <strong>maximum number of active TX wardrivers</strong> per zone (for example, 5). This prevents too many users from flooding the mesh simultaneously.</p>
+<p>Regional admins set a <strong>maximum number of active TX wardrivers</strong> (slots) for each radio preset in their region. This prevents too many users from flooding the mesh at once. A preset the admin has not set up gets 0 slots, flood traffic turned off and a 60-second minimum interval.</p>
 <div class="admonition note">
 <p class="admonition-title">Regions can disable flood traffic entirely</p>
-<p>Some regions disable flood (TX) wardriving traffic altogether. In those zones the Active/Hybrid/Send Ping controls are locked off (the <strong>Flood Traffic</strong> setting shows as set by the regional admin) and Passive and Trace modes are the available options.</p>
+<p>Some regions disable flood (TX) wardriving traffic altogether. In those zones the <strong>Flood Traffic</strong> setting is locked off and shows as set by the regional admin, the Active/Hybrid and Send Ping buttons are hidden, and Passive and Trace modes are the available options.</p>
 </div>
 <p><strong>When the zone is at capacity:</strong></p>
 <ul>
-<li><strong>Manual Ping, Hybrid Mode, and Active Mode are disabled</strong> (they all send TX channel messages)</li>
-<li><strong>Passive Mode is the only option</strong> (discovery requests don't flood the mesh)</li>
-<li>The app indicates TX is not allowed for your session</li>
+<li><strong>Send Ping and the Hybrid / Active Mode button are hidden</strong> (they all send TX channel messages)</li>
+<li><strong>Passive Mode and Trace Mode still work</strong></li>
+<li>Tapping the zone chip in the Map tab's status bar explains that the zone is at capacity</li>
 </ul>
 <p><strong>To get a TX slot:</strong></p>
 <ul>
 <li>Wait for another wardriver to disconnect and free up a slot</li>
-<li>New sessions will be granted TX access</li>
-<li>If already connected in Passive Mode, disconnect and reconnect to pick up a slot</li>
+<li>Slots are handed out when a session starts, so disconnect and reconnect to pick one up</li>
 </ul>
 <hr>
 <h2 id="which-mode-should-i-use">Which Mode Should I Use?<a class="headerlink" href="#which-mode-should-i-use" title="Permanent link">¶</a></h2>
@@ -2997,7 +3029,7 @@
 </tr>
 <tr>
 <td>Zone at TX capacity</td>
-<td>Passive Mode (only option)</td>
+<td>Passive Mode (or Trace Mode)</td>
 </tr>
 <tr>
 <td>Testing signal to a specific repeater</td>
@@ -3012,27 +3044,27 @@
 <hr>
 <h2 id="stopping-auto-ping">Stopping Auto-Ping<a class="headerlink" href="#stopping-auto-ping" title="Permanent link">¶</a></h2>
 <ul>
-<li>Tap the active mode button again (shows as "running" with a pulsing animation)</li>
-<li>Brief cooldown after stopping Active or Hybrid Mode to prevent accidental toggling</li>
-<li>If "Auto-Stop After Idle" is enabled: auto-ping stops after <strong>30 minutes</strong> without GPS movement</li>
+<li>Tap the running mode button again (green, with <strong>Active</strong> under it). If a listening window is still open, the button reads <strong>Stopping</strong> until it ends.</li>
+<li>After stopping Active or Hybrid Mode there is a 5-second cooldown to prevent accidental toggling</li>
+<li>If "Auto-Stop After Idle" is enabled (the default): auto-ping stops after <strong>30 minutes</strong> without movement. Moving means leaving a 150 m circle around where you stopped, on 3 GPS fixes in a row.</li>
 </ul>
 <hr>
 <h2 id="data-flow">Data Flow<a class="headerlink" href="#data-flow" title="Permanent link">¶</a></h2>
 <p>Regardless of mode, all data follows the same pipeline:</p>
 <ol>
 <li><strong>Ping event</strong> (TX, RX, DISC, or Trace)</li>
-<li><strong>Logged in app</strong> (Log tab + marker on Graph)</li>
-<li><strong>Queued for upload</strong> (persistent Hive-based queue)</li>
-<li><strong>Batch uploaded</strong> (up to 50 items, auto-flush every 15 seconds)</li>
+<li><strong>Logged in app</strong> (Log tab, and the noise floor graph in the History tab)</li>
+<li><strong>Queued for upload</strong> (a queue saved on the phone)</li>
+<li><strong>Batch uploaded</strong> (up to 50 items per batch). Pings are sent within about 5 seconds, other items about every 15 seconds. On a slow link, such as satellite, both stretch to 60 seconds.</li>
 <li><strong>Appears on meshmapper.net</strong> (community coverage map)</li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>RX observations have an extra buffering step: grouped by repeater ID, flushed to upload queue when you move 25m or after 30 seconds, whichever comes first.</p>
+<p>RX observations have an extra buffering step: grouped by repeater ID, flushed to the upload queue when you move 25m or after 30 seconds, whichever comes first. At most 4 RX observations per repeater go into each batch.</p>
 </div>
 <hr>
 <h2 id="sound-notifications">Sound Notifications<a class="headerlink" href="#sound-notifications" title="Permanent link">¶</a></h2>
-<p>If enabled (Settings &gt; General &gt; Sound Notifications):</p>
+<p>Off by default. If enabled (Settings &gt; General &gt; Sound Notifications):</p>
 <ul>
 <li><strong>TX sent or Discovery sent:</strong> Transmitted packet sound</li>
 <li><strong>Repeater echo or RX received:</strong> Received packet sound</li>

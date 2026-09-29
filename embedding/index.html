@@ -7,7 +7,7 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/embedding/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/embedding/">
       
       
         <link rel="prev" href="../portal/">
@@ -392,14 +392,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-firmware/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    Native Firmware
   
 
     
@@ -428,6 +428,34 @@
     
   
     MeshCore-HA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meshcoretomqtt
   
 
     
@@ -1383,6 +1411,17 @@
     <span class="md-ellipsis">
       
         Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whats-in-the-grid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's in the Grid
       
     </span>
   </a>
@@ -2906,6 +2945,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#whats-in-the-grid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's in the Grid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#notes_1" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3044,7 +3094,7 @@
 </tr>
 <tr>
 <td><code>rep_coverage</code></td>
-<td>Repeater coverage lines</td>
+<td>Repeater max-range circles</td>
 <td><code>0</code> (off)</td>
 </tr>
 <tr>
@@ -3069,11 +3119,28 @@
 <td><code>geofence</code></td>
 <td><code>0</code> or <code>1</code></td>
 <td>Auto</td>
-<td>Limits loaded data to a 5 km radius around the center. Automatically enabled when <code>lat</code>/<code>lon</code> are provided. Set <code>geofence=0</code> to load all region data instead.</td>
+<td>Limits loaded data to a 5 km radius. Turns on automatically when <code>lat</code>/<code>lon</code> are provided. <code>geofence=0</code> turns it off. <code>geofence=1</code> forces it on around the region centre.</td>
+</tr>
+<tr>
+<td><code>cvd</code></td>
+<td>string</td>
+<td><code>none</code></td>
+<td>Colour vision palette: <code>none</code>, <code>protanopia</code>, <code>deuteranopia</code>, <code>tritanopia</code> or <code>achromatopsia</code>.</td>
+</tr>
+<tr>
+<td><code>preset</code></td>
+<td><code>freq,bw,sf</code></td>
+<td>all</td>
+<td>Show only one radio preset, e.g. <code>?preset=910.525,62.5,7</code>. Leave it out, or use <code>all</code>, to show everything.</td>
+</tr>
+<tr>
+<td><code>dir</code></td>
+<td>any value</td>
+<td>off</td>
+<td>With <code>lat</code>/<code>lon</code>, shows a car icon at the centre of the map (e.g. <code>&amp;dir=1</code>).</td>
 </tr>
 </tbody>
 </table>
-<p>Embedded maps support colour vision palettes via the <code>?cvd=</code> URL parameter (e.g., <code>?cvd=protanopia</code>).</p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">¶</a></h2>
 <p><strong>Center on a specific location at zoom 14:</strong></p>
 <pre><code>https://yow.meshmapper.net/embed.php?lat=45.4034&amp;lon=-75.7258&amp;zoom=14
@@ -3089,6 +3156,7 @@
 <li>The embed is <strong>read-only</strong> — there are no interactive popups, layer toggles, or controls.</li>
 <li>A small "Open on <strong>MeshMapper</strong>" link appears in the bottom-left corner, linking viewers to the full map.</li>
 <li>When <code>lat</code> and <code>lon</code> are provided, the embed automatically geofences data to a 5 km radius for faster loading. Use <code>geofence=0</code> to override this.</li>
+<li>The embed needs a browser with WebGL.</li>
 </ul>
 <hr>
 <h2 id="repeater-id-grid">Repeater ID Grid<a class="headerlink" href="#repeater-id-grid" title="Permanent link">¶</a></h2>
@@ -3121,7 +3189,13 @@
 <td><code>mode</code></td>
 <td><code>light</code> or <code>dark</code></td>
 <td><code>light</code></td>
-<td>Sets the initial colour scheme. Users can also toggle between modes using the button in the header.</td>
+<td><code>mode=dark</code> starts in dark mode; anything else starts in light mode. Users can also switch modes with the button in the header.</td>
+</tr>
+<tr>
+<td><code>preset</code></td>
+<td><code>freq,bw,sf</code></td>
+<td>all</td>
+<td>Show only one radio preset, e.g. <code>?preset=910.525,62.5,7</code>. Leave it out, or use <code>all</code>, to show everything.</td>
 </tr>
 </tbody>
 </table>
@@ -3129,11 +3203,20 @@
 <p><strong>Embed the repeater grid in dark mode:</strong></p>
 <pre><code>https://yow.meshmapper.net/embed_repeaters.php?mode=dark
 </code></pre>
+<h3 id="whats-in-the-grid">What's in the Grid<a class="headerlink" href="#whats-in-the-grid" title="Permanent link">¶</a></h3>
+<p>The embed shows a <strong>Repeater ID Usage</strong> header, a search box, and filter chips: <strong>All</strong>, <strong>MB</strong>, <strong>Ambiguous</strong>, <strong>2-Byte</strong>, <strong>3-Byte</strong> and <strong>No Location</strong>.</p>
+<p>Cell colours:</p>
+<ul>
+<li><strong>Green</strong>: available</li>
+<li><strong>Blue</strong>: deployed</li>
+<li><strong>Red</strong>: conflict</li>
+<li><strong>Dark</strong>: reserved</li>
+</ul>
 <h3 id="notes_1">Notes<a class="headerlink" href="#notes_1" title="Permanent link">¶</a></h3>
 <ul>
 <li>Clicking a grid cell opens a popup showing whether the ID prefix is available, deployed, in conflict, or reserved, along with the repeater(s) that occupy it.</li>
 <li>A "View on <strong>MeshMapper</strong>" link at the bottom opens the full repeater list on the region's map.</li>
-<li>The grid is only available for regions using 1-byte repeater IDs. Multibyte regions will see a "Coming Soon" message instead.</li>
+<li>The grid works in every region. Conflicts take into account whether each repeater supports multi-byte IDs.</li>
 </ul>
 
 

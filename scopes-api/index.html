@@ -7,7 +7,7 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/scopes-api/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/scopes-api/">
       
       
         <link rel="prev" href="../zones-api/">
@@ -392,14 +392,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-firmware/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    Native Firmware
   
 
     
@@ -428,6 +428,34 @@
     
   
     MeshCore-HA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meshcoretomqtt
   
 
     
@@ -2756,7 +2784,7 @@
 </code></pre>
 <ul>
 <li>On a <strong>region</strong> site: that region's own repeaters.</li>
-<li>On a <strong>group</strong> site (e.g. <code>pnw.meshmapper.net</code>): every enabled member region's repeaters, combined.</li>
+<li>On a <strong>group</strong> site (e.g. <code>pnw.meshmapper.net</code>): every enabled member region's repeaters, combined. A repeater carried by several members is counted once.</li>
 </ul>
 <p>There are no parameters.</p>
 <div class="admonition note">
@@ -2808,7 +2836,7 @@
 </tr>
 <tr>
 <td><code>scopes</code></td>
-<td>One entry per scope name seen on this page, plus every name on the region's Scopes to Monitor list or set as its Wardriving Scope, even at zero repeaters. Sorted by <code>repeaters</code> highest first, then by name.</td>
+<td>One entry per scope name seen on this page's repeaters, plus every name on the region's monitored list (see <code>monitored</code> below) or set as its Wardriving Scope, even at zero repeaters. Sorted by <code>repeaters</code> highest first, then by name.</td>
 </tr>
 </tbody>
 </table>
@@ -2835,17 +2863,18 @@
 </tr>
 <tr>
 <td><code>monitored</code></td>
-<td><code>true</code> when this name is on the region's Scopes to Monitor list right now.</td>
+<td><code>true</code> when MeshMapper is watching for this name right now: the region's Scopes to Monitor list, which automatically includes its Wardriving Scope and scopes its repeaters have reported (up to 48 names).</td>
 </tr>
 <tr>
 <td><code>wardriving</code></td>
-<td><code>true</code> when this is the region's configured Wardriving Scope, the name it asks wardrivers' apps to use.</td>
+<td><code>true</code> when this is a configured Wardriving Scope of this region (on a group site, of any member), the name it asks wardrivers' apps to use.</td>
 </tr>
 </tbody>
 </table>
 <p>Names and counts only. There is no per-repeater list, no repeater ID, and no key of any kind in this response.</p>
 <h2 id="caching">Caching<a class="headerlink" href="#caching" title="Permanent link">¶</a></h2>
-<p>Sends <code>Cache-Control: public, max-age=300</code> and a strong <code>ETag</code>. Send the <code>ETag</code> back in <code>If-None-Match</code> to get <code>304 Not Modified</code> with no body when nothing changed. <code>generated_at</code> isn't part of the <code>ETag</code>.</p>
+<p>Sends <code>Cache-Control: public, max-age=300</code> and a strong <code>ETag</code>. Send the <code>ETag</code> back in <code>If-None-Match</code> to get <code>304 Not Modified</code> with no body when nothing changed. <code>generated_at</code> isn't part of the <code>ETag</code>. A <code>304</code> still counts against the rate limit.</p>
+<p>Responses are gzip-compressed.</p>
 <h2 id="errors">Errors<a class="headerlink" href="#errors" title="Permanent link">¶</a></h2>
 <p>Errors are JSON: <code>{"error": "&lt;code&gt;"}</code>.</p>
 <table>

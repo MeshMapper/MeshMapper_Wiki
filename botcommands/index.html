@@ -7,7 +7,7 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/botcommands/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/botcommands/">
       
       
         <link rel="prev" href="../systemstatus/">
@@ -392,14 +392,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-firmware/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    Native Firmware
   
 
     
@@ -428,6 +428,34 @@
     
   
     MeshCore-HA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meshcoretomqtt
   
 
     
@@ -2695,10 +2723,10 @@
 
 
 <h1 id="meshmapper-bot-commands">MeshMapper Bot Commands<a class="headerlink" href="#meshmapper-bot-commands" title="Permanent link">¶</a></h1>
-<p>The MeshMapper Discord bot responds to commands when tagged in a message. Commands can be issued using the <code>!</code> prefix or by asking in natural language — the bot will detect your intent automatically.</p>
+<p>The MeshMapper Discord bot responds to commands starting with <code>!</code> and to questions when it's tagged. You can use a command, or ask in natural language and the bot will work out what you mean.</p>
 <p>For example, both of these work:</p>
 <ul>
-<li><code>@MeshMapper !settings YOW</code></li>
+<li><code>!settings YOW</code></li>
 <li><code>@MeshMapper what are the settings for YOW?</code></li>
 </ul>
 <hr>
@@ -2717,19 +2745,19 @@
 </tr>
 <tr>
 <td><code>!status {IATA}</code></td>
-<td>Displays the status of a region. For pending regions, shows MQTT verification status. For active/inactive regions, shows data point, repeater, and observer counts.</td>
+<td>Displays the status of a region (you can also use its name). For pending regions, shows MQTT verification status. For active/inactive regions, shows data point, repeater, and observer counts.</td>
 </tr>
 <tr>
 <td><code>!settings {IATA}</code></td>
-<td>Displays the region's configuration settings including hop bytes, flood traffic, hybrid mode, stale repeater age, duplicate ID detection, and RX channels.</td>
+<td>Displays the region's settings: max wardriving sessions, flood traffic, enforce hybrid mode, min active/hybrid interval, stale repeater age, new repeaters enter pending, duplicate ID detection, failed DISC as DROP, hop bytes, and RX channels.</td>
 </tr>
 <tr>
 <td><code>!admins {IATA}</code></td>
-<td>Lists the administrators for a region along with their contact information.</td>
+<td>Lists the administrators for a region. For contact details, use <strong>Region Info</strong> on the region's map.</td>
 </tr>
 <tr>
 <td><code>!bug {description}</code></td>
-<td>Submits a bug report to GitHub. Can also reply to a message to use its content as the description. The bot first asks you to confirm (react ✅) after checking the <a href="../troubleshooting/">Troubleshooting</a> page. The bot uses AI to generate a concise title. Rate limited to 5 per user per hour.</td>
+<td>Submits a bug report to GitHub. Can also reply to a message to use its content as the description. The bot first asks you to confirm (react ✅) after checking the <a href="../troubleshooting/">Troubleshooting</a> page. The confirmation times out after 2 minutes. The bot uses AI to generate a concise title. Rate limited to 5 per user per hour.</td>
 </tr>
 <tr>
 <td><code>!issue {description}</code></td>
@@ -2745,7 +2773,7 @@
 </tr>
 <tr>
 <td><code>!myissues</code></td>
-<td>Lists your bug reports and feature requests that were submitted through the bot and their current status.</td>
+<td>Lists up to 15 of your bug reports and feature requests submitted through the bot, with their status. Issues submitted through the website form aren't included.</td>
 </tr>
 </tbody>
 </table>
@@ -2761,13 +2789,13 @@
 <li><code>@MeshMapper how do multi-byte repeaters work?</code></li>
 </ul>
 <p>The bot can also be messaged directly (DM) without needing to tag it.</p>
-<p>The bot's wiki knowledge refreshes automatically (it re-reads the wiki every few hours), so recently updated documentation makes its way into answers without any manual step.</p>
+<p>The bot's wiki knowledge refreshes automatically (it re-reads the wiki every 4 hours), so recently updated documentation makes its way into answers without any manual step.</p>
 <h2 id="commenting-on-issues">Commenting on Issues<a class="headerlink" href="#commenting-on-issues" title="Permanent link">¶</a></h2>
-<p>After submitting a bug report or feature request, anyone can add comments to the GitHub issue by simply replying to the bot's response message in Discord. The bot will automatically add your reply as a comment on the corresponding GitHub issue, with a link back to your Discord message. A ✅ reaction confirms the comment was added successfully.</p>
-<p>It works in the other direction too: when your issue is commented on, closed, reopened, or labelled on GitHub, the bot posts an update back into the original Discord thread — so you'll see progress on your report without leaving Discord.</p>
+<p>After submitting a bug report or feature request, anyone can add comments to the GitHub issue by replying to the bot's message that contains the issue link. The bot will automatically add your reply as a comment on the corresponding GitHub issue, with a link back to your Discord message. A ✅ reaction confirms the comment was added; ❌ means it failed.</p>
+<p>It works in the other direction too: when your issue is commented on, labelled or closed on GitHub, the bot posts an update back into the original Discord thread — so you'll see progress on your report without leaving Discord.</p>
 <h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">¶</a></h2>
 <ul>
-<li>All commands require the bot to be tagged (e.g. <code>@MeshMapper !status YOW</code>), except in DMs where tagging is not required.</li>
+<li>Commands starting with <code>!</code> work without tagging the bot. Natural-language requests and general questions need the bot to be tagged, except in DMs.</li>
 <li>When submitting bugs or features by replying to a message, the "Submitted by" field credits the original poster, not the person who tagged the bot.</li>
 <li>Replying to a bug or feature request does not require tagging the bot.</li>
 </ul>

@@ -7,7 +7,7 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/systemstatus/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/systemstatus/">
       
       
         <link rel="prev" href="../reportbugs/">
@@ -392,14 +392,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-firmware/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    Native Firmware
   
 
     
@@ -428,6 +428,34 @@
     
   
     MeshCore-HA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meshcoretomqtt
   
 
     
@@ -2629,15 +2657,11 @@
 
 
 <h1 id="system-status">System Status<a class="headerlink" href="#system-status" title="Permanent link">¶</a></h1>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The live status dashboard that used to be embedded on this page has been retired.</p>
-</div>
 <h2 id="checking-meshmapper-status">Checking MeshMapper Status<a class="headerlink" href="#checking-meshmapper-status" title="Permanent link">¶</a></h2>
 <ul>
 <li><strong>Discord</strong> — Outages and scheduled maintenance are announced in the <a href="https://discord.gg/tyXbecdxgr">MeshMapper Discord server</a>. This is the fastest place to check whether an issue is already known.</li>
-<li><strong>Maintenance mode</strong> — When MeshMapper is undergoing maintenance, the wardriving app displays a maintenance message with details. You can continue wardriving in <a href="../app_connection_guide/#offline-mode">Offline Mode</a> and upload your sessions once service is restored.</li>
-<li><strong>Your region's ingestion</strong> — If the platform is up but your region's data seems stale, check <strong>Region Info → Observers</strong> on your region's map to see whether your region's MQTT observers are online, or ask the Discord bot: <code>@MeshMapper !status YOW</code>.</li>
+<li><strong>Maintenance mode</strong> — During maintenance the map shows an <strong>Under Maintenance</strong> page (a warning banner may appear on the map beforehand), and the wardriving app shows a maintenance message. You can keep wardriving in <a href="../app_connection_guide/#offline-mode">Offline Mode</a> and upload your sessions once service is restored. Individual regions can also pause wardriving, in which case the app shows the region's message.</li>
+<li><strong>Your region's ingestion</strong> — If the platform is up but your region's data seems stale, open <strong>Region → Observers</strong> on your region's map to see whether its MQTT observers are online. The Discord bot's <code>!status YOW</code> shows the region's status and its data, repeater and observer counts (not whether observers are online right now).</li>
 </ul>
 <p>If you're seeing a problem that isn't announced anywhere, please report it — see <a href="../reportbugs/">Report Bugs &amp; Features</a>.</p>
 

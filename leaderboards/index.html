@@ -7,7 +7,7 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/leaderboards/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/leaderboards/">
       
       
         <link rel="prev" href="../app_third_party_api/">
@@ -392,14 +392,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-firmware/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    Native Firmware
   
 
     
@@ -428,6 +428,34 @@
     
   
     MeshCore-HA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meshcoretomqtt
   
 
     
@@ -1167,27 +1195,16 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#user-leaderboards" class="md-nav__link">
+  <a href="#wardriver-leaderboards" class="md-nav__link">
     <span class="md-ellipsis">
       
-        User Leaderboards
+        Wardriver Leaderboards
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="User Leaderboards">
+    <nav class="md-nav" aria-label="Wardriver Leaderboards">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#top-explorers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Top Explorers
-      
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#top-airtime-savers" class="md-nav__link">
@@ -1239,6 +1256,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1249,17 +1277,6 @@
     <span class="md-ellipsis">
       
         Global Leaderboard
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#contests" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Contests
       
     </span>
   </a>
@@ -2712,27 +2729,16 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#user-leaderboards" class="md-nav__link">
+  <a href="#wardriver-leaderboards" class="md-nav__link">
     <span class="md-ellipsis">
       
-        User Leaderboards
+        Wardriver Leaderboards
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="User Leaderboards">
+    <nav class="md-nav" aria-label="Wardriver Leaderboards">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#top-explorers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Top Explorers
-      
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#top-airtime-savers" class="md-nav__link">
@@ -2784,6 +2790,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2794,17 +2811,6 @@
     <span class="md-ellipsis">
       
         Global Leaderboard
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#contests" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Contests
       
     </span>
   </a>
@@ -2829,86 +2835,61 @@
 
 
 <h1 id="leaderboards-statistics">Leaderboards &amp; Statistics<a class="headerlink" href="#leaderboards-statistics" title="Permanent link">¶</a></h1>
-<p>The Leaderboard page provides a real-time statistical overview of a regions performance, user contributions, and repeater capabilities.</p>
+<p>Each region has a Leaderboard page (<strong>Region → Leaderboard</strong>) with statistics about the region, its wardrivers and its repeaters. There's also a <a href="#global-leaderboard">Global Leaderboard</a> across every region.</p>
+<p>Leaderboards are refreshed <strong>once a day</strong>, so recent pings can take up to 24 hours to show up. The page shows when it was last updated.</p>
 <h2 id="region-statistics">Region Statistics<a class="headerlink" href="#region-statistics" title="Permanent link">¶</a></h2>
-<p>At the top of the page, you will find high-level metrics for the current region. Leaderboard data is cached and regenerated about <strong>once a day</strong>, so recent contributions can take up to 24 hours to appear.</p>
+<p>The <strong>Stats</strong> card at the top of the page:</p>
 <ul>
-<li><strong>Total Data Points</strong>: The aggregate number of valid pings collected in the database.</li>
-<li><strong>Ping Breakdown</strong>:<ul>
-<li><strong>Bidirectional (Green)</strong>: Confirmed two-way links.</li>
-<li><strong>TX Only (Orange)</strong>: Packets sent by the user and heard by the mesh, but no confirmation was received back.</li>
-<li><strong>RX Only (Purple)</strong>: Packets heard by the user (e.g., telemetry), but the user did not transmit.</li>
-<li><strong>Discovery (Cyan)</strong>: Node discovery packets.</li>
-<li><strong>Dead/Dropped</strong>: Failed packets or those that hit a repeater but did not route further.</li>
+<li><strong>Total Data Points</strong>: every ping collected in the region (all types).</li>
+<li><strong>Ping breakdown</strong>: <strong>Bidirectional</strong> (green), <strong>TX Only</strong> (orange), <strong>RX Only</strong> (purple), <strong>Discovery</strong> (cyan, including TRACE), <strong>Dead</strong> (grey) and <strong>Dropped</strong> (red). See <a href="../visuals/#ping-types-defined">Ping Types</a>.</li>
+<li><strong>Active Repeaters</strong>: repeaters on the map, including Ambiguous ones. Disabled and Inactive repeaters aren't counted.</li>
+<li><strong>Estimated Coverage</strong>: the share of mapped grid squares with working coverage (BIDIR, TX, RX, DISC or TRACE). Squares with only DEAD or DROP pings count as not covered.</li>
+<li><strong>Contributors</strong>: how many different wardrivers have contributed.</li>
+<li><strong>Total Grid Squares</strong>: how many 300 m squares have at least one ping. This always uses the 300 m grid, whatever your Grid Mode setting.</li>
+</ul>
+<h2 id="wardriver-leaderboards">Wardriver Leaderboards<a class="headerlink" href="#wardriver-leaderboards" title="Permanent link">¶</a></h2>
+<p>Each board shows the top 10.</p>
+<p><strong>Points</strong>: 1 point per ping, plus <strong>1.5 points</strong> for each square where the app's Smart Pinging saved a ping (see <a href="#top-airtime-savers">Top Airtime Savers</a>).</p>
+<ul>
+<li><strong>Top Contributors (7 Days)</strong>: points from the last 7 days.</li>
+<li><strong>All Time Legends</strong>: every point ever earned in the region.</li>
+<li><strong>Top Explorers</strong>: how many different 300 m squares you've pinged in. Being first doesn't matter.</li>
+<li><strong>Top Pioneers</strong>: squares you pinged <strong>before anyone else</strong>. One person per square, forever.</li>
+<li><strong>Top Airtime Savers</strong>: see below.</li>
+<li><strong>Most Repeaters Administered</strong>: active repeaters this person has logged in to as admin from the app.</li>
+</ul>
+<p>The top three places show their rank in <strong>gold</strong>, <strong>silver</strong> and <strong>bronze</strong>.</p>
+<p>Wardrivers are listed by device, or by their <strong>My MeshMapper</strong> account if they've linked one (all of an account's devices are combined into one row, with a 🔗 badge). Wardrivers without a name show as <strong>Anonymous</strong> and aren't ranked. Click <strong>Profiles</strong> to look up a wardriver's stats and <a href="../awards/">awards</a>.</p>
+<h3 id="top-airtime-savers">Top Airtime Savers<a class="headerlink" href="#top-airtime-savers" title="Permanent link">¶</a></h3>
+<p>When the app's <a href="../app_wardriving_modes/#smart-pinging">Smart Pinging</a> skips a ping because a square already has recent good coverage, that square earns <strong>1.5 points</strong> once it's verified against the region's coverage. Each square counts once per session. This board ranks wardrivers by those points alone; they're also included in the totals above.</p>
+<h2 id="repeater-leaderboards">Repeater Leaderboards<a class="headerlink" href="#repeater-leaderboards" title="Permanent link">¶</a></h2>
+<h3 id="best-repeaters-ping-count">Best Repeaters (Ping Count)<a class="headerlink" href="#best-repeaters-ping-count" title="Permanent link">¶</a></h3>
+<p>Repeaters heard directly the most times. Sort by <strong>Pings</strong> (total) or <strong>Grids</strong> (different squares heard from). RX-only pings aren't counted.</p>
+<h3 id="best-repeaters-max-range">Best Repeaters (Max Range)<a class="headerlink" href="#best-repeaters-max-range" title="Permanent link">¶</a></h3>
+<p>The single longest confirmed contact for each repeater, by ping type: <strong>BIDIR</strong>, <strong>TX</strong>, <strong>RX</strong>, <strong>DISC</strong> and <strong>DEAD</strong>. Click a column to sort by it. Distances over 500 km are ignored.</p>
+<h3 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Ambiguous repeaters</strong> stay listed, marked with a red <strong>*</strong> ("Ambiguous ID"). Pings where their ID was ambiguous don't count towards them. See <a href="../duplicaterepeaterid/">Duplicate Repeater IDs</a>.</li>
+<li><strong>Private repeaters</strong> (🚫 in the name) show as "(private repeater)".</li>
+<li>Regions that hide repeater detail don't show the repeater boards.</li>
+<li>Regions that <a href="../overrideduplicates/">turn off duplicate detection</a> show a warning that repeater statistics may be inaccurate.</li>
+</ul>
+<h2 id="global-leaderboard">Global Leaderboard<a class="headerlink" href="#global-leaderboard" title="Permanent link">¶</a></h2>
+<p>The <a href="https://meshmapper.net/global_leaderboard.php">Global Leaderboard</a> combines every region and is also refreshed daily.</p>
+<ul>
+<li><strong>Global Stats</strong>:<ul>
+<li><strong>Network</strong>: Active Regions, Countries, Repeaters, Multibyte (%), Observers and Companions.</li>
+<li><strong>Packets</strong>: the same ping breakdown as a region.</li>
+<li><strong>Activity</strong>: Data Points, Grid Squares, Wardrivers, Live Now, Users (24h) and Sessions (24h).</li>
 </ul>
 </li>
-<li><strong>Active Repeaters</strong>: The count of repeaters currently online and trusted. <strong>Note:</strong> Repeaters flagged as "Duplicate" or "Excluded" are not counted here.</li>
-<li><strong>Estimated Coverage</strong>: A percentage representing how much of the mapped grid contains valid coverage (BIDIR, TX, DISC, RX).</li>
-<li><strong>Contributors</strong>: The number of unique users who have contributed data to the region.</li>
-<li><strong>Total Grid Squares</strong>: The total number of unique ~300m grid squares that have been mapped by at least one user. This metric always uses the 300m grid regardless of the user's Grid Mode setting.</li>
+<li><strong>Wardriver boards</strong>: <strong>Top Wardrivers (7 Days)</strong>, <strong>All Time Legends</strong>, <strong>Top Explorers</strong>, <strong>Top Pioneers</strong>, <strong>Top Airtime Savers</strong> and <strong>Most Repeaters Administered</strong>, each showing the wardriver's <strong>primary region</strong> (where they've earned the most points).</li>
+<li><strong>Region boards</strong>: <strong>Most Repeaters</strong>, <strong>Most Grid Squares</strong>, <strong>Most Data Points</strong> and <strong>Most Wardrivers</strong>.</li>
+<li><strong>Repeater boards</strong>: <strong>Best Repeaters (Ping Count)</strong> and <strong>Best Repeaters (Max Range)</strong> from every region, linking back to each repeater on its region's map.</li>
+<li><strong>Multibyte Upgrade Board</strong>: regions ranked by how many of their repeaters are <a href="../multibyte/">multi-byte</a> capable.</li>
+<li><strong>Scope Onboarding</strong>: how many of each region's repeaters carry a mesh scope, with a 90-day trend.</li>
 </ul>
-<h2 id="user-leaderboards">User Leaderboards<a class="headerlink" href="#user-leaderboards" title="Permanent link">¶</a></h2>
-<p>User rankings are based on the number of valid data points contributed. 1 Ping = 1 Point. A square where the app's Smart Pinging held a ping counts for 1.5 points once verified, in the same totals (see <a href="#top-airtime-savers">Top Airtime Savers</a>).</p>
-<ul>
-<li><strong>Top Contributors (7 Days)</strong>: A rolling window of activity over the last week. This is useful for seeing who is currently active in the community.</li>
-<li><strong>All Time Legends</strong>: The total accumulation of contributions since the region was onboarded.</li>
-</ul>
-<h3 id="top-explorers">Top Explorers<a class="headerlink" href="#top-explorers" title="Permanent link">¶</a></h3>
-<p>This leaderboard rewards <strong>exploration</strong> — covering new ground rather than re-driving the same routes. It counts the number of unique ~300m grid squares where each user placed the <strong>first-ever ping</strong>. This metric always uses the 300m grid regardless of the user's Grid Mode setting. If a grid square has been pinged 100 times by 10 different users, only the user who mapped it first gets credit. All coverage types count (BIDIR, TX, RX, DISC, DEAD, DROP).</p>
-<table>
-<thead>
-<tr>
-<th>Ranking</th>
-<th>Indicator</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>1st</strong></td>
-<td><strong>Gold</strong> Number</td>
-</tr>
-<tr>
-<td><strong>2nd</strong></td>
-<td><strong>Silver</strong> Number</td>
-</tr>
-<tr>
-<td><strong>3rd</strong></td>
-<td><strong>Bronze</strong> Number</td>
-</tr>
-</tbody>
-</table>
-<h3 id="top-airtime-savers">Top Airtime Savers<a class="headerlink" href="#top-airtime-savers" title="Permanent link">¶</a></h3>
-<p>This leaderboard rewards <strong>restraint</strong>. When the app's <a href="../app_wardriving_modes/#smart-pinging">Smart Pinging</a> holds a ping in a square that already has recent coverage, the square is reported, verified against the region's own coverage data, and credited at <strong>1.5 points</strong>. Each square counts once per session on the 300m grid, whatever the user's Grid Mode setting. This board ranks users by those points alone; the same points are also included in the All Time and 7 Day totals above.</p>
-<h2 id="repeater-leaderboards">Repeater Leaderboards<a class="headerlink" href="#repeater-leaderboards" title="Permanent link">¶</a></h2>
-<p>These tables highlight the performance of the infrastructure itself.</p>
-<h3 id="best-repeaters-ping-count">Best Repeaters (Ping Count)<a class="headerlink" href="#best-repeaters-ping-count" title="Permanent link">¶</a></h3>
-<p>This ranks repeaters by how much traffic they have handled. The table shows both the <strong>total ping count</strong> and the number of <strong>unique grid squares</strong> the repeater has been heard from — click either column header to sort by that metric.</p>
-<h3 id="best-repeaters-max-range">Best Repeaters (Max Range)<a class="headerlink" href="#best-repeaters-max-range" title="Permanent link">¶</a></h3>
-<p>This ranks repeaters by the furthest distance (in km/m) they have achieved a link. The table is broken down by signal type to show different propagation characteristics:</p>
-<ul>
-<li><strong>BIDIR (Green)</strong>: Max distance where a solid <strong>two-way</strong> link was established.</li>
-<li><strong>TX (Orange)</strong>: Max distance where the repeater heard the user (but the user didn't hear the confirmation). This often indicates the repeater has a better "ear" (receive sensitivity) than the user.</li>
-<li><strong>RX (Purple)</strong>: Max distance where the user heard the repeater (but didn't transmit). This indicates the repeater has a strong transmit signal.</li>
-</ul>
-<p><em>Tip: You can click the headers (BIDIR, TX, RX) to sort the table by that specific metric.</em></p>
-<h2 id="global-leaderboard">Global Leaderboard<a class="headerlink" href="#global-leaderboard" title="Permanent link">¶</a></h2>
-<p>The <a href="https://meshmapper.net/global_leaderboard.php">Global Leaderboard</a> aggregates data from all active regions into a single view. It is regenerated daily by a scheduled task and includes:</p>
-<ul>
-<li><strong>Global Stats</strong>: Combined totals across all regions — data points, ping breakdowns, repeater count, contributors, total grid squares, active regions, and observer counts (with a per-broker breakdown).</li>
-<li><strong>Top Contributors (7 Days)</strong> and <strong>All Time Legends</strong>: Cross-region user rankings with each user's primary region shown.</li>
-<li><strong>Top Explorers</strong>: Aggregated first-mapper grid square counts across all regions.</li>
-<li><strong>Top Airtime Savers</strong>: Cross-region Smart Pinging credit, ranked by points.</li>
-<li><strong>Region Rankings</strong>: <strong>Most Repeaters</strong>, <strong>Most Grid Squares</strong>, <strong>Most Data Points</strong>, and <strong>Most Contributors</strong> — regions ranked against each other.</li>
-<li><strong>Best Repeaters (Ping Count)</strong> and <strong>Best Repeaters (Max Range)</strong>: Repeater rankings drawn from every region, with links back to the originating regional map. The Ping Count table includes unique grid square counts alongside total ping counts — click the column headers to sort by either metric.</li>
-</ul>
-<p>Each user's <strong>primary region</strong> is determined by where they have contributed the most data points. Contributors are de-duplicated by device public key, so the same node heard in several regions counts as one entry.</p>
-<h2 id="contests">Contests<a class="headerlink" href="#contests" title="Permanent link">¶</a></h2>
-<p>During special events (e.g., <strong>Holiday Wardrive Contest</strong>), a special leaderboard card will appear at the top of the page.</p>
-<ul>
-<li><strong>Time-Limited</strong>: Only pings collected within the specific contest start and end dates are counted.</li>
-<li><strong>Exclusions</strong>: Developers, administrators, and contest organizers are often excluded from these rankings to ensure fairness.</li>
-<li><strong>Live Updates</strong>: Like the other boards, this updates in near real-time as data is submitted.</li>
-</ul>
+<p>Regions that hide repeater detail or <a href="../overrideduplicates/">turn off duplicate detection</a> don't send their repeaters to the global board. Their wardrivers and coverage still count.</p>
 
 
 

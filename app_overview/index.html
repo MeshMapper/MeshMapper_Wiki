@@ -7,7 +7,7 @@
       
       
       
-        <link rel="canonical" href="https://meshmapper.net/app_overview/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/app_overview/">
       
       
         <link rel="prev" href="../overrideduplicates/">
@@ -392,14 +392,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../mqtt-python/" class="md-nav__link">
+      <a href="../mqtt-firmware/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    MeshCore Packet Capture
+    Native Firmware
   
 
     
@@ -428,6 +428,34 @@
     
   
     MeshCore-HA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mqtt-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    meshcoretomqtt
   
 
     
@@ -2562,16 +2590,19 @@
 
 
 <h1 id="wardriving-app">Wardriving App<a class="headerlink" href="#wardriving-app" title="Permanent link">¶</a></h1>
-<p>MeshMapper is a community-driven wardriving app for MeshCore mesh network devices. It lets you connect to a MeshCore radio over Bluetooth, send GPS-tagged pings across the mesh, and contribute coverage data to the <a href="https://meshmapper.net/">MeshMapper community map</a>.</p>
-<p>The app is available on Android, iOS, and Chromium-based browsers (Chrome/Edge). The source code is available on <a href="https://github.com/MeshMapper/MeshMapper_Flutter_App">GitHub</a>.</p>
+<p>MeshMapper is a community-driven wardriving app for MeshCore mesh network devices. It connects to your MeshCore radio over Bluetooth, TCP (network/Wi-Fi), or USB (Android), sends pings across the mesh, and adds what it hears to the <a href="https://meshmapper.net/">MeshMapper community map</a>. Your location goes only to the MeshMapper server; by default, pings on the air carry an anonymous token, not your coordinates.</p>
+<p>The app is available for Android and iOS:</p>
+<p><a href="https://apps.apple.com/us/app/meshmapper/id6758073991">Download on the App Store</a> | <a href="https://play.google.com/store/apps/details?id=net.meshmapper.app">Get it on Google Play</a></p>
+<p>The source code is on <a href="https://github.com/MeshMapper/MeshMapper_Flutter_App">GitHub</a>. New to the app? The built-in <strong>Quick Guide</strong> walks you through the basics on first launch, and you can reopen it any time from <strong>Settings &gt; About &amp; Support &gt; Quick Guide</strong>.</p>
 <ul>
 <li><a href="../app_getting_started/"><strong>Getting Started</strong></a> - Installation, first launch, and your first ping</li>
 <li><a href="../app_tabs/"><strong>App Tabs</strong></a> - Detailed walkthrough of the Map, Log, History, Connect, and Settings tabs</li>
 <li><a href="../app_wardriving_modes/"><strong>Wardriving Modes</strong></a> - Manual, Hybrid, Passive, Active, and Trace modes explained</li>
 <li><a href="../app_settings_reference/"><strong>Settings Reference</strong></a> - Every setting explained</li>
 <li><a href="../app_connection_guide/"><strong>Connection Guide</strong></a> - Device scanning, the 9-step connection process, reconnection, and offline mode</li>
-<li><a href="../app_how_it_works/"><strong>How It Works</strong></a> - Technical deep-dive into Bluetooth communication, packet filtering, and data pipelines</li>
+<li><a href="../app_how_it_works/"><strong>How It Works</strong></a> - Technical deep-dive into radio communication, packet filtering, and data pipelines</li>
 <li><a href="../app_troubleshooting/"><strong>Troubleshooting</strong></a> - Common issues and how to resolve them</li>
+<li><a href="../app_third_party_api/"><strong>Third Party API</strong></a> - Forward your wardriving data to your own endpoint (for developers)</li>
 </ul>
 
 
