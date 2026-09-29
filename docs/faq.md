@@ -13,12 +13,17 @@
 ??? question "How do I get my region added to MeshMapper?"
     Use the [new region form](onboarding.md). You need a valid email address and at least one observer sending data to the MeshMapper MQTT broker (see [MQTT setup](mqtt-main.md)). Linking Discord is optional.
 
+??? question "How do I set up an observer?"
+    Choose a method in the [MQTT observer setup guide](mqtt-main.md), then configure it to send reports for your region to the MeshMapper broker. Check **Region → Observers** on your region's map after the first report arrives.
+
 ??? question "What is a region?"
     A region is a geographic area on MeshMapper that has its own map, administrators, and settings. Regions are typically centered around a city or metropolitan area. Some regions are grouped into multi-region setups that share a single map view.
 
 ??? question "My repeater shows as Ambiguous. Why?"
     As a region's mesh network grows, two repeaters can end up sharing the same short ID. When MeshMapper can't tell a repeater apart from another at the ID width it advertises, it marks it **Ambiguous** and doesn't credit pings to it.  [Read more about it here](duplicaterepeaterid.md).
 
+??? question "Why isn't my repeater showing on the map?"
+    Its advert must be heard by a connected observer, and the repeater needs location coordinates. Check **Region → Observers** and whether your region requires approval for new repeaters. Follow the [repeater troubleshooting steps](troubleshooting.md#repeater-not-showing) if it still does not appear.
 
 ??? question "Does MeshMapper support multibyte?"
     Yes, MeshMapper fully supports multibyte repeater hops/paths.  [Read more about it here](multibyte.md).
@@ -32,6 +37,9 @@
 
 ??? question "What is wardriving?"
     Wardriving is the process of traveling through an area while collecting signal data from your mesh network. As you move, the MeshMapper companion app records GPS coordinates alongside signal quality data, building a picture of where your network has coverage.
+
+??? question "Why can I only use Passive mode?"
+    Hybrid needs **Flood Traffic** enabled under **Settings → Wardriving → Modes**. If your region has disabled flood traffic, ask its administrator. If the zone's TX slots are full, wait for a slot and reconnect. See [Wardriving Modes](app_wardriving_modes.md#tx-capacity-limits).
 
 ??? question "What do the different coverage colours mean?"
     Each colour represents a different type of signal interaction:
@@ -99,7 +107,13 @@
 ## Administration
 
 ??? question "How do I become a region administrator?"
-    For a new region, volunteer in the [onboarding form](onboarding.md#volunteer-as-region-administrator). For an existing region, ask its administrator for an invite. If the region has no administrator, ask a Moderator in the MeshMapper Discord for help with access.
+    For a new region, volunteer in the [onboarding form](onboarding.md#volunteer-as-region-administrator). After approval, you'll receive an invite to set up your admin account. For an existing region, ask its administrator for an invite. If the region has no administrator or that person is unresponsive, ask a Moderator in the MeshMapper Discord for help with access.
+
+??? question "How do I change my region boundary?"
+    Open your region's admin panel and go to **Settings → Region Boundary**. Use **Load Boundary** for a suitable mapped border, coordinate with neighboring regions, then save your settings. See [Defining a Region's Boundary](region_boundaries.md) for the steps.
+
+??? question "How do I request a multiregion group?"
+    Ask a [Global Administrator](administratorlist.md) to create the group or add your region to one. Each region keeps its own data. See [Multiregion Groups](multiregions.md#requesting-a-multiregion-group).
 
 ??? question "Where can I find my region's administrator?"
     Open **Region Info** on your region's map. See [Finding Your Region's Administrators](administratorlist.md) for other ways to reach them.
