@@ -56,16 +56,17 @@ Toggle layers on or off with `1` (show) or `0` (hide).
 | `drop_grid` | Dead coverage (grey) | `1` (on) |
 | `fail_grid` | Dropped packets (red) | `0` (off) |
 | `repeaters` | Repeater markers | `1` (on) |
-| `rep_coverage` | Repeater coverage lines | `0` (off) |
+| `rep_coverage` | Repeater max-range circles | `0` (off) |
 | `grid_lines` | Grid outline lines | `0` (off) |
 
 ### Other Options
 
 | Parameter | Type | Default | Description |
 | --- | --- | --- | --- |
-| `geofence` | `0` or `1` | Auto | Limits loaded data to a 5 km radius around the center. Automatically enabled when `lat`/`lon` are provided. Set `geofence=0` to load all region data instead. |
-
-Embedded maps support colour vision palettes via the `?cvd=` URL parameter (e.g., `?cvd=protanopia`).
+| `geofence` | `0` or `1` | Auto | Limits loaded data to a 5 km radius. Turns on automatically when `lat`/`lon` are provided. `geofence=0` turns it off. `geofence=1` forces it on around the region centre. |
+| `cvd` | string | `none` | Colour vision palette: `none`, `protanopia`, `deuteranopia`, `tritanopia` or `achromatopsia`. |
+| `preset` | `freq,bw,sf` | all | Show only one radio preset, e.g. `?preset=910.525,62.5,7`. Leave it out, or use `all`, to show everything. |
+| `dir` | any value | off | With `lat`/`lon`, shows a car icon at the centre of the map (e.g. `&dir=1`). |
 
 ## Examples
 
@@ -92,6 +93,7 @@ https://yow.meshmapper.net/embed.php?lat=45.4034&lon=-75.7258&geofence=0
 - The embed is **read-only** — there are no interactive popups, layer toggles, or controls.
 - A small "Open on **MeshMapper**" link appears in the bottom-left corner, linking viewers to the full map.
 - When `lat` and `lon` are provided, the embed automatically geofences data to a 5 km radius for faster loading. Use `geofence=0` to override this.
+- The embed needs a browser with WebGL.
 
 ---
 
@@ -123,7 +125,8 @@ https://[IATA].meshmapper.net/embed_repeaters.php
 
 | Parameter | Type | Default | Description |
 | --- | --- | --- | --- |
-| `mode` | `light` or `dark` | `light` | Sets the initial colour scheme. Users can also toggle between modes using the button in the header. |
+| `mode` | `light` or `dark` | `light` | `mode=dark` starts in dark mode; anything else starts in light mode. Users can also switch modes with the button in the header. |
+| `preset` | `freq,bw,sf` | all | Show only one radio preset, e.g. `?preset=910.525,62.5,7`. Leave it out, or use `all`, to show everything. |
 
 ### Example
 
@@ -133,8 +136,19 @@ https://[IATA].meshmapper.net/embed_repeaters.php
 https://yow.meshmapper.net/embed_repeaters.php?mode=dark
 ```
 
+### What's in the Grid
+
+The embed shows a **Repeater ID Usage** header, a search box, and filter chips: **All**, **MB**, **Ambiguous**, **2-Byte**, **3-Byte** and **No Location**.
+
+Cell colours:
+
+- **Green**: available
+- **Blue**: deployed
+- **Red**: conflict
+- **Dark**: reserved
+
 ### Notes
 
 - Clicking a grid cell opens a popup showing whether the ID prefix is available, deployed, in conflict, or reserved, along with the repeater(s) that occupy it.
 - A "View on **MeshMapper**" link at the bottom opens the full repeater list on the region's map.
-- The grid is only available for regions using 1-byte repeater IDs. Multibyte regions will see a "Coming Soon" message instead.
+- The grid works in every region. Conflicts take into account whether each repeater supports multi-byte IDs.
