@@ -4,15 +4,20 @@ MeshMapper recognizes community contributors through a **Profiles & Awards** sys
 
 ### Viewing Profiles
 
-You can view any users profile by clicking their name on a regional or [global leaderboard](https://meshmapper.net/global_leaderboard.php). Leaderboards also have a "Profiles" search button in the header, which allows you to search for any companion by name or ID.
+You can view anyone's profile by clicking their name on a regional or [global leaderboard](https://meshmapper.net/global_leaderboard.php). Leaderboards also have a **Profiles** button in the header. Its search box lets you "Search by name or Public ID".
+
+The profile card shows **All Time**, **This Week**, **Grid Squares** and **First Pings** stats, along with any awards.
+
+- A device linked to a [My MeshMapper](portal.md) account shows the account's display name.
+- A deleted device that nobody has claimed shows as "Orphaned device" and doesn't appear in search.
 
 ### Users
 
-When a single person operates multiple companion devices in a region, that regions administrators can combine them into a **user group**. All devices in the group aggregate their points under a single primary companion. The group appears as one entry on the leaderboards, and the profile displays the combined statistics.  
+If you run more than one companion, link them all to your [My MeshMapper account](portal.md). They then show as one entry on the leaderboards, and your profile shows the combined totals.
 
 ### Manage Your Own Profile & Data
 
-Wardrivers can now create an account on the [**My MeshMapper portal**](portal.md), link their companion devices, set the display name shown on leaderboards, and view or delete the data they have contributed. Additional profile features (avatar and bio self-management) are planned.
+Wardrivers can create an account on the [**My MeshMapper portal**](portal.md), link their companion devices, set the display name shown on leaderboards, and view or delete their data. If you connect Discord, you can show your Discord avatar on leaderboards and your profile. Editing your own bio is not available yet.
 
 ## Awards
 
@@ -25,25 +30,31 @@ These are granted automatically by the system based on wardriving milestones:
 | Award | Criteria |
 | --- | --- |
 | **Wardriver** | Any wardriving contribution (at least 1 data point) |
-| **1,000 Data Points** | Accumulate 1,000 or more all-time points |
-| **5,000 Data Points** | Accumulate 5,000 or more all-time points |
-| **10,000 Data Points** | Accumulate 10,000 or more all-time points |
-| **50,000 Data Points** | Accumulate 50,000 or more all-time points |
-| **Ping Leader** | Rank #1 on a regional leaderboard |
-| **Explorer 1** | Map 1,000 or more unique grid squares |
-| **Explorer 2** | Map 5,000 or more unique grid squares |
-| **Explorer 3** | Map 10,000 or more unique grid squares |
+| **1000 Data Points** | Accumulate 1,000 or more all-time points |
+| **5000 Data Points** | Accumulate 5,000 or more all-time points |
+| **10000 Data Points** | Accumulate 10,000 or more all-time points |
+| **50000 Data Points** | Accumulate 50,000 or more all-time points |
+| **Ping Leader** | Rank #1 on a regional leaderboard. Anonymous players are skipped, so it goes to the next real #1. |
+| **Explorer 1** | Ping in 1,000 or more different grid squares |
+| **Explorer 2** | Ping in 5,000 or more different grid squares |
+| **Explorer 3** | Ping in 10,000 or more different grid squares |
+| **Pioneer 1** | Be first to ping 500 or more grid squares |
+| **Pioneer 2** | Be first to ping 1,000 or more grid squares |
+| **Pioneer 3** | Be first to ping 2,500 or more grid squares |
 | **Airtime Saver** | 250 or more verified squares where Smart Pinging held a ping |
 | **Airtime God** | 2,500 or more verified squares where Smart Pinging held a ping |
 | **Airtime Legend** | 10,000 or more verified squares where Smart Pinging held a ping |
-| **Global Leader** | Rank in the top 10 on the global leaderboard (all-time, weekly, or top explorers) |
+| **Global Leader** | Rank in the top 10 of a global leaderboard: All Time Legends, Top Wardrivers (7 Days), or Top Pioneers. |
+
+- Companions in [Anonymous Mode](app_connection_guide.md#anonymous-mode) can still earn milestone awards, but not Ping Leader or Global Leader.
+- Awards are never removed automatically, so Ping Leader and Global Leader stay after you drop out of first place or the top 10.
 
 !!! info "Update Interval"
-    MeshMapper processes the aggregration of companion/user statistics, and auto assignment of awards, once every 24-hours.  Check back later if you've earned an award but don't yet see it.
+    Stats and automatic awards update once a day. If you've earned an award but don't see it yet, check back tomorrow.
 
 ### Manual Awards
 
-Master/Global Administrators can grant custom awards for special achievements, events, contest wins, donating to MeshMapper, or community contributions.
+Master Administrators can grant custom awards for special achievements, events, contest wins, donating to MeshMapper, or community contributions.
 
 ## Available Awards
 
@@ -102,7 +113,7 @@ function openAwardImage(src, name) {
 
 ## Request an Award or Suggest a New One
 
-Use the form below to request a missing award or suggest a new award type for the community.
+Use the form below to request a missing award or suggest a new award type for the community. Your name and details are always required. The Companion ID is only needed for award requests. Requests are sent to the MeshMapper team on Discord.
 
 <div id="award-request-form" style="max-width:560px;">
   <div style="margin-bottom:1rem;">
