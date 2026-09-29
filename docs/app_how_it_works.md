@@ -197,7 +197,7 @@ The noise floor is the ambient radio energy when no intentional signals are pres
 - Included with every data point uploaded (TX, RX, DISC, Trace)
 - Helps the community understand the radio environment at each coverage point
 - The noise floor graph overlays ping events on the timeline for visual correlation
-- Values are reported as dBm departure from a device's 10th percentile baseline to account for variances between hardware types. See [How Calibration Works](https://wiki.meshmapper.net/layers/#how-calibration-works).
+- Values are reported as dBm departure from a device's 10th percentile baseline to account for variances between hardware types. See [Noise Floor](layers.md#noise-floor).
 
 ---
 
