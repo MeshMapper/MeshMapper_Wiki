@@ -169,6 +169,9 @@ Repeaters only answer 4 anonymous requests per 3 min across all phones, so a sil
 
 v1.16.0 needs a free contact slot to ask a non-contact. If the list is full, the app confirms it, asks only saved repeaters for the rest of the connection and logs a warning. v1.17.0 fixes it.
 
+!!! note "Smart Pinging holds scope discovery too"
+    Scope discovery only runs after an auto discovery in Passive or Hybrid mode gets answers. When [Smart Pinging](#how-smart-pinging-works) holds a discovery back because your square already has recent coverage, no scope request goes out either. In a square that is always covered, such as around home, repeaters are only asked once Smart Pinging lets a discovery through, which happens after the square's coverage is older than your Smart Pinging window.
+
 See [Scope Discovery](app_settings_reference.md#scope-discovery) for the settings.
 
 ---
