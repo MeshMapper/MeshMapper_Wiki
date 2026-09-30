@@ -3394,6 +3394,10 @@
 <p>Repeaters only answer 4 anonymous requests per 3 min across all phones, so a silent one is left alone for 15 min, doubling per miss up to 2 hours.</p>
 <p><strong>Full contact list on v1.16.0</strong></p>
 <p>v1.16.0 needs a free contact slot to ask a non-contact. If the list is full, the app confirms it, asks only saved repeaters for the rest of the connection and logs a warning. v1.17.0 fixes it.</p>
+<div class="admonition note">
+<p class="admonition-title">Smart Pinging holds scope discovery too</p>
+<p>Scope discovery only runs after an auto discovery in Passive or Hybrid mode gets answers. When <a href="#how-smart-pinging-works">Smart Pinging</a> holds a discovery back because your square already has recent coverage, no scope request goes out either. In a square that is always covered, such as around home, repeaters are only asked once Smart Pinging lets a discovery through, which happens after the square's coverage is older than your Smart Pinging window.</p>
+</div>
 <p>See <a href="../app_settings_reference/#scope-discovery">Scope Discovery</a> for the settings.</p>
 <hr>
 <h2 id="packet-filtering-and-validation">Packet Filtering and Validation<a class="headerlink" href="#packet-filtering-and-validation" title="Permanent link">¶</a></h2>

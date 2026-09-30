@@ -4661,6 +4661,7 @@
 <li>May be enforced by regional admin (shown in amber). When enforced, the switch is locked on and the window is the region's.</li>
 <li>Requires companion firmware <strong>1.16.0 or newer</strong>. <strong>1.17.0 or newer is recommended</strong>, see below. On older firmware the app shows "Your radio needs firmware v1.16.0 or newer for this."</li>
 <li>A small <strong>Scopes</strong> badge shows on the running mode button while the app is asking</li>
+<li>Only runs after an auto discovery in Passive or Hybrid mode. When <a href="#smart-pinging">Smart Pinging</a> defers a discovery, no scopes are asked either, so in squares with recent coverage nothing is sent until Smart Pinging lets a discovery through</li>
 <li>Cannot be changed during auto-ping</li>
 </ul>
 <p><strong>Companion firmware 1.16 and a full contact list.</strong> To ask a repeater that is not saved as a contact on your radio, the radio needs a free slot in its contact list. Companion firmware 1.16 cannot make that room when the list is full, so it refuses the request and nothing is sent. The log shows <strong>Radio contact list full</strong>, and from then on, for the rest of that connection, the app only asks repeaters that are saved as contacts. The Errors tab in the log also gets one entry explaining it. Companion firmware <strong>1.17.0 or newer</strong> fixes it by keeping room for these requests. Removing some contacts from your radio also works.</p>
