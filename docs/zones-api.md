@@ -112,7 +112,7 @@ Returns a GeoJSON `FeatureCollection` ([RFC 7946](https://datatracker.ietf.org/d
 - The geometry is always a single `Polygon`.
 - A region with no drawn boundary has `"geometry": null` and `has_boundary: false`. MeshMapper doesn't draw a circle in its place, but `center` and `radius_km` are there if you want one.
 - `center` is `[longitude, latitude]` too. `radius_km` can be `null`.
-- If the response is cut off mid-stream, the JSON is left unclosed on purpose. Treat a parse error as "retry".
+- If the server hits a problem mid-stream, the JSON is left unclosed on purpose and your call is handed back, so treat a parse error as "retry". A response that your own network cut off after the server finished sending still counts as your call.
 
 ## Call limits
 
