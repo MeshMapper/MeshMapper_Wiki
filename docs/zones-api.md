@@ -9,8 +9,8 @@ Two endpoints work together:
 
 Call the first one, then fetch `url + "get_geojson.php"` for each region you want.
 
-!!! warning "One call per day, or you're banned"
-    Each answer can be fetched **once every 23.5 hours per IP address**: `get_zones.php` once per country, and `get_geojson.php` once per region site. A second request for the same country or region inside that window is refused with `429` **and bans your IP address from all of meshmapper.net for a day**. Every repeat doubles the ban, up to 30 days. See [Call limits](#call-limits). Accessing anything that isn't a published API, or scraping pages for data, is not allowed; see the warning on the [Coverage API](coverage-api.md) page.
+!!! warning "One call per day; keep calling early and you're banned"
+    Each answer can be fetched **once every 23.5 hours per IP address**: `get_zones.php` once per country, and `get_geojson.php` once per region site. A second request for the same country or region inside that window is refused with `429`, and **the third refused request within the window bans your IP address from all of meshmapper.net for a day**. Every repeat doubles the ban, up to 30 days. See [Call limits](#call-limits). Accessing anything that isn't a published API, or scraping pages for data, is not allowed; see the warning on the [Coverage API](coverage-api.md) page.
 
 !!! warning "Call this from your server, not your visitors' browsers"
     Fetch this API from your own backend, store the result, and serve your own copy to visitors. Don't call it from client-side JavaScript in a visitor's browser: everyone behind the same home router or mobile carrier shares one public IP address, so one visitor's fetch uses the call and the next visitor's fetch bans that whole IP address from all of meshmapper.net, including every MeshMapper app user on that network.
@@ -120,12 +120,13 @@ Returns a GeoJSON `FeatureCollection` ([RFC 7946](https://datatracker.ietf.org/d
 ## Call limits
 
 - **One call per target every 23.5 hours per IP address.** For `get_zones.php` the target is the country (`?country=CA` and `?country=US` are separate calls). For `get_geojson.php` it's the region site, and a group site counts as its own site, separate from its members. Fetching every region of a country in one run is fine: each region is its own call.
-- **A second call for the same target inside the window bans your IP address.** The request is refused with `429` and your IP address is banned from all of meshmapper.net (the map included, and every device behind that IP address) for 1 day. Each repeat doubles the ban: 2 days, 4 days, 8 days, up to 30 days.
-- **Only certain JSON errors hand your call back.** A `400` (missing or bad `country` on `get_zones.php`), a `404` `zone_not_found`, or a `503` `unavailable` doesn't use your call, so retrying after one of those is safe. Anything else, a cut-off or unparseable body, a timeout on your side, an HTML `5xx` error page, a connection reset, may already have used your call: keep your previous copy and wait for your next scheduled run instead of retrying.
+- **An early call for the same target is refused with `429`; the third refusal within the window bans your IP address.** Your IP address is banned from all of meshmapper.net (the map included, and every device behind that IP address) for 1 day. Each repeat doubles the ban: 2 days, 4 days, 8 days, up to 30 days.
+- **At most 30 calls a minute from one IP address, across all these APIs together.** A call over that gets `503` with `{"error":"slow_down","retry_after":N}`. It doesn't use your call and never counts toward a ban: wait `Retry-After` seconds and carry on. Pausing 2 seconds between calls keeps you under it.
+- **Only certain JSON errors hand your call back.** A `400` (missing or bad `country` on `get_zones.php`), a `404` `zone_not_found`, a `503` `unavailable`, or a `503` `slow_down` (after waiting `Retry-After`) doesn't use your call, so retrying after one of those is safe. Anything else, a cut-off or unparseable body, a timeout on your side, an HTML `5xx` error page, a connection reset, may already have used your call: keep your previous copy and wait for your next scheduled run instead of retrying.
 - **Only `GET` counts.** A browser's CORS preflight (`OPTIONS`) doesn't. `HEAD` and other methods get `405` and don't count either.
 - **Don't rely on the clock, track your last call.** Store the time of your last served call for each target (country or region) and skip the call if it was less than 23.5 hours ago. Schedule in UTC: a local-time cron job gets a 23-hour day at the DST change, which is enough to trip the limit.
 - **Use a generous client timeout, 60 to 120 seconds.** A short timeout on your side can cut the connection before the server finishes, and that counts against you as an "anything else" error above, not a safe-to-retry one.
-- **While testing, don't open a URL twice.** Save the response to a file once and work from the file.
+- **While testing, don't open a URL twice.** Save the response to a file once and work from the file; every reload after the first is refused and counts toward a ban.
 
 ## Caching
 
@@ -145,8 +146,9 @@ Errors are JSON: `{"error": "<code>"}`. A `429` also carries `retry_after`.
 | 400 | `invalid_country` | `country` isn't two letters. |
 | 404 | `zone_not_found` | The region is unknown, pending or turned off. |
 | 405 | `method_not_allowed` | Only `GET` (and the `OPTIONS` preflight) are answered. |
-| 429 | `rate_limited` | This country or region was already fetched from your IP address in the last 23.5 hours. `Retry-After` and `retry_after` give the seconds left. Your IP address is now banned; see [Call limits](#call-limits). |
+| 429 | `rate_limited` | This country or region was already fetched from your IP address in the last 23.5 hours. `Retry-After` and `retry_after` give the seconds left. Three of these within the window ban your IP address; see [Call limits](#call-limits). |
 | 503 | `unavailable` | Temporary server problem. Try again later; it doesn't use your call. |
+| 503 | `slow_down` | More than 30 calls in the last minute from your IP address, across all these APIs. `Retry-After` and `retry_after` give the seconds left. It doesn't use your call and never counts toward a ban. |
 
 ## Example
 
@@ -159,12 +161,13 @@ STATE = "meshmapper-state.json"
 last = json.load(open(STATE)) if os.path.exists(STATE) else {}
 
 def fetch(url, **params):
-    if time.time() - last.get(url, 0) < 23.5 * 3600:
+    key = str(httpx.URL(url, params=params))   # the target: for get_zones this includes ?country=..
+    if time.time() - last.get(key, 0) < 23.5 * 3600:
         return None                      # already used this call recently
     r = httpx.get(url, params=params, timeout=120)
     if r.status_code != 200:
         return None                      # keep the previous copy, don't retry here
-    last[url] = time.time()
+    last[key] = time.time()
     return r.json()
 
 zones = fetch("https://meshmapper.net/get_zones.php", country="CA")
@@ -175,6 +178,7 @@ if zones:
             fc = fetch(z["url"] + "get_geojson.php")
             if fc:
                 features.extend(fc["features"])
+            time.sleep(2)                # stay under the 30-calls-a-minute cross-API cap
     json.dump({"type": "FeatureCollection", "features": features}, open("meshmapper-ca.geojson", "w"))
 json.dump(last, open(STATE, "w"))
 ```

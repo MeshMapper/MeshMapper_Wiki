@@ -11,8 +11,8 @@ GET https://yow.meshmapper.net/get_channels.php
 
 There are no parameters.
 
-!!! warning "One call per day, or you're banned"
-    Each region site's answer can be fetched **once every 23.5 hours per IP address**. A second request to the same region site inside that window is refused with `429` **and bans your IP address from all of meshmapper.net for a day**. Every repeat doubles the ban, up to 30 days. See [Call limits](#call-limits). Accessing anything that isn't a published API, or scraping pages for data, is not allowed; see the warning on the [Coverage API](coverage-api.md) page.
+!!! warning "One call per day; keep calling early and you're banned"
+    Each region site's answer can be fetched **once every 23.5 hours per IP address**. A second request to the same region site inside that window is refused with `429`, and **the third refused request within the window bans your IP address from all of meshmapper.net for a day**. Every repeat doubles the ban, up to 30 days. See [Call limits](#call-limits). Accessing anything that isn't a published API, or scraping pages for data, is not allowed; see the warning on the [Coverage API](coverage-api.md) page.
 
 !!! warning "Call this from your server, not your visitors' browsers"
     Fetch this API from your own backend, store the result, and serve your own copy to visitors. Don't call it from client-side JavaScript in a visitor's browser: everyone behind the same home router or mobile carrier shares one public IP address, so one visitor's fetch uses the call and the next visitor's fetch bans that whole IP address from all of meshmapper.net, including every MeshMapper app user on that network.
@@ -70,12 +70,13 @@ print(k.hex(), hashlib.sha256(k).hexdigest()[:2])   # 7871ec72b45617696c35c970bd
 ## Call limits
 
 - **One call per region site every 23.5 hours per IP address.** A group site counts as its own site, separate from its members.
-- **A second call inside the window bans your IP address.** The request is refused with `429` and your IP address is banned from all of meshmapper.net (the map included, and every device behind that IP address) for 1 day. Each repeat doubles the ban: 2 days, 4 days, 8 days, up to 30 days.
-- **Only certain JSON errors hand your call back.** A `404` `zone_not_found` or a `503` `unavailable` doesn't use your call, so retrying after one of those is safe. Anything else, a cut-off or unparseable body, a timeout on your side, an HTML `5xx` error page, a connection reset, may already have used your call: keep your previous copy and wait for your next scheduled run instead of retrying.
+- **An early call is refused with `429`; the third refusal within the window bans your IP address.** Your IP address is banned from all of meshmapper.net (the map included, and every device behind that IP address) for 1 day. Each repeat doubles the ban: 2 days, 4 days, 8 days, up to 30 days.
+- **At most 30 calls a minute from one IP address, across all these APIs together.** A call over that gets `503` with `{"error":"slow_down","retry_after":N}`. It doesn't use your call and never counts toward a ban: wait `Retry-After` seconds and carry on. Pausing 2 seconds between calls keeps you under it.
+- **Only certain JSON errors hand your call back.** A `404` `zone_not_found`, a `503` `unavailable`, or a `503` `slow_down` (after waiting `Retry-After`) doesn't use your call, so retrying after one of those is safe. Anything else, a cut-off or unparseable body, a timeout on your side, an HTML `5xx` error page, a connection reset, may already have used your call: keep your previous copy and wait for your next scheduled run instead of retrying.
 - **Only `GET` counts.** A browser's CORS preflight (`OPTIONS`) doesn't. `HEAD` and other methods get `405` and don't count either.
 - **Don't rely on the clock, track your last call.** Store the time of your last served call for each region site and skip the call if it was less than 23.5 hours ago. Schedule in UTC: a local-time cron job gets a 23-hour day at the DST change, which is enough to trip the limit.
 - **Use a generous client timeout, 60 to 120 seconds.** A short timeout on your side can cut the connection before the server finishes, and that counts against you as an "anything else" error above, not a safe-to-retry one.
-- **While testing, don't open the URL twice.** Save the response to a file once and work from the file.
+- **While testing, don't open the URL twice.** Save the response to a file once and work from the file; every reload after the first is refused and counts toward a ban.
 
 ## Caching
 
@@ -93,8 +94,9 @@ Errors are JSON: `{"error": "<code>"}`. A `429` also carries `retry_after`.
 | --- | --- | --- |
 | 404 | `zone_not_found` | The region is unknown, pending or turned off. |
 | 405 | `method_not_allowed` | Only `GET` (and the `OPTIONS` preflight) are answered. |
-| 429 | `rate_limited` | This region site was already fetched from your IP address in the last 23.5 hours. `Retry-After` and `retry_after` give the seconds left. Your IP address is now banned; see [Call limits](#call-limits). |
+| 429 | `rate_limited` | This region site was already fetched from your IP address in the last 23.5 hours. `Retry-After` and `retry_after` give the seconds left. Three of these within the window ban your IP address; see [Call limits](#call-limits). |
 | 503 | `unavailable` | Temporary server problem. Try again later; it doesn't use your call. |
+| 503 | `slow_down` | More than 30 calls in the last minute from your IP address, across all these APIs. `Retry-After` and `retry_after` give the seconds left. It doesn't use your call and never counts toward a ban. |
 
 ## Example
 
