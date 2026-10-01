@@ -1551,6 +1551,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#call-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Call limits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#caching" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1607,6 +1618,34 @@
     
   
     Scopes API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../channels-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Channels API
   
 
     
@@ -2773,6 +2812,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#call-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Call limits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#caching" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2830,9 +2880,13 @@
 <li><strong><code>get_geojson.php</code></strong> on each region's own site returns that region's boundary.</li>
 </ol>
 <p>Call the first one, then fetch <code>url + "get_geojson.php"</code> for each region you want.</p>
-<div class="admonition note">
-<p class="admonition-title">Fair use</p>
-<p>Both endpoints are public, cached for an hour, and rate limited to 60 requests per minute per IP address (shared between the two). Cache the results, respect <code>ETag</code>, and don't poll more than once an hour. Accessing anything that isn't a published API, or scraping pages for data, is not allowed; see the warning on the <a href="../coverage-api/">Coverage API</a> page.</p>
+<div class="admonition warning">
+<p class="admonition-title">One call per day; keep calling early and you're banned</p>
+<p>Each answer can be fetched <strong>once every 23.5 hours per IP address</strong>: <code>get_zones.php</code> once per country, and <code>get_geojson.php</code> once per region site. A second request for the same country or region inside that window is refused with <code>429</code>, and <strong>the third refused request within the window bans your IP address from all of meshmapper.net for a day</strong>. Every repeat doubles the ban, up to 30 days. See <a href="#call-limits">Call limits</a>. Accessing anything that isn't a published API, or scraping pages for data, is not allowed; see the warning on the <a href="../coverage-api/">Coverage API</a> page.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Call this from your server, not your visitors' browsers</p>
+<p>Fetch this API from your own backend, store the result, and serve your own copy to visitors. Don't call it from client-side JavaScript in a visitor's browser: everyone behind the same home router or mobile carrier shares one public IP address, so one visitor's fetch uses the call and the next visitor's fetch bans that whole IP address from all of meshmapper.net, including every MeshMapper app user on that network.</p>
 </div>
 <h2 id="list-regions">List regions<a class="headerlink" href="#list-regions" title="Permanent link">¶</a></h2>
 <pre><code>GET https://meshmapper.net/get_zones.php?country=CA
@@ -2982,13 +3036,25 @@
 <li>The geometry is always a single <code>Polygon</code>.</li>
 <li>A region with no drawn boundary has <code>"geometry": null</code> and <code>has_boundary: false</code>. MeshMapper doesn't draw a circle in its place, but <code>center</code> and <code>radius_km</code> are there if you want one.</li>
 <li><code>center</code> is <code>[longitude, latitude]</code> too. <code>radius_km</code> can be <code>null</code>.</li>
-<li>If the response is cut off mid-stream, the JSON is left unclosed on purpose. Treat a parse error as "retry".</li>
+<li>If the server hits a problem mid-stream, the JSON is deliberately left unclosed, so you get a truncated, unparseable body, not a clean JSON error. A parse error does <strong>not</strong> by itself mean your call was handed back; see <a href="#call-limits">Call limits</a> for exactly which errors are safe to retry.</li>
+</ul>
+<h2 id="call-limits">Call limits<a class="headerlink" href="#call-limits" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>One call per target every 23.5 hours per IP address.</strong> For <code>get_zones.php</code> the target is the country (<code>?country=CA</code> and <code>?country=US</code> are separate calls). For <code>get_geojson.php</code> it's the region site, and a group site counts as its own site, separate from its members. Fetching every region of a country in one run is fine: each region is its own call.</li>
+<li><strong>An early call for the same target is refused with <code>429</code>; the third refusal within the window bans your IP address.</strong> Your IP address is banned from all of meshmapper.net (the map included, and every device behind that IP address) for 1 day. Each repeat doubles the ban: 2 days, 4 days, 8 days, up to 30 days.</li>
+<li><strong>At most 30 calls a minute from one IP address, across all these APIs together.</strong> A call over that gets <code>503</code> with <code>{"error":"slow_down","retry_after":N}</code>. It doesn't use your call and never counts toward a ban: wait <code>Retry-After</code> seconds and carry on. Pausing 2 seconds between calls keeps you under it.</li>
+<li><strong>Only certain JSON errors hand your call back.</strong> A <code>400</code> (missing or bad <code>country</code> on <code>get_zones.php</code>), a <code>404</code> <code>zone_not_found</code>, a <code>503</code> <code>unavailable</code>, or a <code>503</code> <code>slow_down</code> (after waiting <code>Retry-After</code>) doesn't use your call, so retrying after one of those is safe. Anything else, a cut-off or unparseable body, a timeout on your side, an HTML <code>5xx</code> error page, a connection reset, may already have used your call: keep your previous copy and wait for your next scheduled run instead of retrying.</li>
+<li><strong>Only <code>GET</code> counts.</strong> A browser's CORS preflight (<code>OPTIONS</code>) doesn't. <code>HEAD</code> and other methods get <code>405</code> and don't count either.</li>
+<li><strong>Don't rely on the clock, track your last call.</strong> Store the time of your last served call for each target (country or region) and skip the call if it was less than 23.5 hours ago. Schedule in UTC: a local-time cron job gets a 23-hour day at the DST change, which is enough to trip the limit.</li>
+<li><strong>Use a generous client timeout, 60 to 120 seconds.</strong> A short timeout on your side can cut the connection before the server finishes, and that counts against you as an "anything else" error above, not a safe-to-retry one.</li>
+<li><strong>While testing, don't open a URL twice.</strong> Save the response to a file once and work from the file; every reload after the first is refused and counts toward a ban.</li>
 </ul>
 <h2 id="caching">Caching<a class="headerlink" href="#caching" title="Permanent link">¶</a></h2>
-<p>Both endpoints send <code>Cache-Control: public, max-age=3600</code> and an <code>ETag</code>. To check for changes cheaply, send the <code>ETag</code> back in <code>If-None-Match</code>; you'll get <code>304 Not Modified</code> with no body if nothing changed. <code>generated_at</code> changes on every response and isn't part of the <code>ETag</code>. A <code>304</code> still counts against the rate limit.</p>
+<p>Both endpoints send <code>Cache-Control: public, max-age=84600</code> (23.5 hours) and an <code>ETag</code>, so a standard HTTP cache won't ask again before your next call is allowed. On your next daily call, send the <code>ETag</code> back in <code>If-None-Match</code>; you'll get <code>304 Not Modified</code> with no body if nothing changed. <code>generated_at</code> changes on every response and isn't part of the <code>ETag</code>. A <code>304</code> uses your call for that window, just like a <code>200</code>.</p>
+<p><code>ETag</code> and <code>Retry-After</code> are readable from browser JavaScript (<code>Access-Control-Expose-Headers</code>), for server-side tools and your own debugging, not so you can embed this call directly in a page your visitors load; see the warning above.</p>
 <p>Responses are gzip-compressed.</p>
 <h2 id="errors">Errors<a class="headerlink" href="#errors" title="Permanent link">¶</a></h2>
-<p>Errors are JSON: <code>{"error": "&lt;code&gt;"}</code>.</p>
+<p>Errors are JSON: <code>{"error": "&lt;code&gt;"}</code>. A <code>429</code> also carries <code>retry_after</code>.</p>
 <table>
 <thead>
 <tr>
@@ -3014,28 +3080,55 @@
 <td>The region is unknown, pending or turned off.</td>
 </tr>
 <tr>
+<td>405</td>
+<td><code>method_not_allowed</code></td>
+<td>Only <code>GET</code> (and the <code>OPTIONS</code> preflight) are answered.</td>
+</tr>
+<tr>
 <td>429</td>
 <td><code>rate_limited</code></td>
-<td>Over 60 requests in a minute. Wait for the <code>Retry-After</code> header (seconds).</td>
+<td>This country or region was already fetched from your IP address in the last 23.5 hours. <code>Retry-After</code> and <code>retry_after</code> give the seconds left. Three of these within the window ban your IP address; see <a href="#call-limits">Call limits</a>.</td>
 </tr>
 <tr>
 <td>503</td>
 <td><code>unavailable</code></td>
-<td>Temporary server problem. Try again later.</td>
+<td>Temporary server problem. Try again later; it doesn't use your call.</td>
+</tr>
+<tr>
+<td>503</td>
+<td><code>slow_down</code></td>
+<td>More than 30 calls in the last minute from your IP address, across all these APIs. <code>Retry-After</code> and <code>retry_after</code> give the seconds left. It doesn't use your call and never counts toward a ban.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">¶</a></h2>
-<p>Fetch every Canadian region with a boundary into one GeoJSON file:</p>
-<pre><code class="language-python">import json, httpx
+<p>Run this from a scheduled job on your own server, never in a loop and never from a browser. It fetches every Canadian region with a boundary into one GeoJSON file (one call to <code>get_zones.php</code>, then one call per region), tracking the last served call per URL so an early rerun skips instead of risking a ban:</p>
+<pre><code class="language-python">import json, os, time, httpx
 
-zones = httpx.get("https://meshmapper.net/get_zones.php", params={"country": "CA"}).json()
+STATE = "meshmapper-state.json"
+last = json.load(open(STATE)) if os.path.exists(STATE) else {}
+
+def fetch(url, **params):
+    key = str(httpx.URL(url, params=params))   # the target: for get_zones this includes ?country=..
+    if time.time() - last.get(key, 0) &lt; 23.5 * 3600:
+        return None                      # already used this call recently
+    r = httpx.get(url, params=params, timeout=120)
+    if r.status_code != 200:
+        return None                      # keep the previous copy, don't retry here
+    last[key] = time.time()
+    return r.json()
+
+zones = fetch("https://meshmapper.net/get_zones.php", country="CA")
 features = []
-for z in zones["zones"]:
-    if z["has_boundary"]:
-        fc = httpx.get(z["url"] + "get_geojson.php").json()
-        features.extend(fc["features"])
-json.dump({"type": "FeatureCollection", "features": features}, open("meshmapper-ca.geojson", "w"))
+if zones:
+    for z in zones["zones"]:
+        if z["has_boundary"]:
+            fc = fetch(z["url"] + "get_geojson.php")
+            if fc:
+                features.extend(fc["features"])
+            time.sleep(2)                # stay under the 30-calls-a-minute cross-API cap
+    json.dump({"type": "FeatureCollection", "features": features}, open("meshmapper-ca.geojson", "w"))
+json.dump(last, open(STATE, "w"))
 </code></pre>
 
 

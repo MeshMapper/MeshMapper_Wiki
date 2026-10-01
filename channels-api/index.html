@@ -7,13 +7,13 @@
       
       
       
-        <link rel="canonical" href="https://wiki.meshmapper.net/mqtt-ha/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/channels-api/">
       
       
-        <link rel="prev" href="../mqtt-firmware/">
+        <link rel="prev" href="../scopes-api/">
       
       
-        <link rel="next" href="../mqtt-python/">
+        <link rel="next" href="../dataupload/">
       
       
         
@@ -24,7 +24,7 @@
     
     
       
-        <title>MeshCore-HA - MeshMapper Wiki</title>
+        <title>Channels API - MeshMapper Wiki</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#meshcore-home-assistant-setup" class="md-skip">
+        <a href="#channels-api" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              MeshCore-HA
+              Channels API
             
           </span>
         </div>
@@ -239,20 +239,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -273,7 +271,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -316,20 +314,18 @@
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked="">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2">
         
           
           <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
@@ -350,7 +346,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -421,37 +417,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    MeshCore-HA
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../mqtt-ha/" class="md-nav__link">
         
   
   
@@ -467,109 +436,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-      
-        <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Prerequisites
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#adding-the-meshmapper-broker" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Adding the MeshMapper Broker
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Adding the MeshMapper Broker">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-open-the-meshcore-integration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Open the MeshCore Integration
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-manage-mqtt-brokers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Manage MQTT Brokers
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-add-the-meshmapper-broker" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Add the MeshMapper Broker
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-save-and-exit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Save and Exit
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#verifying-your-observer" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Verifying Your Observer
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1372,18 +1238,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked="">
         
           
           <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
@@ -1404,7 +1272,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1615,10 +1483,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../channels-api/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Channels API
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1634,6 +1529,109 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Response">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#top-level-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Top-level fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channel-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Channel fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#call-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Call limits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caching
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2731,33 +2729,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#response" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prerequisites
+        Response
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#adding-the-meshmapper-broker" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Adding the MeshMapper Broker
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Adding the MeshMapper Broker">
+    <nav class="md-nav" aria-label="Response">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-open-the-meshcore-integration" class="md-nav__link">
+  <a href="#top-level-fields" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Open the MeshCore Integration
+        Top-level fields
       
     </span>
   </a>
@@ -2765,32 +2752,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-manage-mqtt-brokers" class="md-nav__link">
+  <a href="#channel-fields" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Manage MQTT Brokers
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-add-the-meshmapper-broker" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Add the MeshMapper Broker
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-save-and-exit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Save and Exit
+        Channel fields
       
     </span>
   </a>
@@ -2803,10 +2768,43 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#verifying-your-observer" class="md-nav__link">
+  <a href="#call-limits" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Verifying Your Observer
+        Call limits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caching
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
       
     </span>
   </a>
@@ -2830,70 +2828,173 @@
 
 
 
-<h1 id="meshcore-home-assistant-setup">MeshCore Home Assistant Setup<a class="headerlink" href="#meshcore-home-assistant-setup" title="Permanent link">¶</a></h1>
-<p>These instructions cover adding the MeshMapper MQTT broker to an existing <a href="https://meshcore-dev.github.io/meshcore-ha/">MeshCore-HA</a> integration. If you haven't installed MeshCore-HA yet, follow the <a href="https://meshcore-dev.github.io/meshcore-ha/docs/ha/installation">official installation guide</a> first.</p>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
+<h1 id="channels-api">Channels API<a class="headerlink" href="#channels-api" title="Permanent link">¶</a></h1>
+<p>The Channels API lists the hashtag channels a region's admins have set up for it. That's the same list the MeshMapper app listens on for passive RX in that region. Use it to show a region's local channels, or to set them up in your own client, without scraping the map. No key is needed.</p>
+<pre><code>GET https://yow.meshmapper.net/get_channels.php
+</code></pre>
 <ul>
-<li>A working Home Assistant instance with the MeshCore-HA integration installed and connected to your radio</li>
+<li>On a <strong>region</strong> site: that region's own channels.</li>
+<li>On a <strong>group</strong> site (e.g. <code>pnw.meshmapper.net</code>): every enabled member region's channels, combined. A channel set up in several members is listed once.</li>
 </ul>
-<h2 id="adding-the-meshmapper-broker">Adding the MeshMapper Broker<a class="headerlink" href="#adding-the-meshmapper-broker" title="Permanent link">¶</a></h2>
-<h3 id="1-open-the-meshcore-integration">1. Open the MeshCore Integration<a class="headerlink" href="#1-open-the-meshcore-integration" title="Permanent link">¶</a></h3>
-<p>Navigate to <strong>Settings &gt; Devices &amp; Services &gt; MeshCore</strong>. Click the <strong>gear icon</strong> beside your <strong>MeshCore Node</strong> entry.</p>
-<h3 id="2-manage-mqtt-brokers">2. Manage MQTT Brokers<a class="headerlink" href="#2-manage-mqtt-brokers" title="Permanent link">¶</a></h3>
-<p>Select <strong>Manage MQTT Brokers</strong> and click <strong>Submit</strong>.</p>
-<h3 id="3-add-the-meshmapper-broker">3. Add the MeshMapper Broker<a class="headerlink" href="#3-add-the-meshmapper-broker" title="Permanent link">¶</a></h3>
-<p>Click <strong>Add Broker</strong> and set the following. Leave everything else at its default.</p>
+<p>There are no parameters.</p>
+<div class="admonition warning">
+<p class="admonition-title">One call per day; keep calling early and you're banned</p>
+<p>Each region site's answer can be fetched <strong>once every 23.5 hours per IP address</strong>. A second request to the same region site inside that window is refused with <code>429</code>, and <strong>the third refused request within the window bans your IP address from all of meshmapper.net for a day</strong>. Every repeat doubles the ban, up to 30 days. See <a href="#call-limits">Call limits</a>. Accessing anything that isn't a published API, or scraping pages for data, is not allowed; see the warning on the <a href="../coverage-api/">Coverage API</a> page.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Call this from your server, not your visitors' browsers</p>
+<p>Fetch this API from your own backend, store the result, and serve your own copy to visitors. Don't call it from client-side JavaScript in a visitor's browser: everyone behind the same home router or mobile carrier shares one public IP address, so one visitor's fetch uses the call and the next visitor's fetch bans that whole IP address from all of meshmapper.net, including every MeshMapper app user on that network.</p>
+</div>
+<h2 id="response">Response<a class="headerlink" href="#response" title="Permanent link">¶</a></h2>
+<pre><code class="language-json">{
+  "generated_at": "2026-09-30T18:00:00Z",
+  "region": "YOW",
+  "zones": ["YOW"],
+  "count": 2,
+  "channels": [
+    { "name": "#ottawa", "key": "7871ec72b45617696c35c970bddd8124", "hash": "21", "zones": ["YOW"] },
+    { "name": "#yow-mesh", "key": "f371e82cb45c1f1d55f97f917055c1a2", "hash": "6c", "zones": ["YOW"] }
+  ]
+}
+</code></pre>
+<h3 id="top-level-fields">Top-level fields<a class="headerlink" href="#top-level-fields" title="Permanent link">¶</a></h3>
 <table>
 <thead>
 <tr>
-<th>Setting</th>
-<th>Value</th>
+<th>Field</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Enabled</strong></td>
-<td>Checked</td>
+<td><code>generated_at</code></td>
+<td>When this answer was built.</td>
 </tr>
 <tr>
-<td><strong>Server</strong></td>
-<td><code>mqtt.meshmapper.net</code></td>
+<td><code>region</code></td>
+<td>The region code this page serves, uppercase. On a group site this is the group's own code.</td>
 </tr>
 <tr>
-<td><strong>Port</strong></td>
-<td><code>443</code></td>
+<td><code>zones</code></td>
+<td>The region codes included in this answer: one code on a region site, every enabled member on a group site.</td>
 </tr>
 <tr>
-<td><strong>Transport</strong></td>
-<td>WebSocket</td>
+<td><code>count</code></td>
+<td>How many channels are listed.</td>
 </tr>
 <tr>
-<td><strong>Use TLS</strong></td>
-<td>Checked</td>
-</tr>
-<tr>
-<td><strong>Verify TLS Certificate</strong></td>
-<td>Checked</td>
-</tr>
-<tr>
-<td><strong>Use MeshCore Auth Token</strong></td>
-<td>Checked</td>
-</tr>
-<tr>
-<td><strong>Token Audience</strong></td>
-<td><code>mqtt.meshmapper.net</code></td>
-</tr>
-<tr>
-<td><strong>Broker IATA Code</strong></td>
-<td>Your <strong>MeshMapper region code</strong> (e.g. <code>YOW</code>). This must match your region, or your observer won't show up.</td>
+<td><code>channels</code></td>
+<td>One entry per channel, sorted by name. Empty when the region hasn't set any up.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="4-save-and-exit">4. Save and Exit<a class="headerlink" href="#4-save-and-exit" title="Permanent link">¶</a></h3>
-<p>Click <strong>Submit</strong>, then click <strong>Exit</strong> to return to the integration page.</p>
-<h2 id="verifying-your-observer">Verifying Your Observer<a class="headerlink" href="#verifying-your-observer" title="Permanent link">¶</a></h2>
-<p>Once your observer is running and connected, it appears in your region's <strong>Region → Observers</strong> popup on the map after packets have been received (repeater or companion adverts, or wardriving pings). It shows as <strong>Online</strong> with a MeshMapper broker badge once the broker has heard it.</p>
-<p>If nothing shows up, check the Home Assistant logs for MQTT errors, and confirm the Broker IATA Code matches your region.</p>
+<h3 id="channel-fields">Channel fields<a class="headerlink" href="#channel-fields" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>The channel name with its <code>#</code>, in lowercase.</td>
+</tr>
+<tr>
+<td><code>key</code></td>
+<td>The channel's 16-byte secret as 32 hex characters: the first 16 bytes of the SHA-256 of <code>name</code> (including the <code>#</code>). Every MeshCore client derives the same key from the name; it's here so you don't have to.</td>
+</tr>
+<tr>
+<td><code>hash</code></td>
+<td>The channel's one-byte hash as 2 hex characters: the first byte of the SHA-256 of the key. This is the byte that identifies the channel in packets on air.</td>
+</tr>
+<tr>
+<td><code>zones</code></td>
+<td>The region codes that set up this channel. Always a list, even on a region site.</td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>Public</strong> channel isn't listed, since every region has it and its key is fixed. Neither is the app's own wardriving channel, which isn't regional.</p>
+<p>Hashtag channels are public by design: anyone who knows the name can derive the key. Nothing private is in this response.</p>
+<p>To check a <code>key</code> and <code>hash</code> yourself:</p>
+<pre><code class="language-python">import hashlib
+
+def channel_key(name):           # name includes the '#'
+    return hashlib.sha256(name.lower().encode()).digest()[:16]
+
+k = channel_key("#ottawa")
+print(k.hex(), hashlib.sha256(k).hexdigest()[:2])   # 7871ec72b45617696c35c970bddd8124 21
+</code></pre>
+<h2 id="call-limits">Call limits<a class="headerlink" href="#call-limits" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>One call per region site every 23.5 hours per IP address.</strong> A group site counts as its own site, separate from its members.</li>
+<li><strong>An early call is refused with <code>429</code>; the third refusal within the window bans your IP address.</strong> Your IP address is banned from all of meshmapper.net (the map included, and every device behind that IP address) for 1 day. Each repeat doubles the ban: 2 days, 4 days, 8 days, up to 30 days.</li>
+<li><strong>At most 30 calls a minute from one IP address, across all these APIs together.</strong> A call over that gets <code>503</code> with <code>{"error":"slow_down","retry_after":N}</code>. It doesn't use your call and never counts toward a ban: wait <code>Retry-After</code> seconds and carry on. Pausing 2 seconds between calls keeps you under it.</li>
+<li><strong>Only certain JSON errors hand your call back.</strong> A <code>404</code> <code>zone_not_found</code>, a <code>503</code> <code>unavailable</code>, or a <code>503</code> <code>slow_down</code> (after waiting <code>Retry-After</code>) doesn't use your call, so retrying after one of those is safe. Anything else, a cut-off or unparseable body, a timeout on your side, an HTML <code>5xx</code> error page, a connection reset, may already have used your call: keep your previous copy and wait for your next scheduled run instead of retrying.</li>
+<li><strong>Only <code>GET</code> counts.</strong> A browser's CORS preflight (<code>OPTIONS</code>) doesn't. <code>HEAD</code> and other methods get <code>405</code> and don't count either.</li>
+<li><strong>Don't rely on the clock, track your last call.</strong> Store the time of your last served call for each region site and skip the call if it was less than 23.5 hours ago. Schedule in UTC: a local-time cron job gets a 23-hour day at the DST change, which is enough to trip the limit.</li>
+<li><strong>Use a generous client timeout, 60 to 120 seconds.</strong> A short timeout on your side can cut the connection before the server finishes, and that counts against you as an "anything else" error above, not a safe-to-retry one.</li>
+<li><strong>While testing, don't open the URL twice.</strong> Save the response to a file once and work from the file; every reload after the first is refused and counts toward a ban.</li>
+</ul>
+<h2 id="caching">Caching<a class="headerlink" href="#caching" title="Permanent link">¶</a></h2>
+<p>Sends <code>Cache-Control: public, max-age=84600</code> (23.5 hours) and a strong <code>ETag</code>, so a standard HTTP cache won't ask again before your next call is allowed. On your next daily call, send the <code>ETag</code> back in <code>If-None-Match</code> to get <code>304 Not Modified</code> with no body when nothing changed. <code>generated_at</code> isn't part of the <code>ETag</code>. A <code>304</code> uses your call for that window, just like a <code>200</code>.</p>
+<p><code>ETag</code> and <code>Retry-After</code> are readable from browser JavaScript (<code>Access-Control-Expose-Headers</code>), for server-side tools and your own debugging, not so you can embed this call directly in a page your visitors load; see the warning above.</p>
+<p>Responses are gzip-compressed.</p>
+<h2 id="errors">Errors<a class="headerlink" href="#errors" title="Permanent link">¶</a></h2>
+<p>Errors are JSON: <code>{"error": "&lt;code&gt;"}</code>. A <code>429</code> also carries <code>retry_after</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th><code>error</code></th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>404</td>
+<td><code>zone_not_found</code></td>
+<td>The region is unknown, pending or turned off.</td>
+</tr>
+<tr>
+<td>405</td>
+<td><code>method_not_allowed</code></td>
+<td>Only <code>GET</code> (and the <code>OPTIONS</code> preflight) are answered.</td>
+</tr>
+<tr>
+<td>429</td>
+<td><code>rate_limited</code></td>
+<td>This region site was already fetched from your IP address in the last 23.5 hours. <code>Retry-After</code> and <code>retry_after</code> give the seconds left. Three of these within the window ban your IP address; see <a href="#call-limits">Call limits</a>.</td>
+</tr>
+<tr>
+<td>503</td>
+<td><code>unavailable</code></td>
+<td>Temporary server problem. Try again later; it doesn't use your call.</td>
+</tr>
+<tr>
+<td>503</td>
+<td><code>slow_down</code></td>
+<td>More than 30 calls in the last minute from your IP address, across all these APIs. <code>Retry-After</code> and <code>retry_after</code> give the seconds left. It doesn't use your call and never counts toward a ban.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">¶</a></h2>
+<p>Run this once a day from a scheduled job on your own server, never in a loop and never from a browser. It tracks the last served call so an early rerun skips instead of risking a ban:</p>
+<pre><code class="language-python">import json, os, time, httpx
+
+STATE = "meshmapper-state.json"
+last = json.load(open(STATE)) if os.path.exists(STATE) else {}
+
+url = "https://yow.meshmapper.net/get_channels.php"
+if time.time() - last.get(url, 0) &gt;= 23.5 * 3600:
+    r = httpx.get(url, timeout=120)
+    if r.status_code == 200:
+        last[url] = time.time()
+        json.dump(r.json(), open("yow-channels.json", "w"))
+    # anything else: keep your previous copy, don't retry here
+json.dump(last, open(STATE, "w"))
+</code></pre>
 
 
 

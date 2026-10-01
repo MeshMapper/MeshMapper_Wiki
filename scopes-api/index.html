@@ -13,7 +13,7 @@
         <link rel="prev" href="../zones-api/">
       
       
-        <link rel="next" href="../dataupload/">
+        <link rel="next" href="../channels-api/">
       
       
         
@@ -1557,6 +1557,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#call-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Call limits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#caching" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1593,6 +1604,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../channels-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Channels API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -2729,6 +2768,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#call-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Call limits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#caching" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2787,9 +2837,13 @@
 <li>On a <strong>group</strong> site (e.g. <code>pnw.meshmapper.net</code>): every enabled member region's repeaters, combined. A repeater carried by several members is counted once.</li>
 </ul>
 <p>There are no parameters.</p>
-<div class="admonition note">
-<p class="admonition-title">Fair use</p>
-<p>Public, cached for 5 minutes, and rate limited to 60 requests per minute per IP address. Cache the results, respect <code>ETag</code>, and don't poll more than once every few minutes. Accessing anything that isn't a published API, or scraping pages for data, is not allowed; see the warning on the <a href="../coverage-api/">Coverage API</a> page.</p>
+<div class="admonition warning">
+<p class="admonition-title">One call per hour; keep calling early and you're banned</p>
+<p>Each region site's answer can be fetched <strong>once every 55 minutes per IP address</strong>. A second request to the same region site inside that window is refused with <code>429</code>, and <strong>the third refused request within the window bans your IP address from all of meshmapper.net for an hour</strong>. Every repeat doubles the ban, up to a week. See <a href="#call-limits">Call limits</a>. Accessing anything that isn't a published API, or scraping pages for data, is not allowed; see the warning on the <a href="../coverage-api/">Coverage API</a> page.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Call this from your server, not your visitors' browsers</p>
+<p>Fetch this API from your own backend, store the result, and serve your own copy to visitors. Don't call it from client-side JavaScript in a visitor's browser: everyone behind the same home router or mobile carrier shares one public IP address, so one visitor's fetch uses the call and the next visitor's fetch bans that whole IP address from all of meshmapper.net, including every MeshMapper app user on that network.</p>
 </div>
 <h2 id="response">Response<a class="headerlink" href="#response" title="Permanent link">¶</a></h2>
 <pre><code class="language-json">{
@@ -2872,11 +2926,23 @@
 </tbody>
 </table>
 <p>Names and counts only. There is no per-repeater list, no repeater ID, and no key of any kind in this response.</p>
+<h2 id="call-limits">Call limits<a class="headerlink" href="#call-limits" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>One call per region site every 55 minutes per IP address.</strong> A group site counts as its own site, separate from its members.</li>
+<li><strong>An early call is refused with <code>429</code>; the third refusal within the window bans your IP address.</strong> Your IP address is banned from all of meshmapper.net (the map included, and every device behind that IP address) for 1 hour. Each repeat doubles the ban: 2 hours, 4 hours, 8 hours, up to a week.</li>
+<li><strong>At most 30 calls a minute from one IP address, across all these APIs together.</strong> A call over that gets <code>503</code> with <code>{"error":"slow_down","retry_after":N}</code>. It doesn't use your call and never counts toward a ban: wait <code>Retry-After</code> seconds and carry on. Pausing 2 seconds between calls keeps you under it.</li>
+<li><strong>Only certain JSON errors hand your call back.</strong> A <code>404</code> <code>zone_not_found</code>, a <code>503</code> <code>unavailable</code>, or a <code>503</code> <code>slow_down</code> (after waiting <code>Retry-After</code>) doesn't use your call, so retrying after one of those is safe. Anything else, a cut-off or unparseable body, a timeout on your side, an HTML <code>5xx</code> error page, a connection reset, may already have used your call: keep your previous copy and wait for your next scheduled run instead of retrying.</li>
+<li><strong>Only <code>GET</code> counts.</strong> A browser's CORS preflight (<code>OPTIONS</code>) doesn't. <code>HEAD</code> and other methods get <code>405</code> and don't count either.</li>
+<li><strong>Don't rely on the clock, track your last call.</strong> Store the time of your last served call for each region site and skip the call if it was less than 55 minutes ago. Schedule in UTC: a local-time cron's hour mapping shifts at the DST change, which can land two runs closer together than you expect.</li>
+<li><strong>Use a generous client timeout, 60 to 120 seconds.</strong> A short timeout on your side can cut the connection before the server finishes, and that counts against you as an "anything else" error above, not a safe-to-retry one.</li>
+<li><strong>While testing, don't open the URL twice.</strong> Save the response to a file once and work from the file; every reload after the first is refused and counts toward a ban.</li>
+</ul>
 <h2 id="caching">Caching<a class="headerlink" href="#caching" title="Permanent link">¶</a></h2>
-<p>Sends <code>Cache-Control: public, max-age=300</code> and a strong <code>ETag</code>. Send the <code>ETag</code> back in <code>If-None-Match</code> to get <code>304 Not Modified</code> with no body when nothing changed. <code>generated_at</code> isn't part of the <code>ETag</code>. A <code>304</code> still counts against the rate limit.</p>
+<p>Sends <code>Cache-Control: public, max-age=3300</code> (55 minutes) and a strong <code>ETag</code>, so a standard HTTP cache won't ask again before your next call is allowed. On your next call, send the <code>ETag</code> back in <code>If-None-Match</code> to get <code>304 Not Modified</code> with no body when nothing changed. <code>generated_at</code> isn't part of the <code>ETag</code>. A <code>304</code> uses your call for that window, just like a <code>200</code>.</p>
+<p><code>ETag</code> and <code>Retry-After</code> are readable from browser JavaScript (<code>Access-Control-Expose-Headers</code>), for server-side tools and your own debugging, not so you can embed this call directly in a page your visitors load; see the warning above.</p>
 <p>Responses are gzip-compressed.</p>
 <h2 id="errors">Errors<a class="headerlink" href="#errors" title="Permanent link">¶</a></h2>
-<p>Errors are JSON: <code>{"error": "&lt;code&gt;"}</code>.</p>
+<p>Errors are JSON: <code>{"error": "&lt;code&gt;"}</code>. A <code>429</code> also carries <code>retry_after</code>.</p>
 <table>
 <thead>
 <tr>
@@ -2892,23 +2958,43 @@
 <td>The region is unknown, pending or turned off.</td>
 </tr>
 <tr>
+<td>405</td>
+<td><code>method_not_allowed</code></td>
+<td>Only <code>GET</code> (and the <code>OPTIONS</code> preflight) are answered.</td>
+</tr>
+<tr>
 <td>429</td>
 <td><code>rate_limited</code></td>
-<td>Over 60 requests in a minute. Wait for the <code>Retry-After</code> header (seconds).</td>
+<td>This region site was already fetched from your IP address in the last 55 minutes. <code>Retry-After</code> and <code>retry_after</code> give the seconds left. Three of these within the window ban your IP address; see <a href="#call-limits">Call limits</a>.</td>
 </tr>
 <tr>
 <td>503</td>
 <td><code>unavailable</code></td>
-<td>Temporary server problem. Try again later.</td>
+<td>Temporary server problem. Try again later; it doesn't use your call.</td>
+</tr>
+<tr>
+<td>503</td>
+<td><code>slow_down</code></td>
+<td>More than 30 calls in the last minute from your IP address, across all these APIs. <code>Retry-After</code> and <code>retry_after</code> give the seconds left. It doesn't use your call and never counts toward a ban.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">¶</a></h2>
-<pre><code class="language-python">import httpx
+<p>Run this at most once an hour from a scheduled job on your own server, never in a loop and never from a browser. It tracks the last served call so an early rerun skips instead of risking a ban:</p>
+<pre><code class="language-python">import json, os, time, httpx
 
-r = httpx.get("https://yow.meshmapper.net/get_scopes.php").json()
-for s in r["scopes"]:
-    print(s["name"], s["repeaters"], "of", r["repeaters"])
+STATE = "meshmapper-state.json"
+last = json.load(open(STATE)) if os.path.exists(STATE) else {}
+
+url = "https://yow.meshmapper.net/get_scopes.php"
+if time.time() - last.get(url, 0) &gt;= 55 * 60:
+    r = httpx.get(url, timeout=120)
+    if r.status_code == 200:
+        last[url] = time.time()
+        for s in r.json()["scopes"]:
+            print(s["name"], s["repeaters"])
+    # anything else: keep your previous copy, don't retry here
+json.dump(last, open(STATE, "w"))
 </code></pre>
 
 
