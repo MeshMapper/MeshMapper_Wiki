@@ -14,6 +14,9 @@ There are no parameters.
 !!! warning "One call per hour, or you're banned"
     Each region site's answer can be fetched **once every 55 minutes per IP address**. A second request to the same region site inside that window is refused with `429` **and bans your IP address from all of meshmapper.net for an hour**. Every repeat doubles the ban, up to a week. See [Call limits](#call-limits). Accessing anything that isn't a published API, or scraping pages for data, is not allowed; see the warning on the [Coverage API](coverage-api.md) page.
 
+!!! warning "Call this from your server, not your visitors' browsers"
+    Fetch this API from your own backend, store the result, and serve your own copy to visitors. Don't call it from client-side JavaScript in a visitor's browser: everyone behind the same home router or mobile carrier shares one public IP address, so one visitor's fetch uses the call and the next visitor's fetch bans that whole IP address from all of meshmapper.net, including every MeshMapper app user on that network.
+
 ## Response
 
 ```json
@@ -58,16 +61,17 @@ Names and counts only. There is no per-repeater list, no repeater ID, and no key
 
 - **One call per region site every 55 minutes per IP address.** A group site counts as its own site, separate from its members.
 - **A second call inside the window bans your IP address.** The request is refused with `429` and your IP address is banned from all of meshmapper.net (the map included, and every device behind that IP address) for 1 hour. Each repeat doubles the ban: 2 hours, 4 hours, 8 hours, up to a week.
-- **Only a successful answer counts.** A `200` or a `304` uses your call. A `404` or `503` doesn't, so retrying after one of those is safe.
+- **Only certain JSON errors hand your call back.** A `404` `zone_not_found` or a `503` `unavailable` doesn't use your call, so retrying after one of those is safe. Anything else, a cut-off or unparseable body, a timeout on your side, an HTML `5xx` error page, a connection reset, may already have used your call: keep your previous copy and wait for your next scheduled run instead of retrying.
 - **Only `GET` counts.** A browser's CORS preflight (`OPTIONS`) doesn't. `HEAD` and other methods get `405` and don't count either.
-- **The window is 55 minutes, not 60**, so a scheduled job that runs once an hour always has room. A job that runs more often than hourly will get banned.
+- **Don't rely on the clock, track your last call.** Store the time of your last served call for each region site and skip the call if it was less than 55 minutes ago. Schedule in UTC: a local-time cron's hour mapping shifts at the DST change, which can land two runs closer together than you expect.
+- **Use a generous client timeout, 60 to 120 seconds.** A short timeout on your side can cut the connection before the server finishes, and that counts against you as an "anything else" error above, not a safe-to-retry one.
 - **While testing, don't open the URL twice.** Save the response to a file once and work from the file.
 
 ## Caching
 
 Sends `Cache-Control: public, max-age=3300` (55 minutes) and a strong `ETag`, so a standard HTTP cache won't ask again before your next call is allowed. On your next call, send the `ETag` back in `If-None-Match` to get `304 Not Modified` with no body when nothing changed. `generated_at` isn't part of the `ETag`. A `304` uses your call for that window, just like a `200`.
 
-`ETag` and `Retry-After` are readable from browser JavaScript on other sites (`Access-Control-Expose-Headers`).
+`ETag` and `Retry-After` are readable from browser JavaScript (`Access-Control-Expose-Headers`), for server-side tools and your own debugging, not so you can embed this call directly in a page your visitors load; see the warning above.
 
 Responses are gzip-compressed.
 
@@ -84,12 +88,21 @@ Errors are JSON: `{"error": "<code>"}`. A `429` also carries `retry_after`.
 
 ## Example
 
-Run this at most once an hour from a scheduled job, never in a loop:
+Run this at most once an hour from a scheduled job on your own server, never in a loop and never from a browser. It tracks the last served call so an early rerun skips instead of risking a ban:
 
 ```python
-import httpx
+import json, os, time, httpx
 
-r = httpx.get("https://yow.meshmapper.net/get_scopes.php").json()
-for s in r["scopes"]:
-    print(s["name"], s["repeaters"], "of", r["repeaters"])
+STATE = "meshmapper-state.json"
+last = json.load(open(STATE)) if os.path.exists(STATE) else {}
+
+url = "https://yow.meshmapper.net/get_scopes.php"
+if time.time() - last.get(url, 0) >= 55 * 60:
+    r = httpx.get(url, timeout=120)
+    if r.status_code == 200:
+        last[url] = time.time()
+        for s in r.json()["scopes"]:
+            print(s["name"], s["repeaters"])
+    # anything else: keep your previous copy, don't retry here
+json.dump(last, open(STATE, "w"))
 ```
