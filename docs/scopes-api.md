@@ -11,8 +11,8 @@ GET https://yow.meshmapper.net/get_scopes.php
 
 There are no parameters.
 
-!!! note "Fair use"
-    Public, cached for 5 minutes, and rate limited to 60 requests per minute per IP address. Cache the results, respect `ETag`, and don't poll more than once every few minutes. Accessing anything that isn't a published API, or scraping pages for data, is not allowed; see the warning on the [Coverage API](coverage-api.md) page.
+!!! warning "One call per hour, or you're banned"
+    Each region site's answer can be fetched **once every 55 minutes per IP address**. A second request to the same region site inside that window is refused with `429` **and bans your IP address from all of meshmapper.net for an hour**. Every repeat doubles the ban, up to a week. See [Call limits](#call-limits). Accessing anything that isn't a published API, or scraping pages for data, is not allowed; see the warning on the [Coverage API](coverage-api.md) page.
 
 ## Response
 
@@ -54,23 +54,37 @@ There are no parameters.
 
 Names and counts only. There is no per-repeater list, no repeater ID, and no key of any kind in this response.
 
+## Call limits
+
+- **One call per region site every 55 minutes per IP address.** A group site counts as its own site, separate from its members.
+- **A second call inside the window bans your IP address.** The request is refused with `429` and your IP address is banned from all of meshmapper.net (the map included, and every device behind that IP address) for 1 hour. Each repeat doubles the ban: 2 hours, 4 hours, 8 hours, up to a week.
+- **Only a successful answer counts.** A `200` or a `304` uses your call. A `404` or `503` doesn't, so retrying after one of those is safe.
+- **Only `GET` counts.** A browser's CORS preflight (`OPTIONS`) doesn't. `HEAD` and other methods get `405` and don't count either.
+- **The window is 55 minutes, not 60**, so a scheduled job that runs once an hour always has room. A job that runs more often than hourly will get banned.
+- **While testing, don't open the URL twice.** Save the response to a file once and work from the file.
+
 ## Caching
 
-Sends `Cache-Control: public, max-age=300` and a strong `ETag`. Send the `ETag` back in `If-None-Match` to get `304 Not Modified` with no body when nothing changed. `generated_at` isn't part of the `ETag`. A `304` still counts against the rate limit.
+Sends `Cache-Control: public, max-age=3300` (55 minutes) and a strong `ETag`, so a standard HTTP cache won't ask again before your next call is allowed. On your next call, send the `ETag` back in `If-None-Match` to get `304 Not Modified` with no body when nothing changed. `generated_at` isn't part of the `ETag`. A `304` uses your call for that window, just like a `200`.
+
+`ETag` and `Retry-After` are readable from browser JavaScript on other sites (`Access-Control-Expose-Headers`).
 
 Responses are gzip-compressed.
 
 ## Errors
 
-Errors are JSON: `{"error": "<code>"}`.
+Errors are JSON: `{"error": "<code>"}`. A `429` also carries `retry_after`.
 
 | Status | `error` | Meaning |
 | --- | --- | --- |
 | 404 | `zone_not_found` | The region is unknown, pending or turned off. |
-| 429 | `rate_limited` | Over 60 requests in a minute. Wait for the `Retry-After` header (seconds). |
-| 503 | `unavailable` | Temporary server problem. Try again later. |
+| 405 | `method_not_allowed` | Only `GET` (and the `OPTIONS` preflight) are answered. |
+| 429 | `rate_limited` | This region site was already fetched from your IP address in the last 55 minutes. `Retry-After` and `retry_after` give the seconds left. Your IP address is now banned; see [Call limits](#call-limits). |
+| 503 | `unavailable` | Temporary server problem. Try again later; it doesn't use your call. |
 
 ## Example
+
+Run this at most once an hour from a scheduled job, never in a loop:
 
 ```python
 import httpx
