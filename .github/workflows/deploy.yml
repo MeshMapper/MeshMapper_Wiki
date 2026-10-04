@@ -1,4 +1,4 @@
-name: Deploy MkDocs site
+name: Deploy Zensical site
 
 on:
   push: 
@@ -25,16 +25,12 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Install MkDocs + Material
+      - name: Install Zensical
         run: |
-          pip install mkdocs-material
+          pip install zensical
 
-      - name: Install Mkdocs-plugin
-        run: |
-          pip install mkdocs-macros-plugin pyyaml mkdocs-glightbox pymdown-extensions
-
-      - name: Build MkDocs site
-        run: mkdocs build --strict
+      - name: Build Zensical site
+        run: zensical build --clean --strict
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4

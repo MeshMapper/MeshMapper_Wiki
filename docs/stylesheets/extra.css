@@ -1,11 +1,28 @@
-.md-header {
-    background-color: #333 !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
-}
+/* Keep the desktop search control prominent and centered in the header. */
+@media screen and (min-width: 60em) {
+    .md-header__inner {
+        position: relative;
+    }
 
-.md-header__inner {
-    padding: 0.5rem 1rem !important;
-    padding-top: max(0.5rem, env(safe-area-inset-top)) !important;
+    .md-search {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .md-search__button {
+        width: min(16rem, 35vw);
+        height: 1.8rem;
+        font-size: 0.75rem;
+    }
+
+    .md-search__button::before {
+        top: 0.4rem;
+    }
+
+    .md-search__button::after {
+        top: 0.45rem;
+    }
 }
 
 .nav-btn {
@@ -57,12 +74,8 @@
     mask-image: var(--md-admonition-icon--question);
 }
 
-@media screen and (max-width: 768px) {
-    .md-header__inner {
-        padding: 0.5rem 1rem !important;
-    }
+@media screen and (max-width: 59.984375em) {
     .nav-btn {
-        font-size: 13px !important;
-        padding: 4px 10px;
+        display: none;
     }
 }

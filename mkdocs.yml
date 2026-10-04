@@ -95,6 +95,7 @@ nav:
 # Theme Configuration
 theme:
   name:  material
+  variant: modern
   logo: assets/wardrive.png
   favicon: assets/wardrive.png
   palette:
