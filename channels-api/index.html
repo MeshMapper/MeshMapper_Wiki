@@ -1402,6 +1402,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../api-keys/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Keys and Access
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../coverage-api/" class="md-nav__link">
         
   
@@ -1544,6 +1572,17 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication
+      
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#response" class="md-nav__link">
@@ -2729,6 +2768,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#response" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2829,7 +2879,7 @@
 
 
 <h1 id="channels-api">Channels API<a class="headerlink" href="#channels-api" title="Permanent link">¶</a></h1>
-<p>The Channels API lists the hashtag channels a region's admins have set up for it. That's the same list the MeshMapper app listens on for passive RX in that region. Use it to show a region's local channels, or to set them up in your own client, without scraping the map. No key is needed.</p>
+<p>The Channels API lists the hashtag channels a region's admins have set up for it. That's the same list the MeshMapper app listens on for passive RX in that region. Use it to show a region's local channels, or to set them up in your own client, without scraping the map. Send your Coverage API key in the <code>X-API-Key</code> header.</p>
 <pre><code>GET https://yow.meshmapper.net/get_channels.php
 </code></pre>
 <ul>
@@ -2837,14 +2887,9 @@
 <li>On a <strong>group</strong> site (e.g. <code>pnw.meshmapper.net</code>): every enabled member region's channels, combined. A channel set up in several members is listed once.</li>
 </ul>
 <p>There are no parameters.</p>
-<div class="admonition warning">
-<p class="admonition-title">One call per day; keep calling early and you're banned</p>
-<p>Each region site's answer can be fetched <strong>once every 23.5 hours per IP address</strong>. A second request to the same region site inside that window is refused with <code>429</code>, and <strong>the third refused request within the window bans your IP address from all of meshmapper.net for a day</strong>. Every repeat doubles the ban, up to 30 days. See <a href="#call-limits">Call limits</a>. Accessing anything that isn't a published API, or scraping pages for data, is not allowed; see the warning on the <a href="../coverage-api/">Coverage API</a> page.</p>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Call this from your server, not your visitors' browsers</p>
-<p>Fetch this API from your own backend, store the result, and serve your own copy to visitors. Don't call it from client-side JavaScript in a visitor's browser: everyone behind the same home router or mobile carrier shares one public IP address, so one visitor's fetch uses the call and the next visitor's fetch bans that whole IP address from all of meshmapper.net, including every MeshMapper app user on that network.</p>
-</div>
+<h2 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">¶</a></h2>
+<p>Send your existing <strong>Coverage API key</strong> in the <code>X-API-Key</code> header. No new key is needed. See <a href="../api-keys/">API keys and access</a> for generation, group permissions, custom GLOBAL integrations and the v1.5.117 rollout.</p>
+<p>Fetch from your backend and serve your own parsed data to visitors. Keep the key out of client-side JavaScript.</p>
 <h2 id="response">Response<a class="headerlink" href="#response" title="Permanent link">¶</a></h2>
 <pre><code class="language-json">{
   "generated_at": "2026-09-30T18:00:00Z",
@@ -2927,27 +2972,16 @@ k = channel_key("#ottawa")
 print(k.hex(), hashlib.sha256(k).hexdigest()[:2])   # 7871ec72b45617696c35c970bddd8124 21
 </code></pre>
 <h2 id="call-limits">Call limits<a class="headerlink" href="#call-limits" title="Permanent link">¶</a></h2>
-<ul>
-<li><strong>One call per region site every 23.5 hours per IP address.</strong> A group site counts as its own site, separate from its members.</li>
-<li><strong>An early call is refused with <code>429</code>; the third refusal within the window bans your IP address.</strong> Your IP address is banned from all of meshmapper.net (the map included, and every device behind that IP address) for 1 day. Each repeat doubles the ban: 2 days, 4 days, 8 days, up to 30 days.</li>
-<li><strong>At most 30 calls a minute from one IP address, across all these APIs together.</strong> A call over that gets <code>503</code> with <code>{"error":"slow_down","retry_after":N}</code>. It doesn't use your call and never counts toward a ban: wait <code>Retry-After</code> seconds and carry on. Pausing 2 seconds between calls keeps you under it.</li>
-<li><strong>Only certain JSON errors hand your call back.</strong> A <code>404</code> <code>zone_not_found</code>, a <code>503</code> <code>unavailable</code>, or a <code>503</code> <code>slow_down</code> (after waiting <code>Retry-After</code>) doesn't use your call, so retrying after one of those is safe. Anything else, a cut-off or unparseable body, a timeout on your side, an HTML <code>5xx</code> error page, a connection reset, may already have used your call: keep your previous copy and wait for your next scheduled run instead of retrying.</li>
-<li><strong>Only <code>GET</code> counts.</strong> A browser's CORS preflight (<code>OPTIONS</code>) doesn't. <code>HEAD</code> and other methods get <code>405</code> and don't count either.</li>
-<li><strong>Don't rely on the clock, track your last call.</strong> Store the time of your last served call for each region site and skip the call if it was less than 23.5 hours ago. Schedule in UTC: a local-time cron job gets a 23-hour day at the DST change, which is enough to trip the limit.</li>
-<li><strong>Use a generous client timeout, 60 to 120 seconds.</strong> A short timeout on your side can cut the connection before the server finishes, and that counts against you as an "anything else" error above, not a safe-to-retry one.</li>
-<li><strong>While testing, don't open the URL twice.</strong> Save the response to a file once and work from the file; every reload after the first is refused and counts toward a ban.</li>
-</ul>
+<p>These reads use the key's shared read budget, normally <strong>1,000 requests per UTC day and 30 per fixed minute</strong>, independently of Coverage's daily quota. Authenticated reads no longer use the old once-per-target IP interval. IP burst protection still applies. Every admitted request counts, including <code>304</code> responses and downstream failures. See <a href="../api-keys/#limits-and-caching">limits and caching</a>.</p>
 <h2 id="caching">Caching<a class="headerlink" href="#caching" title="Permanent link">¶</a></h2>
-<p>Sends <code>Cache-Control: public, max-age=84600</code> (23.5 hours) and a strong <code>ETag</code>, so a standard HTTP cache won't ask again before your next call is allowed. On your next daily call, send the <code>ETag</code> back in <code>If-None-Match</code> to get <code>304 Not Modified</code> with no body when nothing changed. <code>generated_at</code> isn't part of the <code>ETag</code>. A <code>304</code> uses your call for that window, just like a <code>200</code>.</p>
-<p><code>ETag</code> and <code>Retry-After</code> are readable from browser JavaScript (<code>Access-Control-Expose-Headers</code>), for server-side tools and your own debugging, not so you can embed this call directly in a page your visitors load; see the warning above.</p>
-<p>Responses are gzip-compressed.</p>
+<p>Responses use <code>Cache-Control: private, no-store</code>. Keep your backend's parsed data and ETag separately by key and scope. Send both <code>X-API-Key</code> and <code>If-None-Match</code> on conditional requests; a <code>304</code> saves bandwidth but still counts. Responses support gzip compression.</p>
 <h2 id="errors">Errors<a class="headerlink" href="#errors" title="Permanent link">¶</a></h2>
-<p>Errors are JSON: <code>{"error": "&lt;code&gt;"}</code>. A <code>429</code> also carries <code>retry_after</code>.</p>
+<p>Authentication, permissions and quota errors are listed in <a href="../api-keys/#read-api-errors">Read API errors</a>.</p>
 <table>
 <thead>
 <tr>
 <th>Status</th>
-<th><code>error</code></th>
+<th>Error</th>
 <th>Meaning</th>
 </tr>
 </thead>
@@ -2955,46 +2989,33 @@ print(k.hex(), hashlib.sha256(k).hexdigest()[:2])   # 7871ec72b45617696c35c970bd
 <tr>
 <td>404</td>
 <td><code>zone_not_found</code></td>
-<td>The region is unknown, pending or turned off.</td>
+<td>The region is unknown, pending or disabled.</td>
 </tr>
 <tr>
 <td>405</td>
 <td><code>method_not_allowed</code></td>
-<td>Only <code>GET</code> (and the <code>OPTIONS</code> preflight) are answered.</td>
-</tr>
-<tr>
-<td>429</td>
-<td><code>rate_limited</code></td>
-<td>This region site was already fetched from your IP address in the last 23.5 hours. <code>Retry-After</code> and <code>retry_after</code> give the seconds left. Three of these within the window ban your IP address; see <a href="#call-limits">Call limits</a>.</td>
+<td>Use GET or an OPTIONS preflight.</td>
 </tr>
 <tr>
 <td>503</td>
 <td><code>unavailable</code></td>
-<td>Temporary server problem. Try again later; it doesn't use your call.</td>
+<td>Temporary data problem; retain your previous copy and retry later. An admitted request still consumes quota.</td>
 </tr>
 <tr>
 <td>503</td>
 <td><code>slow_down</code></td>
-<td>More than 30 calls in the last minute from your IP address, across all these APIs. <code>Retry-After</code> and <code>retry_after</code> give the seconds left. It doesn't use your call and never counts toward a ban.</td>
+<td>IP burst protection; wait for Retry-After.</td>
 </tr>
 </tbody>
 </table>
+<p>A group request requires access to every enabled member.</p>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">¶</a></h2>
-<p>Run this once a day from a scheduled job on your own server, never in a loop and never from a browser. It tracks the last served call so an early rerun skips instead of risking a ban:</p>
-<pre><code class="language-python">import json, os, time, httpx
-
-STATE = "meshmapper-state.json"
-last = json.load(open(STATE)) if os.path.exists(STATE) else {}
-
-url = "https://yow.meshmapper.net/get_channels.php"
-if time.time() - last.get(url, 0) &gt;= 23.5 * 3600:
-    r = httpx.get(url, timeout=120)
-    if r.status_code == 200:
-        last[url] = time.time()
-        json.dump(r.json(), open("yow-channels.json", "w"))
-    # anything else: keep your previous copy, don't retry here
-json.dump(last, open(STATE, "w"))
+<p>With <code>MESHMAPPER_API_KEY</code> set in your backend environment:</p>
+<pre><code class="language-bash">curl --fail-with-body --compressed \
+  -H "X-API-Key: $MESHMAPPER_API_KEY" \
+  'https://yow.meshmapper.net/get_channels.php'
 </code></pre>
+<p>Schedule polling to fit your key budget, retain the last successful data on failure, and respect <code>Retry-After</code>.</p>
 
 
 

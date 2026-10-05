@@ -10,7 +10,7 @@
         <link rel="canonical" href="https://wiki.meshmapper.net/coverage-api/">
       
       
-        <link rel="prev" href="../webhooks/">
+        <link rel="prev" href="../api-keys/">
       
       
         <link rel="next" href="../zones-api/">
@@ -1382,6 +1382,34 @@
     
   
     Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-keys/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Keys and Access
   
 
     
@@ -3354,6 +3382,8 @@
 <p>The Coverage API provides programmatic access to MeshMapper coverage grid-square data. Use it to draw coverage grids on your own maps or integrate MeshMapper data into external tools and dashboards.</p>
 <h2 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">¶</a></h2>
 <p>Access requires a <strong>Coverage</strong> API key. Each key is scoped to a specific region, a multiregion group, or a set of adjacent regions (see <a href="#multi-region-keys">Multi-Region Keys</a>). Self-service keys have a daily limit of 100 requests; keys issued by the MeshMapper team may carry a different limit (the 429 body's <code>limit</code> field shows yours).</p>
+<p>This same key also works for zones, boundaries, scopes, channels and repeaters, subject to endpoint permissions. Existing keys do not need regeneration. Group keys follow current member IATAs. See <a href="../api-keys/">API keys and access</a> for the endpoint table, shared read limits and repeater rollout.</p>
+<p>Send <code>X-API-Key: YOUR_API_KEY</code> on requests, or keep using the existing <code>?key=</code> URLs for Coverage.</p>
 <h3 id="generating-a-key">Generating a Key<a class="headerlink" href="#generating-a-key" title="Permanent link">¶</a></h3>
 <p>Regional administrators can generate their own API key directly from the admin panel:</p>
 <ol>
@@ -3363,7 +3393,7 @@
 <li>Enter a description/reason for the key (mandatory)</li>
 <li>Click <strong>Generate API Key</strong></li>
 </ol>
-<p>Each administrator is limited to <strong>one API key per region</strong>. The key is automatically scoped to your region with a fixed rate limit of 100 requests per day. If you need to replace your key, use the <strong>Regenerate</strong> button — this invalidates the old key immediately.</p>
+<p>Each administrator is limited to <strong>one API key per region or group</strong>. The key is automatically scoped to that region or group with a fixed rate limit of 100 requests per day. If you need to replace your key, use the <strong>Regenerate</strong> button — this invalidates the old key immediately.</p>
 <div class="admonition warning">
 <p class="admonition-title">Unauthorized Access</p>
 <p>MeshMapper utilizes API keys and rate limits to protect server resources and prevent access to data that regions do not wish to have shared externally.  As such, accessing unauthorized API's, scraping for data, etc., is strictly prohibited and will result in action taken to protect the server and data (which may include IP or origin bans, removal of a region, etc.).  The MeshMapper team is happy to review requests for data not provided in the API's below.</p>
@@ -3383,8 +3413,8 @@
 <tbody>
 <tr>
 <td><code>key</code></td>
-<td>Yes</td>
-<td>Your Coverage API key.</td>
+<td>Unless using X-API-Key</td>
+<td>Your Coverage API key. Existing query-key URLs remain supported.</td>
 </tr>
 <tr>
 <td><code>include</code></td>
@@ -3871,7 +3901,7 @@ data.grid_squares.forEach(sq =&gt; {
 <p>The API is built for efficient, low-frequency polling. Coverage data does not change second-to-second, so please poll sparingly.</p>
 <ul>
 <li><strong>Compression.</strong> Responses are gzip-compressed. Send <code>Accept-Encoding: gzip</code> (most HTTP clients do this automatically) to receive compressed data — payloads are much smaller.</li>
-<li><strong>Server-side cache.</strong> Responses carry <code>Cache-Control: public, max-age=900</code> and are cached for up to <strong>15 minutes</strong>. Polling more often than that returns identical data (and still counts toward your daily limit), so a poll interval of <strong>15 minutes or longer is recommended</strong>. <code>generated_at</code> tells you when the cached data was built. Filtered responses (see <a href="#filtering">Filtering</a>) are built on every request and are not cached on the server. On single-region and group keys, <code>fresh=1</code> skips the cache and rebuilds now.</li>
+<li><strong>Server-side cache.</strong> Grid data is cached on the server for up to <strong>15 minutes</strong>. HTTP responses use <code>Cache-Control: private, no-store</code> to prevent shared caching of protected data. Polling more often than that returns identical data (and still counts toward your daily limit), so a poll interval of <strong>15 minutes or longer is recommended</strong>. <code>generated_at</code> tells you when the cached data was built. Filtered responses (see <a href="#filtering">Filtering</a>) are built on every request and are not cached on the server. On single-region and group keys, <code>fresh=1</code> skips the cache and rebuilds now.</li>
 <li><strong>Conditional requests.</strong> Each response includes an <code>ETag</code> (and <code>Last-Modified</code>). Send the <code>ETag</code> value back in an <code>If-None-Match</code> header; if nothing has changed since, you'll get a <strong><code>304 Not Modified</code></strong> with an empty body, saving you the download.</li>
 </ul>
 <pre><code class="language-bash"># First request — note the ETag header
@@ -3947,6 +3977,16 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
 </tr>
 <tr>
 <td>403</td>
+<td><code>api_not_allowed</code></td>
+<td>Coverage access is disabled for this key.</td>
+</tr>
+<tr>
+<td>503</td>
+<td><code>auth_unavailable</code></td>
+<td>Authentication policy storage is temporarily unavailable; respect Retry-After.</td>
+</tr>
+<tr>
+<td>403</td>
 <td><code>no_region</code></td>
 <td>No region assigned to this key, or the key's region has been deleted.</td>
 </tr>
@@ -3986,7 +4026,7 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
 <p>If you have a Coverage API key assigned to your admin account, you can view your current usage and regenerate your key from the <strong>User Settings</strong> tab in your region's Admin Portal. Regenerating a key invalidates the old one immediately.</p>
 <h2 id="multi-region-keys">Multi-Region Keys<a class="headerlink" href="#multi-region-keys" title="Permanent link">¶</a></h2>
 <p>A Coverage key can be scoped to a <strong>set of up to 6 regions</strong> (for example <code>PDX,SEA,YVR</code>) instead of a single region. The response merges every member region's coverage into <strong>one grid</strong> — the same payload shape as a single-region response — so it suits integrations that render adjacent regions as one continuous map.</p>
-<p>Multi-region keys are not self-service: like <a href="#global-coverage-feed">global keys</a> and keys with a custom limit, they are issued by the MeshMapper team (Master administrators) on request (the admin-panel self-service flow only creates single-region keys). Adjacent regions are the intended use — the merged grid serves them as one map.</p>
+<p>Multi-region keys are not self-service: like <a href="#global-coverage-feed">global keys</a> and keys with a custom limit, they are issued by the MeshMapper team (Master administrators) on request (the admin-panel self-service flow creates keys for its current region or group). Adjacent regions are the intended use — the merged grid serves them as one map.</p>
 <div class="admonition info">
 <p class="admonition-title">Multi-region keys vs. Multiregion Groups</p>
 <p>A <a href="../multiregions/">Multiregion Group</a> merges regions <em>inside</em> MeshMapper — shared map, leaderboards, collision detection, and admin panel. A multi-region <strong>key</strong> changes nothing about the regions themselves; it only merges their coverage data in this API's response. If a group already exists, a key can simply be scoped to the group's code instead. A multi-region key is for sets of regions that aren't (and shouldn't become) a group.</p>
@@ -4151,7 +4191,7 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
 <h3 id="caching-and-timeouts">Caching and Timeouts<a class="headerlink" href="#caching-and-timeouts" title="Permanent link">¶</a></h3>
 <p>The global response aggregates the entire fleet, so it is cached more aggressively than regional responses:</p>
 <ul>
-<li>The server cache lasts <strong>6 hours</strong> (<code>Cache-Control: public, max-age=21600</code>). Polling more often returns identical data; <strong>once or twice a day is the intended usage</strong>.</li>
+<li>The server cache lasts <strong>6 hours</strong>. HTTP responses use <code>Cache-Control: private, no-store</code>. Polling more often returns identical data; <strong>once or twice a day is the intended usage</strong>.</li>
 <li>A request that arrives after the cache has expired triggers a rebuild. The response <strong>streams region-by-region while it builds</strong> — data starts flowing immediately, but the complete download can take a minute. Configure a generous <em>total</em> timeout in your HTTP client (the connection is never idle, so per-read timeouts are fine at their defaults). All other requests are served instantly from cache.</li>
 <li><code>ETag</code> / <code>If-None-Match</code> conditional requests work exactly as for regional keys, and a <code>304 Not Modified</code> is by far the cheapest way to poll. The response that triggers a rebuild carries no <code>ETag</code>; the next (cached) response does.</li>
 </ul>

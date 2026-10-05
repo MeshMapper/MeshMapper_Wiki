@@ -7,13 +7,13 @@
       
       
       
-        <link rel="canonical" href="https://wiki.meshmapper.net/app_connection_guide/">
+        <link rel="canonical" href="https://wiki.meshmapper.net/api-keys/">
       
       
-        <link rel="prev" href="../app_settings_reference/">
+        <link rel="prev" href="../webhooks/">
       
       
-        <link rel="next" href="../app_how_it_works/">
+        <link rel="next" href="../coverage-api/">
       
       
         
@@ -24,7 +24,7 @@
     
     
       
-        <title>Connection Guide - MeshMapper Wiki</title>
+        <title>API Keys and Access - MeshMapper Wiki</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#connection-guide" class="md-skip">
+        <a href="#api-keys-and-access" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Connection Guide
+              API Keys and Access
             
           </span>
         </div>
@@ -766,20 +766,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked="">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -800,7 +798,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -955,37 +953,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Connection Guide
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../app_connection_guide/" class="md-nav__link">
         
   
   
@@ -1001,169 +972,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-      
-        <li class="md-nav__item">
-  <a href="#connection-methods" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Connection Methods
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#before-you-connect" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Before You Connect
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#scanning-for-devices" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scanning for Devices
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#remembered-devices" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Remembered Devices
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-9-step-connection-process" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The 9-Step Connection Process
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#zone-authentication" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Zone Authentication
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#automatic-reconnection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Automatic Reconnection
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#idle-disconnect" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Idle Disconnect
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#disconnecting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Disconnecting
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#offline-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Offline Mode
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#anonymous-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Anonymous Mode
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#session-heartbeat" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Session Heartbeat
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#background-operation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Background Operation
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1430,18 +1238,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked="">
         
           
           <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
@@ -1462,7 +1272,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1589,10 +1399,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../api-keys/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Keys and Access
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1608,6 +1445,81 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#endpoints-and-key-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Endpoints and key types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generate-or-reuse-a-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generate or reuse a key
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#send-the-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Send the key
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limits-and-caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limits and caching
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-api-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read API errors
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2817,10 +2729,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#connection-methods" class="md-nav__link">
+  <a href="#endpoints-and-key-types" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Connection Methods
+        Endpoints and key types
       
     </span>
   </a>
@@ -2828,10 +2740,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#before-you-connect" class="md-nav__link">
+  <a href="#generate-or-reuse-a-key" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Before You Connect
+        Generate or reuse a key
       
     </span>
   </a>
@@ -2839,10 +2751,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#scanning-for-devices" class="md-nav__link">
+  <a href="#send-the-key" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Scanning for Devices
+        Send the key
       
     </span>
   </a>
@@ -2850,10 +2762,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#remembered-devices" class="md-nav__link">
+  <a href="#limits-and-caching" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Remembered Devices
+        Limits and caching
       
     </span>
   </a>
@@ -2861,98 +2773,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-9-step-connection-process" class="md-nav__link">
+  <a href="#read-api-errors" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The 9-Step Connection Process
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#zone-authentication" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Zone Authentication
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#automatic-reconnection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Automatic Reconnection
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#idle-disconnect" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Idle Disconnect
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#disconnecting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Disconnecting
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#offline-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Offline Mode
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#anonymous-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Anonymous Mode
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#session-heartbeat" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Session Heartbeat
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#background-operation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Background Operation
+        Read API errors
       
     </span>
   </a>
@@ -2976,272 +2800,114 @@
 
 
 
-<h1 id="connection-guide">Connection Guide<a class="headerlink" href="#connection-guide" title="Permanent link">¶</a></h1>
-<p>This guide covers everything about connecting to your MeshCore radio, what happens during the connection process, how reconnection works, and how to use Offline Mode.</p>
-<hr>
-<h2 id="connection-methods">Connection Methods<a class="headerlink" href="#connection-methods" title="Permanent link">¶</a></h2>
-<p>The Connect tab has a selector for <strong>how</strong> to connect to your radio:</p>
+<h1 id="api-keys-and-access">API keys and access<a class="headerlink" href="#api-keys-and-access" title="Permanent link">¶</a></h1>
+<p>MeshMapper uses the same <strong>Coverage API key</strong> for Coverage and the read APIs below. Existing keys keep their values, geographic assignments and Coverage quota. There is no need to regenerate a key for the new endpoints.</p>
+<div class="admonition info">
+<p class="admonition-title">Server v1.5.117 rollout</p>
+<p>Zones, boundaries, scopes and channels require keys when the updated server endpoints are deployed. Send your key now as part of the migration. Repeater authentication has a separate switch, off by default until app 1.4.1 is shipped and the update is forced. This page describes the new contract, not a confirmation that every region has deployed it.</p>
+</div>
+<h2 id="endpoints-and-key-types">Endpoints and key types<a class="headerlink" href="#endpoints-and-key-types" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
-<th>Method</th>
-<th>Platforms</th>
-<th>Notes</th>
+<th>API</th>
+<th>Credential</th>
+<th>Geographic access</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>BLE</strong> (Bluetooth)</td>
-<td>Android, iOS</td>
-<td>The standard method. Scan and tap your device.</td>
+<td><a href="../coverage-api/">Coverage</a>, <code>coverage.php</code></td>
+<td>Coverage key in <code>X-API-Key</code> or legacy <code>?key=</code></td>
+<td>Assigned region, group, selected regions or GLOBAL</td>
 </tr>
 <tr>
-<td><strong>TCP</strong></td>
-<td>Android, iOS</td>
-<td>Connect to a network-attached radio by host and port (default 5000), e.g. a WiFi-connected companion or a serial-to-TCP bridge. Saved connections are remembered.</td>
+<td><a href="../zones-api/">Region directory</a>, <code>get_zones.php</code></td>
+<td>Coverage key in <code>X-API-Key</code></td>
+<td>Authorized regions within the requested country</td>
 </tr>
 <tr>
-<td><strong>USB</strong> (serial)</td>
-<td>Android (USB OTG)</td>
-<td>Direct cable connection. Not available on iOS.</td>
+<td><a href="../zones-api/#region-boundary">Boundaries</a>, <code>get_geojson.php</code></td>
+<td>Coverage key in <code>X-API-Key</code></td>
+<td>Requested region or fully authorized group</td>
+</tr>
+<tr>
+<td><a href="../scopes-api/">Scopes</a>, <code>get_scopes.php</code></td>
+<td>Coverage key in <code>X-API-Key</code></td>
+<td>Requested region or fully authorized group</td>
+</tr>
+<tr>
+<td><a href="../channels-api/">Channels</a>, <code>get_channels.php</code></td>
+<td>Coverage key in <code>X-API-Key</code></td>
+<td>Requested region or fully authorized group</td>
+</tr>
+<tr>
+<td>Repeaters, <code>get_repeaters.php</code></td>
+<td>Scoped Coverage key or existing mobile App key in <code>X-API-Key</code>; optional during transition</td>
+<td>Coverage keys stay within their assignments; App keys support the app's cross-region repeater reads</td>
 </tr>
 </tbody>
 </table>
-<p>Everything below the transport (the connection workflow, sessions, zones) works the same regardless of which method you use. Automatic reconnection is the exception: it covers BLE and TCP only.</p>
-<hr>
-<h2 id="before-you-connect">Before You Connect<a class="headerlink" href="#before-you-connect" title="Permanent link">¶</a></h2>
-<p>Before it lets you connect, the app checks your location with MeshMapper. The zone status at the top of the Connect tab shows the result:</p>
-<ul>
-<li><strong>Zone name</strong>: you are inside a region and can connect</li>
-<li><strong>Checking Zone...</strong>: the check is still running</li>
-<li><strong>Outside Zone</strong>: you are not inside any region. The Connect tab shows <strong>Region Not Available</strong> with the nearest zone and its distance, and a <strong>Request Region Onboarding</strong> button.</li>
-<li><strong>Maintenance</strong>: MeshMapper is down for maintenance. You can still wardrive with <strong>Enable Offline Mode</strong>.</li>
-<li><strong>No Internet</strong>, <strong>Clock Out of Sync</strong> or <strong>GPS Unavailable</strong>: the check could not finish. See <a href="#zone-authentication">Zone Authentication</a>.</li>
-<li><strong>Airborne</strong>: you appear to be in an aircraft. Wardriving from an aircraft is not allowed, and you can connect again once you are back on the ground.</li>
-</ul>
-<p><a href="#offline-mode">Offline Mode</a> skips the zone and maintenance checks, but never the airborne block.</p>
-<hr>
-<h2 id="scanning-for-devices">Scanning for Devices<a class="headerlink" href="#scanning-for-devices" title="Permanent link">¶</a></h2>
-<ol>
-<li>Open the <strong>Connect</strong> tab (Bluetooth icon in the bottom bar)</li>
-<li>Tap <strong>Scan</strong> to start a BLE scan. Before any results, the list reads "Tap Scan to search for MeshCore devices".</li>
-<li>Nearby MeshCore devices appear in a list showing their name and signal strength</li>
-<li>Tap your device to begin connecting</li>
-</ol>
-<p><strong>Platform notes:</strong></p>
-<ul>
-<li><strong>Android</strong>: May need to grant Bluetooth and Location permissions</li>
-<li><strong>iOS</strong>: System will prompt for Bluetooth access</li>
-</ul>
-<hr>
-<h2 id="remembered-devices">Remembered Devices<a class="headerlink" href="#remembered-devices" title="Permanent link">¶</a></h2>
-<p>After your first successful connection, MeshMapper remembers that device. For a BLE device, on future launches:</p>
-<ul>
-<li>Instead of an empty list, the Connect tab shows <strong>Last Connected Device</strong> with your device's name</li>
-<li>Tap <strong>Reconnect</strong> to connect without scanning. If you can't connect yet, the button reads <strong>Outside Zone</strong>, <strong>Checking Zone...</strong> or <strong>Maintenance</strong> instead.</li>
-<li>Tap <strong>Scan</strong> to look for a different device, or <strong>Forget</strong> to clear the remembered one</li>
-</ul>
-<p>TCP connections are listed under <strong>Saved Connections</strong> on the TCP tab.</p>
-<hr>
-<h2 id="the-9-step-connection-process">The 9-Step Connection Process<a class="headerlink" href="#the-9-step-connection-process" title="Permanent link">¶</a></h2>
-<p>When you tap a device, MeshMapper runs through nine steps automatically. You can watch progress on the Connect tab:</p>
+<p>Only Coverage accepts a query-string key. App keys do not grant access to Coverage, zones, boundaries, scopes or channels. The mobile app can send its existing App key for repeaters before connecting a radio or starting a session.</p>
+<h2 id="generate-or-reuse-a-key">Generate or reuse a key<a class="headerlink" href="#generate-or-reuse-a-key" title="Permanent link">¶</a></h2>
+<p>In your region or group's admin panel, open <strong>User Settings &gt; API Access</strong>. Generate a key with a description, or show your existing key. Each administrator can have one self-service key per region or group. Regeneration invalidates the old value immediately.</p>
+<p>Group keys cover the group's current enabled member IATAs, including membership changes without issuing a new key. A key for just one member cannot fetch a whole group's boundaries, scopes or channels unless it covers every enabled member. Repeater exports are filtered to the Coverage key's authorized members, even where a member URL normally expands to its group.</p>
+<p>Contact the MeshMapper team for custom integrations, selected-region or GLOBAL access, endpoint permissions, or larger limits. Master admins can allow only the endpoints an integration needs. GLOBAL permits geographic access across regions; it does not remove required parameters or turn every endpoint into an all-region feed. For example, <code>get_zones.php</code> still requires <code>country</code>.</p>
+<h2 id="send-the-key">Send the key<a class="headerlink" href="#send-the-key" title="Permanent link">¶</a></h2>
+<p>Keep integration keys in your backend configuration, outside source control and visitor-facing JavaScript. For example, with <code>MESHMAPPER_API_KEY</code> set in your environment:</p>
+<pre><code class="language-bash">curl --fail-with-body --compressed \
+  -H "X-API-Key: $MESHMAPPER_API_KEY" \
+  'https://yow.meshmapper.net/get_scopes.php'
+</code></pre>
+<p>Send the header on every request, including conditional requests. CORS preflights allow <code>X-API-Key</code> and <code>If-None-Match</code>.</p>
+<h2 id="limits-and-caching">Limits and caching<a class="headerlink" href="#limits-and-caching" title="Permanent link">¶</a></h2>
+<p>The five read APIs share a default budget of <strong>1,000 admitted requests per UTC day and 30 per fixed minute per Coverage key</strong>. Custom keys may have different limits. Coverage retains its separate daily quota, normally 100 calls for self-service keys. Read calls do not consume Coverage calls.</p>
+<p>Every admitted read counts, including a <code>304</code> and a downstream data error. Authentication and authorization failures do not consume the read budget. <code>OPTIONS</code> preflights do not count. Existing IP burst protection also applies; App repeater reads do not put all phones behind one shared daily key budget.</p>
+<p>Authenticated reads replace the previous once-per-target IP interval. Key quota exhaustion returns <code>503 key_rate_limited</code> with <code>Retry-After</code>; wait at least that long before retrying. The daily allowance resets at midnight UTC. A zones/boundaries/scopes/channels IP burst rejection returns <code>503 slow_down</code>; repeaters may return <code>429 rate_limited</code>. Coverage retains its own documented <code>429</code> responses.</p>
+<p>Protected responses use <code>Cache-Control: private, no-store</code>. Keep your backend's parsed data and any ETag separately for each credential and geographic scope, and discard data when access changes. Where supported, <code>If-None-Match</code> saves bandwidth but not quota. Do not expose keys in shared cache URLs. Coverage's server-side grid cache is unchanged.</p>
+<h2 id="read-api-errors">Read API errors<a class="headerlink" href="#read-api-errors" title="Permanent link">¶</a></h2>
 <table>
 <thead>
 <tr>
-<th>Step</th>
-<th>What Happens</th>
+<th>Status</th>
+<th>Error</th>
+<th>Action</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1 Transport Connect</td>
-<td>Establishes the raw connection (BLE, TCP socket, or USB serial port)</td>
+<td>401</td>
+<td><code>missing_key</code>, <code>invalid_key</code></td>
+<td>Supply a current key in <code>X-API-Key</code>.</td>
 </tr>
 <tr>
-<td>2 Protocol Handshake</td>
-<td>A short pause while the radio gets ready</td>
+<td>403</td>
+<td><code>wrong_key_type</code></td>
+<td>Use a Coverage key; App keys only support repeaters.</td>
 </tr>
 <tr>
-<td>3 Device Info</td>
-<td>Sends the app's protocol version and reads the firmware, manufacturer string and public key (required for API auth). If this fails, the entire connection fails.</td>
+<td>403</td>
+<td><code>api_not_allowed</code></td>
+<td>Ask the key owner to review endpoint permissions.</td>
 </tr>
 <tr>
-<td>4 Device Identification</td>
-<td>Determines your device model and power level for reporting. Does NOT change your radio's actual power settings.</td>
+<td>403</td>
+<td><code>no_region</code>, <code>region_not_allowed</code></td>
+<td>Check the key's region/group assignment.</td>
 </tr>
 <tr>
-<td>5 Time Sync</td>
-<td>Synchronizes your radio's clock with your phone</td>
+<td>503</td>
+<td><code>key_rate_limited</code></td>
+<td>Wait for <code>Retry-After</code>.</td>
 </tr>
 <tr>
-<td>6 Session Acquisition</td>
-<td>If Anonymous Mode is enabled, your device is first renamed to "Anonymous" on the mesh. Then authenticates with the MeshMapper API. Handles registration automatically if needed. Returns zone info, permissions, and regional settings.</td>
-</tr>
-<tr>
-<td>7 Channel Setup</td>
-<td>Creates the #wardriving channel on your radio (or reuses existing)</td>
-</tr>
-<tr>
-<td>8 GPS Init</td>
-<td>A progress marker only. It does not wait for a GPS lock.</td>
-</tr>
-<tr>
-<td>9 Connected</td>
-<td>Ready to wardrive. Noise floor is read every 5 seconds and battery every 30 seconds.</td>
+<td>503</td>
+<td><code>auth_unavailable</code></td>
+<td>Authentication storage is temporarily unavailable; respect <code>Retry-After</code>.</td>
 </tr>
 </tbody>
 </table>
-<p><strong>After connection completes</strong>, the app applies regional settings from the API response:</p>
-<ul>
-<li><strong>Regional channels</strong>: The app also listens to any extra channels the regional admin has set up</li>
-<li><strong>Flood scope</strong>: If the regional admin has set a scope, it is applied to your radio so TX messages stay within that region</li>
-<li><strong>Flood traffic</strong>: If the region allows flood traffic, the app turns <strong>Flood Traffic</strong> on. If the region has disabled it, Active, Hybrid and Send Ping are unavailable, and the Connect tab explains why.</li>
-<li><strong>Regional enforcement</strong>: The regional admin may enforce Hybrid Mode, Discovery Drop, Smart Pinging (and its window), Scope Discovery (and its window), and a minimum auto-ping interval. Enforced settings are locked in Settings.</li>
-<li><strong>Regional CARpeaters</strong>: The region's shared CARpeater list is loaded and filtered</li>
-<li><strong>Path hash mode</strong>: If the zone enforces a specific hop byte size (1/2/3-byte) and your radio differs, the app automatically reconfigures your radio to match. Restored on clean disconnect. Two dialogs may appear:</li>
-<li><strong>"Multi-Byte Paths Enabled"</strong> (info): Your radio was reconfigured to match the zone's requirement. Shows the new byte size and whether it was set by the regional admin or your own preference.</li>
-<li><strong>"Firmware Update Recommended"</strong> (warning): Your companion firmware does not support multi-byte paths. The app falls back to 1-byte mode and suggests updating to firmware v1.14.0+.</li>
-<li><strong>Account link</strong>: If you are signed in to <a href="../portal/">My MeshMapper</a> and this radio is not linked yet, the app offers to link it</li>
-</ul>
-<p>While connected, the app re-checks your zone every 60 seconds to keep slot counts fresh.</p>
-<div class="admonition note">
-<p class="admonition-title">Antenna choice resets</p>
-<p>Your antenna choice (Internal or External) is cleared every time you disconnect. Select it again after each connect before you start pinging.</p>
-</div>
-<hr>
-<h2 id="zone-authentication">Zone Authentication<a class="headerlink" href="#zone-authentication" title="Permanent link">¶</a></h2>
-<p>If the zone check fails, wait for an accurate, current GPS fix and confirm that your location is inside an active MeshMapper region. The app reports a wrong phone clock (<strong>Phone Clock Out of Sync</strong>), weak GPS (<strong>Weak GPS Signal</strong>), no internet (<strong>No Internet Connection</strong>) and other errors (<strong>Zone Check Failed</strong>) separately. It retries on its own, or offers a <strong>Retry Zone Check</strong> button for GPS and clock problems. If your area has no region, use <a href="../onboarding/">onboarding</a> rather than choosing an unrelated region code.</p>
-<p>MeshMapper uses a zone-based authentication system. The server checks your GPS coordinates and tells you which zone you are in (if any). Each zone has a code (like "YOW" for Ottawa) and a set of rules configured by the regional admin:</p>
-<p><strong>Session permissions:</strong></p>
-<ul>
-<li><strong>TX Allowed</strong>: Whether you can send channel messages. If the zone is at TX capacity, you are limited to Passive and Trace modes.</li>
-<li><strong>RX</strong>: Passive reception is always allowed</li>
-<li><strong>TX Slots Available</strong>: How many active wardrivers the zone can support simultaneously</li>
-<li><strong>Session Expiry</strong>: When your session expires (automatically refreshed via heartbeat)</li>
-</ul>
-<p><strong>Regional configuration:</strong></p>
-<ul>
-<li><strong>Scope</strong>: Flood scope for the zone. When set, your TX channel messages are scoped to that region instead of flooding the entire global mesh. Shown on the Connect tab (e.g., "#ottawa"). If no scope is set, it shows "Global." Applied automatically by setting a transport key on your radio.</li>
-<li><strong>Channels</strong>: Additional channels configured by the regional admin (e.g., regional monitoring channels)</li>
-</ul>
-<p>Most other rules are set <strong>per radio preset</strong> (frequency, bandwidth and spreading factor), so one region can have different rules for different presets:</p>
-<ul>
-<li><strong>Slots</strong>: How many wardrivers can transmit at once (default 0)</li>
-<li><strong>Disable Flood</strong>: Turns flood traffic off for the preset (default On, so flood is off until the admin allows it)</li>
-<li><strong>Enforce Hybrid</strong>: Makes Hybrid Mode mandatory. When enforced, the Hybrid Mode switch in Settings is locked on. Default Off.</li>
-<li><strong>Min Interval</strong>: The minimum auto-ping interval (15, 30, or 60 seconds, default 60). You cannot choose a faster interval than the regional minimum.</li>
-<li><strong>Failed DISC as DROP</strong>: When enabled, discovery requests with no response are counted as "no coverage" data and shown as DROP on the coverage map.</li>
-<li><strong>App Path Bytes</strong>: Enforces a specific path hash size (device default of 1 byte, 2 bytes, or 3 bytes) for consistent data across all wardrivers in the zone. If your radio differs, the app reconfigures it at connect and restores the original setting on clean disconnect. If your firmware does not support multi-byte paths (pre-1.14), the app warns you that it cannot apply the regional setting.</li>
-<li><strong>Enforce Smart Pinging</strong>: Locks <a href="../app_wardriving_modes/#smart-pinging">Smart Pinging</a> on, with the region's window (1, 3, 7, 14 or 30 days)</li>
-<li><strong>Scope discovery</strong>: Locks <a href="../app_settings_reference/#scope-discovery">Scope Discovery</a> on, with the region's re-check window (7 days or more)</li>
-</ul>
-<p>If you are outside all zones, the zone chip in the status bar shows an orange "—". Tap it to see the name and distance of the nearest zone.</p>
-<p><strong>Leaving your zone while wardriving.</strong> If you drive out of your zone, the app pauses wardriving and shows <strong>Out of Zone</strong> with the nearest zone. You get 5 minutes to come back. If you return, wardriving resumes. If not, the app disconnects. Driving straight into a neighbouring zone shows <strong>Changing Zone...</strong> while your session moves to the new zone.</p>
-<hr>
-<h2 id="automatic-reconnection">Automatic Reconnection<a class="headerlink" href="#automatic-reconnection" title="Permanent link">¶</a></h2>
-<p>If your BLE or TCP connection drops unexpectedly (out of range, radio restart, etc.), MeshMapper will attempt to reconnect automatically. USB connections do not reconnect on their own.</p>
-<p><strong>What you see:</strong></p>
-<ul>
-<li>"Reconnecting..." overlay on the map</li>
-<li>Current attempt number (up to 3 attempts, 3 seconds apart, or 5 seconds after an iOS pairing error)</li>
-<li>Device name</li>
-<li>Cancel button to stop trying</li>
-</ul>
-<p><strong>What is preserved:</strong></p>
-<ul>
-<li>API session</li>
-<li>Upload queue</li>
-<li>Noise floor session</li>
-<li>Auto-ping restarts automatically after successful reconnect</li>
-</ul>
-<p><strong>If all 3 attempts fail, or 30 seconds pass:</strong> The app falls back to a full disconnect cleanup.</p>
-<hr>
-<h2 id="idle-disconnect">Idle Disconnect<a class="headerlink" href="#idle-disconnect" title="Permanent link">¶</a></h2>
-<p>If you stay connected without sending a manual ping or starting an auto mode for <strong>15 minutes</strong>, the app disconnects and logs "Disconnected: 15 minutes of inactivity".</p>
-<hr>
-<h2 id="disconnecting">Disconnecting<a class="headerlink" href="#disconnecting" title="Permanent link">¶</a></h2>
-<p>Tap the <strong>Disconnect</strong> button on the Connect tab. The app performs a clean shutdown:</p>
-<ol>
-<li>Stops auto-ping mode if running</li>
-<li>Ends the current noise floor session</li>
-<li>Stops the background service</li>
-<li>Flushes any buffered RX observations</li>
-<li>Saves your Offline Mode session, if you are offline</li>
-<li>Clears the API upload queue (pings won't have a valid session after disconnect)</li>
-<li>Releases your session with the MeshMapper API</li>
-<li>Restores your device's original name if Anonymous Mode renamed it during connection</li>
-<li>Restores your radio's original path hash mode if it was changed during connection (e.g., region required 2-byte but your radio was set to 1-byte)</li>
-<li>Clears the flood scope from your radio</li>
-<li>Deletes the #wardriving channel from your radio (if "Delete Channel on Disconnect" is enabled in Settings)</li>
-<li>Closes the connection (BLE, TCP or USB)</li>
-<li>Resets all state</li>
-</ol>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Steps 8 to 11 (name restoration, path hash restoration, scope clearing and channel deletion) happen while the radio is still connected, because these commands need the link to reach the radio.</p>
-</div>
-<hr>
-<h2 id="offline-mode">Offline Mode<a class="headerlink" href="#offline-mode" title="Permanent link">¶</a></h2>
-<p>If you don't have internet, or the MeshMapper API is in maintenance mode, use <strong>Offline Mode</strong> to continue wardriving. Data is saved locally and can be uploaded later.</p>
-<p><strong>To enable:</strong></p>
-<ul>
-<li>Tap the <strong>Go Offline</strong> button on the Connect tab and confirm. This works before or while connected.</li>
-<li>Or tap <strong>Enable Offline Mode</strong> on the Connect tab when it shows no internet or maintenance</li>
-</ul>
-<p><strong>In Offline Mode:</strong></p>
-<ul>
-<li>Zone validation is skipped (zone chip shows a grey dash)</li>
-<li>Send Ping, Active and Hybrid are unavailable (they need an online session). Passive and Trace modes work.</li>
-<li>Ping data is saved to local session files, and the app saves your progress every 60 seconds</li>
-<li>Session files are named by date (e.g., "2026-03-20.json")</li>
-<li>Manage sessions in <strong>Settings &gt; Data &gt; Offline Sessions</strong></li>
-</ul>
-<p><strong>When you are back online:</strong></p>
-<ol>
-<li>Open <strong>Settings &gt; Data &gt; Offline Sessions</strong></li>
-<li>Tap the upload button next to each session to send it to MeshMapper. Uploading needs your phone's location, but not the radio.</li>
-<li>Or download session files for backup</li>
-</ol>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Offline Mode is never persistent. It resets to "off" every time you restart the app.</p>
-</div>
-<hr>
-<h2 id="anonymous-mode">Anonymous Mode<a class="headerlink" href="#anonymous-mode" title="Permanent link">¶</a></h2>
-<p>Prefer not to broadcast your device's real name? Enable <strong>Anonymous Mode</strong> in Settings.</p>
-<ul>
-<li>Your companion device is renamed to "Anonymous" on the mesh network</li>
-<li>Changing this while connected triggers a brief reconnection</li>
-<li>Cannot be toggled while auto-ping is running (stop auto-ping first)</li>
-</ul>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>You must <strong>disconnect cleanly</strong> for your device name to be restored. If the app crashes or the connection drops unexpectedly, your radio may still advertise as "Anonymous" until you connect and disconnect again cleanly.</p>
-</div>
-<hr>
-<h2 id="session-heartbeat">Session Heartbeat<a class="headerlink" href="#session-heartbeat" title="Permanent link">¶</a></h2>
-<p>During long wardriving sessions, MeshMapper automatically sends heartbeat requests to keep your session alive:</p>
-<ul>
-<li>Turned on when you connect online</li>
-<li>Fires about 1 minute before session expiry</li>
-<li>Server responds with a new expiration time</li>
-<li>Happens transparently in the background</li>
-</ul>
-<hr>
-<h2 id="background-operation">Background Operation<a class="headerlink" href="#background-operation" title="Permanent link">¶</a></h2>
-<p>When you start auto-ping, MeshMapper enables background operation to keep the radio connection and GPS alive:</p>
-<ul>
-<li><strong>Android</strong>: Persistent foreground notification titled "MeshMapper - <em>Mode</em> Mode" (for example "MeshMapper - Hybrid Mode") with live stats. No sound or vibration.</li>
-<li>Active / Hybrid: <code>TX: N | RX: M | Queue: P</code></li>
-<li>Passive: <code>RX: M | Queue: P</code></li>
-<li>Trace: <code>Trace: N | RX: M | Queue: P</code></li>
-<li><strong>iOS</strong>: Uses declared background modes (bluetooth-central, location). For best results, enable "Background Location" in Settings to upgrade to "Always" location permission, which prevents iOS from throttling during extended sessions.</li>
-</ul>
-<div class="admonition warning">
-<p class="admonition-title">Android screen-off wardriving</p>
-<p>Some Android phones may pause wardriving when the screen is off. If this happens, open <strong>Android Settings &gt; Apps &gt; MeshMapper &gt; App battery usage</strong> and select <strong>Unrestricted</strong>. This may increase battery use.</p>
-</div>
-<p>The background service starts automatically with auto-ping and stops when you stop auto-ping or disconnect.</p>
+<p>Endpoint-specific errors remain documented on each API page. Coverage keeps its existing missing/invalid-key errors and adds <code>403 api_not_allowed</code> and <code>503 auth_unavailable</code>.</p>
 
 
 
