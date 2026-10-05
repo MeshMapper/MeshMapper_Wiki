@@ -1,6 +1,6 @@
 # Zones API
 
-The Zones API lists MeshMapper regions and serves their boundaries as GeoJSON. Use it to show MeshMapper regions on your own map, link to them, or keep a local copy of their outlines. No key is needed.
+The Zones API lists MeshMapper regions and serves their boundaries as GeoJSON. Use it to show MeshMapper regions on your own map, link to them, or keep a local copy of their outlines. Send your Coverage API key in the `X-API-Key` header.
 
 Two endpoints work together:
 
@@ -9,11 +9,11 @@ Two endpoints work together:
 
 Call the first one, then fetch `url + "get_geojson.php"` for each region you want.
 
-!!! warning "One call per day; keep calling early and you're banned"
-    Each answer can be fetched **once every 23.5 hours per IP address**: `get_zones.php` once per country, and `get_geojson.php` once per region site. A second request for the same country or region inside that window is refused with `429`, and **the third refused request within the window bans your IP address from all of meshmapper.net for a day**. Every repeat doubles the ban, up to 30 days. See [Call limits](#call-limits). Accessing anything that isn't a published API, or scraping pages for data, is not allowed; see the warning on the [Coverage API](coverage-api.md) page.
+## Authentication
 
-!!! warning "Call this from your server, not your visitors' browsers"
-    Fetch this API from your own backend, store the result, and serve your own copy to visitors. Don't call it from client-side JavaScript in a visitor's browser: everyone behind the same home router or mobile carrier shares one public IP address, so one visitor's fetch uses the call and the next visitor's fetch bans that whole IP address from all of meshmapper.net, including every MeshMapper app user on that network.
+Send your existing **Coverage API key** in the `X-API-Key` header. No new key is needed. See [API keys and access](api-keys.md) for generation, group permissions, custom GLOBAL integrations and the v1.5.117 rollout.
+
+Fetch from your backend and serve your own parsed data to visitors. Keep the key out of client-side JavaScript.
 
 ## List regions
 
@@ -119,66 +119,33 @@ Returns a GeoJSON `FeatureCollection` ([RFC 7946](https://datatracker.ietf.org/d
 
 ## Call limits
 
-- **One call per target every 23.5 hours per IP address.** For `get_zones.php` the target is the country (`?country=CA` and `?country=US` are separate calls). For `get_geojson.php` it's the region site, and a group site counts as its own site, separate from its members. Fetching every region of a country in one run is fine: each region is its own call.
-- **An early call for the same target is refused with `429`; the third refusal within the window bans your IP address.** Your IP address is banned from all of meshmapper.net (the map included, and every device behind that IP address) for 1 day. Each repeat doubles the ban: 2 days, 4 days, 8 days, up to 30 days.
-- **At most 30 calls a minute from one IP address, across all these APIs together.** A call over that gets `503` with `{"error":"slow_down","retry_after":N}`. It doesn't use your call and never counts toward a ban: wait `Retry-After` seconds and carry on. Pausing 2 seconds between calls keeps you under it.
-- **Only certain JSON errors hand your call back.** A `400` (missing or bad `country` on `get_zones.php`), a `404` `zone_not_found`, a `503` `unavailable`, or a `503` `slow_down` (after waiting `Retry-After`) doesn't use your call, so retrying after one of those is safe. Anything else, a cut-off or unparseable body, a timeout on your side, an HTML `5xx` error page, a connection reset, may already have used your call: keep your previous copy and wait for your next scheduled run instead of retrying.
-- **Only `GET` counts.** A browser's CORS preflight (`OPTIONS`) doesn't. `HEAD` and other methods get `405` and don't count either.
-- **Don't rely on the clock, track your last call.** Store the time of your last served call for each target (country or region) and skip the call if it was less than 23.5 hours ago. Schedule in UTC: a local-time cron job gets a 23-hour day at the DST change, which is enough to trip the limit.
-- **Use a generous client timeout, 60 to 120 seconds.** A short timeout on your side can cut the connection before the server finishes, and that counts against you as an "anything else" error above, not a safe-to-retry one.
-- **While testing, don't open a URL twice.** Save the response to a file once and work from the file; every reload after the first is refused and counts toward a ban.
+These reads use the key's shared read budget, normally **1,000 requests per UTC day and 30 per fixed minute**, independently of Coverage's daily quota. Authenticated reads no longer use the old once-per-target IP interval. IP burst protection still applies. Every admitted request counts, including `304` responses and downstream failures. See [limits and caching](api-keys.md#limits-and-caching).
 
 ## Caching
 
-Both endpoints send `Cache-Control: public, max-age=84600` (23.5 hours) and an `ETag`, so a standard HTTP cache won't ask again before your next call is allowed. On your next daily call, send the `ETag` back in `If-None-Match`; you'll get `304 Not Modified` with no body if nothing changed. `generated_at` changes on every response and isn't part of the `ETag`. A `304` uses your call for that window, just like a `200`.
-
-`ETag` and `Retry-After` are readable from browser JavaScript (`Access-Control-Expose-Headers`), for server-side tools and your own debugging, not so you can embed this call directly in a page your visitors load; see the warning above.
-
-Responses are gzip-compressed.
+Responses use `Cache-Control: private, no-store`. Keep your backend's parsed data and ETag separately by key and scope. Send both `X-API-Key` and `If-None-Match` on conditional requests; a `304` saves bandwidth but still counts. Responses support gzip compression.
 
 ## Errors
 
-Errors are JSON: `{"error": "<code>"}`. A `429` also carries `retry_after`.
+Authentication, permissions and quota errors are listed in [Read API errors](api-keys.md#read-api-errors).
 
-| Status | `error` | Meaning |
+| Status | Error | Meaning |
 | --- | --- | --- |
-| 400 | `country_required` | `get_zones.php` was called without `country`. |
-| 400 | `invalid_country` | `country` isn't two letters. |
-| 404 | `zone_not_found` | The region is unknown, pending or turned off. |
-| 405 | `method_not_allowed` | Only `GET` (and the `OPTIONS` preflight) are answered. |
-| 429 | `rate_limited` | This country or region was already fetched from your IP address in the last 23.5 hours. `Retry-After` and `retry_after` give the seconds left. Three of these within the window ban your IP address; see [Call limits](#call-limits). |
-| 503 | `unavailable` | Temporary server problem. Try again later; it doesn't use your call. |
-| 503 | `slow_down` | More than 30 calls in the last minute from your IP address, across all these APIs. `Retry-After` and `retry_after` give the seconds left. It doesn't use your call and never counts toward a ban. |
+| 404 | `zone_not_found` | The region is unknown, pending or disabled. |
+| 405 | `method_not_allowed` | Use GET or an OPTIONS preflight. |
+| 503 | `unavailable` | Temporary data problem; retain your previous copy and retry later. An admitted request still consumes quota. |
+| 503 | `slow_down` | IP burst protection; wait for Retry-After. |
+
+The directory also returns `400 country_required` or `400 invalid_country` for a missing or malformed country. Results include only regions authorized by your key; group member lists are filtered to the same access scope. The sample above illustrates a key authorized for all listed regions. A group boundary request requires access to every enabled member.
 
 ## Example
 
-Run this from a scheduled job on your own server, never in a loop and never from a browser. It fetches every Canadian region with a boundary into one GeoJSON file (one call to `get_zones.php`, then one call per region), tracking the last served call per URL so an early rerun skips instead of risking a ban:
+With `MESHMAPPER_API_KEY` set in your backend environment:
 
-```python
-import json, os, time, httpx
-
-STATE = "meshmapper-state.json"
-last = json.load(open(STATE)) if os.path.exists(STATE) else {}
-
-def fetch(url, **params):
-    key = str(httpx.URL(url, params=params))   # the target: for get_zones this includes ?country=..
-    if time.time() - last.get(key, 0) < 23.5 * 3600:
-        return None                      # already used this call recently
-    r = httpx.get(url, params=params, timeout=120)
-    if r.status_code != 200:
-        return None                      # keep the previous copy, don't retry here
-    last[key] = time.time()
-    return r.json()
-
-zones = fetch("https://meshmapper.net/get_zones.php", country="CA")
-features = []
-if zones:
-    for z in zones["zones"]:
-        if z["has_boundary"]:
-            fc = fetch(z["url"] + "get_geojson.php")
-            if fc:
-                features.extend(fc["features"])
-            time.sleep(2)                # stay under the 30-calls-a-minute cross-API cap
-    json.dump({"type": "FeatureCollection", "features": features}, open("meshmapper-ca.geojson", "w"))
-json.dump(last, open(STATE, "w"))
+```bash
+curl --fail-with-body --compressed \
+  -H "X-API-Key: $MESHMAPPER_API_KEY" \
+  'https://meshmapper.net/get_zones.php?country=CA'
 ```
+
+Schedule polling to fit your key budget, retain the last successful data on failure, and respect `Retry-After`.

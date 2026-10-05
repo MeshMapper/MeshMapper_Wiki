@@ -48,6 +48,7 @@ nav:
     - Admin Portal: admins.md
     - Region Boundaries: region_boundaries.md
     - Webhooks: webhooks.md
+    - API Keys and Access: api-keys.md
     - Coverage API: coverage-api.md
     - Zones API: zones-api.md
     - Scopes API: scopes-api.md
