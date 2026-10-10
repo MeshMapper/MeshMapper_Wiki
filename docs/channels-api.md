@@ -1,6 +1,6 @@
 # Channels API
 
-The Channels API lists the hashtag channels a region's admins have set up for it. That's the same list the MeshMapper app listens on for passive RX in that region. Use it to show a region's local channels, or to set them up in your own client, without scraping the map. Send your Coverage API key in the `X-API-Key` header.
+The Channels API lists the hashtag channels a region's admins have set up for it. That's the same list the MeshMapper app listens on for passive RX in that region. Use it to show a region's local channels, or to set them up in your own client, without scraping the map. Send your integration key in the `X-API-Key` header.
 
 ```
 GET https://yow.meshmapper.net/get_channels.php
@@ -13,7 +13,7 @@ There are no parameters.
 
 ## Authentication
 
-Send your existing **Coverage API key** in the `X-API-Key` header. No new key is needed. See [API keys and access](api-keys.md) for generation, group permissions, custom GLOBAL integrations and the v1.5.117 rollout.
+Send your existing **integration key** (formerly a Coverage key) in the `X-API-Key` header. No new key is needed. See [API keys and access](api-keys.md) for generation, group permissions, custom GLOBAL integrations and the v1.5.117 rollout.
 
 Fetch from your backend and serve your own parsed data to visitors. Keep the key out of client-side JavaScript.
 
