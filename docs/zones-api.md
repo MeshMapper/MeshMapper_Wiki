@@ -1,6 +1,6 @@
 # Zones API
 
-The Zones API lists MeshMapper regions and serves their boundaries as GeoJSON. Use it to show MeshMapper regions on your own map, link to them, or keep a local copy of their outlines. Send your Coverage API key in the `X-API-Key` header.
+The Zones API lists MeshMapper regions and serves their boundaries as GeoJSON. Use it to show MeshMapper regions on your own map, link to them, or keep a local copy of their outlines. Send your integration key in the `X-API-Key` header.
 
 Two endpoints work together:
 
@@ -11,7 +11,7 @@ Call the first one, then fetch `url + "get_geojson.php"` for each region you wan
 
 ## Authentication
 
-Send your existing **Coverage API key** in the `X-API-Key` header. No new key is needed. See [API keys and access](api-keys.md) for generation, group permissions, custom GLOBAL integrations and the v1.5.117 rollout.
+Send your existing **integration key** (formerly a Coverage key) in the `X-API-Key` header. No new key is needed. See [API keys and access](api-keys.md) for generation, group permissions, custom GLOBAL integrations and the v1.5.117 rollout.
 
 Fetch from your backend and serve your own parsed data to visitors. Keep the key out of client-side JavaScript.
 

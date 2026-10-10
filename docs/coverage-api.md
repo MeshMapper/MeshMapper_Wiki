@@ -4,23 +4,23 @@ The Coverage API provides programmatic access to MeshMapper coverage grid-square
 
 ## Authentication
 
-Access requires a **Coverage** API key. Each key is scoped to a specific region, a multiregion group, or a set of adjacent regions (see [Multi-Region Keys](#multi-region-keys)). Self-service keys have a daily limit of 100 requests; keys issued by the MeshMapper team may carry a different limit (the 429 body's `limit` field shows yours).
+Access requires an **integration key** (formerly called a Coverage key). Each key is scoped to a specific region, a multiregion group, or a set of adjacent regions (see [Multi-Region Keys](#multi-region-keys)). Self-service keys have a daily limit of 100 requests; keys issued by the MeshMapper team may carry a different limit (the 429 body's `limit` field shows yours).
 
-This same key also works for zones, boundaries, scopes, channels and repeaters, subject to endpoint permissions. Existing keys do not need regeneration. Group keys follow current member IATAs. See [API keys and access](api-keys.md) for the endpoint table, shared read limits and repeater rollout.
+The same key also works for zones, boundaries, scopes, channels and repeaters, subject to endpoint permissions. Existing keys do not need regeneration. Group keys follow current member IATAs. See [API keys and access](api-keys.md) for the endpoint table, shared read limits and repeater rollout.
 
 Send `X-API-Key: YOUR_API_KEY` on requests, or keep using the existing `?key=` URLs for Coverage.
 
 ### Generating a Key
 
-Regional administrators can generate their own API key directly from the admin panel:
+Regional administrators can generate their own integration key directly from the admin panel:
 
 1. Log in to your region's admin panel
 2. Go to **User Settings**
 3. Scroll to the **API Access** section
 4. Enter a description/reason for the key (mandatory)
-5. Click **Generate API Key**
+5. Click **Generate integration key**
 
-Each administrator is limited to **one API key per region or group**. The key is automatically scoped to that region or group with a fixed rate limit of 100 requests per day. If you need to replace your key, use the **Regenerate** button — this invalidates the old key immediately.
+Each administrator is limited to **one integration key per region or group**. The key is automatically scoped to that region or group with a fixed rate limit of 100 requests per day. If you need to replace your key, use the **Regenerate integration key** button. That invalidates the old key immediately.
 
 !!! warning "Unauthorized Access"
     MeshMapper utilizes API keys and rate limits to protect server resources and prevent access to data that regions do not wish to have shared externally.  As such, accessing unauthorized API's, scraping for data, etc., is strictly prohibited and will result in action taken to protect the server and data (which may include IP or origin bans, removal of a region, etc.).  The MeshMapper team is happy to review requests for data not provided in the API's below.
@@ -35,7 +35,7 @@ GET https://meshmapper.net/coverage.php?key=YOUR_API_KEY
 
 | Parameter | Required | Description |
 | --- | --- | --- |
-| `key` | Unless using X-API-Key | Your Coverage API key. Existing query-key URLs remain supported. |
+| `key` | Unless using X-API-Key | Your integration key. Existing query-key URLs remain supported. |
 | `include` | No | Comma-separated list of optional sections to add to the response. Currently supports `repeaters` (e.g. `?include=repeaters`) — see [Repeater Fields](#repeater-fields). |
 | `fresh` | No | `fresh=1` skips the 15-minute server cache and builds the grid now. Single-region and group keys only; multi-region and global keys return HTTP 400 `fresh_not_supported`. |
 | `f_*` | No | Filter the pings that go into the grid before it is built: by radio configuration, date, power or antenna. See [Filtering](#filtering). |
@@ -272,7 +272,7 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
 
 ## Rate Limits
 
-Each API key has a **daily** request limit. Self-service keys get 100 requests a day; keys issued by the MeshMapper team may carry a different limit (the 429 body's `limit` field shows yours). Counters are reset by a daily job at midnight UTC. Every request that reaches your data — including cache hits and `304 Not Modified` responses — counts toward this limit.
+Each integration key has a **daily** Coverage request limit. Self-service keys get 100 requests a day; keys issued by the MeshMapper team may carry a different limit (the 429 body's `limit` field shows yours). Counters are reset by a daily job at midnight UTC. Every request that reaches your data — including cache hits and `304 Not Modified` responses — counts toward this limit.
 
 When you exceed your limit, the API returns HTTP 429:
 
@@ -302,7 +302,7 @@ A separate per-IP throttle protects against bursts: about 30 requests in a rolli
 | 400 | `filters_not_supported` | An `f_` parameter (even an empty one) on a multi-region or global key. |
 | 400 | `fresh_not_supported` | `fresh=1` on a multi-region or global key. |
 | 400 | `too_many_regions` | A multi-region key with more than 6 member regions. |
-| 401 | `invalid_key` | API key not found, or not a Coverage key (message: `Invalid or non-Coverage API key`). |
+| 401 | `invalid_key` | Key not found, or not an integration key (for example an App key). Message: `Invalid API key, or not an integration key`. |
 | 403 | `api_not_allowed` | Coverage access is disabled for this key. |
 | 503 | `auth_unavailable` | Authentication policy storage is temporarily unavailable; respect Retry-After. |
 | 403 | `no_region` | No region assigned to this key, or the key's region has been deleted. |
@@ -315,11 +315,11 @@ A separate per-IP throttle protects against bursts: about 30 requests in a rolli
 
 ## Managing Your Key
 
-If you have a Coverage API key assigned to your admin account, you can view your current usage and regenerate your key from the **User Settings** tab in your region's Admin Portal. Regenerating a key invalidates the old one immediately.
+If you have an integration key assigned to your admin account, you can view your current usage and regenerate your key from the **User Settings** tab in your region's Admin Portal. Regenerating a key invalidates the old one immediately.
 
 ## Multi-Region Keys
 
-A Coverage key can be scoped to a **set of up to 6 regions** (for example `PDX,SEA,YVR`) instead of a single region. The response merges every member region's coverage into **one grid** — the same payload shape as a single-region response — so it suits integrations that render adjacent regions as one continuous map.
+An integration key can be scoped to a **set of up to 6 regions** (for example `PDX,SEA,YVR`) instead of a single region. The response merges every member region's coverage into **one grid** — the same payload shape as a single-region response — so it suits integrations that render adjacent regions as one continuous map.
 
 Multi-region keys are not self-service: like [global keys](#global-coverage-feed) and keys with a custom limit, they are issued by the MeshMapper team (Master administrators) on request (the admin-panel self-service flow creates keys for its current region or group). Adjacent regions are the intended use — the merged grid serves them as one map.
 
@@ -378,7 +378,7 @@ Caching, compression, conditional requests, and the daily quota work exactly as 
 
 ## Global Coverage Feed
 
-A special **global** Coverage key returns data for **every MeshMapper region in one request** — no region list to maintain on your side. Global keys are not self-service: they are issued by the MeshMapper team on request, for integrations that genuinely need fleet-wide data (reach out via the usual channels if that's you).
+A special **global** integration key returns data for **every MeshMapper region in one request** — no region list to maintain on your side. Global keys are not self-service: they are issued by the MeshMapper team on request, for integrations that genuinely need fleet-wide data (reach out via the usual channels if that's you).
 
 The endpoint and authentication are identical — only the key differs:
 

@@ -229,10 +229,10 @@
 ??? question "Can I scrape for data or call your API's?"
     Unauthorized scraping or access to undocumented API's is strictly prohibited and will result in action being taken to protect MeshMapper's data and servers.
 
-    The publicly available APIs are [listed here](coverage-api.md) and require the use of a provisioned API key.
+    The publicly available APIs are [listed here](coverage-api.md) and require a provisioned [integration key](api-keys.md).
 
 ??? question "Can I have access to the MeshMapper MQTT broker or raw data?"
-    MeshMapper does not offer a public raw MQTT feed. For tools that need map coverage data, use the documented [Coverage API](coverage-api.md) and request an API key. A region admin can configure a broker that sends observer reports *to* MeshMapper; that is separate from read access to MeshMapper's collected data.
+    MeshMapper does not offer a public raw MQTT feed. For tools that need map coverage data, use the documented [Coverage API](coverage-api.md) and request an integration key. A region admin can configure a broker that sends observer reports *to* MeshMapper; that is separate from read access to MeshMapper's collected data.
 
 ??? question "Is MeshMapper open source?  Can I run a local copy?"
     The MeshMapper wardriving app for Android and iOS is open source.  It can also natively be configured to send wardriving data to additional endpoints outside of MeshMapper.
