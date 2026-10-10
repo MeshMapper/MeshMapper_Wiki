@@ -2801,7 +2801,11 @@
 
 
 <h1 id="api-keys-and-access">API keys and access<a class="headerlink" href="#api-keys-and-access" title="Permanent link">¶</a></h1>
-<p>MeshMapper uses the same <strong>Coverage API key</strong> for Coverage and the read APIs below. Existing keys keep their values, geographic assignments and Coverage quota. There is no need to regenerate a key for the new endpoints.</p>
+<p>MeshMapper uses one <strong>integration key</strong> for Coverage and the read APIs below. Existing keys keep their values, geographic assignments and Coverage quota. There is no need to regenerate a key for the new endpoints.</p>
+<div class="admonition note">
+<p class="admonition-title">Formerly Coverage keys</p>
+<p>Integration keys used to be called <strong>Coverage keys</strong> (or Coverage API keys). Only the name changed: a key you already have keeps working everywhere, with the same value, assignment and limits.</p>
+</div>
 <div class="admonition info">
 <p class="admonition-title">Server v1.5.117 rollout</p>
 <p>Zones, boundaries, scopes and channels require keys when the updated server endpoints are deployed. Send your key now as part of the migration. Repeater authentication has a separate switch, off by default until app 1.4.1 is shipped and the update is forced. This page describes the new contract, not a confirmation that every region has deployed it.</p>
@@ -2818,40 +2822,40 @@
 <tbody>
 <tr>
 <td><a href="../coverage-api/">Coverage</a>, <code>coverage.php</code></td>
-<td>Coverage key in <code>X-API-Key</code> or legacy <code>?key=</code></td>
+<td>Integration key in <code>X-API-Key</code> or legacy <code>?key=</code></td>
 <td>Assigned region, group, selected regions or GLOBAL</td>
 </tr>
 <tr>
 <td><a href="../zones-api/">Region directory</a>, <code>get_zones.php</code></td>
-<td>Coverage key in <code>X-API-Key</code></td>
+<td>Integration key in <code>X-API-Key</code></td>
 <td>Authorized regions within the requested country</td>
 </tr>
 <tr>
 <td><a href="../zones-api/#region-boundary">Boundaries</a>, <code>get_geojson.php</code></td>
-<td>Coverage key in <code>X-API-Key</code></td>
+<td>Integration key in <code>X-API-Key</code></td>
 <td>Requested region or fully authorized group</td>
 </tr>
 <tr>
 <td><a href="../scopes-api/">Scopes</a>, <code>get_scopes.php</code></td>
-<td>Coverage key in <code>X-API-Key</code></td>
+<td>Integration key in <code>X-API-Key</code></td>
 <td>Requested region or fully authorized group</td>
 </tr>
 <tr>
 <td><a href="../channels-api/">Channels</a>, <code>get_channels.php</code></td>
-<td>Coverage key in <code>X-API-Key</code></td>
+<td>Integration key in <code>X-API-Key</code></td>
 <td>Requested region or fully authorized group</td>
 </tr>
 <tr>
 <td>Repeaters, <code>get_repeaters.php</code></td>
-<td>Scoped Coverage key or existing mobile App key in <code>X-API-Key</code>; optional during transition</td>
-<td>Coverage keys stay within their assignments; App keys support the app's cross-region repeater reads</td>
+<td>Scoped integration key or existing mobile App key in <code>X-API-Key</code>; optional during transition</td>
+<td>Integration keys stay within their assignments; App keys support the app's cross-region repeater reads</td>
 </tr>
 </tbody>
 </table>
 <p>Only Coverage accepts a query-string key. App keys do not grant access to Coverage, zones, boundaries, scopes or channels. The mobile app can send its existing App key for repeaters before connecting a radio or starting a session.</p>
 <h2 id="generate-or-reuse-a-key">Generate or reuse a key<a class="headerlink" href="#generate-or-reuse-a-key" title="Permanent link">¶</a></h2>
-<p>In your region or group's admin panel, open <strong>User Settings &gt; API Access</strong>. Generate a key with a description, or show your existing key. Each administrator can have one self-service key per region or group. Regeneration invalidates the old value immediately.</p>
-<p>Group keys cover the group's current enabled member IATAs, including membership changes without issuing a new key. A key for just one member cannot fetch a whole group's boundaries, scopes or channels unless it covers every enabled member. Repeater exports are filtered to the Coverage key's authorized members, even where a member URL normally expands to its group.</p>
+<p>In your region or group's admin panel, open <strong>User Settings &gt; API Access</strong>. Generate an integration key with a description, or show your existing key. Each administrator can have one self-service key per region or group. Regeneration invalidates the old value immediately.</p>
+<p>Group keys cover the group's current enabled member IATAs, including membership changes without issuing a new key. A key for just one member cannot fetch a whole group's boundaries, scopes or channels unless it covers every enabled member. Repeater exports are filtered to the integration key's authorized members, even where a member URL normally expands to its group.</p>
 <p>Contact the MeshMapper team for custom integrations, selected-region or GLOBAL access, endpoint permissions, or larger limits. Master admins can allow only the endpoints an integration needs. GLOBAL permits geographic access across regions; it does not remove required parameters or turn every endpoint into an all-region feed. For example, <code>get_zones.php</code> still requires <code>country</code>.</p>
 <h2 id="send-the-key">Send the key<a class="headerlink" href="#send-the-key" title="Permanent link">¶</a></h2>
 <p>Keep integration keys in your backend configuration, outside source control and visitor-facing JavaScript. For example, with <code>MESHMAPPER_API_KEY</code> set in your environment:</p>
@@ -2861,7 +2865,7 @@
 </code></pre>
 <p>Send the header on every request, including conditional requests. CORS preflights allow <code>X-API-Key</code> and <code>If-None-Match</code>.</p>
 <h2 id="limits-and-caching">Limits and caching<a class="headerlink" href="#limits-and-caching" title="Permanent link">¶</a></h2>
-<p>The five read APIs share a default budget of <strong>1,000 admitted requests per UTC day and 30 per fixed minute per Coverage key</strong>. Custom keys may have different limits. Coverage retains its separate daily quota, normally 100 calls for self-service keys. Read calls do not consume Coverage calls.</p>
+<p>The five read APIs share a default budget of <strong>1,000 admitted requests per UTC day and 30 per fixed minute per integration key</strong>. Custom keys may have different limits. Coverage retains its separate daily quota, normally 100 calls for self-service keys. Read calls do not consume Coverage calls.</p>
 <p>Every admitted read counts, including a <code>304</code> and a downstream data error. Authentication and authorization failures do not consume the read budget. <code>OPTIONS</code> preflights do not count. Existing IP burst protection also applies; App repeater reads do not put all phones behind one shared daily key budget.</p>
 <p>Authenticated reads replace the previous once-per-target IP interval. Key quota exhaustion returns <code>503 key_rate_limited</code> with <code>Retry-After</code>; wait at least that long before retrying. The daily allowance resets at midnight UTC. A zones/boundaries/scopes/channels IP burst rejection returns <code>503 slow_down</code>; repeaters may return <code>429 rate_limited</code>. Coverage retains its own documented <code>429</code> responses.</p>
 <p>Protected responses use <code>Cache-Control: private, no-store</code>. Keep your backend's parsed data and any ETag separately for each credential and geographic scope, and discard data when access changes. Where supported, <code>If-None-Match</code> saves bandwidth but not quota. Do not expose keys in shared cache URLs. Coverage's server-side grid cache is unchanged.</p>
@@ -2883,7 +2887,7 @@
 <tr>
 <td>403</td>
 <td><code>wrong_key_type</code></td>
-<td>Use a Coverage key; App keys only support repeaters.</td>
+<td>Use an integration key; App keys only support repeaters.</td>
 </tr>
 <tr>
 <td>403</td>

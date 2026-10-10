@@ -2923,7 +2923,7 @@
 
 
 <h1 id="zones-api">Zones API<a class="headerlink" href="#zones-api" title="Permanent link">¶</a></h1>
-<p>The Zones API lists MeshMapper regions and serves their boundaries as GeoJSON. Use it to show MeshMapper regions on your own map, link to them, or keep a local copy of their outlines. Send your Coverage API key in the <code>X-API-Key</code> header.</p>
+<p>The Zones API lists MeshMapper regions and serves their boundaries as GeoJSON. Use it to show MeshMapper regions on your own map, link to them, or keep a local copy of their outlines. Send your integration key in the <code>X-API-Key</code> header.</p>
 <p>Two endpoints work together:</p>
 <ol>
 <li><strong><code>get_zones.php</code></strong> on meshmapper.net lists the regions in one country, without boundaries.</li>
@@ -2931,7 +2931,7 @@
 </ol>
 <p>Call the first one, then fetch <code>url + "get_geojson.php"</code> for each region you want.</p>
 <h2 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">¶</a></h2>
-<p>Send your existing <strong>Coverage API key</strong> in the <code>X-API-Key</code> header. No new key is needed. See <a href="../api-keys/">API keys and access</a> for generation, group permissions, custom GLOBAL integrations and the v1.5.117 rollout.</p>
+<p>Send your existing <strong>integration key</strong> (formerly a Coverage key) in the <code>X-API-Key</code> header. No new key is needed. See <a href="../api-keys/">API keys and access</a> for generation, group permissions, custom GLOBAL integrations and the v1.5.117 rollout.</p>
 <p>Fetch from your backend and serve your own parsed data to visitors. Keep the key out of client-side JavaScript.</p>
 <h2 id="list-regions">List regions<a class="headerlink" href="#list-regions" title="Permanent link">¶</a></h2>
 <pre><code>GET https://meshmapper.net/get_zones.php?country=CA

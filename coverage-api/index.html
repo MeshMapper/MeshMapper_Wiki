@@ -3381,19 +3381,19 @@
 <h1 id="coverage-api">Coverage API<a class="headerlink" href="#coverage-api" title="Permanent link">¶</a></h1>
 <p>The Coverage API provides programmatic access to MeshMapper coverage grid-square data. Use it to draw coverage grids on your own maps or integrate MeshMapper data into external tools and dashboards.</p>
 <h2 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">¶</a></h2>
-<p>Access requires a <strong>Coverage</strong> API key. Each key is scoped to a specific region, a multiregion group, or a set of adjacent regions (see <a href="#multi-region-keys">Multi-Region Keys</a>). Self-service keys have a daily limit of 100 requests; keys issued by the MeshMapper team may carry a different limit (the 429 body's <code>limit</code> field shows yours).</p>
-<p>This same key also works for zones, boundaries, scopes, channels and repeaters, subject to endpoint permissions. Existing keys do not need regeneration. Group keys follow current member IATAs. See <a href="../api-keys/">API keys and access</a> for the endpoint table, shared read limits and repeater rollout.</p>
+<p>Access requires an <strong>integration key</strong> (formerly called a Coverage key). Each key is scoped to a specific region, a multiregion group, or a set of adjacent regions (see <a href="#multi-region-keys">Multi-Region Keys</a>). Self-service keys have a daily limit of 100 requests; keys issued by the MeshMapper team may carry a different limit (the 429 body's <code>limit</code> field shows yours).</p>
+<p>The same key also works for zones, boundaries, scopes, channels and repeaters, subject to endpoint permissions. Existing keys do not need regeneration. Group keys follow current member IATAs. See <a href="../api-keys/">API keys and access</a> for the endpoint table, shared read limits and repeater rollout.</p>
 <p>Send <code>X-API-Key: YOUR_API_KEY</code> on requests, or keep using the existing <code>?key=</code> URLs for Coverage.</p>
 <h3 id="generating-a-key">Generating a Key<a class="headerlink" href="#generating-a-key" title="Permanent link">¶</a></h3>
-<p>Regional administrators can generate their own API key directly from the admin panel:</p>
+<p>Regional administrators can generate their own integration key directly from the admin panel:</p>
 <ol>
 <li>Log in to your region's admin panel</li>
 <li>Go to <strong>User Settings</strong></li>
 <li>Scroll to the <strong>API Access</strong> section</li>
 <li>Enter a description/reason for the key (mandatory)</li>
-<li>Click <strong>Generate API Key</strong></li>
+<li>Click <strong>Generate integration key</strong></li>
 </ol>
-<p>Each administrator is limited to <strong>one API key per region or group</strong>. The key is automatically scoped to that region or group with a fixed rate limit of 100 requests per day. If you need to replace your key, use the <strong>Regenerate</strong> button — this invalidates the old key immediately.</p>
+<p>Each administrator is limited to <strong>one integration key per region or group</strong>. The key is automatically scoped to that region or group with a fixed rate limit of 100 requests per day. If you need to replace your key, use the <strong>Regenerate integration key</strong> button. That invalidates the old key immediately.</p>
 <div class="admonition warning">
 <p class="admonition-title">Unauthorized Access</p>
 <p>MeshMapper utilizes API keys and rate limits to protect server resources and prevent access to data that regions do not wish to have shared externally.  As such, accessing unauthorized API's, scraping for data, etc., is strictly prohibited and will result in action taken to protect the server and data (which may include IP or origin bans, removal of a region, etc.).  The MeshMapper team is happy to review requests for data not provided in the API's below.</p>
@@ -3414,7 +3414,7 @@
 <tr>
 <td><code>key</code></td>
 <td>Unless using X-API-Key</td>
-<td>Your Coverage API key. Existing query-key URLs remain supported.</td>
+<td>Your integration key. Existing query-key URLs remain supported.</td>
 </tr>
 <tr>
 <td><code>include</code></td>
@@ -3912,7 +3912,7 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
      "https://meshmapper.net/coverage.php?key=YOUR_API_KEY"
 </code></pre>
 <h2 id="rate-limits">Rate Limits<a class="headerlink" href="#rate-limits" title="Permanent link">¶</a></h2>
-<p>Each API key has a <strong>daily</strong> request limit. Self-service keys get 100 requests a day; keys issued by the MeshMapper team may carry a different limit (the 429 body's <code>limit</code> field shows yours). Counters are reset by a daily job at midnight UTC. Every request that reaches your data — including cache hits and <code>304 Not Modified</code> responses — counts toward this limit.</p>
+<p>Each integration key has a <strong>daily</strong> Coverage request limit. Self-service keys get 100 requests a day; keys issued by the MeshMapper team may carry a different limit (the 429 body's <code>limit</code> field shows yours). Counters are reset by a daily job at midnight UTC. Every request that reaches your data — including cache hits and <code>304 Not Modified</code> responses — counts toward this limit.</p>
 <p>When you exceed your limit, the API returns HTTP 429:</p>
 <pre><code class="language-json">{
   "success": false,
@@ -3973,7 +3973,7 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
 <tr>
 <td>401</td>
 <td><code>invalid_key</code></td>
-<td>API key not found, or not a Coverage key (message: <code>Invalid or non-Coverage API key</code>).</td>
+<td>Key not found, or not an integration key (for example an App key). Message: <code>Invalid API key, or not an integration key</code>.</td>
 </tr>
 <tr>
 <td>403</td>
@@ -4023,9 +4023,9 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
 </tbody>
 </table>
 <h2 id="managing-your-key">Managing Your Key<a class="headerlink" href="#managing-your-key" title="Permanent link">¶</a></h2>
-<p>If you have a Coverage API key assigned to your admin account, you can view your current usage and regenerate your key from the <strong>User Settings</strong> tab in your region's Admin Portal. Regenerating a key invalidates the old one immediately.</p>
+<p>If you have an integration key assigned to your admin account, you can view your current usage and regenerate your key from the <strong>User Settings</strong> tab in your region's Admin Portal. Regenerating a key invalidates the old one immediately.</p>
 <h2 id="multi-region-keys">Multi-Region Keys<a class="headerlink" href="#multi-region-keys" title="Permanent link">¶</a></h2>
-<p>A Coverage key can be scoped to a <strong>set of up to 6 regions</strong> (for example <code>PDX,SEA,YVR</code>) instead of a single region. The response merges every member region's coverage into <strong>one grid</strong> — the same payload shape as a single-region response — so it suits integrations that render adjacent regions as one continuous map.</p>
+<p>An integration key can be scoped to a <strong>set of up to 6 regions</strong> (for example <code>PDX,SEA,YVR</code>) instead of a single region. The response merges every member region's coverage into <strong>one grid</strong> — the same payload shape as a single-region response — so it suits integrations that render adjacent regions as one continuous map.</p>
 <p>Multi-region keys are not self-service: like <a href="#global-coverage-feed">global keys</a> and keys with a custom limit, they are issued by the MeshMapper team (Master administrators) on request (the admin-panel self-service flow creates keys for its current region or group). Adjacent regions are the intended use — the merged grid serves them as one map.</p>
 <div class="admonition info">
 <p class="admonition-title">Multi-region keys vs. Multiregion Groups</p>
@@ -4119,7 +4119,7 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
 <h3 id="caching-and-limits">Caching and Limits<a class="headerlink" href="#caching-and-limits" title="Permanent link">¶</a></h3>
 <p>Caching, compression, conditional requests, and the daily quota work exactly as for single-region keys: 15-minute server cache, <code>ETag</code> / <code>If-None-Match</code> for <code>304 Not Modified</code>, gzip, and the key's daily limit (cache hits and 304s count). Response size scales with the number of member regions — poll at 15-minute intervals or longer.</p>
 <h2 id="global-coverage-feed">Global Coverage Feed<a class="headerlink" href="#global-coverage-feed" title="Permanent link">¶</a></h2>
-<p>A special <strong>global</strong> Coverage key returns data for <strong>every MeshMapper region in one request</strong> — no region list to maintain on your side. Global keys are not self-service: they are issued by the MeshMapper team on request, for integrations that genuinely need fleet-wide data (reach out via the usual channels if that's you).</p>
+<p>A special <strong>global</strong> integration key returns data for <strong>every MeshMapper region in one request</strong> — no region list to maintain on your side. Global keys are not self-service: they are issued by the MeshMapper team on request, for integrations that genuinely need fleet-wide data (reach out via the usual channels if that's you).</p>
 <p>The endpoint and authentication are identical — only the key differs:</p>
 <pre><code>GET https://meshmapper.net/coverage.php?key=YOUR_GLOBAL_KEY
 </code></pre>
