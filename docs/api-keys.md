@@ -17,7 +17,7 @@ MeshMapper uses one **integration key** for Coverage and the read APIs below. Ex
 | [Boundaries](zones-api.md#region-boundary), `get_geojson.php` | Integration key in `X-API-Key` | Requested region or fully authorized group |
 | [Scopes](scopes-api.md), `get_scopes.php` | Integration key in `X-API-Key` | Requested region or fully authorized group |
 | [Channels](channels-api.md), `get_channels.php` | Integration key in `X-API-Key` | Requested region or fully authorized group |
-| Repeaters, `get_repeaters.php` | Scoped integration key or existing mobile App key in `X-API-Key`; optional during transition | Integration keys stay within their assignments; App keys support the app's cross-region repeater reads |
+| [Repeaters](repeaters-api.md), `get_repeaters.php` | Scoped integration key or existing mobile App key in `X-API-Key`; optional during transition | Integration keys stay within their assignments; App keys support the app's cross-region repeater reads |
 
 Only Coverage accepts a query-string key. App keys do not grant access to Coverage, zones, boundaries, scopes or channels. The mobile app can send its existing App key for repeaters before connecting a radio or starting a session.
 

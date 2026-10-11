@@ -51,6 +51,7 @@ nav:
     - API Keys and Access: api-keys.md
     - Coverage API: coverage-api.md
     - Zones API: zones-api.md
+    - Repeaters API: repeaters-api.md
     - Scopes API: scopes-api.md
     - Channels API: channels-api.md
     - Data Upload: dataupload.md
