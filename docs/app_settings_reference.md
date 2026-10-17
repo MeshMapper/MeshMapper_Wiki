@@ -51,6 +51,7 @@ Complete reference for every setting in MeshMapper. The Settings tab is a list o
 
 - Chooses how the Top Heard list is drawn on the Live Activity (Lock Screen and Dynamic Island), CarPlay and Apple Watch
 - **On** (default): named rows, one repeater per line
+- Named rows show your own nickname for a repeater when you have set one (see [Repeater Nicknames](#repeater-nicknames))
 - **Off**: a compact grid that fits more repeaters
 
 ### Exit (Android only)
@@ -123,6 +124,14 @@ Download map areas to your device for wardriving without a data connection. Open
 
 - Makes the Top Heard overlay bigger for easier reading
 - Shown only while **Top Repeaters on Map** is on. Disabled by default.
+
+#### Repeater Nicknames
+
+- Give repeaters your own short names, up to 8 characters, like **Mell** for `5007`
+- The nickname shows instead of the hex ID in the **Top Heard** overlay, and in place of the repeater's name on the Live Activity, CarPlay, Apple Watch and Siri
+- It shows only when the app can tell exactly which repeater was heard. If another repeater shares the same ID, the ID shows instead.
+- Add one here with **+**, or tap a repeater on the map, open its details and tap **Add nickname**. Tap a nickname in the list to change it, or the bin to remove it.
+- Nicknames are saved on your phone and stay set when you leave a region and come back. They are not shared or synced to your MeshMapper account.
 
 ---
 
