@@ -113,7 +113,7 @@ The overlay renders from the same vector coverage tiles as the web map, using yo
 **Tap to inspect:**
 
 - **Tap a coverage cell** to open a summary of its pings, with dashed connection lines fanning out to every repeater that heard that spot (each line labelled with distance).
-- **Tap a repeater** to see its details plus all the coverage cells it has been heard from, colour-coded by status, while the rest of the map dims so its footprint stands out. The repeater sheet also has a **Manage** button for logging in to a repeater you administer (it needs the repeater's full key and admin password).
+- **Tap a repeater** to see its details plus all the coverage cells it has been heard from, colour-coded by status, while the rest of the map dims so its footprint stands out. The repeater sheet also has a **Manage** button for logging in to a repeater you administer (it needs the repeater's full key and admin password), and an **Add nickname** tag under the name for giving it your own short name.
 
 If **Top Repeaters on Map** is enabled in Settings > Map, a **Top Heard** overlay appears on the map. **Larger Top 3 Overlay** makes it bigger.
 
@@ -126,6 +126,8 @@ If **Top Repeaters on Map** is enabled in Settings > Map, a **Top Heard** overla
 **RX slot**: A 4th row shows the strongest passively overheard repeater (purple) within a rolling window that matches your auto-ping interval (15s, 30s, or 60s).
 
 Each row also shows the repeater's hex ID and SNR value, colour-coded: green (good, above 5), orange (okay, above -1 up to 5), red (poor, -1 or below).
+
+If you have given a repeater a nickname (Settings > Map > Repeater Nicknames), its row shows the nickname instead of the hex ID, as long as no other repeater shares that ID.
 
 The overlay clears when you stop auto-ping, switch modes, disconnect, or clear pings/logs.
 
