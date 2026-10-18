@@ -130,7 +130,7 @@ Download map areas to your device for wardriving without a data connection. Open
 - Give repeaters your own short names, up to 8 characters, like **Mell** for `5007`
 - The nickname shows instead of the hex ID in the **Top Heard** overlay, and in place of the repeater's name on the Live Activity, CarPlay, Apple Watch and Siri
 - It shows only when the app can tell exactly which repeater was heard. If another repeater shares the same ID, the ID shows instead.
-- Add one here with **+**, or tap a repeater on the map, open its details and tap **Add nickname**. Tap a nickname in the list to change it, or the bin to remove it.
+- Add one here with **+**, or tap a repeater on the map, open its details and tap **Nickname** beside **Manage**. Tap a nickname in the list to change it, or the bin to remove it.
 - Nicknames are saved on your phone and stay set when you leave a region and come back. They are not shared or synced to your MeshMapper account.
 
 ---
