@@ -113,7 +113,7 @@ The overlay renders from the same vector coverage tiles as the web map, using yo
 **Tap to inspect:**
 
 - **Tap a coverage cell** to open a summary of its pings, with dashed connection lines fanning out to every repeater that heard that spot (each line labelled with distance).
-- **Tap a repeater** to see its details plus all the coverage cells it has been heard from, colour-coded by status, while the rest of the map dims so its footprint stands out. The repeater sheet also has a **Manage** button for logging in to a repeater you administer (it needs the repeater's full key and admin password), and an **Add nickname** tag under the name for giving it your own short name.
+- **Tap a repeater** to see its details plus all the coverage cells it has been heard from, colour-coded by status, while the rest of the map dims so its footprint stands out. The repeater sheet also has a **Manage** button for logging in to a repeater you administer (it needs the repeater's full key and admin password). Beside it, a **Nickname** button gives the repeater your own short name, and shows that name once it is set.
 
 If **Top Repeaters on Map** is enabled in Settings > Map, a **Top Heard** overlay appears on the map. **Larger Top 3 Overlay** makes it bigger.
 
