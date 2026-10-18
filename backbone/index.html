@@ -2969,7 +2969,7 @@
 <h2 id="what-gets-counted">What Gets Counted<a class="headerlink" href="#what-gets-counted" title="Permanent link">¶</a></h2>
 <p>Every packet in a MeshCore mesh carries a record of the repeaters it passed through (its <strong>path</strong>). When a MeshMapper observer hears a packet, it logs that path.</p>
 <p>Two repeaters that sit <strong>next to each other</strong> in a logged path heard each other over the air. That pair is a <strong>link</strong>, and each time a link carries a packet it earns <strong>1 point</strong>.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../assets/backbone-path-links.svg" data-desc-position="bottom"><img alt="A packet travels A to B to C and is heard by Observer 1. Links A-B and B-C each score one point. Repeater E also rebroadcast it but is not in the logged path, so it scores nothing." src="../assets/backbone-path-links.svg"></a></p>
+<p></p>
 <p>Two things follow from this:</p>
 <ul>
 <li><strong>A flood does not give every repeater a point.</strong> Only the hops in a path an observer actually logged count. Repeater E above rebroadcast the packet like everyone else, but no observer logged a path through it, so it earns nothing for that packet.</li>
@@ -2977,7 +2977,7 @@
 </ul>
 <h3 id="each-packet-counts-once-per-link">Each Packet Counts Once Per Link<a class="headerlink" href="#each-packet-counts-once-per-link" title="Permanent link">¶</a></h3>
 <p>Several observers often hear the same packet. They log different paths, and those paths share some links. A link only carried the packet <strong>once</strong>, so it only earns <strong>1 point</strong> for it, no matter how many observers logged it.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../assets/backbone-once-per-packet.svg" data-desc-position="bottom"><img alt="One packet goes A to B, then forks to C (heard by Observer 1) and to E (heard by Observer 2). A-B scores once, not twice. B-C and B-E each score once, because the packet really crossed both." src="../assets/backbone-once-per-packet.svg"></a></p>
+<p></p>
 <ul>
 <li><strong>A-B scores 1, not 2.</strong> Both observers logged it, but it was one transmission.</li>
 <li><strong>B-C and B-E each score 1.</strong> The flood really split at B and crossed both links.</li>
@@ -3078,7 +3078,7 @@
 </table>
 <h3 id="picking-the-backbone">Picking the Backbone<a class="headerlink" href="#picking-the-backbone" title="Permanent link">¶</a></h3>
 <p>Rank the repeaters busiest first and keep adding them until the running total reaches 50%. The repeater that crosses the line is included.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../assets/backbone-share-bar.svg" data-desc-position="bottom"><img alt="Shares ranked B 44%, C 25%, A 19%, D 12%. B alone is below the 50% line; B plus C reach 69%, so the backbone is B and C." src="../assets/backbone-share-bar.svg"></a></p>
+<p></p>
 <p>B alone has 44%, which is short. B + C have 69%, so <strong>the backbone is B and C</strong>.</p>
 <div class="admonition note">
 <p class="admonition-title">Why the backbone chips add up to about half</p>
@@ -3087,7 +3087,7 @@
 <hr>
 <h2 id="when-a-hop-cant-be-identified">When a Hop Can't Be Identified<a class="headerlink" href="#when-a-hop-cant-be-identified" title="Permanent link">¶</a></h2>
 <p>Each hop in a path is only the first 1, 2 or 3 bytes of a repeater's Public ID. MeshMapper only scores a link when <strong>both</strong> hops can be tied to exactly one known, placed repeater (see <a href="../duplicaterepeaterid/#the-rules">The Rules</a>).</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../assets/backbone-chain-break.svg" data-desc-position="bottom"><img alt="Top: a 1-byte path 3A to 7F to C2 where two repeaters share 7F. Neither link scores, and no 3A-C2 shortcut is made. Bottom: the same route as 3A41 to 7F12 to C2E0 resolves, and both links score." src="../assets/backbone-chain-break.svg"></a></p>
+<p></p>
 <ul>
 <li><strong>1-byte collision.</strong> In the path <code>3A → 7F → C2</code>, two repeaters in the region start with <code>7F</code>. MeshMapper can't tell which one relayed the packet, so neither <code>3A–7F</code> nor <code>7F–C2</code> scores. It also never invents a <code>3A–C2</code> link, because those two never heard each other directly.</li>
 <li><strong>Multi-byte resolves it.</strong> The same route as <code>3A41 → 7F12 → C2E0</code> scores both links, because only one repeater starts with <code>7F12</code>.</li>

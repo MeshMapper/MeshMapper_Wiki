@@ -3451,7 +3451,7 @@
 <p><strong>Tap to inspect:</strong></p>
 <ul>
 <li><strong>Tap a coverage cell</strong> to open a summary of its pings, with dashed connection lines fanning out to every repeater that heard that spot (each line labelled with distance).</li>
-<li><strong>Tap a repeater</strong> to see its details plus all the coverage cells it has been heard from, colour-coded by status, while the rest of the map dims so its footprint stands out. The repeater sheet also has a <strong>Manage</strong> button for logging in to a repeater you administer (it needs the repeater's full key and admin password).</li>
+<li><strong>Tap a repeater</strong> to see its details plus all the coverage cells it has been heard from, colour-coded by status, while the rest of the map dims so its footprint stands out. The repeater sheet also has a <strong>Manage</strong> button for logging in to a repeater you administer (it needs the repeater's full key and admin password). Beside it, a <strong>Nickname</strong> button gives the repeater your own short name, and shows that name once it is set.</li>
 </ul>
 <p>If <strong>Top Repeaters on Map</strong> is enabled in Settings &gt; Map, a <strong>Top Heard</strong> overlay appears on the map. <strong>Larger Top 3 Overlay</strong> makes it bigger.</p>
 <p><strong>Top 3 slots</strong>: Shows the best 3 repeaters by SNR from your most recent ping, fully replacing on each new ping. If a ping gets no responses, the previous results stay visible. Each row has a coloured dot indicating the ping type:</p>
@@ -3462,6 +3462,7 @@
 </ul>
 <p><strong>RX slot</strong>: A 4th row shows the strongest passively overheard repeater (purple) within a rolling window that matches your auto-ping interval (15s, 30s, or 60s).</p>
 <p>Each row also shows the repeater's hex ID and SNR value, colour-coded: green (good, above 5), orange (okay, above -1 up to 5), red (poor, -1 or below).</p>
+<p>If you have given a repeater a nickname (Settings &gt; Map &gt; Repeater Nicknames), its row shows the nickname instead of the hex ID, as long as no other repeater shares that ID.</p>
 <p>The overlay clears when you stop auto-ping, switch modes, disconnect, or clear pings/logs.</p>
 <p>Example:</p>
 <pre><code>Top Heard
