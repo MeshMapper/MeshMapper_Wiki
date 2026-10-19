@@ -105,6 +105,13 @@ Download map areas to your device for wardriving without a data connection. Open
 - Choose a colour palette optimised for your vision type: Default, Protanopia (red-blind), Deuteranopia (green-blind), Tritanopia (blue-blind), or Achromatopsia (monochrome)
 - Applies to the coverage overlay and map colours, matching the meshmapper.net map's accessibility palettes
 
+#### Repeater Coverage Lines
+
+- When you tap a repeater on the map, draws a dashed line from it to every coverage square that heard it
+- Disabled by default: near a busy repeater the lines can hide the squares, which already show its coverage in their status colours
+- Switching it with a repeater selected updates the map straight away
+- On the meshmapper.net map the same lines come with its **Repeater Coverage** overlay, which is on by default there
+
 ### Markers
 
 #### Map Marker Style
