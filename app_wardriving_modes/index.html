@@ -3054,8 +3054,12 @@
 <li>While you are connected, the app keeps MeshMapper's recent coverage for the area around you loaded.</li>
 <li>When an auto ping is due in a square that already has a recent two-way (green) or discovery (cyan) result, the ping is <strong>deferred</strong> instead of sent. The countdown reads <strong>"Deferred"</strong> while it waits.</li>
 <li>The deferred ping is kept, not dropped. As soon as you reach a square with no recent coverage (and have moved your minimum ping distance), it goes out and the interval restarts.</li>
-<li>Only one ping is ever held. If the next interval is deferred too, it takes the place of the one waiting.</li>
+<li>Only one ping is ever held. If the next interval is deferred too, it takes the place of the one waiting. In Hybrid Mode the two kinds keep alternating while they are held, so a held TX channel message (the flood GRP_MSG on #wardriving) is replaced by the next held discovery request, which is replaced by the next held TX, and so on.</li>
 </ol>
+<div class="admonition note">
+<p class="admonition-title">Hybrid: whichever ping is waiting goes out</p>
+<p>When you reach a clear square, the ping sitting in the slot at that moment is the one sent, TX or discovery request. Neither kind is preferred, and Hybrid then carries on with the other kind. On a stretch where most squares are already covered and only a few are clear, it is chance which kind is waiting each time, so you may see mostly discovery requests (or mostly GRP_MSGs) go out. Over a longer drive it evens out.</p>
+</div>
 <p>Each deferral leaves a hollow circle on the map. You can hide these with <strong>Show Deferred Markers</strong> in Settings.</p>
 <p><strong>What counts as covered:</strong> a square with a green or cyan result inside your Smart Pinging window (default 14 days). Squares follow your <a href="../app_settings_reference/#grid-mode">Grid Mode</a> setting, so what is deferred is exactly what is already painted on the map.</p>
 <p><strong>Never deferred:</strong></p>
