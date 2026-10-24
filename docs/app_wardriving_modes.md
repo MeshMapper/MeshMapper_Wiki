@@ -126,10 +126,10 @@ Smart Pinging holds back auto pings in squares that MeshMapper has already mappe
 1. While you are connected, the app keeps MeshMapper's recent coverage for the area around you loaded.
 2. When an auto ping is due in a square that already has a recent two-way (green) or discovery (cyan) result, the ping is **deferred** instead of sent. The countdown reads **"Deferred"** while it waits.
 3. The deferred ping is kept, not dropped. As soon as you reach a square with no recent coverage (and have moved your minimum ping distance), it goes out and the interval restarts.
-4. Only one ping is ever held. If the next interval is deferred too, it takes the place of the one waiting. In Hybrid Mode the two kinds keep alternating while they are held, so a held TX channel message (the flood GRP_TXT on #wardriving) is replaced by the next held discovery request, which is replaced by the next held TX, and so on.
+4. Only one ping is ever held. If the next interval is deferred too, it takes the place of the one waiting, with one exception in Hybrid Mode: a held TX channel message (the flood GRP_TXT on #wardriving) is never replaced by a held discovery request.
 
-!!! note "Hybrid: whichever ping is waiting goes out"
-    When you reach a clear square, the ping sitting in the slot at that moment is the one sent, TX or discovery request. Neither kind is preferred, and Hybrid then carries on with the other kind. On a stretch where most squares are already covered and only a few are clear, it is chance which kind is waiting each time, so you may see mostly discovery requests (or mostly GRP_TXTs) go out. Over a longer drive it evens out.
+!!! note "Hybrid: the GRP_TXT goes out first"
+    Once a GRP_TXT has been deferred, it stays in the slot however many discovery requests are deferred after it, so the first ping into a clear square is the GRP_TXT, the one that can paint the square green. A held discovery request only goes out if you reach a clear square before any GRP_TXT has been deferred. Hybrid then carries on with the other kind.
 
 Each deferral leaves a hollow circle on the map. You can hide these with **Show Deferred Markers** in Settings.
 
