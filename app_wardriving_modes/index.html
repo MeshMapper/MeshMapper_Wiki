@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../assets/wardrive.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -28,10 +28,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -3054,11 +3054,11 @@
 <li>While you are connected, the app keeps MeshMapper's recent coverage for the area around you loaded.</li>
 <li>When an auto ping is due in a square that already has a recent two-way (green) or discovery (cyan) result, the ping is <strong>deferred</strong> instead of sent. The countdown reads <strong>"Deferred"</strong> while it waits.</li>
 <li>The deferred ping is kept, not dropped. As soon as you reach a square with no recent coverage (and have moved your minimum ping distance), it goes out and the interval restarts.</li>
-<li>Only one ping is ever held. If the next interval is deferred too, it takes the place of the one waiting. In Hybrid Mode the two kinds keep alternating while they are held, so a held TX channel message (the flood GRP_TXT on #wardriving) is replaced by the next held discovery request, which is replaced by the next held TX, and so on.</li>
+<li>Only one ping is ever held. If the next interval is deferred too, it takes the place of the one waiting, with one exception in Hybrid Mode: a held TX channel message (the flood GRP_TXT on #wardriving) is never replaced by a held discovery request.</li>
 </ol>
 <div class="admonition note">
-<p class="admonition-title">Hybrid: whichever ping is waiting goes out</p>
-<p>When you reach a clear square, the ping sitting in the slot at that moment is the one sent, TX or discovery request. Neither kind is preferred, and Hybrid then carries on with the other kind. On a stretch where most squares are already covered and only a few are clear, it is chance which kind is waiting each time, so you may see mostly discovery requests (or mostly GRP_TXTs) go out. Over a longer drive it evens out.</p>
+<p class="admonition-title">Hybrid: the GRP_TXT goes out first</p>
+<p>Once a GRP_TXT has been deferred, it stays in the slot however many discovery requests are deferred after it, so the first ping into a clear square is the GRP_TXT, the one that can paint the square green. A held discovery request only goes out if you reach a clear square before any GRP_TXT has been deferred. Hybrid then carries on with the other kind.</p>
 </div>
 <p>Each deferral leaves a hollow circle on the map. You can hide these with <strong>Show Deferred Markers</strong> in Settings.</p>
 <p><strong>What counts as covered:</strong> a square with a green or cyan result inside your Smart Pinging window (default 14 days). Squares follow your <a href="../app_settings_reference/#grid-mode">Grid Mode</a> setting, so what is deferred is exactly what is already painted on the map.</p>
@@ -3207,10 +3207,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
       
         <script src="../javascripts/extra.js"></script>
       

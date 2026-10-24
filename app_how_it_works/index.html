@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../assets/wardrive.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -28,10 +28,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -3445,7 +3445,7 @@
 <ol>
 <li><strong>Coverage lookup</strong>: While connected, the app keeps MeshMapper's recent coverage for roughly 500m around you loaded. It uses the same vector tiles the map draws, filtered to two-way (green) and discovery (cyan) results inside your Smart Pinging window. The lookup re-checks after every 100m of movement and refreshes tiles older than 5 minutes at the next 100m. Squares you cover yourself during the session (a heard TX, an answered discovery) are marked covered immediately.</li>
 <li><strong>The check</strong>: When an auto ping (TX or discovery) is due, the app looks up the square under your current GPS fix. The square is the cell of your Grid Mode setting (300m, or 100m in Detailed). A recent green or cyan result there means the ping is deferred, and the countdown reads "Deferred". The check runs before the minimum distance rule, so a covered square reads "Deferred" rather than "Skipped".</li>
-<li><strong>The hold</strong>: A deferred ping is banked in a single slot. On every GPS fix the app asks whether you have reached a square with no recent coverage and moved at least your minimum ping distance since the last ping of that kind. If so, the banked ping goes out and the interval timer restarts. A later deferral replaces an earlier one, so at most one ping is ever waiting. In Hybrid the TX and discovery deferrals replace each other in that one slot, so whichever kind was deferred last is the one released, and the alternation then resumes with the other kind. The regular interval keeps running underneath, so a phone that never reaches a fresh square still tries at its normal cadence.</li>
+<li><strong>The hold</strong>: A deferred ping is banked in a single slot. On every GPS fix the app asks whether you have reached a square with no recent coverage and moved at least your minimum ping distance since the last ping of that kind. If so, the banked ping goes out and the interval timer restarts. A later deferral replaces an earlier one, so at most one ping is ever waiting. In Hybrid a held TX (the GRP_TXT) keeps the slot: a later discovery deferral never replaces it, so the first ping into a clear square is the one that can come back two-way. A held discovery request is released only when you reach a clear square before any TX has been deferred. Either way, the alternation then resumes with the other kind. The regular interval keeps running underneath, so a phone that never reaches a fresh square still tries at its normal cadence.</li>
 <li><strong>Fail open</strong>: If the coverage data is not loaded yet, a fetch failed, you are outside a zone, or you are in Offline Mode, the ping is sent as normal. Smart Pinging only ever holds a ping it knows to be redundant.</li>
 <li><strong>Credit</strong>: A deferred ping posts no coverage row, so on its own it would cost you the point that ping would have earned. Instead the app reports a small <code>DEFER</code> item for each square where it held a ping (one per 300m square per session, whatever your Grid Mode) in the normal upload batch. MeshMapper verifies the square really was covered in its own data, drops any it cannot confirm, and credits the accepted ones at 1.5 points each. Accepted squares also drive the Airtime awards and the Top Airtime Savers leaderboard.</li>
 </ol>
@@ -3708,10 +3708,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
       
         <script src="../javascripts/extra.js"></script>
       
