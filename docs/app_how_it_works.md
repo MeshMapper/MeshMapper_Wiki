@@ -315,7 +315,7 @@ Each packet carries a "path" showing which repeaters it traveled through, with e
 | Background mode | Foreground service + notification | Background modes (bluetooth-central, location) |
 | Debug logging | File-based | File-based |
 | Background location | Foreground service; Background Location asks for "Allow all the time" | Background Location asks for "Always" |
-| App exit option | Yes (Settings > General > Close App) | No |
+| App exit option | Yes (Close App at the bottom of Settings) | No |
 | Audio focus | Transient with ducking | Ambient category |
 
 ---

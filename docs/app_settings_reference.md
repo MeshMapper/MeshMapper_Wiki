@@ -1,6 +1,6 @@
 # Settings Reference
 
-Complete reference for every setting in MeshMapper. The Settings tab is a list of folders, and each folder opens its own page. The headings below follow the app: one section per folder, then the groups you see inside it.
+Complete reference for every setting in MeshMapper. The Settings tab is a list of folders, and each folder opens its own page. On Android, a Close App button sits at the bottom of the tab. The headings below follow the app: one section per folder, then the groups you see inside it.
 
 !!! warning
     Some settings are locked while auto-ping is running. An amber "Some settings locked during auto-ping" banner appears at the top of Settings and on the folder pages that have locked settings. Stop auto-ping to change them.
@@ -60,11 +60,6 @@ Complete reference for every setting in MeshMapper. The Settings tab is a list o
 
 - App automatically exits after disconnecting from your radio
 - Disabled by default
-
-#### Close App
-
-- Immediately exits the app
-- Confirmation dialog. Warns if connected.
 
 ---
 
@@ -502,3 +497,12 @@ This folder appears once an Apple Watch has been paired with your phone, and sta
 - **Share**: System share sheet
 - **Upload**: Send to the MeshMapper team for analysis
 - **Delete All**: Remove all stored log files
+
+---
+
+## Close App (Android only)
+
+*At the bottom of the Settings tab, below the folders*
+
+- Immediately exits the app
+- Confirmation dialog. Warns if connected.
