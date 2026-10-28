@@ -5,7 +5,7 @@ Every region needs a boundary. It decides where wardriving counts for the region
 The easiest way is **Load Boundary**, which builds the boundary from real state/province, county or local borders from OpenStreetMap. You can also draw one by hand. The region's radius is worked out from the boundary automatically.
 
 !!! tip "Coordinate with your neighbours"
-    Regions can't overlap, so coordinate with neighbouring region administrators. Following the same borders (e.g. county lines) lets wardrivers cross from one region to the next without interruption.
+    Regions can't overlap and shouldn't leave gaps between them, so coordinate with neighbouring region administrators. Following the same borders (e.g. county lines) lets wardrivers cross from one region to the next without interruption.
 
 ## Opening the Editor
 

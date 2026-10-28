@@ -136,10 +136,10 @@
     Coordinate the new boundaries with neighboring admins, then ask a global administrator. The global panel can merge whole regions, including their sessions, or move pings within a selected area. An area transfer does not move whole sessions. Changing a boundary alone does not move earlier data.
 
 ??? question "How big should my region be?"
-    Drop the pin on your area and use **Load Boundary** (State/Prov, County or Local) to pick an OpenStreetMap boundary that matches the mesh you expect to map, and coordinate it with nearby regions. Custom drawn or GeoJSON boundaries are for special cases only. The onboarding form checks for substantial overlap, and the MeshMapper team reviews each request. See [Boundary](onboarding.md#3-boundary).
+    Size it by practical driving access; major hubs can cover a larger area where that makes sense. Drop the pin on your area and use **Load Boundary**, following county lines where possible, and avoid gaps and overlaps with neighboring regions. Coordinate it with them. Custom drawn or GeoJSON boundaries are for special cases only. The onboarding form checks for substantial overlap, and the MeshMapper team reviews each request. See [Region Guidelines](onboarding.md#region-guidelines) and [Boundary](onboarding.md#3-boundary).
 
 ??? question "Can I use any three letters as my region code?"
-    No. Pick a recognized IATA airport code near your area. The form checks that the code is available and geographically appropriate; it will suggest nearby codes when one is too far away. See [Code](onboarding.md#1-code).
+    No. Pick the IATA code of a recognizable airport with scheduled commercial passenger service near your area. An airport alone isn't a reason for a separate region. The form checks that the code is available and geographically appropriate; it will suggest nearby codes when one is too far away. See [Code](onboarding.md#1-code).
 
 ??? question "Why does the form say my code is already used or pending?"
     A code can belong to only one active or pending region. Open that region's subdomain to check its pending status, and contact a Moderator if the request appears stuck. Do not submit another region with a made-up code.

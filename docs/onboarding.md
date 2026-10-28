@@ -4,6 +4,16 @@ This guide walks through requesting a new MeshMapper region for your local mesh.
 
 *All region approvals are at the discretion of the MeshMapper administration team. Sometimes working with an existing region is a better fit than creating a new one.*
 
+## Region Guidelines
+
+The MeshMapper team uses these guidelines when reviewing a new region or a boundary change:
+
+  1. **Airport code**: Use a recognizable airport with scheduled commercial passenger service as the region's code.
+  2. **Size**: Size the region by practical driving access. Major hubs can cover a larger area where that makes sense.
+  3. **Borders**: Follow county lines where possible. Avoid overlaps and unassigned gaps between neighboring regions.
+  4. **Exceptions**: Legacy regions and unusually large, remote mesh networks may be handled differently.
+  5. **Community, not just an airport**: Having an airport isn't enough reason for a separate region. How the local MeshCore community is organized, and which observers are available, matter too.
+
 ## Before You Start
 
   - **No existing region**: Your area must not already be substantially covered by another region. Regions within regions are not allowed.
@@ -24,7 +34,7 @@ The form walks you through five steps: **Code → Region → Boundary → Mesh �
 
 Search for your city, airport, or code and pick your region's **IATA airport code**. It becomes your region's address (e.g. `yow.meshmapper.net`). Codes already in use are greyed out, and nearby available codes are suggested.
 
-*Having an IATA code doesn't by itself make it suitable for a region. International and regional commercial airports are strongly preferred over military or general aviation airfields. The airport must also be reasonably close to your region.*
+*Having an IATA code doesn't by itself make an airport suitable. Prefer a recognizable airport with scheduled commercial passenger service, reasonably close to your region, over military or general aviation airfields. See [Region Guidelines](#region-guidelines).*
 
 ## 2. Region
 
@@ -41,7 +51,7 @@ MeshMapper builds your boundary from OpenStreetMap borders.
 
 On the map, **purple** is existing regions, **green** is areas you can pick, and **cyan** is your selection. Areas that belong to another region can't be picked, and your boundary can't overlap an existing region.
 
-*Keep the boundary reasonable and coordinate with neighboring regions. It can be changed later as your network grows.*
+*Size the region by practical driving access, follow county lines where possible, and avoid gaps or overlaps with neighboring regions. Coordinate with them. The boundary can be changed later as your network grows.*
 
 !!! note "Custom boundaries"
     Drawing or importing your own GeoJSON (under **Advanced Mapping**) is only accepted in special circumstances. If you think you need one, explain why in **Additional Notes**. See [Region Boundaries](region_boundaries.md).
