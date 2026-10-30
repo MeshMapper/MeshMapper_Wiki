@@ -55,11 +55,10 @@ MeshMapper flags scripts, most crawlers and other tools that use its map pages, 
 If you tag the bot without an IP address, it answers your question normally instead of running the check. Anyone can ask, and the bot answers in the same channel. It tells you whether the address is:
 
 - **banned**, until when, and a short reason. A ban blocks the whole address, browsers and the MeshMapper app included, whether or not the site is enforcing.
-- **flagged as automated traffic** (refused once that site enforces) on meshmapper.net or the packet analyzer (analyzer.meshmapper.net), with the tool it was seen as and whether that site is only monitoring or enforcing. This goes by tool, not by address: browsers and the MeshMapper app on that address still work.
-- **on the allow list**, so it is never flagged or refused as automated traffic.
-- **not blocked**: none of the above.
+- **flagged as automated traffic** (refused once that site enforces) on meshmapper.net or the packet analyzer (analyzer.meshmapper.net), and whether that site is only monitoring or enforcing. Flagging goes by tool, not by address: a script or tool was seen on that address, and browsers and the MeshMapper app on that address still work.
+- **not flagged**: none of the above.
 
-If the answer looks wrong, ask a MeshMapper admin.
+MeshMapper staff can see more detail in a DM or the moderators' channel. If the answer looks wrong, ask a MeshMapper admin.
 
 ## Notes
 
