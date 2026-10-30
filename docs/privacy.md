@@ -1,6 +1,6 @@
 # Privacy Notice
 
-**Last Updated:** September 28, 2026
+**Last Updated:** October 30, 2026
 
 MeshMapper ("we", "us", or "our") operates the MeshMapper platform at meshmapper.net and its associated regional subdomains. This Privacy Notice explains how we collect, use, and protect your information when you use our services.
 
@@ -38,6 +38,7 @@ Note that by default the wardriving app does **not** broadcast your GPS coordina
 We may collect standard technical information such as:
 
 - IP addresses and browser user-agents, used for rate limiting and abuse prevention. Full IP addresses are recorded in server access logs kept for about 30 days. For signed-in app sessions, we also store the IP address and user-agent last used with each app login token until that token expires (at most one year).
+- To block unauthorized scraping, we keep the IP address, user-agent, country and requested paths of clients flagged as automated traffic (scripts, crawlers and other tools, not browsers or the MeshMapper app) on meshmapper.net and the packet analyzer (analyzer.meshmapper.net), for up to 180 days after the address was last seen. Reports that include these IP addresses are posted to Discord for the MeshMapper team, and anyone can use the MeshMapper Discord bot's `!amibanned` command on any IP address: the bot answers in the channel whether it is flagged or banned and which tool it was seen as.
 - Privacy-first, cookieless website statistics run on our own servers. Your country is looked up from your IP address using a local database, and the IP address is not stored for statistics.
 - If you ask the MeshMapper Discord bot a question, your Discord username, the channel, your question and the bot's answer are logged (the most recent 1,000 interactions).
 - If you submit feedback or a bug report from the app, it includes your device's public key, app version and platform, and any debug logs you choose to attach (which include your phone's OS version and model).

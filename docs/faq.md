@@ -234,6 +234,8 @@
 
     The publicly available APIs are [listed here](coverage-api.md) and require a provisioned [integration key](api-keys.md).
 
+    If a script gets a 403 that says "Automated clients are not allowed", [API keys and access](api-keys.md) explains why and what to use instead.
+
 ??? question "Can I have access to the MeshMapper MQTT broker or raw data?"
     MeshMapper does not offer a public raw MQTT feed. For tools that need map coverage data, use the documented [Coverage API](coverage-api.md) and request an integration key. A region admin can configure a broker that sends observer reports *to* MeshMapper; that is separate from read access to MeshMapper's collected data.
 
