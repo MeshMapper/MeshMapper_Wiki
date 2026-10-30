@@ -3124,7 +3124,7 @@
 <li><strong>Regional channels</strong>: The app also listens to any extra channels the regional admin has set up</li>
 <li><strong>Flood scope</strong>: If the regional admin has set a scope, it is applied to your radio so TX messages stay within that region</li>
 <li><strong>Flood traffic</strong>: If the region allows flood traffic, the app turns <strong>Flood Traffic</strong> on. If the region has disabled it, Active, Hybrid and Send Ping are unavailable, and the Connect tab explains why.</li>
-<li><strong>Regional enforcement</strong>: The regional admin may enforce Hybrid Mode, Discovery Drop, Smart Pinging (and its window), Scope Discovery (and its window), and a minimum auto-ping interval. Enforced settings are locked in Settings.</li>
+<li><strong>Regional enforcement</strong>: The regional admin may enforce Hybrid Mode, Discovery Drop, Smart Pinging (with its window and Delay only flood pings), Scope Discovery (and its window), and a minimum auto-ping interval. Enforced settings are locked in Settings.</li>
 <li><strong>Regional CARpeaters</strong>: The region's shared CARpeater list is loaded and filtered</li>
 <li><strong>Path hash mode</strong>: If the zone enforces a specific hop byte size (1/2/3-byte) and your radio differs, the app automatically reconfigures your radio to match. Restored on clean disconnect. Two dialogs may appear:</li>
 <li><strong>"Multi-Byte Paths Enabled"</strong> (info): Your radio was reconfigured to match the zone's requirement. Shows the new byte size and whether it was set by the regional admin or your own preference.</li>
@@ -3160,7 +3160,7 @@
 <li><strong>Min Interval</strong>: The minimum auto-ping interval (15, 30, or 60 seconds, default 60). You cannot choose a faster interval than the regional minimum.</li>
 <li><strong>Failed DISC as DROP</strong>: When enabled, discovery requests with no response are counted as "no coverage" data and shown as DROP on the coverage map.</li>
 <li><strong>App Path Bytes</strong>: Enforces a specific path hash size (device default of 1 byte, 2 bytes, or 3 bytes) for consistent data across all wardrivers in the zone. If your radio differs, the app reconfigures it at connect and restores the original setting on clean disconnect. If your firmware does not support multi-byte paths (pre-1.14), the app warns you that it cannot apply the regional setting.</li>
-<li><strong>Enforce Smart Pinging</strong>: Locks <a href="../app_wardriving_modes/#smart-pinging">Smart Pinging</a> on, with the region's window (1, 3, 7, 14 or 30 days)</li>
+<li><strong>Enforce Smart Pinging</strong>: Locks <a href="../app_wardriving_modes/#smart-pinging">Smart Pinging</a> on, with the region's window (1, 3, 7, 14 or 30 days) and the region's Delay only flood pings setting</li>
 <li><strong>Scope discovery</strong>: Locks <a href="../app_settings_reference/#scope-discovery">Scope Discovery</a> on, with the region's re-check window (7 days or more)</li>
 </ul>
 <p>If you are outside all zones, the zone chip in the status bar shows an orange "—". Tap it to see the name and distance of the nearest zone.</p>

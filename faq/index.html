@@ -2984,7 +2984,7 @@
 </details>
 <details class="question">
 <summary>Why does the app show Deferred instead of sending a ping?</summary>
-<p>Smart Pinging is holding that ping because the square you are in already has recent coverage on the map. The ping is kept, not dropped: it goes out the moment you reach a square with nothing recent, and you are credited for the square you crossed without transmitting. It is on by default. See <a href="../app_wardriving_modes/#smart-pinging">Smart Pinging</a>, or turn it off under Settings &gt; Wardriving in the app.</p>
+<p>Smart Pinging is holding that ping because the square you are in already has recent coverage on the map. By default (<strong>Delay only flood pings</strong> on) only flood pings are held, and only in green squares; discovery requests always go out. The ping is kept, not dropped: it goes out the moment you reach a square with nothing recent, and you are credited for the square you crossed without transmitting. It is on by default. See <a href="../app_wardriving_modes/#smart-pinging">Smart Pinging</a>, or turn it off under Settings &gt; Wardriving in the app. To hold discovery requests too, turn <strong>Delay only flood pings</strong> off; with it on, discovery keeps going out and only flood pings wait in green squares.</p>
 </details>
 <details class="question">
 <summary>In Hybrid mode with Smart Pinging, which ping goes out when I reach a clear square?</summary>
@@ -2992,7 +2992,7 @@
 </details>
 <details class="question">
 <summary>Do I lose leaderboard points when Smart Pinging holds a ping?</summary>
-<p>No. Each square where a ping was held is reported to MeshMapper, checked against the region's own coverage data, and credited at 1.5 points once verified. Verified squares also count toward the Airtime Saver, Airtime God and Airtime Legend awards and the Top Airtime Savers board. Like the rest of the leaderboard, the credit appears after the next daily update.</p>
+<p>No. Each square where a ping was held is reported to MeshMapper (a held discovery only earns credit with Delay only flood pings turned off), checked against the region's own coverage data, and credited at 1.5 points once verified. Verified squares also count toward the Airtime Saver, Airtime God and Airtime Legend awards and the Top Airtime Savers board. Like the rest of the leaderboard, the credit appears after the next daily update.</p>
 </details>
 <details class="question">
 <summary>Do coverage tiles expire when a repeater moves or disappears?</summary>

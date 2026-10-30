@@ -3424,7 +3424,7 @@
 }
 </code></pre>
 <h3 id="defer-type-defer">DEFER (type: "DEFER")<a class="headerlink" href="#defer-type-defer" title="Permanent link">¶</a></h3>
-<p>A square where the app's smart pinging held a TX ping or a discovery request because MeshMapper already had recent coverage there. The app reports it so MeshMapper can credit the square; you receive it because it may help a mapper keeping its own coverage.</p>
+<p>A square where the app's smart pinging held a TX ping or a discovery request because MeshMapper already had recent coverage there. The app reports it so MeshMapper can credit the square; you receive it because it may help a mapper keeping its own coverage. Discovery requests are only held when the user (or the region) has turned off Delay only flood pings.</p>
 <p><strong>A deferral is unverified.</strong> MeshMapper checks each one against its own coverage data and silently discards any it cannot confirm, but the batch answer does not say which items were kept, and the app forwards the whole batch after the upload succeeds. Treat a <code>DEFER</code> as "the app believed this square was covered", not as a confirmed observation.</p>
 <table>
 <thead>
@@ -3493,7 +3493,7 @@
 }
 </code></pre>
 <h2 id="batch-examples">Batch Examples<a class="headerlink" href="#batch-examples" title="Permanent link">¶</a></h2>
-<p>A batch is whatever the app uploaded to MeshMapper in that round, so one request can mix every type above. <code>DEFER</code> items only appear while the user has Smart Pinging on (the default) in Active, Passive or Hybrid mode, so your endpoint must accept batches both with and without them. <code>SCOPES</code> items only appear while scope discovery is on, either enforced by the region or switched on by the user, so your endpoint must accept batches with and without them too. Dispatch on <code>type</code> and ignore any value you do not handle rather than rejecting the batch: a <code>4xx</code> is shown to the user as an error.</p>
+<p>A batch is whatever the app uploaded to MeshMapper in that round, so one request can mix every type above. <code>DEFER</code> items only appear while the user has Smart Pinging on (the default) in Active or Hybrid mode, or in Passive mode with Delay only flood pings turned off, so your endpoint must accept batches both with and without them. <code>SCOPES</code> items only appear while scope discovery is on, either enforced by the region or switched on by the user, so your endpoint must accept batches with and without them too. Dispatch on <code>type</code> and ignore any value you do not handle rather than rejecting the batch: a <code>4xx</code> is shown to the user as an error.</p>
 <p><strong>Batch without a DEFER</strong> (a TX ping and a passive RX observation):</p>
 <pre><code class="language-json">{
   "data": [

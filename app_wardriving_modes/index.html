@@ -3005,7 +3005,7 @@
 <p><strong>To start:</strong> Tap the <strong>Passive Mode</strong> button (ear icon) in the Controls panel.</p>
 <p><strong>What happens:</strong></p>
 <ol>
-<li>Every 30 seconds, sends a zero-hop discovery request (direct query, not a broadcast). Like the other auto modes, it skips the request if you have not moved your minimum ping distance, and defers it in squares with recent coverage (<a href="#smart-pinging">Smart Pinging</a>).</li>
+<li>Every 30 seconds, sends a zero-hop discovery request (direct query, not a broadcast). Like the other auto modes, it skips the request if you have not moved your minimum ping distance, and, only if <strong>Delay only flood pings</strong> is turned off, defers it in squares with recent coverage (<a href="#smart-pinging">Smart Pinging</a>). With the switch on (the default), Passive Mode is never deferred.</li>
 <li>Repeaters/rooms respond with node type, public key, and signal quality (local + remote SNR/RSSI)</li>
 <li>Responses are collected for 7 seconds and deduplicated by public key. CARpeaters are filtered out: anything received at -30 dBm or stronger, your own CARpeater (matched by its full public key), and any CARpeater on your region's shared list.</li>
 <li>The app also listens to other mesh traffic it hears (RX)</li>
@@ -3048,11 +3048,11 @@
 <p><strong>When to use:</strong> Antenna alignment, evaluating a specific repeater's coverage, diagnosing signal quality to a particular node. Trace Mode also works when your zone is full or your region has turned flood traffic off.</p>
 <hr>
 <h2 id="smart-pinging">Smart Pinging<a class="headerlink" href="#smart-pinging" title="Permanent link">¶</a></h2>
-<p>Smart Pinging holds back auto pings in squares that MeshMapper has already mapped recently, so your airtime goes where it adds something new. It is <strong>on by default</strong> and applies to Hybrid, Passive and Active modes.</p>
+<p>Smart Pinging holds back auto pings in squares that MeshMapper has already mapped recently, so your airtime goes where it adds something new. It is <strong>on by default</strong> and applies to Hybrid, Passive and Active modes. In Passive mode it only holds discovery requests when <strong>Delay only flood pings</strong> is turned off.</p>
 <p><strong>What happens:</strong></p>
 <ol>
 <li>While you are connected, the app keeps MeshMapper's recent coverage for the area around you loaded.</li>
-<li>When an auto ping is due in a square that already has a recent two-way (green) or discovery (cyan) result, the ping is <strong>deferred</strong> instead of sent. The countdown reads <strong>"Deferred"</strong> while it waits.</li>
+<li>When an auto ping is due in a square that already has a recent result, the ping is <strong>deferred</strong> instead of sent. What counts depends on <strong>Delay only flood pings</strong> (on by default): with it on, only flood pings (the GRP_TXT) are held, and only in green (two-way) squares, so discovery requests always go out. With it off, flood pings and discovery requests are both held in green or cyan (discovery) squares. The countdown reads <strong>"Deferred"</strong> while it waits.</li>
 <li>The deferred ping is kept, not dropped. As soon as you reach a square with no recent coverage (and have moved your minimum ping distance), it goes out and the interval restarts.</li>
 <li>Only one ping is ever held. If the next interval is deferred too, it takes the place of the one waiting, with one exception in Hybrid Mode: a held TX channel message (the flood GRP_TXT on #wardriving) is never replaced by a held discovery request.</li>
 </ol>
@@ -3061,7 +3061,7 @@
 <p>Once a GRP_TXT has been deferred, it stays in the slot however many discovery requests are deferred after it, so the first ping into a clear square is the GRP_TXT, the one that can paint the square green. A held discovery request only goes out if you reach a clear square before any GRP_TXT has been deferred. Hybrid then carries on with the other kind.</p>
 </div>
 <p>Each deferral leaves a hollow circle on the map. You can hide these with <strong>Show Deferred Markers</strong> in Settings.</p>
-<p><strong>What counts as covered:</strong> a square with a green or cyan result inside your Smart Pinging window (default 14 days). Squares follow your <a href="../app_settings_reference/#grid-mode">Grid Mode</a> setting, so what is deferred is exactly what is already painted on the map.</p>
+<p><strong>What counts as covered:</strong> a square with a green result (or green or cyan, with Delay only flood pings off) inside your Smart Pinging window (default 14 days). Squares follow your <a href="../app_settings_reference/#grid-mode">Grid Mode</a> setting, so what is deferred is exactly what is already painted on the map.</p>
 <p><strong>Never deferred:</strong></p>
 <ul>
 <li>Manual pings</li>
@@ -3074,7 +3074,7 @@
 <p>A ping that fails the minimum distance rule reads "Skipped" and is dropped. A deferred ping reads "Deferred" and is still owed.</p>
 </div>
 <p><strong>You keep your points.</strong> Every square where a ping was held is reported to MeshMapper, checked against the region's own coverage data, and credited at <strong>1.5 points</strong> once verified (once per 300m square per session). Verified squares also count toward the Airtime awards and the Top Airtime Savers leaderboard. See <a href="../leaderboards/#top-airtime-savers">Top Airtime Savers</a>.</p>
-<p>To turn Smart Pinging off or change the window, see <a href="../app_settings_reference/#smart-pinging">Smart Pinging</a> in the Settings Reference. Regional admins can enforce it for their zone, in which case the switch is locked on and the window is the region's.</p>
+<p>To turn Smart Pinging off or change the window, see <a href="../app_settings_reference/#smart-pinging">Smart Pinging</a> in the Settings Reference. Regional admins can enforce it for their zone, in which case the switch is locked on and the window is the region's. The regional admin also sets Delay only flood pings for the zone.</p>
 <hr>
 <h2 id="tx-capacity-limits">TX Capacity Limits<a class="headerlink" href="#tx-capacity-limits" title="Permanent link">¶</a></h2>
 <p>Regional admins set a <strong>maximum number of active TX wardrivers</strong> (slots) for each radio preset in their region. This prevents too many users from flooding the mesh at once. A preset the admin has not set up gets 0 slots, flood traffic turned off and a 60-second minimum interval.</p>
