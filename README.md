@@ -1,6 +1,6 @@
 # MeshMapper Wiki
 
-Source for [wiki.meshmapper.net](https://wiki.meshmapper.net), the documentation for MeshMapper, built with [MkDocs Material](https://squidfunk.github.io/mkdocs-material/).
+Source for [wiki.meshmapper.net](https://wiki.meshmapper.net), the documentation for MeshMapper, built with [Zensical](https://zensical.org/).
 
 ## Editing
 
@@ -9,9 +9,9 @@ Pages live in `docs/` and the sidebar is defined by `nav` in `mkdocs.yml`. Link 
 ## Building Locally
 
 ```bash
-pip install mkdocs-material mkdocs-macros-plugin pyyaml mkdocs-glightbox pymdown-extensions
-mkdocs serve          # preview at http://127.0.0.1:8000
-mkdocs build --strict # same check the deploy runs
+pip install zensical
+zensical serve                  # preview at http://127.0.0.1:8000
+zensical build --clean --strict # same check the deploy runs
 ```
 
 Pushing to `main` builds and deploys the site to GitHub Pages.

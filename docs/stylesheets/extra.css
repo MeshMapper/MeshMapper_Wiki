@@ -1,41 +1,28 @@
-.md-header {
-    background-color: #333 !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
-}
+/* Keep the desktop search control prominent and centered in the header. */
+@media screen and (min-width: 60em) {
+    .md-header__inner {
+        position: relative;
+    }
 
-.md-header__inner {
-    padding: 0.5rem 1rem !important;
-    padding-top: max(0.5rem, env(safe-area-inset-top)) !important;
-}
+    .md-search {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 
-.nav-btn {
-    background: rgba(0, 210, 255, 0.1);
-    border: 1px solid #00d2ff;
-    color: #00d2ff !important;
-    padding: 6px 14px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 14px !important;
-    transition: all 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    backdrop-filter: blur(2px);
-    cursor: pointer;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    line-height: normal;
-    box-sizing: border-box;
-    height: 34px;
-    margin-left: 20px;
-    white-space: nowrap;
-}
-.nav-btn:hover {
-    background: rgba(0, 210, 255, 0.25);
-    box-shadow: 0 0 10px rgba(0, 210, 255, 0.4);
-    color: #fff !important;
-    text-decoration: none;
-    border-color: #fff;
+    .md-search__button {
+        width: min(16rem, 35vw);
+        height: 1.8rem;
+        font-size: 0.75rem;
+    }
+
+    .md-search__button::before {
+        top: 0.4rem;
+    }
+
+    .md-search__button::after {
+        top: 0.45rem;
+    }
 }
 
 /* FAQ collapsible question styling */
@@ -55,14 +42,4 @@
     background-color: #00d2ff;
     -webkit-mask-image: var(--md-admonition-icon--question);
     mask-image: var(--md-admonition-icon--question);
-}
-
-@media screen and (max-width: 768px) {
-    .md-header__inner {
-        padding: 0.5rem 1rem !important;
-    }
-    .nav-btn {
-        font-size: 13px !important;
-        padding: 4px 10px;
-    }
 }
