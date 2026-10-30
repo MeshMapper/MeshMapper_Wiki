@@ -13,7 +13,7 @@ GET https://yow.meshmapper.net/get_repeaters.php
 
 Send your **integration key** (formerly a Coverage key) in the `X-API-Key` header. An integration key only returns repeaters from the regions it is assigned to. See [API keys and access](api-keys.md) for generation, group permissions and the rollout.
 
-During the transition the key is optional here: a request without one is still answered. That switch flips once app 1.4.1 is out and the update is forced, so send your key now.
+Send your key in the `X-API-Key` header; keyless calls from scripts are flagged as automated traffic (refused once meshmapper.net enforces).
 
 Fetch from your backend and serve your own parsed data to visitors. Keep the key out of client-side JavaScript.
 
@@ -170,6 +170,7 @@ Authentication, permissions and quota errors are listed in [Read API errors](api
 
 | Status | Error | Meaning |
 | --- | --- | --- |
+| 403 | `Automated clients are not allowed` (a short text message, not JSON) | A script or tool called without a key and was refused as automated traffic; send your key in the `X-API-Key` header. |
 | 429 | `rate_limited` | Over 300 requests a minute from your IP; wait for `Retry-After`. |
 | 503 | `unavailable` | Temporary data problem; keep your previous copy and retry later. |
 

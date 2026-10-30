@@ -2,11 +2,14 @@
 
 MeshMapper uses one **integration key** for Coverage and the read APIs below. Existing keys keep their values, geographic assignments and Coverage quota. There is no need to regenerate a key for the new endpoints.
 
+!!! warning "Automated clients are not allowed"
+    Map pages, map data, tiles, leaderboards and profiles on meshmapper.net are for browsers and the MeshMapper app, so scripts and other tools that call them are flagged as automated traffic (refused with a 403 once that site enforces). The packet analyzer (analyzer.meshmapper.net) offers no API for scripts and takes no keys: open it in a browser. Scripts are flagged there too, and refused once it enforces. Use the APIs below with your key in the `X-API-Key` header (region administrators can [generate one](#generate-or-reuse-a-key)), and if you need a key or data that isn't in these APIs, ask the MeshMapper team in [Discord](https://discord.gg/tyXbecdxgr).
+
 !!! note "Formerly Coverage keys"
     Integration keys used to be called **Coverage keys** (or Coverage API keys). Only the name changed: a key you already have keeps working everywhere, with the same value, assignment and limits.
 
 !!! info "Server v1.5.117 rollout"
-    Zones, boundaries, scopes and channels require keys when the updated server endpoints are deployed. Send your key now as part of the migration. Repeater authentication has a separate switch, off by default until app 1.4.1 is shipped and the update is forced. This page describes the new contract, not a confirmation that every region has deployed it.
+    Zones, boundaries, scopes and channels require keys when the updated server endpoints are deployed. Send your key now as part of the migration. For repeaters, send your key in the `X-API-Key` header; keyless calls from scripts are flagged as automated traffic (refused once meshmapper.net enforces). This page describes the new contract, not a confirmation that every region has deployed it.
 
 ## Endpoints and key types
 
@@ -17,7 +20,7 @@ MeshMapper uses one **integration key** for Coverage and the read APIs below. Ex
 | [Boundaries](zones-api.md#region-boundary), `get_geojson.php` | Integration key in `X-API-Key` | Requested region or fully authorized group |
 | [Scopes](scopes-api.md), `get_scopes.php` | Integration key in `X-API-Key` | Requested region or fully authorized group |
 | [Channels](channels-api.md), `get_channels.php` | Integration key in `X-API-Key` | Requested region or fully authorized group |
-| [Repeaters](repeaters-api.md), `get_repeaters.php` | Scoped integration key or existing mobile App key in `X-API-Key`; optional during transition | Integration keys stay within their assignments; App keys support the app's cross-region repeater reads |
+| [Repeaters](repeaters-api.md), `get_repeaters.php` | Scoped integration key or existing mobile App key in `X-API-Key`; keyless calls from scripts are flagged as automated traffic (refused once meshmapper.net enforces) | Integration keys stay within their assignments; App keys support the app's cross-region repeater reads |
 
 Only Coverage accepts a query-string key. App keys do not grant access to Coverage, zones, boundaries, scopes or channels. The mobile app can send its existing App key for repeaters before connecting a radio or starting a session.
 
