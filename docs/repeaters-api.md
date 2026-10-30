@@ -170,7 +170,7 @@ Authentication, permissions and quota errors are listed in [Read API errors](api
 
 | Status | Error | Meaning |
 | --- | --- | --- |
-| 403 | `Automated clients are not allowed` (plain text, not JSON) | A script or tool called without a key and was refused as automated traffic; send your key in the `X-API-Key` header. |
+| 403 | `Automated clients are not allowed` (a short text message, not JSON) | A script or tool called without a key and was refused as automated traffic; send your key in the `X-API-Key` header. |
 | 429 | `rate_limited` | Over 300 requests a minute from your IP; wait for `Retry-After`. |
 | 503 | `unavailable` | Temporary data problem; keep your previous copy and retry later. |
 
