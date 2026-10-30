@@ -185,7 +185,7 @@ Minimum distance you must move before the next auto-ping. Prevents spamming from
 
 #### Smart Pinging
 
-Defers auto pings in squares that already have recent coverage, so your airtime goes where it adds something new. See [Smart Pinging](app_wardriving_modes.md#smart-pinging) for how it behaves on the road.
+Defers auto pings in squares that already have recent coverage, so your airtime goes where it adds something new. In Passive mode it only holds discovery requests when **Delay only flood pings** is turned off. See [Smart Pinging](app_wardriving_modes.md#smart-pinging) for how it behaves on the road.
 
 - **Enabled by default**
 - Tap the **(i)** beside the switch for a short explanation inside the app

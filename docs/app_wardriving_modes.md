@@ -119,7 +119,7 @@ Targets a **specific repeater** by hex ID for focused signal testing.
 
 ## Smart Pinging
 
-Smart Pinging holds back auto pings in squares that MeshMapper has already mapped recently, so your airtime goes where it adds something new. It is **on by default** and applies to Hybrid, Passive and Active modes.
+Smart Pinging holds back auto pings in squares that MeshMapper has already mapped recently, so your airtime goes where it adds something new. It is **on by default** and applies to Hybrid, Passive and Active modes. In Passive mode it only holds discovery requests when **Delay only flood pings** is turned off.
 
 **What happens:**
 
