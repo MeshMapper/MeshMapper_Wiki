@@ -3026,7 +3026,7 @@
 </ul>
 <h2 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">¶</a></h2>
 <p>Send your <strong>integration key</strong> (formerly a Coverage key) in the <code>X-API-Key</code> header. An integration key only returns repeaters from the regions it is assigned to. See <a href="../api-keys/">API keys and access</a> for generation, group permissions and the rollout.</p>
-<p>During the transition the key is optional here: a request without one is still answered. That switch flips once app 1.4.1 is out and the update is forced, so send your key now.</p>
+<p>Send your key in the <code>X-API-Key</code> header; keyless calls from scripts are flagged as automated traffic (refused once meshmapper.net enforces).</p>
 <p>Fetch from your backend and serve your own parsed data to visitors. Keep the key out of client-side JavaScript.</p>
 <h2 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">¶</a></h2>
 <p>All optional.</p>
@@ -3329,6 +3329,11 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>403</td>
+<td><code>Automated clients are not allowed</code> (a short text message, not JSON)</td>
+<td>A script or tool called without a key and was refused as automated traffic; send your key in the <code>X-API-Key</code> header.</td>
+</tr>
 <tr>
 <td>429</td>
 <td><code>rate_limited</code></td>

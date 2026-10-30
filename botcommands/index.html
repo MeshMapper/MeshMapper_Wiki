@@ -1829,6 +1829,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#am-i-banned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Am I banned?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#notes" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2779,6 +2790,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#am-i-banned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Am I banned?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#notes" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2859,6 +2881,10 @@
 <td><code>!myissues</code></td>
 <td>Lists up to 15 of your bug reports and feature requests submitted through the bot, with their status. Issues submitted through the website form aren't included.</td>
 </tr>
+<tr>
+<td><code>!amibanned {IP}</code></td>
+<td>Checks whether MeshMapper has flagged or banned an IP address, such as your own public IP address. IPv4 and IPv6 both work. You can also tag the bot and ask in your own words. Anyone can use it, and the bot answers in the same channel. See <a href="#am-i-banned">Am I banned?</a> below.</td>
+</tr>
 </tbody>
 </table>
 <div class="admonition note">
@@ -2877,6 +2903,19 @@
 <h2 id="commenting-on-issues">Commenting on Issues<a class="headerlink" href="#commenting-on-issues" title="Permanent link">¶</a></h2>
 <p>After submitting a bug report or feature request, anyone can add comments to the GitHub issue by replying to the bot's message that contains the issue link. The bot will automatically add your reply as a comment on the corresponding GitHub issue, with a link back to your Discord message. A ✅ reaction confirms the comment was added; ❌ means it failed.</p>
 <p>It works in the other direction too: when your issue is commented on, labelled or closed on GitHub, the bot posts an update back into the original Discord thread — so you'll see progress on your report without leaving Discord.</p>
+<h2 id="am-i-banned">Am I banned?<a class="headerlink" href="#am-i-banned" title="Permanent link">¶</a></h2>
+<p>MeshMapper flags scripts, most crawlers and other tools that use its map pages, map data, tiles or the packet analyzer instead of the <a href="../api-keys/">documented APIs</a>. To check an IP address, use the command or tag the bot and ask, putting in your own public IP address (the one websites see for you). IPv4 and IPv6 both work.</p>
+<ul>
+<li><code>!amibanned &lt;your IP&gt;</code></li>
+<li><code>@MeshMapper am I banned? &lt;your IP&gt;</code></li>
+</ul>
+<p>If you tag the bot without an IP address, it answers your question normally instead of running the check. Anyone can ask, and the bot answers in the same channel. It tells you whether the address is:</p>
+<ul>
+<li><strong>banned</strong>, until when, and a short reason. A ban blocks the whole address, browsers and the MeshMapper app included, whether or not the site is enforcing.</li>
+<li><strong>flagged as automated traffic</strong> (refused once that site enforces) on meshmapper.net or the packet analyzer (analyzer.meshmapper.net), and whether that site is only monitoring or enforcing. Flagging goes by tool, not by address: a script or tool was seen on that address, and browsers and the MeshMapper app on that address still work.</li>
+<li><strong>not flagged</strong>: none of the above.</li>
+</ul>
+<p>MeshMapper staff can see more detail in a DM or the moderators' channel. If the answer looks wrong, ask a MeshMapper admin.</p>
 <h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">¶</a></h2>
 <ul>
 <li>Commands starting with <code>!</code> work without tagging the bot. Natural-language requests and general questions need the bot to be tagged, except in DMs.</li>
