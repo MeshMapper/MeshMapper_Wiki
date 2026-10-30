@@ -22,7 +22,7 @@ For example, both of these work:
 | `!feature {description}` | Submits a feature request to GitHub. Works like `!bug` but creates a feature request instead (no confirmation step). |
 | `!resetpassword` | Points you to **Forgot password** on the MeshMapper portal. If you use Discord sign-in, no password is needed. The bot does not reset passwords or send credentials. |
 | `!myissues` | Lists up to 15 of your bug reports and feature requests submitted through the bot, with their status. Issues submitted through the website form aren't included. |
-| `!amibanned {IP}` | Checks whether MeshMapper has flagged or banned an IP address (IPv4 or IPv6), for example `!amibanned 203.0.113.7`. You can also tag the bot and ask in your own words. Anyone can use it, and the bot answers in the same channel. See [Am I banned?](#am-i-banned) below. |
+| `!amibanned {IP}` | Checks whether MeshMapper has flagged or banned an IP address, such as your own public IP address. IPv4 and IPv6 both work. You can also tag the bot and ask in your own words. Anyone can use it, and the bot answers in the same channel. See [Am I banned?](#am-i-banned) below. |
 
 !!! note "Additional Commands"
     Additional commands are available for users with the Developers or Moderator roles. These commands are not listed here.
@@ -47,12 +47,12 @@ It works in the other direction too: when your issue is commented on, labelled o
 
 ## Am I banned?
 
-MeshMapper flags scripts, most crawlers and other tools that use its map pages, map data, tiles or the packet analyzer instead of the [documented APIs](api-keys.md). To check an IP address, use the command or tag the bot and ask:
+MeshMapper flags scripts, most crawlers and other tools that use its map pages, map data, tiles or the packet analyzer instead of the [documented APIs](api-keys.md). To check an IP address, use the command or tag the bot and ask, putting in your own public IP address (the one websites see for you). IPv4 and IPv6 both work.
 
-- `!amibanned 203.0.113.7`
-- `@MeshMapper am I banned? 203.0.113.7`
+- `!amibanned <your IP>`
+- `@MeshMapper am I banned? <your IP>`
 
-Anyone can ask, and the bot answers in the same channel. It tells you whether the address is:
+If you tag the bot without an IP address, it answers your question normally instead of running the check. Anyone can ask, and the bot answers in the same channel. It tells you whether the address is:
 
 - **banned**, until when, and a short reason. A ban blocks the whole address, browsers and the MeshMapper app included, whether or not the site is enforcing.
 - **flagged as automated traffic** (refused once that site enforces) on meshmapper.net or the packet analyzer (analyzer.meshmapper.net), with the tool it was seen as and whether that site is only monitoring or enforcing. This goes by tool, not by address: browsers and the MeshMapper app on that address still work.
