@@ -23,7 +23,7 @@ Only Coverage accepts a query-string key. App keys do not grant access to Covera
 
 ## Generate or reuse a key
 
-In your region or group's admin panel, open **User Settings > API Access**. Generate an integration key with a description, or show your existing key. Each administrator can have one self-service key per region or group. Regeneration invalidates the old value immediately.
+In your region or group's admin panel, open **User Settings > API Access**. Add an integration key with a description, or show an existing one. Each administrator can have up to five self-service keys per region or group, for example one per person or project. **Reset** invalidates a key's old value immediately, and **Delete** removes the key.
 
 Group keys cover the group's current enabled member IATAs, including membership changes without issuing a new key. A key for just one member cannot fetch a whole group's boundaries, scopes or channels unless it covers every enabled member. Repeater exports are filtered to the integration key's authorized members, even where a member URL normally expands to its group.
 

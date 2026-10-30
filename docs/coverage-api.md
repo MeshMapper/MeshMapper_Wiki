@@ -12,15 +12,15 @@ Send `X-API-Key: YOUR_API_KEY` on requests, or keep using the existing `?key=` U
 
 ### Generating a Key
 
-Regional administrators can generate their own integration key directly from the admin panel:
+Regional administrators can generate their own integration keys directly from the admin panel:
 
 1. Log in to your region's admin panel
 2. Go to **User Settings**
 3. Scroll to the **API Access** section
-4. Enter a description/reason for the key (mandatory)
-5. Click **Generate integration key**
+4. Enter a description for the key (mandatory), for example who it's for
+5. Click **Add key**
 
-Each administrator is limited to **one integration key per region or group**. The key is automatically scoped to that region or group with a fixed rate limit of 100 requests per day. If you need to replace your key, use the **Regenerate integration key** button. That invalidates the old key immediately.
+Each administrator can have up to **five integration keys per region or group**, so you can give each person or project in your community their own key. Each key is automatically scoped to that region or group with its own rate limit of 100 requests per day. To replace a key's value, use **Reset** on that key. To remove it, use **Delete**. Both take effect immediately and only touch that one key.
 
 !!! warning "Unauthorized Access"
     MeshMapper utilizes API keys and rate limits to protect server resources and prevent access to data that regions do not wish to have shared externally.  As such, accessing unauthorized API's, scraping for data, etc., is strictly prohibited and will result in action taken to protect the server and data (which may include IP or origin bans, removal of a region, etc.).  The MeshMapper team is happy to review requests for data not provided in the API's below.
@@ -315,7 +315,7 @@ A separate per-IP throttle protects against bursts: about 30 requests in a rolli
 
 ## Managing Your Key
 
-If you have an integration key assigned to your admin account, you can view your current usage and regenerate your key from the **User Settings** tab in your region's Admin Portal. Regenerating a key invalidates the old one immediately.
+Your integration keys are listed under **API Access** on the **User Settings** tab in your region's Admin Portal, each with its description, when it was created and last used, and today's usage. **Reset** gives a key a new value and **Delete** removes it. Either way the old value stops working immediately, and your other keys keep working.
 
 ## Multi-Region Keys
 

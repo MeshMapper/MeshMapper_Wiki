@@ -544,4 +544,4 @@ The other events can also go to a webhook; see [Notifications in Settings](#noti
 
 ### API Access
 
-Create an integration key for the [Coverage API](coverage-api.md) and the other [read APIs](api-keys.md). Each admin gets one key per region, limited to 100 Coverage requests a day (usage shows as "n / 100"). A description is required. **Regenerate integration key** replaces your key; the old one stops working straight away.
+Create integration keys for the [Coverage API](coverage-api.md) and the other [read APIs](api-keys.md). Each admin can have up to five keys per region, so you can give one to each person or project in your community. Each key has its own limit of 100 Coverage requests a day (usage shows as "n / 100"). A description is required and shows next to the key, along with when it was created and last used. **Reset** gives one key a new value and **Delete** removes it. Either way the old value stops working straight away, and your other keys are unaffected.
