@@ -191,10 +191,11 @@ Defers auto pings in squares that already have recent coverage, so your airtime 
 - Tap the **(i)** beside the switch for a short explanation inside the app
 - **Defer pings in squares covered within**: the window, in days, that makes a square count as covered. Enter any whole number from **1 to 365**. Default **14 days**. Shown only while the switch is on.
 - **Show only recent coverage** (off by default): hides older coverage squares on the map so only coverage inside your window shows, which makes gaps easier to see. Shown only while the switch is on.
+- **Delay only flood pings** (on by default): with it on, only flood pings (the GRP_TXT) wait, and only in green squares, so discovery requests always go out. With it off, flood pings and discovery requests wait in green or cyan squares. Passive Mode is only affected with it off. Locked while auto mode runs. Shown only while the switch is on.
 - **Show Deferred Markers** (on by default): shows hollow circles on the map where pings were deferred. Shown only while the switch is on.
-- Applies to Hybrid, Passive and Active modes. Never affects manual pings, Trace Mode or passive RX listening.
+- Applies to Hybrid, Passive and Active modes (Passive only with Delay only flood pings off). Never affects manual pings, Trace Mode or passive RX listening.
 - Deferred squares still earn leaderboard points (1.5 each) once MeshMapper verifies them
-- May be enforced by regional admin (shown in amber). When enforced, the switch is locked on and the window is the region's (1, 3, 7, 14 or 30 days).
+- May be enforced by regional admin (shown in amber). When enforced, the switch is locked on, and the window and Delay only flood pings are the region's (window 1, 3, 7, 14 or 30 days).
 - Cannot be changed during auto-ping
 
 #### Scope Discovery
@@ -207,7 +208,7 @@ After each discovery, asks the repeaters it found which scopes they carry (the n
 - May be enforced by regional admin (shown in amber). When enforced, the switch is locked on and the window is the region's.
 - Requires companion firmware **1.16.0 or newer**. **1.17.0 or newer is recommended**, see below. On older firmware the app shows "Your radio needs firmware v1.16.0 or newer for this."
 - A small **Scopes** badge shows on the running mode button while the app is asking
-- Only runs after an auto discovery in Passive or Hybrid mode. When [Smart Pinging](#smart-pinging) defers a discovery, no scopes are asked either, so in squares with recent coverage nothing is sent until Smart Pinging lets a discovery through
+- Only runs after an auto discovery in Passive or Hybrid mode. With **Delay only flood pings** turned off, when [Smart Pinging](#smart-pinging) defers a discovery, no scopes are asked either, so in squares with recent coverage nothing is sent until Smart Pinging lets a discovery through
 - Cannot be changed during auto-ping
 
 **Companion firmware 1.16 and a full contact list.** To ask a repeater that is not saved as a contact on your radio, the radio needs a free slot in its contact list. Companion firmware 1.16 cannot make that room when the list is full, so it refuses the request and nothing is sent. The log shows **Radio contact list full**, and from then on, for the rest of that connection, the app only asks repeaters that are saved as contacts. The Errors tab in the log also gets one entry explaining it. Companion firmware **1.17.0 or newer** fixes it by keeping room for these requests. Removing some contacts from your radio also works.

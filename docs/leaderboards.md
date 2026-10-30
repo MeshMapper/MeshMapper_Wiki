@@ -34,7 +34,7 @@ Wardrivers are listed by device, or by their **My MeshMapper** account if they'v
 
 ### Top Airtime Savers
 
-When the app's [Smart Pinging](app_wardriving_modes.md#smart-pinging) skips a ping because a square already has recent good coverage, that square earns **1.5 points** once it's verified against the region's coverage. Each square counts once per session. This board ranks wardrivers by those points alone; they're also included in the totals above.
+When the app's [Smart Pinging](app_wardriving_modes.md#smart-pinging) skips a ping because a square already has recent good coverage (discoveries are only skipped with Delay only flood pings turned off), that square earns **1.5 points** once it's verified against the region's coverage. Each square counts once per session. This board ranks wardrivers by those points alone; they're also included in the totals above.
 
 ## Repeater Leaderboards
 

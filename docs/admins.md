@@ -444,6 +444,7 @@ Wardriving rules are set per radio channel, one row each. The **\*** row covers 
 | **Interval** | Shortest time between pings: 15s, 30s or 60s (default 60s). |
 | **Smart** | Locks the app's Smart Pinging on, so pings are held in squares that already have a recent result. |
 | **Window** | How recent a result must be for Smart Pinging: 1, 3, 7, 14 or 30 days (default 14). |
+| **Flood only** | Only matters when Smart is On. On (default): the app holds only flood pings, and only in squares with a recent two-way (green) result, so discovery requests always go out. Off: it holds flood pings and discovery in squares with a recent green or cyan result. |
 | **Scopes** | Scope discovery: after each discovery, the app asks each repeater it found which scopes it carries. Adds a little extra traffic. Off by default. |
 | **Re-check** | How many days a repeater's scope answer counts as fresh before it's asked again (minimum 7, default 14). |
 

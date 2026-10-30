@@ -64,7 +64,7 @@ No channel messages (no mesh flooding at all). Sends **discovery requests** ever
 
 **What happens:**
 
-1. Every 30 seconds, sends a zero-hop discovery request (direct query, not a broadcast). Like the other auto modes, it skips the request if you have not moved your minimum ping distance, and defers it in squares with recent coverage ([Smart Pinging](#smart-pinging)).
+1. Every 30 seconds, sends a zero-hop discovery request (direct query, not a broadcast). Like the other auto modes, it skips the request if you have not moved your minimum ping distance, and, only if **Delay only flood pings** is turned off, defers it in squares with recent coverage ([Smart Pinging](#smart-pinging)). With the switch on (the default), Passive Mode is never deferred.
 2. Repeaters/rooms respond with node type, public key, and signal quality (local + remote SNR/RSSI)
 3. Responses are collected for 7 seconds and deduplicated by public key. CARpeaters are filtered out: anything received at -30 dBm or stronger, your own CARpeater (matched by its full public key), and any CARpeater on your region's shared list.
 4. The app also listens to other mesh traffic it hears (RX)
@@ -124,7 +124,7 @@ Smart Pinging holds back auto pings in squares that MeshMapper has already mappe
 **What happens:**
 
 1. While you are connected, the app keeps MeshMapper's recent coverage for the area around you loaded.
-2. When an auto ping is due in a square that already has a recent two-way (green) or discovery (cyan) result, the ping is **deferred** instead of sent. The countdown reads **"Deferred"** while it waits.
+2. When an auto ping is due in a square that already has a recent result, the ping is **deferred** instead of sent. What counts depends on **Delay only flood pings** (on by default): with it on, only flood pings (the GRP_TXT) are held, and only in green (two-way) squares, so discovery requests always go out. With it off, flood pings and discovery requests are both held in green or cyan (discovery) squares. The countdown reads **"Deferred"** while it waits.
 3. The deferred ping is kept, not dropped. As soon as you reach a square with no recent coverage (and have moved your minimum ping distance), it goes out and the interval restarts.
 4. Only one ping is ever held. If the next interval is deferred too, it takes the place of the one waiting, with one exception in Hybrid Mode: a held TX channel message (the flood GRP_TXT on #wardriving) is never replaced by a held discovery request.
 
@@ -133,7 +133,7 @@ Smart Pinging holds back auto pings in squares that MeshMapper has already mappe
 
 Each deferral leaves a hollow circle on the map. You can hide these with **Show Deferred Markers** in Settings.
 
-**What counts as covered:** a square with a green or cyan result inside your Smart Pinging window (default 14 days). Squares follow your [Grid Mode](app_settings_reference.md#grid-mode) setting, so what is deferred is exactly what is already painted on the map.
+**What counts as covered:** a square with a green result (or green or cyan, with Delay only flood pings off) inside your Smart Pinging window (default 14 days). Squares follow your [Grid Mode](app_settings_reference.md#grid-mode) setting, so what is deferred is exactly what is already painted on the map.
 
 **Never deferred:**
 
@@ -147,7 +147,7 @@ Each deferral leaves a hollow circle on the map. You can hide these with **Show 
 
 **You keep your points.** Every square where a ping was held is reported to MeshMapper, checked against the region's own coverage data, and credited at **1.5 points** once verified (once per 300m square per session). Verified squares also count toward the Airtime awards and the Top Airtime Savers leaderboard. See [Top Airtime Savers](leaderboards.md#top-airtime-savers).
 
-To turn Smart Pinging off or change the window, see [Smart Pinging](app_settings_reference.md#smart-pinging) in the Settings Reference. Regional admins can enforce it for their zone, in which case the switch is locked on and the window is the region's.
+To turn Smart Pinging off or change the window, see [Smart Pinging](app_settings_reference.md#smart-pinging) in the Settings Reference. Regional admins can enforce it for their zone, in which case the switch is locked on and the window is the region's. The regional admin also sets Delay only flood pings for the zone.
 
 ---
 
