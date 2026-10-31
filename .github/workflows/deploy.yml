@@ -1,12 +1,11 @@
 name: Deploy MkDocs site
 
+# A merged PR already arrives as a push to main. The old `pull_request: closed` trigger also fired on that
+# merge (two deploys racing to gh-pages) and on PRs closed WITHOUT merging, which would publish unmerged content.
 on:
-  push: 
+  push:
     branches: [ main ]
-  pull_request:
-    types: [ closed ]
-    branches: [ main ]
-  workflow_dispatch: 
+  workflow_dispatch:
 
 
 permissions:
@@ -14,6 +13,13 @@ permissions:
 
 jobs:
   deploy:
+    # Only main publishes: a manual run started from another branch is skipped.
+    if: github.ref == 'refs/heads/main'
+    # One deploy at a time (job level, so a skipped run never joins the group): a newer run waits for the
+    # running one instead of racing it to gh-pages, so the latest main lands last.
+    concurrency:
+      group: wiki-pages-deploy
+      cancel-in-progress: false
     runs-on: ubuntu-latest
 
     steps:
