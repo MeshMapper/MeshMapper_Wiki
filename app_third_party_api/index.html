@@ -3144,7 +3144,7 @@
 <tr>
 <td><code>type</code></td>
 <td><code>string</code></td>
-<td>Ping type: <code>"TX"</code>, <code>"RX"</code>, <code>"DISC"</code>, <code>"TRACE"</code>, <code>"DEFER"</code>, or <code>"SCOPES"</code>. A <code>DEFER</code> carries only the common <code>lat</code>, <code>lon</code>, <code>timestamp</code>, <code>contact</code>, <code>iata</code> and <code>radio_freq</code> fields plus <code>held</code> (see below); it has no <code>external_antenna</code>, <code>noisefloor</code>, <code>altitude</code> or <code>power</code>. A <code>SCOPES</code> carries only the common <code>timestamp</code>, <code>lat</code>, <code>lon</code>, <code>contact</code>, <code>iata</code> and <code>radio_freq</code> fields plus <code>public_key</code> and <code>scopes</code> (see below); it has no <code>external_antenna</code>, <code>noisefloor</code>, <code>altitude</code> or <code>power</code> either.</td>
+<td>Ping type: <code>"TX"</code>, <code>"RX"</code>, <code>"DISC"</code>, <code>"TRACE"</code>, <code>"DEFER"</code>, or <code>"SCOPES"</code>. A <code>DEFER</code> carries only the common <code>lat</code>, <code>lon</code>, <code>timestamp</code>, <code>contact</code>, <code>iata</code> and <code>radio_freq</code> fields plus <code>held</code> (see below); it has no <code>external_antenna</code>, <code>noisefloor</code>, <code>altitude</code>, <code>altitude_ref</code>, <code>altitude_acc</code> or <code>power</code>. A <code>SCOPES</code> carries only the common <code>timestamp</code>, <code>lat</code>, <code>lon</code>, <code>contact</code>, <code>iata</code> and <code>radio_freq</code> fields plus <code>public_key</code> and <code>scopes</code> (see below); it has no <code>external_antenna</code>, <code>noisefloor</code>, <code>altitude</code>, <code>altitude_ref</code>, <code>altitude_acc</code> or <code>power</code> either.</td>
 </tr>
 <tr>
 <td><code>lat</code></td>
@@ -3174,7 +3174,17 @@
 <tr>
 <td><code>altitude</code></td>
 <td><code>integer\|absent</code></td>
-<td>Altitude of the fix in whole meters (e.g., <code>123</code>). Absent when the phone did not know its altitude. iOS reports height above mean sea level. Android usually reports height above the WGS84 ellipsoid, but Android 14 and later substitutes mean sea level when the fix carries it, so one device can report either. The two references can differ by up to about 100 m.</td>
+<td>Altitude of the fix in whole meters (e.g., <code>123</code>). Present only together with <code>altitude_ref</code>: an altitude whose reference the app could not prove is not sent at all. Absent on <code>DEFER</code> and <code>SCOPES</code>.</td>
+</tr>
+<tr>
+<td><code>altitude_ref</code></td>
+<td><code>string\|absent</code></td>
+<td>The reference <code>altitude</code> is measured from: <code>"msl"</code> (above mean sea level) or <code>"ellipsoid"</code> (above the WGS84 ellipsoid). The two differ by the local geoid separation, tens of meters in most places. iPhones always send <code>msl</code>; Android phones send <code>ellipsoid</code> below Android 14 and either on Android 14 and later, whichever the fix carried. Always present beside <code>altitude</code>.</td>
+</tr>
+<tr>
+<td><code>altitude_acc</code></td>
+<td><code>integer\|absent</code></td>
+<td>Vertical accuracy of the fix in whole meters, about one standard deviation. Present only beside <code>altitude</code> and only when the phone knew it.</td>
 </tr>
 <tr>
 <td><code>radio_freq</code></td>
@@ -3198,6 +3208,7 @@
 </tr>
 </tbody>
 </table>
+<p>Earlier builds forwarded an <code>altitude</code> with no reference; those bare altitudes are no longer forwarded.</p>
 <h3 id="tx-ping-type-tx">TX Ping (type: "TX")<a class="headerlink" href="#tx-ping-type-tx" title="Permanent link">¶</a></h3>
 <p>A transmitted ping broadcast on the wardriving channel, with repeater echo results.</p>
 <table>
@@ -3216,13 +3227,13 @@
 </tr>
 <tr>
 <td><code>wire_tag</code></td>
-<td><code>string</code></td>
-<td>The anonymous tag the ping carried on air (e.g., <code>"MM:Ab3dEf9hIj"</code>).</td>
+<td><code>string\|absent</code></td>
+<td>The anonymous tag the ping carried on air (e.g., <code>"MM:Ab3dEf9hIj"</code>). Can be absent: a TX that carried no tag, for example from an offline session saved by an older app version, has none.</td>
 </tr>
 <tr>
 <td><code>ping_counter</code></td>
-<td><code>integer</code></td>
-<td>The ping's number within the user's MeshMapper session.</td>
+<td><code>integer\|absent</code></td>
+<td>The ping's number within the user's MeshMapper session. Sent only together with <code>wire_tag</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -3234,6 +3245,8 @@
   "lon": -75.77746,
   "noisefloor": -103,
   "altitude": 84,
+  "altitude_ref": "msl",
+  "altitude_acc": 6,
   "radio_freq": "910.525,62.5,7,5",
   "heard_repeats": "4E(12.25),77(8.50)",
   "timestamp": 1768762843,
@@ -3252,6 +3265,8 @@
   "lon": -75.77802,
   "noisefloor": -101,
   "altitude": 86,
+  "altitude_ref": "msl",
+  "altitude_acc": 6,
   "radio_freq": "910.525,62.5,7,5",
   "heard_repeats": "None",
   "timestamp": 1768762873,
@@ -3442,7 +3457,7 @@
 </tr>
 </tbody>
 </table>
-<p>The <code>external_antenna</code>, <code>noisefloor</code>, <code>altitude</code> and <code>power</code> fields are not present on a <code>DEFER</code>. A <code>DEFER</code> carries <code>lat</code>, <code>lon</code>, <code>timestamp</code>, <code>contact</code>, <code>iata</code>, <code>held</code> and <code>radio_freq</code>. At most one <code>DEFER</code> is sent per 300 m square per MeshMapper session.</p>
+<p>The <code>external_antenna</code>, <code>noisefloor</code>, <code>altitude</code>, <code>altitude_ref</code>, <code>altitude_acc</code> and <code>power</code> fields are not present on a <code>DEFER</code>. A <code>DEFER</code> carries <code>lat</code>, <code>lon</code>, <code>timestamp</code>, <code>contact</code>, <code>iata</code>, <code>held</code> and <code>radio_freq</code>. At most one <code>DEFER</code> is sent per 300 m square per MeshMapper session.</p>
 <p><strong>Example:</strong></p>
 <pre><code class="language-json">{
   "type": "DEFER",
@@ -3479,7 +3494,7 @@
 </tr>
 </tbody>
 </table>
-<p><code>lat</code> and <code>lon</code> are where the discovery that found the repeater was made, not where the answer arrived. <code>timestamp</code> is when the answer arrived. The <code>external_antenna</code>, <code>noisefloor</code>, <code>altitude</code> and <code>power</code> fields are not present on a <code>SCOPES</code> item.</p>
+<p><code>lat</code> and <code>lon</code> are where the discovery that found the repeater was made, not where the answer arrived. <code>timestamp</code> is when the answer arrived. The <code>external_antenna</code>, <code>noisefloor</code>, <code>altitude</code>, <code>altitude_ref</code>, <code>altitude_acc</code> and <code>power</code> fields are not present on a <code>SCOPES</code> item.</p>
 <p><strong>Example:</strong></p>
 <pre><code class="language-json">{
   "type": "SCOPES",
@@ -3503,6 +3518,8 @@
       "lon": -75.77746,
       "noisefloor": -103,
       "altitude": 84,
+      "altitude_ref": "msl",
+      "altitude_acc": 6,
       "radio_freq": "910.525,62.5,7,5",
       "heard_repeats": "4E(12.25),77(8.50)",
       "timestamp": 1768762843,
@@ -3556,7 +3573,7 @@
   ]
 }
 </code></pre>
-<p>Note that the <code>DEFER</code> has no <code>noisefloor</code>, <code>altitude</code>, <code>external_antenna</code> or <code>power</code>, while the <code>RX</code> beside it does.</p>
+<p>Note that the <code>DEFER</code> has no <code>noisefloor</code>, <code>altitude</code>, <code>altitude_ref</code>, <code>altitude_acc</code>, <code>external_antenna</code> or <code>power</code>, while the <code>RX</code> beside it does.</p>
 <h2 id="expected-response">Expected Response<a class="headerlink" href="#expected-response" title="Permanent link">¶</a></h2>
 <p>Your endpoint should return any <code>2xx</code> HTTP status code on success. The response body is ignored by MeshMapper.</p>
 <table>
