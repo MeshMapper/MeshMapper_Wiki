@@ -3109,10 +3109,10 @@
 <li>The geometry is always a single <code>Polygon</code>.</li>
 <li>A region with no drawn boundary has <code>"geometry": null</code> and <code>has_boundary: false</code>. MeshMapper doesn't draw a circle in its place, but <code>center</code> and <code>radius_km</code> are there if you want one.</li>
 <li><code>center</code> is <code>[longitude, latitude]</code> too. <code>radius_km</code> can be <code>null</code>.</li>
-<li>If the server hits a problem mid-stream, the JSON is deliberately left unclosed, so you get a truncated, unparseable body, not a clean JSON error. A parse error does <strong>not</strong> by itself mean your call was handed back; see <a href="#call-limits">Call limits</a> for exactly which errors are safe to retry.</li>
+<li>If the server hits a problem mid-stream, the JSON is deliberately left unclosed, so you get a truncated, unparseable body, not a clean JSON error. Retry after a parse error; the retry counts against your key's budget like any other request (see <a href="#call-limits">Call limits</a>).</li>
 </ul>
 <h2 id="call-limits">Call limits<a class="headerlink" href="#call-limits" title="Permanent link">¶</a></h2>
-<p>These reads use the key's shared read budget, normally <strong>1,000 requests per UTC day and 30 per fixed minute</strong>, independently of Coverage's daily quota. Authenticated reads no longer use the old once-per-target IP interval. IP burst protection still applies. Every admitted request counts, including <code>304</code> responses and downstream failures. See <a href="../api-keys/#limits-and-caching">limits and caching</a>.</p>
+<p>These reads use the key's shared read budget, normally <strong>1,000 requests per UTC day and 30 per fixed minute</strong>, independently of Coverage's daily quota. Authenticated reads no longer use the old once-per-target IP interval, and there is no separate per-IP limit. Every admitted request counts, including <code>304</code> responses and downstream failures. See <a href="../api-keys/#limits-and-caching">limits and caching</a>.</p>
 <h2 id="caching">Caching<a class="headerlink" href="#caching" title="Permanent link">¶</a></h2>
 <p>Responses use <code>Cache-Control: private, no-store</code>. Keep your backend's parsed data and ETag separately by key and scope. Send both <code>X-API-Key</code> and <code>If-None-Match</code> on conditional requests; a <code>304</code> saves bandwidth but still counts. Responses support gzip compression.</p>
 <h2 id="errors">Errors<a class="headerlink" href="#errors" title="Permanent link">¶</a></h2>
@@ -3144,7 +3144,7 @@
 <tr>
 <td>503</td>
 <td><code>slow_down</code></td>
-<td>IP burst protection; wait for Retry-After.</td>
+<td>No longer returned (the per-IP burst limit was removed on 2026-10-31). If you still handle it, wait for Retry-After.</td>
 </tr>
 </tbody>
 </table>
