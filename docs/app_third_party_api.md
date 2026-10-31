@@ -32,17 +32,21 @@ Every ping object contains a `type` field that determines which additional field
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `type` | `string` | Ping type: `"TX"`, `"RX"`, `"DISC"`, `"TRACE"`, `"DEFER"`, or `"SCOPES"`. A `DEFER` carries only the common `lat`, `lon`, `timestamp`, `contact`, `iata` and `radio_freq` fields plus `held` (see below); it has no `external_antenna`, `noisefloor`, `altitude` or `power`. A `SCOPES` carries only the common `timestamp`, `lat`, `lon`, `contact`, `iata` and `radio_freq` fields plus `public_key` and `scopes` (see below); it has no `external_antenna`, `noisefloor`, `altitude` or `power` either. |
+| `type` | `string` | Ping type: `"TX"`, `"RX"`, `"DISC"`, `"TRACE"`, `"DEFER"`, or `"SCOPES"`. A `DEFER` carries only the common `lat`, `lon`, `timestamp`, `contact`, `iata` and `radio_freq` fields plus `held` (see below); it has no `external_antenna`, `noisefloor`, `altitude`, `altitude_ref`, `altitude_acc` or `power`. A `SCOPES` carries only the common `timestamp`, `lat`, `lon`, `contact`, `iata` and `radio_freq` fields plus `public_key` and `scopes` (see below); it has no `external_antenna`, `noisefloor`, `altitude`, `altitude_ref`, `altitude_acc` or `power` either. |
 | `lat` | `number` | Latitude (WGS84, decimal degrees) |
 | `lon` | `number` | Longitude (WGS84, decimal degrees) |
 | `timestamp` | `integer` | Unix timestamp in seconds |
 | `external_antenna` | `boolean` | Whether an external antenna is connected to the device |
 | `noisefloor` | `integer\|null` | Ambient noise floor in dBm (e.g., -103). Null if unavailable. |
-| `altitude` | `integer\|absent` | Altitude of the fix in whole meters (e.g., `123`). Absent when the phone did not know its altitude. iOS reports height above mean sea level. Android usually reports height above the WGS84 ellipsoid, but Android 14 and later substitutes mean sea level when the fix carries it, so one device can report either. The two references can differ by up to about 100 m. |
+| `altitude` | `integer\|absent` | Altitude of the fix in whole meters (e.g., `123`). Present only together with `altitude_ref`: an altitude whose reference the app could not prove is not sent at all. Absent on `DEFER` and `SCOPES`. |
+| `altitude_ref` | `string\|absent` | The reference `altitude` is measured from: `"msl"` (above mean sea level) or `"ellipsoid"` (above the WGS84 ellipsoid). The two differ by the local geoid separation, tens of meters in most places. iPhones always send `msl`; Android phones send `ellipsoid` below Android 14 and either on Android 14 and later, whichever the fix carried. Always present beside `altitude`. |
+| `altitude_acc` | `integer\|absent` | Vertical accuracy of the fix in whole meters, about one standard deviation. Present only beside `altitude` and only when the phone knew it. |
 | `radio_freq` | `string\|absent` | The radio configuration the item was recorded under, as `freqMHz,bwKHz,SF,CR` (e.g. `"910.525,62.5,7,5"`). Absent when the radio did not report its parameters. Present on every type, `DEFER` included. |
 | `power` | `string\|null` | Radio TX power formatted as `"X.Xw"` (e.g., `"0.3w"`, `"1.0w"`, `"2.0w"`). Null if unavailable. |
 | `contact` | `string\|absent` | First 8 hex chars of the wardriver's MeshCore device public key (e.g., `"D873B1F2"`). Only present when the user enables "Include Contact Key" in settings. Useful for cross-referencing with MQTT observer data. |
 | `iata` | `string\|absent` | MeshMapper zone code (e.g., `"RDU"`, `"MSP"`, `"YOW"`). The wardriver's current zone, or the last zone the app saved when there is no current one. On an offline session upload, it is the zone the upload was made from, for the whole chunk, not where each ping was recorded. |
+
+Earlier builds forwarded an `altitude` with no reference; those bare altitudes are no longer forwarded.
 
 ### TX Ping (type: "TX")
 
@@ -51,8 +55,8 @@ A transmitted ping broadcast on the wardriving channel, with repeater echo resul
 | Field | Type | Description |
 |-------|------|-------------|
 | `heard_repeats` | `string` | Comma-separated repeater echoes: `"id(snr),id(snr)"` or `"None"` if no repeaters heard. IDs are upper-case hex: 2, 4 or 6 characters depending on the path's bytes per hop (8 is possible). SNR is in dB with two decimals, or `null` when the echo came through the user's own CARpeater (for example `"4E(null)"`). |
-| `wire_tag` | `string` | The anonymous tag the ping carried on air (e.g., `"MM:Ab3dEf9hIj"`). |
-| `ping_counter` | `integer` | The ping's number within the user's MeshMapper session. |
+| `wire_tag` | `string\|absent` | The anonymous tag the ping carried on air (e.g., `"MM:Ab3dEf9hIj"`). Can be absent: a TX that carried no tag, for example from an offline session saved by an older app version, has none. |
+| `ping_counter` | `integer\|absent` | The ping's number within the user's MeshMapper session. Sent only together with `wire_tag`. |
 
 Echoes that reached the user through more than one repeater are not in `heard_repeats`. They arrive as separate `RX` items at the TX ping's location.
 
@@ -65,6 +69,8 @@ Echoes that reached the user through more than one repeater are not in `heard_re
   "lon": -75.77746,
   "noisefloor": -103,
   "altitude": 84,
+  "altitude_ref": "msl",
+  "altitude_acc": 6,
   "radio_freq": "910.525,62.5,7,5",
   "heard_repeats": "4E(12.25),77(8.50)",
   "timestamp": 1768762843,
@@ -86,6 +92,8 @@ Echoes that reached the user through more than one repeater are not in `heard_re
   "lon": -75.77802,
   "noisefloor": -101,
   "altitude": 86,
+  "altitude_ref": "msl",
+  "altitude_acc": 6,
   "radio_freq": "910.525,62.5,7,5",
   "heard_repeats": "None",
   "timestamp": 1768762873,
@@ -220,7 +228,7 @@ A square where the app's smart pinging held a TX ping or a discovery request bec
 |-------|------|-------------|
 | `held` | `string` | Which kind of ping was held: `"tx"` (a channel ping) or `"disc"` (a discovery request). |
 
-The `external_antenna`, `noisefloor`, `altitude` and `power` fields are not present on a `DEFER`. A `DEFER` carries `lat`, `lon`, `timestamp`, `contact`, `iata`, `held` and `radio_freq`. At most one `DEFER` is sent per 300 m square per MeshMapper session.
+The `external_antenna`, `noisefloor`, `altitude`, `altitude_ref`, `altitude_acc` and `power` fields are not present on a `DEFER`. A `DEFER` carries `lat`, `lon`, `timestamp`, `contact`, `iata`, `held` and `radio_freq`. At most one `DEFER` is sent per 300 m square per MeshMapper session.
 
 **Example:**
 
@@ -248,7 +256,7 @@ A repeater's answer to a direct scope discovery question, sent after a discovery
 | `public_key` | `string` | Full 32-byte public key of the answering repeater (64 hex chars, upper case). |
 | `scopes` | `array of string` | The scope names exactly as the repeater sent them, case-sensitive. Each entry is `"*"` (the repeater passes unscoped traffic) or a name of 1 to 30 bytes that does not start with `#`. May be empty. At most 33 entries. |
 
-`lat` and `lon` are where the discovery that found the repeater was made, not where the answer arrived. `timestamp` is when the answer arrived. The `external_antenna`, `noisefloor`, `altitude` and `power` fields are not present on a `SCOPES` item.
+`lat` and `lon` are where the discovery that found the repeater was made, not where the answer arrived. `timestamp` is when the answer arrived. The `external_antenna`, `noisefloor`, `altitude`, `altitude_ref`, `altitude_acc` and `power` fields are not present on a `SCOPES` item.
 
 **Example:**
 
@@ -280,6 +288,8 @@ A batch is whatever the app uploaded to MeshMapper in that round, so one request
       "lon": -75.77746,
       "noisefloor": -103,
       "altitude": 84,
+      "altitude_ref": "msl",
+      "altitude_acc": 6,
       "radio_freq": "910.525,62.5,7,5",
       "heard_repeats": "4E(12.25),77(8.50)",
       "timestamp": 1768762843,
@@ -337,7 +347,7 @@ A batch is whatever the app uploaded to MeshMapper in that round, so one request
 }
 ```
 
-Note that the `DEFER` has no `noisefloor`, `altitude`, `external_antenna` or `power`, while the `RX` beside it does.
+Note that the `DEFER` has no `noisefloor`, `altitude`, `altitude_ref`, `altitude_acc`, `external_antenna` or `power`, while the `RX` beside it does.
 
 ## Expected Response
 
