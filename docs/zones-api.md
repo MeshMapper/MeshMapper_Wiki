@@ -115,11 +115,11 @@ Returns a GeoJSON `FeatureCollection` ([RFC 7946](https://datatracker.ietf.org/d
 - The geometry is always a single `Polygon`.
 - A region with no drawn boundary has `"geometry": null` and `has_boundary: false`. MeshMapper doesn't draw a circle in its place, but `center` and `radius_km` are there if you want one.
 - `center` is `[longitude, latitude]` too. `radius_km` can be `null`.
-- If the server hits a problem mid-stream, the JSON is deliberately left unclosed, so you get a truncated, unparseable body, not a clean JSON error. A parse error does **not** by itself mean your call was handed back; see [Call limits](#call-limits) for exactly which errors are safe to retry.
+- If the server hits a problem mid-stream, the JSON is deliberately left unclosed, so you get a truncated, unparseable body, not a clean JSON error. Retry after a parse error; the retry counts against your key's budget like any other request (see [Call limits](#call-limits)).
 
 ## Call limits
 
-These reads use the key's shared read budget, normally **1,000 requests per UTC day and 30 per fixed minute**, independently of Coverage's daily quota. Authenticated reads no longer use the old once-per-target IP interval. IP burst protection still applies. Every admitted request counts, including `304` responses and downstream failures. See [limits and caching](api-keys.md#limits-and-caching).
+These reads use the key's shared read budget, normally **1,000 requests per UTC day and 30 per fixed minute**, independently of Coverage's daily quota. Authenticated reads no longer use the old once-per-target IP interval, and there is no separate per-IP limit. Every admitted request counts, including `304` responses and downstream failures. See [limits and caching](api-keys.md#limits-and-caching).
 
 ## Caching
 
@@ -134,7 +134,7 @@ Authentication, permissions and quota errors are listed in [Read API errors](api
 | 404 | `zone_not_found` | The region is unknown, pending or disabled. |
 | 405 | `method_not_allowed` | Use GET or an OPTIONS preflight. |
 | 503 | `unavailable` | Temporary data problem; retain your previous copy and retry later. An admitted request still consumes quota. |
-| 503 | `slow_down` | IP burst protection; wait for Retry-After. |
+| 503 | `slow_down` | No longer returned (the per-IP burst limit was removed on 2026-10-31). If you still handle it, wait for Retry-After. |
 
 The directory also returns `400 country_required` or `400 invalid_country` for a missing or malformed country. Results include only regions authorized by your key; group member lists are filtered to the same access scope. The sample above illustrates a key authorized for all listed regions. A group boundary request requires access to every enabled member.
 

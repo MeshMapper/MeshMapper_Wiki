@@ -48,9 +48,9 @@ Send the header on every request, including conditional requests. CORS preflight
 
 The five read APIs share a default budget of **1,000 admitted requests per UTC day and 30 per fixed minute per integration key**. Custom keys may have different limits. Coverage retains its separate daily quota, normally 100 calls for self-service keys. Read calls do not consume Coverage calls.
 
-Every admitted read counts, including a `304` and a downstream data error. Authentication and authorization failures do not consume the read budget. `OPTIONS` preflights do not count. Existing IP burst protection also applies; App repeater reads do not put all phones behind one shared daily key budget.
+Every admitted read counts, including a `304` and a downstream data error. Authentication and authorization failures do not consume the read budget. `OPTIONS` preflights do not count. Apart from the repeaters API's own per-IP limit, there is no per-IP limit on these reads; App repeater reads do not put all phones behind one shared daily key budget.
 
-Authenticated reads replace the previous once-per-target IP interval. Key quota exhaustion returns `503 key_rate_limited` with `Retry-After`; wait at least that long before retrying. The daily allowance resets at midnight UTC. A zones/boundaries/scopes/channels IP burst rejection returns `503 slow_down`; repeaters may return `429 rate_limited`. Coverage retains its own documented `429` responses.
+Authenticated reads replace the previous once-per-target IP interval. Key quota exhaustion returns `503 key_rate_limited` with `Retry-After`; wait at least that long before retrying. The daily allowance resets at midnight UTC. Repeaters may return `429 rate_limited` (a per-IP limit for the app's traffic); the zones, boundaries, scopes and channels APIs no longer return `503 slow_down`. Coverage retains its own documented `429` responses.
 
 Protected responses use `Cache-Control: private, no-store`. Keep your backend's parsed data and any ETag separately for each credential and geographic scope, and discard data when access changes. Where supported, `If-None-Match` saves bandwidth but not quota. Do not expose keys in shared cache URLs. Coverage's server-side grid cache is unchanged.
 
