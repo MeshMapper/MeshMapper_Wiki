@@ -3228,7 +3228,7 @@
 <tr>
 <td><code>wire_tag</code></td>
 <td><code>string\|absent</code></td>
-<td>The anonymous tag the ping carried on air (e.g., <code>"MM:Ab3dEf9hIj"</code>). Can be absent: a TX that carried no tag, for example from an offline session saved by an older app version, has none.</td>
+<td>The encrypted tag the ping carried on air instead of its coordinates (e.g., <code>"MM:Ab3dEf9hIj"</code>). Only MeshMapper holds the key that decrypts it. Decrypted, it names the session and the ping that sent it, which is how MeshMapper matches a ping heard by an observer in another region back to its session (cross-region spillover). Can be absent: a TX that carried no tag, for example from an offline session saved by an older app version, has none.</td>
 </tr>
 <tr>
 <td><code>ping_counter</code></td>
