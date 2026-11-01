@@ -1501,6 +1501,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#personal-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Personal keys
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#send-the-key" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1669,6 +1680,90 @@
     
   
     Channels API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../personal-api-keys/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Personal API Keys
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../profile-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Profile API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../leaderboard-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Leaderboard API
   
 
     
@@ -2813,6 +2908,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#personal-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Personal keys
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#send-the-key" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2863,10 +2969,10 @@
 
 
 <h1 id="api-keys-and-access">API keys and access<a class="headerlink" href="#api-keys-and-access" title="Permanent link">¶</a></h1>
-<p>MeshMapper uses one <strong>integration key</strong> for Coverage and the read APIs below. Existing keys keep their values, geographic assignments and Coverage quota. There is no need to regenerate a key for the new endpoints.</p>
+<p>MeshMapper has two kinds of key for the APIs below. Region administrators use an <strong>integration key</strong> for Coverage and the read APIs. Anyone with a portal account can make a <strong><a href="../personal-api-keys/">personal API key</a></strong> for their own scripts: it reads profiles and leaderboards. Existing keys keep their values, geographic assignments and Coverage quota. There is no need to regenerate a key for the new endpoints.</p>
 <div class="admonition warning">
 <p class="admonition-title">Automated clients are not allowed</p>
-<p>Map pages, map data, tiles, leaderboards and profiles on meshmapper.net are for browsers and the MeshMapper app, so scripts and other tools that call them are flagged as automated traffic (refused with a 403 once that site enforces). The packet analyzer (analyzer.meshmapper.net) offers no API for scripts and takes no keys: open it in a browser. Scripts are flagged there too, and refused once it enforces. Use the APIs below with your key in the <code>X-API-Key</code> header (region administrators can <a href="#generate-or-reuse-a-key">generate one</a>), and if you need a key or data that isn't in these APIs, ask the MeshMapper team in <a href="https://discord.gg/tyXbecdxgr">Discord</a>.</p>
+<p>Map pages, map data, tiles, leaderboards and profiles on meshmapper.net are for browsers and the MeshMapper app, so scripts and other tools that call them are flagged as automated traffic (refused with a 403 once that site enforces). For profiles and leaderboards in your own scripts, use a <a href="../personal-api-keys/">personal API key</a> with the <a href="../profile-api/">Profile API</a> and <a href="../leaderboard-api/">Leaderboard API</a>. The packet analyzer (analyzer.meshmapper.net) offers no API for scripts and takes no keys: open it in a browser. Scripts are flagged there too, and refused once it enforces. Use the APIs below with your key in the <code>X-API-Key</code> header (region administrators can <a href="#generate-or-reuse-a-key">generate one</a>), and if you need a key or data that isn't in these APIs, ask the MeshMapper team in <a href="https://discord.gg/tyXbecdxgr">Discord</a>.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Formerly Coverage keys</p>
@@ -2912,13 +3018,23 @@
 <td>Requested region or fully authorized group</td>
 </tr>
 <tr>
+<td><a href="../profile-api/">Profiles</a>, <code>get_profile.php</code></td>
+<td>Personal key or integration key in <code>X-API-Key</code></td>
+<td>Any companion</td>
+</tr>
+<tr>
+<td><a href="../leaderboard-api/">Leaderboards</a>, <code>get_leaderboard.php</code></td>
+<td>Personal key or integration key in <code>X-API-Key</code></td>
+<td>Personal keys: the owner's pinged regions and their superregions. Integration keys: their assignment</td>
+</tr>
+<tr>
 <td><a href="../repeaters-api/">Repeaters</a>, <code>get_repeaters.php</code></td>
 <td>Scoped integration key or existing mobile App key in <code>X-API-Key</code>; keyless calls from scripts are flagged as automated traffic (refused once meshmapper.net enforces)</td>
 <td>Integration keys stay within their assignments; App keys support the app's cross-region repeater reads</td>
 </tr>
 </tbody>
 </table>
-<p>Only Coverage accepts a query-string key. App keys do not grant access to Coverage, zones, boundaries, scopes or channels. The mobile app can send its existing App key for repeaters before connecting a radio or starting a session.</p>
+<p>Only Coverage accepts a query-string key. App keys do not grant access to Coverage, zones, boundaries, scopes, channels, profiles or leaderboards. Integration keys that use the default permissions include profiles and leaderboards automatically; a key with custom permissions gets them when an admin adds them. The mobile app can send its existing App key for repeaters before connecting a radio or starting a session.</p>
 <h2 id="generate-or-reuse-a-key">Generate or reuse a key<a class="headerlink" href="#generate-or-reuse-a-key" title="Permanent link">¶</a></h2>
 <p>In your region or group's admin panel, open <strong>User Settings &gt; API Access</strong>. Add an integration key with a description, or show an existing one. Each administrator can have up to five self-service keys per region or group, for example one per person or project. <strong>Reset</strong> invalidates a key's old value immediately, and <strong>Delete</strong> removes the key.</p>
 <p>Group keys cover the group's current enabled member IATAs, including membership changes without issuing a new key. A key for just one member cannot fetch a whole group's boundaries, scopes or channels unless it covers every enabled member. Repeater exports are filtered to the integration key's authorized members, even where a member URL normally expands to its group.</p>
@@ -2927,6 +3043,8 @@
 <p>A country key covers every region in one country, for example all of Canada. A region that is added or turned on later is included straight away, with no new key, and a disabled region drops out. The key reads exactly the regions that <code>get_zones.php?country=CA</code> lists for that country.</p>
 <p>A country key works from any address, so it suits jobs whose address changes on every run, such as GitHub Actions on GitHub-hosted runners. GLOBAL keys only answer from the server addresses registered for them. Country keys do not include Coverage: ask for a region, group or selected-regions key if you need the grid.</p>
 <p>Country keys are issued by the MeshMapper team on request. Store the key as a secret in your CI system (in GitHub, a repository secret such as <code>MESHMAPPER_API_KEY</code>) and pass it to the job as an environment variable.</p>
+<h2 id="personal-keys">Personal keys<a class="headerlink" href="#personal-keys" title="Permanent link">¶</a></h2>
+<p>Every portal account can generate one <a href="../personal-api-keys/">personal API key</a> in <strong>Profile Settings &gt; API key</strong>. It reads the <a href="../profile-api/">Profile API</a> for any companion, and the <a href="../leaderboard-api/">Leaderboard API</a> for the regions its owner's linked companions have pinged in plus their superregions. By default it gets 100 calls per UTC day and 10 per minute. Admins can add other APIs to one person's key.</p>
 <h2 id="send-the-key">Send the key<a class="headerlink" href="#send-the-key" title="Permanent link">¶</a></h2>
 <p>Keep integration keys in your backend configuration, outside source control and visitor-facing JavaScript. For example, with <code>MESHMAPPER_API_KEY</code> set in your environment:</p>
 <pre><code class="language-bash">curl --fail-with-body --compressed \
@@ -2935,7 +3053,7 @@
 </code></pre>
 <p>Send the header on every request, including conditional requests. CORS preflights allow <code>X-API-Key</code> and <code>If-None-Match</code>.</p>
 <h2 id="limits-and-caching">Limits and caching<a class="headerlink" href="#limits-and-caching" title="Permanent link">¶</a></h2>
-<p>The five read APIs share a default budget of <strong>1,000 admitted requests per UTC day and 30 per fixed minute per integration key</strong>. Custom keys may have different limits. Coverage retains its separate daily quota, normally 100 calls for self-service keys. Read calls do not consume Coverage calls.</p>
+<p>The read APIs share a default budget of <strong>1,000 admitted requests per UTC day and 30 per fixed minute per integration key</strong>, and <strong>100 per day and 10 per minute per personal key</strong>. Custom keys may have different limits. Coverage retains its separate daily quota, normally 100 calls for self-service keys. Read calls do not consume Coverage calls.</p>
 <p>Every admitted read counts, including a <code>304</code> and a downstream data error. Authentication and authorization failures do not consume the read budget. <code>OPTIONS</code> preflights do not count. Apart from the repeaters API's own per-IP limit, there is no per-IP limit on these reads; App repeater reads do not put all phones behind one shared daily key budget.</p>
 <p>Authenticated reads replace the previous once-per-target IP interval. Key quota exhaustion returns <code>503 key_rate_limited</code> with <code>Retry-After</code>; wait at least that long before retrying. The daily allowance resets at midnight UTC. Repeaters may return <code>429 rate_limited</code> (a per-IP limit for the app's traffic); the zones, boundaries, scopes and channels APIs no longer return <code>503 slow_down</code>. Coverage retains its own documented <code>429</code> responses.</p>
 <p>Protected responses use <code>Cache-Control: private, no-store</code>. Keep your backend's parsed data and any ETag separately for each credential and geographic scope, and discard data when access changes. Where supported, <code>If-None-Match</code> saves bandwidth but not quota. Do not expose keys in shared cache URLs. Coverage's server-side grid cache is unchanged.</p>
@@ -2957,7 +3075,7 @@
 <tr>
 <td>403</td>
 <td><code>wrong_key_type</code></td>
-<td>Use an integration key; App keys only support repeaters.</td>
+<td>Use an integration or personal key; App keys only support repeaters.</td>
 </tr>
 <tr>
 <td>403</td>

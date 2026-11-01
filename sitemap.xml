@@ -93,6 +93,10 @@
          <lastmod>2026-11-01</lastmod>
     </url>
     <url>
+         <loc>https://wiki.meshmapper.net/leaderboard-api/</loc>
+         <lastmod>2026-11-01</lastmod>
+    </url>
+    <url>
          <loc>https://wiki.meshmapper.net/leaderboards/</loc>
          <lastmod>2026-11-01</lastmod>
     </url>
@@ -133,11 +137,19 @@
          <lastmod>2026-11-01</lastmod>
     </url>
     <url>
+         <loc>https://wiki.meshmapper.net/personal-api-keys/</loc>
+         <lastmod>2026-11-01</lastmod>
+    </url>
+    <url>
          <loc>https://wiki.meshmapper.net/portal/</loc>
          <lastmod>2026-11-01</lastmod>
     </url>
     <url>
          <loc>https://wiki.meshmapper.net/privacy/</loc>
+         <lastmod>2026-11-01</lastmod>
+    </url>
+    <url>
+         <loc>https://wiki.meshmapper.net/profile-api/</loc>
          <lastmod>2026-11-01</lastmod>
     </url>
     <url>
