@@ -54,6 +54,9 @@ nav:
     - Repeaters API: repeaters-api.md
     - Scopes API: scopes-api.md
     - Channels API: channels-api.md
+    - Personal API Keys: personal-api-keys.md
+    - Profile API: profile-api.md
+    - Leaderboard API: leaderboard-api.md
     - Data Upload: dataupload.md
   
   - Support:
