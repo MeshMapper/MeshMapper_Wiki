@@ -22,7 +22,7 @@ Each account has one key.
 
 **Your regions** are the regions your linked companions have pinged in, plus every superregion that contains one of them. The API key card lists them under **Leaderboards**. The list updates about once an hour, so a region you wardrive for the first time unlocks shortly after. With no linked companion there are no boards yet, but profiles still work. [Link a companion](portal.md) first.
 
-The MeshMapper admins can add other APIs to one key, for example the [Repeaters API](repeaters-api.md). Ask in [Discord](https://discord.gg/tyXbecdxgr) if you need one.
+The MeshMapper admins can add other APIs to one key, for example the [Repeaters API](repeaters-api.md). Ask in [Discord](https://discord.gg/tyXbecdxgr) if you need one. Those APIs follow the same region rule: on a superregion that contains one of your regions, they answer for the whole superregion.
 
 ## Use it
 
@@ -40,7 +40,7 @@ Keep the key out of anything you publish: source control, shared notebooks, web 
 
 ## Limits
 
-By default a personal key gets **100 calls per UTC day and 10 per minute**, shared by everything the key can call. The day resets at midnight UTC. Your card shows how many calls you have used today.
+By default a personal key gets **100 calls per UTC day and 10 per minute**, shared by every API the key can call. (If an admin grants your key Coverage, Coverage keeps its own daily count.) The day resets at midnight UTC. Your card shows how many calls you have used today.
 
 When the limit is reached the answer is `503 key_rate_limited` with a `Retry-After` header: wait at least that many seconds. Leaderboards and profile points are rebuilt about once a day, so polling more often than once an hour gains nothing.
 
@@ -50,7 +50,7 @@ When the limit is reached the answer is `503 key_rate_limited` with a `Retry-Aft
 | --- | --- | --- |
 | 401 | `missing_key`, `invalid_key` | Send your current key in `X-API-Key`. A regenerated or deleted key stops working at once. |
 | 403 | `api_not_allowed` | Your key can't call this API. Ask the admins if you need it. |
-| 403 | `region_not_allowed` | The leaderboard isn't one of your regions. |
+| 403 | `region_not_allowed` | That region isn't one of yours. The answer's `message` explains the rule. |
 | 400 | `invalid_region` | Use a region or superregion code such as `SWE` or `YOW`. |
 | 503 | `board_unavailable` | That board hasn't been built yet. Try again after `Retry-After`. |
 | 503 | `key_rate_limited` | You've used today's or this minute's calls. Wait for `Retry-After`. |

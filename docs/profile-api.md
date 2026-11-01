@@ -8,7 +8,7 @@ GET https://meshmapper.net/get_profile.php?hex_id=<hex>
 
 | Parameter | Description |
 | --- | --- |
-| `hex_id` | The companion's public key. The full 64 hex characters is best. A shorter prefix (at least 6 characters) also works, but it can match several companions; see `candidates` below. A `hex` from the [Leaderboard API](leaderboard-api.md) always works. |
+| `hex_id` | The companion's public key. The full 64 hex characters is best. A shorter prefix also works (at least 4 hex characters; 6 or more is better), but it can match several companions; see `candidates` below. A `hex` from the [Leaderboard API](leaderboard-api.md) always works. |
 
 Profiles work for any companion, wherever it wardrives.
 
