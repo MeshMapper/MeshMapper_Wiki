@@ -22,7 +22,7 @@ Each account has one key.
 
 **Your regions** are the regions your linked companions have pinged in, plus every superregion that contains one of them. The API key card lists them under **Leaderboards**. The list updates about once an hour, so a region you wardrive for the first time unlocks shortly after. With no linked companion there are no boards yet, but profiles still work. [Link a companion](portal.md) first.
 
-The MeshMapper admins can add other APIs to one key, for example the [Repeaters API](repeaters-api.md). Ask in [Discord](https://discord.gg/tyXbecdxgr) if you need one. Those APIs follow the same region rule: on a superregion that contains one of your regions, they answer for the whole superregion.
+The MeshMapper admins can add other APIs to one key, for example the [Repeaters API](repeaters-api.md). Ask in [Discord](https://discord.gg/tyXbecdxgr) if you need one. Those APIs follow the same region rule: on a superregion that contains one of your regions, they answer for the whole superregion. A member region you haven't pinged in is read through its superregion (for example `swe.meshmapper.net`), not on its own page, even when the Region directory lists it.
 
 ## Use it
 
