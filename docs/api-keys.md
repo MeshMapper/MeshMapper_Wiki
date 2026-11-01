@@ -15,7 +15,7 @@ MeshMapper uses one **integration key** for Coverage and the read APIs below. Ex
 
 | API | Credential | Geographic access |
 | --- | --- | --- |
-| [Coverage](coverage-api.md), `coverage.php` | Integration key in `X-API-Key` or legacy `?key=` | Assigned region, group, selected regions or GLOBAL (not [country keys](#country-keys)) |
+| [Coverage](coverage-api.md), `coverage.php` | Integration key in `X-API-Key` or legacy `?key=` | Assigned region, group or selected regions (not GLOBAL or [country keys](#country-keys)) |
 | [Region directory](zones-api.md), `get_zones.php` | Integration key in `X-API-Key` | Authorized regions within the requested country |
 | [Boundaries](zones-api.md#region-boundary), `get_geojson.php` | Integration key in `X-API-Key` | Requested region or fully authorized group |
 | [Scopes](scopes-api.md), `get_scopes.php` | Integration key in `X-API-Key` | Requested region or fully authorized group |
@@ -70,6 +70,7 @@ Protected responses use `Cache-Control: private, no-store`. Keep your backend's 
 | 403 | `wrong_key_type` | Use an integration key; App keys only support repeaters. |
 | 403 | `api_not_allowed` | Ask the key owner to review endpoint permissions. |
 | 403 | `no_region`, `region_not_allowed` | Check the key's region/group assignment. |
+| 403 | `ip_not_allowed` | GLOBAL keys only: the call came from an address that is not registered for the key. |
 | 503 | `key_rate_limited` | Wait for `Retry-After`. |
 | 503 | `auth_unavailable` | Authentication storage is temporarily unavailable; respect `Retry-After`. |
 

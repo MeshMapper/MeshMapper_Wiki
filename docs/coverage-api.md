@@ -37,7 +37,7 @@ GET https://meshmapper.net/coverage.php?key=YOUR_API_KEY
 | --- | --- | --- |
 | `key` | Unless using X-API-Key | Your integration key. Existing query-key URLs remain supported. |
 | `include` | No | Comma-separated list of optional sections to add to the response. Currently supports `repeaters` (e.g. `?include=repeaters`) — see [Repeater Fields](#repeater-fields). |
-| `fresh` | No | `fresh=1` skips the 15-minute server cache and builds the grid now. Single-region and group keys only; multi-region and global keys return HTTP 400 `fresh_not_supported`. |
+| `fresh` | No | `fresh=1` skips the 15-minute server cache and builds the grid now. Single-region and group keys only; multi-region keys return HTTP 400 `fresh_not_supported`. |
 | `f_*` | No | Filter the pings that go into the grid before it is built: by radio configuration, date, power or antenna. See [Filtering](#filtering). |
 
 ## Response Format
@@ -251,7 +251,7 @@ Things to know:
 - **Anything else is an error.** An unknown `f_` parameter (a typo included) returns HTTP 400 `unsupported_filter`; a malformed value returns HTTP 400 `invalid_filter`. Both carry `param` naming the offending parameter and a `message` saying what was expected. The API never silently serves the full region in place of a filter it did not understand. These 400 errors still use up a request from your daily limit.
 - **Filtering can be briefly unavailable.** If the server can't apply filters right now it returns HTTP 503 `filters_unavailable`; try again later.
 
-Filters are not available on [multi-region](#multi-region-keys) or [global](#global-coverage-feed) keys. Any `f_` parameter on those keys, even an empty one, returns HTTP 400 `filters_not_supported`.
+Filters are not available on [multi-region](#multi-region-keys) keys. Any `f_` parameter on such a key, even an empty one, returns HTTP 400 `filters_not_supported`.
 
 ## HTTP Caching and Compression
 
@@ -299,18 +299,18 @@ A separate per-IP throttle protects against bursts: about 30 requests in a rolli
 | 400 | `invalid_region` | Region code on key not found. |
 | 400 | `unsupported_filter` | An `f_` parameter that is not in the [Filtering](#filtering) table. `param` names it. |
 | 400 | `invalid_filter` | A filter value of the wrong shape (for example `f_sf=abc` or a seconds timestamp in `f_dstart`). `param` and `message` say what was expected. |
-| 400 | `filters_not_supported` | An `f_` parameter (even an empty one) on a multi-region or global key. |
-| 400 | `fresh_not_supported` | `fresh=1` on a multi-region or global key. |
+| 400 | `filters_not_supported` | An `f_` parameter (even an empty one) on a multi-region key. |
+| 400 | `fresh_not_supported` | `fresh=1` on a multi-region key. |
 | 400 | `too_many_regions` | A multi-region key with more than 6 member regions. |
 | 401 | `invalid_key` | Key not found, or not an integration key (for example an App key). Message: `Invalid API key, or not an integration key`. |
-| 403 | `api_not_allowed` | Coverage access is disabled for this key. |
+| 403 | `api_not_allowed` | Coverage access is disabled for this key, or it is a GLOBAL or country key (see [Global Coverage Feed](#global-coverage-feed)). |
+| 403 | `ip_not_allowed` | A GLOBAL key called from an address that is not registered for it. |
 | 503 | `auth_unavailable` | Authentication policy storage is temporarily unavailable; respect Retry-After. |
 | 403 | `no_region` | No region assigned to this key, or the key's region has been deleted. |
 | 429 | `rate_limit_exceeded` | Daily request limit reached. |
 | 429 | `rate_limited` | Too many requests in a short period (per-IP throttle). |
 | 500 | `server_error` | Internal error (database not found, etc.). |
 | 503 | `filters_unavailable` | Filtering is temporarily unavailable. Try again later. |
-| 503 | `rebuilding` | Global feed only: a rebuild is in progress and no cached copy exists yet. Sent with `Retry-After: 300`. |
 | 507 | `over_memory_budget` | The data is too large to build in memory. Can happen on single regions as well as multi-region keys. |
 
 ## Managing Your Key
@@ -321,7 +321,7 @@ Your integration keys are listed under **API Access** on the **User Settings** t
 
 An integration key can be scoped to a **set of up to 6 regions** (for example `PDX,SEA,YVR`) instead of a single region. The response merges every member region's coverage into **one grid** — the same payload shape as a single-region response — so it suits integrations that render adjacent regions as one continuous map.
 
-Multi-region keys are not self-service: like [global keys](#global-coverage-feed) and keys with a custom limit, they are issued by the MeshMapper team (Master administrators) on request (the admin-panel self-service flow creates keys for its current region or group). Adjacent regions are the intended use — the merged grid serves them as one map.
+Multi-region keys are not self-service: like keys with a custom limit, they are issued by the MeshMapper team (Master administrators) on request (the admin-panel self-service flow creates keys for its current region or group). Adjacent regions are the intended use — the merged grid serves them as one map.
 
 !!! info "Multi-region keys vs. Multiregion Groups"
     A [Multiregion Group](multiregions.md) merges regions *inside* MeshMapper — shared map, leaderboards, collision detection, and admin panel. A multi-region **key** changes nothing about the regions themselves; it only merges their coverage data in this API's response. If a group already exists, a key can simply be scoped to the group's code instead. A multi-region key is for sets of regions that aren't (and shouldn't become) a group.
@@ -351,7 +351,7 @@ Identical to a single-region response — one merged `grid_squares` array, same 
 }
 ```
 
-Note that `regions` and `regions_skipped` arrive **after** the `grid_squares` array — as with the global feed, use a standard JSON parser rather than assuming key order. The fields that differ from a single-region response:
+Note that `regions` and `regions_skipped` arrive **after** the `grid_squares` array, so use a standard JSON parser rather than assuming key order. The fields that differ from a single-region response:
 
 | Field | Type | Description |
 | --- | --- | --- |
@@ -378,74 +378,6 @@ Caching, compression, conditional requests, and the daily quota work exactly as 
 
 ## Global Coverage Feed
 
-A special **global** integration key returns data for **every MeshMapper region in one request** — no region list to maintain on your side. Global keys are not self-service: they are issued by the MeshMapper team on request, for integrations that genuinely need fleet-wide data (reach out via the usual channels if that's you).
+Coverage is not available on GLOBAL keys or [country keys](api-keys.md#country-keys): a request with one returns HTTP 403 `api_not_allowed`. Building every region's grid in one request took longer than the server allows, so the global feed is switched off. A GLOBAL key called from an address that is not registered for it gets HTTP 403 `ip_not_allowed` instead.
 
-The endpoint and authentication are identical — only the key differs:
-
-```
-GET https://meshmapper.net/coverage.php?key=YOUR_GLOBAL_KEY
-```
-
-### Response Format
-
-Instead of a single region's payload, a global key returns an envelope containing one section per region. Each section carries the **same fields as a regional response** (`region`, `region_name`, `data_age_seconds`, `total_squares`, `point_count`, `coverage_type_counts`, `bbox`, `grid_squares`, and `repeaters` when requested); `grid_size` and `type_bits` appear once at the top level since they are identical for every region.
-
-```json
-{
-  "success": true,
-  "global": true,
-  "schema_version": 2,
-  "generated_at": 1710547200,
-  "grid_size": { "lat": 0.0027, "lon": 0.00384 },
-  "type_bits": { "BIDIR": 1, "TX": 2, "RX": 4, "DISC": 8, "DEAD": 16, "DROP": 32 },
-  "regions": [
-    {
-      "region": "YOW",
-      "region_name": "Ottawa, CA",
-      "data_age_seconds": 312,
-      "total_squares": 1234,
-      "point_count": 48210,
-      "coverage_type_counts": { "BIDIR": 540, "TX": 60, "RX": 410, "DISC": 90, "DEAD": 12, "DROP": 122 },
-      "bbox": { "minLat": 45.108, "minLon": -76.351, "maxLat": 45.621, "maxLon": -75.299 },
-      "grid_squares": [ "…same grid square objects as the regional API…" ]
-    }
-  ],
-  "region_count": 214,
-  "regions_skipped": 249
-}
-```
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `global` | boolean | Always `true` for a global-key response. |
-| `regions` | array | One section per region with coverage data, in region-code order. |
-| `region_count` | integer | Number of sections in `regions`. Note this field arrives **after** the `regions` array — use a standard JSON parser rather than assuming key order. |
-| `regions_skipped` | integer | Regions omitted because they have no coverage data yet. |
-
-`?include=repeaters` works exactly as for regional keys, adding a `repeaters` array to each section. Sections do not carry `radio_configs` or `filters`. `radio_configs` belongs to single-region, group and multi-region responses; `filters` only to filtered single-region and group responses.
-
-### Response Size and Pagination
-
-Expect a download in the **single-digit megabytes** (gzipped); decoded, the JSON can run to tens or low hundreds of megabytes. Size scales with the number of ~300 m grid cells that have coverage — not with raw ping counts — so growth over time is gradual.
-
-There is **no pagination or cursor**, by design: the response is served as a single pre-built cached file, which is what keeps it fast and cheap for everyone. The per-region sections are the natural chunks instead:
-
-- **Stream-parse rather than loading the whole document.** Sections arrive one complete region at a time, in order, so an incremental JSON parser (e.g. `ijson` in Python) lets you process and discard each region as it arrives — peak memory stays at one region, not the whole world.
-- **Poll with `If-None-Match`.** On days where nothing changed you get a `304 Not Modified` and transfer nothing (see below).
-- **Need finer-grained fetching?** Regional keys *are* the paginated form of this API — one independently cached, independently ETagged response per region. If your integration outgrows the single global document, ask about switching to per-region keys instead of requesting pagination here.
-
-### Caching and Timeouts
-
-The global response aggregates the entire fleet, so it is cached more aggressively than regional responses:
-
-- The server cache lasts **6 hours**. HTTP responses use `Cache-Control: private, no-store`. Polling more often returns identical data; **once or twice a day is the intended usage**.
-- A request that arrives after the cache has expired triggers a rebuild. The response **streams region-by-region while it builds** — data starts flowing immediately, but the complete download can take a minute. Configure a generous *total* timeout in your HTTP client (the connection is never idle, so per-read timeouts are fine at their defaults). All other requests are served instantly from cache.
-- `ETag` / `If-None-Match` conditional requests work exactly as for regional keys, and a `304 Not Modified` is by far the cheapest way to poll. The response that triggers a rebuild carries no `ETag`; the next (cached) response does.
-
-### Differences from Regional Keys
-
-| Behaviour | Result |
-| --- | --- |
-| `fresh=1` | HTTP 400, `fresh_not_supported` — global rebuilds are cache-driven only. |
-| `f_*` filter parameters | HTTP 400, `filters_not_supported`. |
-| Rebuild already in progress elsewhere | Served the previous cached copy; if no cached copy exists yet, HTTP 503 with `error: rebuilding` and `Retry-After: 300` — retry after the indicated delay. |
+For coverage across many regions, use one key per region or group, or a [multi-region key](#multi-region-keys) for up to 6 adjacent regions. Each region's response is cached and has its own `ETag`, so polling many of them with `If-None-Match` stays cheap.
