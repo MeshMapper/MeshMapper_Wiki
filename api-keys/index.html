@@ -1481,6 +1481,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Generate or reuse a key">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#country-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Country keys
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2776,6 +2793,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Generate or reuse a key">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#country-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Country keys
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2855,7 +2889,7 @@
 <tr>
 <td><a href="../coverage-api/">Coverage</a>, <code>coverage.php</code></td>
 <td>Integration key in <code>X-API-Key</code> or legacy <code>?key=</code></td>
-<td>Assigned region, group, selected regions or GLOBAL</td>
+<td>Assigned region, group, selected regions or GLOBAL (not <a href="#country-keys">country keys</a>)</td>
 </tr>
 <tr>
 <td><a href="../zones-api/">Region directory</a>, <code>get_zones.php</code></td>
@@ -2888,7 +2922,11 @@
 <h2 id="generate-or-reuse-a-key">Generate or reuse a key<a class="headerlink" href="#generate-or-reuse-a-key" title="Permanent link">¶</a></h2>
 <p>In your region or group's admin panel, open <strong>User Settings &gt; API Access</strong>. Add an integration key with a description, or show an existing one. Each administrator can have up to five self-service keys per region or group, for example one per person or project. <strong>Reset</strong> invalidates a key's old value immediately, and <strong>Delete</strong> removes the key.</p>
 <p>Group keys cover the group's current enabled member IATAs, including membership changes without issuing a new key. A key for just one member cannot fetch a whole group's boundaries, scopes or channels unless it covers every enabled member. Repeater exports are filtered to the integration key's authorized members, even where a member URL normally expands to its group.</p>
-<p>Contact the MeshMapper team for custom integrations, selected-region or GLOBAL access, endpoint permissions, or larger limits. Master admins can allow only the endpoints an integration needs. GLOBAL permits geographic access across regions; it does not remove required parameters or turn every endpoint into an all-region feed. For example, <code>get_zones.php</code> still requires <code>country</code>.</p>
+<p>Contact the MeshMapper team for custom integrations, selected-region, <a href="#country-keys">country</a> or GLOBAL access, endpoint permissions, or larger limits. Master admins can allow only the endpoints an integration needs. GLOBAL permits geographic access across regions; it does not remove required parameters or turn every endpoint into an all-region feed. For example, <code>get_zones.php</code> still requires <code>country</code>.</p>
+<h3 id="country-keys">Country keys<a class="headerlink" href="#country-keys" title="Permanent link">¶</a></h3>
+<p>A country key covers every region in one country, for example all of Canada. A region that is added or turned on later is included straight away, with no new key, and a disabled region drops out. The key reads exactly the regions that <code>get_zones.php?country=CA</code> lists for that country.</p>
+<p>A country key works from any address, so it suits jobs whose address changes on every run, such as GitHub Actions on GitHub-hosted runners. GLOBAL keys only answer from the server addresses registered for them. Country keys do not include Coverage: ask for a region, group or selected-regions key if you need the grid.</p>
+<p>Country keys are issued by the MeshMapper team on request. Store the key as a secret in your CI system (in GitHub, a repository secret such as <code>MESHMAPPER_API_KEY</code>) and pass it to the job as an environment variable.</p>
 <h2 id="send-the-key">Send the key<a class="headerlink" href="#send-the-key" title="Permanent link">¶</a></h2>
 <p>Keep integration keys in your backend configuration, outside source control and visitor-facing JavaScript. For example, with <code>MESHMAPPER_API_KEY</code> set in your environment:</p>
 <pre><code class="language-bash">curl --fail-with-body --compressed \
