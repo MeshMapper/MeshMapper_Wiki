@@ -15,7 +15,7 @@ MeshMapper uses one **integration key** for Coverage and the read APIs below. Ex
 
 | API | Credential | Geographic access |
 | --- | --- | --- |
-| [Coverage](coverage-api.md), `coverage.php` | Integration key in `X-API-Key` or legacy `?key=` | Assigned region, group, selected regions or GLOBAL |
+| [Coverage](coverage-api.md), `coverage.php` | Integration key in `X-API-Key` or legacy `?key=` | Assigned region, group, selected regions or GLOBAL (not [country keys](#country-keys)) |
 | [Region directory](zones-api.md), `get_zones.php` | Integration key in `X-API-Key` | Authorized regions within the requested country |
 | [Boundaries](zones-api.md#region-boundary), `get_geojson.php` | Integration key in `X-API-Key` | Requested region or fully authorized group |
 | [Scopes](scopes-api.md), `get_scopes.php` | Integration key in `X-API-Key` | Requested region or fully authorized group |
@@ -30,7 +30,15 @@ In your region or group's admin panel, open **User Settings > API Access**. Add 
 
 Group keys cover the group's current enabled member IATAs, including membership changes without issuing a new key. A key for just one member cannot fetch a whole group's boundaries, scopes or channels unless it covers every enabled member. Repeater exports are filtered to the integration key's authorized members, even where a member URL normally expands to its group.
 
-Contact the MeshMapper team for custom integrations, selected-region or GLOBAL access, endpoint permissions, or larger limits. Master admins can allow only the endpoints an integration needs. GLOBAL permits geographic access across regions; it does not remove required parameters or turn every endpoint into an all-region feed. For example, `get_zones.php` still requires `country`.
+Contact the MeshMapper team for custom integrations, selected-region, [country](#country-keys) or GLOBAL access, endpoint permissions, or larger limits. Master admins can allow only the endpoints an integration needs. GLOBAL permits geographic access across regions; it does not remove required parameters or turn every endpoint into an all-region feed. For example, `get_zones.php` still requires `country`.
+
+### Country keys
+
+A country key covers every region in one country, for example all of Canada. A region that is added or turned on later is included straight away, with no new key, and a disabled region drops out. The key reads exactly the regions that `get_zones.php?country=CA` lists for that country.
+
+A country key works from any address, so it suits jobs whose address changes on every run, such as GitHub Actions on GitHub-hosted runners. GLOBAL keys only answer from the server addresses registered for them. Country keys do not include Coverage: ask for a region, group or selected-regions key if you need the grid.
+
+Country keys are issued by the MeshMapper team on request. Store the key as a secret in your CI system (in GitHub, a repository secret such as `MESHMAPPER_API_KEY`) and pass it to the job as an environment variable.
 
 ## Send the key
 

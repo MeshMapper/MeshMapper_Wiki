@@ -6,7 +6,7 @@ The Coverage API provides programmatic access to MeshMapper coverage grid-square
 
 Access requires an **integration key** (formerly called a Coverage key). Each key is scoped to a specific region, a multiregion group, or a set of adjacent regions (see [Multi-Region Keys](#multi-region-keys)). Self-service keys have a daily limit of 100 requests; keys issued by the MeshMapper team may carry a different limit (the 429 body's `limit` field shows yours).
 
-The same key also works for zones, boundaries, scopes, channels and repeaters, subject to endpoint permissions. Existing keys do not need regeneration. Group keys follow current member IATAs. See [API keys and access](api-keys.md) for the endpoint table, shared read limits and repeater rollout.
+The same key also works for zones, boundaries, scopes, channels and repeaters, subject to endpoint permissions. Existing keys do not need regeneration. Group keys follow current member IATAs. [Country keys](api-keys.md#country-keys) work for the read APIs but not for Coverage. See [API keys and access](api-keys.md) for the endpoint table, shared read limits and repeater rollout.
 
 Send `X-API-Key: YOUR_API_KEY` on requests, or keep using the existing `?key=` URLs for Coverage.
 
