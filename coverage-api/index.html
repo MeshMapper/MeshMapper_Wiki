@@ -1781,56 +1781,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Global Coverage Feed">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#response-format_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Response Format
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#response-size-and-pagination" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Response Size and Pagination
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#caching-and-timeouts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Caching and Timeouts
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#differences-from-regional-keys" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Differences from Regional Keys
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -3337,56 +3287,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Global Coverage Feed">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#response-format_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Response Format
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#response-size-and-pagination" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Response Size and Pagination
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#caching-and-timeouts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Caching and Timeouts
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#differences-from-regional-keys" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Differences from Regional Keys
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -3452,7 +3352,7 @@
 <tr>
 <td><code>fresh</code></td>
 <td>No</td>
-<td><code>fresh=1</code> skips the 15-minute server cache and builds the grid now. Single-region and group keys only; multi-region and global keys return HTTP 400 <code>fresh_not_supported</code>.</td>
+<td><code>fresh=1</code> skips the 15-minute server cache and builds the grid now. Single-region and group keys only; multi-region keys return HTTP 400 <code>fresh_not_supported</code>.</td>
 </tr>
 <tr>
 <td><code>f_*</code></td>
@@ -3924,7 +3824,7 @@ data.grid_squares.forEach(sq =&gt; {
 <li><strong>Anything else is an error.</strong> An unknown <code>f_</code> parameter (a typo included) returns HTTP 400 <code>unsupported_filter</code>; a malformed value returns HTTP 400 <code>invalid_filter</code>. Both carry <code>param</code> naming the offending parameter and a <code>message</code> saying what was expected. The API never silently serves the full region in place of a filter it did not understand. These 400 errors still use up a request from your daily limit.</li>
 <li><strong>Filtering can be briefly unavailable.</strong> If the server can't apply filters right now it returns HTTP 503 <code>filters_unavailable</code>; try again later.</li>
 </ul>
-<p>Filters are not available on <a href="#multi-region-keys">multi-region</a> or <a href="#global-coverage-feed">global</a> keys. Any <code>f_</code> parameter on those keys, even an empty one, returns HTTP 400 <code>filters_not_supported</code>.</p>
+<p>Filters are not available on <a href="#multi-region-keys">multi-region</a> keys. Any <code>f_</code> parameter on such a key, even an empty one, returns HTTP 400 <code>filters_not_supported</code>.</p>
 <h2 id="http-caching-and-compression">HTTP Caching and Compression<a class="headerlink" href="#http-caching-and-compression" title="Permanent link">¶</a></h2>
 <p>The API is built for efficient, low-frequency polling. Coverage data does not change second-to-second, so please poll sparingly.</p>
 <ul>
@@ -3986,12 +3886,12 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
 <tr>
 <td>400</td>
 <td><code>filters_not_supported</code></td>
-<td>An <code>f_</code> parameter (even an empty one) on a multi-region or global key.</td>
+<td>An <code>f_</code> parameter (even an empty one) on a multi-region key.</td>
 </tr>
 <tr>
 <td>400</td>
 <td><code>fresh_not_supported</code></td>
-<td><code>fresh=1</code> on a multi-region or global key.</td>
+<td><code>fresh=1</code> on a multi-region key.</td>
 </tr>
 <tr>
 <td>400</td>
@@ -4006,7 +3906,12 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
 <tr>
 <td>403</td>
 <td><code>api_not_allowed</code></td>
-<td>Coverage access is disabled for this key.</td>
+<td>Coverage access is disabled for this key, or it is a GLOBAL or country key (see <a href="#global-coverage-feed">Global Coverage Feed</a>).</td>
+</tr>
+<tr>
+<td>403</td>
+<td><code>ip_not_allowed</code></td>
+<td>A GLOBAL key called from an address that is not registered for it.</td>
 </tr>
 <tr>
 <td>503</td>
@@ -4039,11 +3944,6 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
 <td>Filtering is temporarily unavailable. Try again later.</td>
 </tr>
 <tr>
-<td>503</td>
-<td><code>rebuilding</code></td>
-<td>Global feed only: a rebuild is in progress and no cached copy exists yet. Sent with <code>Retry-After: 300</code>.</td>
-</tr>
-<tr>
 <td>507</td>
 <td><code>over_memory_budget</code></td>
 <td>The data is too large to build in memory. Can happen on single regions as well as multi-region keys.</td>
@@ -4054,7 +3954,7 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
 <p>Your integration keys are listed under <strong>API Access</strong> on the <strong>User Settings</strong> tab in your region's Admin Portal, each with its description, when it was created and last used, and today's usage. <strong>Reset</strong> gives a key a new value and <strong>Delete</strong> removes it. Either way the old value stops working immediately, and your other keys keep working.</p>
 <h2 id="multi-region-keys">Multi-Region Keys<a class="headerlink" href="#multi-region-keys" title="Permanent link">¶</a></h2>
 <p>An integration key can be scoped to a <strong>set of up to 6 regions</strong> (for example <code>PDX,SEA,YVR</code>) instead of a single region. The response merges every member region's coverage into <strong>one grid</strong> — the same payload shape as a single-region response — so it suits integrations that render adjacent regions as one continuous map.</p>
-<p>Multi-region keys are not self-service: like <a href="#global-coverage-feed">global keys</a> and keys with a custom limit, they are issued by the MeshMapper team (Master administrators) on request (the admin-panel self-service flow creates keys for its current region or group). Adjacent regions are the intended use — the merged grid serves them as one map.</p>
+<p>Multi-region keys are not self-service: like keys with a custom limit, they are issued by the MeshMapper team (Master administrators) on request (the admin-panel self-service flow creates keys for its current region or group). Adjacent regions are the intended use — the merged grid serves them as one map.</p>
 <div class="admonition info">
 <p class="admonition-title">Multi-region keys vs. Multiregion Groups</p>
 <p>A <a href="../multiregions/">Multiregion Group</a> merges regions <em>inside</em> MeshMapper — shared map, leaderboards, collision detection, and admin panel. A multi-region <strong>key</strong> changes nothing about the regions themselves; it only merges their coverage data in this API's response. If a group already exists, a key can simply be scoped to the group's code instead. A multi-region key is for sets of regions that aren't (and shouldn't become) a group.</p>
@@ -4080,7 +3980,7 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
   "regions_skipped": 0
 }
 </code></pre>
-<p>Note that <code>regions</code> and <code>regions_skipped</code> arrive <strong>after</strong> the <code>grid_squares</code> array — as with the global feed, use a standard JSON parser rather than assuming key order. The fields that differ from a single-region response:</p>
+<p>Note that <code>regions</code> and <code>regions_skipped</code> arrive <strong>after</strong> the <code>grid_squares</code> array, so use a standard JSON parser rather than assuming key order. The fields that differ from a single-region response:</p>
 <table>
 <thead>
 <tr>
@@ -4147,105 +4047,8 @@ curl -s --compressed -H 'If-None-Match: "THE_ETAG_VALUE"' \
 <h3 id="caching-and-limits">Caching and Limits<a class="headerlink" href="#caching-and-limits" title="Permanent link">¶</a></h3>
 <p>Caching, compression, conditional requests, and the daily quota work exactly as for single-region keys: 15-minute server cache, <code>ETag</code> / <code>If-None-Match</code> for <code>304 Not Modified</code>, gzip, and the key's daily limit (cache hits and 304s count). Response size scales with the number of member regions — poll at 15-minute intervals or longer.</p>
 <h2 id="global-coverage-feed">Global Coverage Feed<a class="headerlink" href="#global-coverage-feed" title="Permanent link">¶</a></h2>
-<p>A special <strong>global</strong> integration key returns data for <strong>every MeshMapper region in one request</strong> — no region list to maintain on your side. Global keys are not self-service: they are issued by the MeshMapper team on request, for integrations that genuinely need fleet-wide data (reach out via the usual channels if that's you).</p>
-<p>The endpoint and authentication are identical — only the key differs:</p>
-<pre><code>GET https://meshmapper.net/coverage.php?key=YOUR_GLOBAL_KEY
-</code></pre>
-<h3 id="response-format_2">Response Format<a class="headerlink" href="#response-format_2" title="Permanent link">¶</a></h3>
-<p>Instead of a single region's payload, a global key returns an envelope containing one section per region. Each section carries the <strong>same fields as a regional response</strong> (<code>region</code>, <code>region_name</code>, <code>data_age_seconds</code>, <code>total_squares</code>, <code>point_count</code>, <code>coverage_type_counts</code>, <code>bbox</code>, <code>grid_squares</code>, and <code>repeaters</code> when requested); <code>grid_size</code> and <code>type_bits</code> appear once at the top level since they are identical for every region.</p>
-<pre><code class="language-json">{
-  "success": true,
-  "global": true,
-  "schema_version": 2,
-  "generated_at": 1710547200,
-  "grid_size": { "lat": 0.0027, "lon": 0.00384 },
-  "type_bits": { "BIDIR": 1, "TX": 2, "RX": 4, "DISC": 8, "DEAD": 16, "DROP": 32 },
-  "regions": [
-    {
-      "region": "YOW",
-      "region_name": "Ottawa, CA",
-      "data_age_seconds": 312,
-      "total_squares": 1234,
-      "point_count": 48210,
-      "coverage_type_counts": { "BIDIR": 540, "TX": 60, "RX": 410, "DISC": 90, "DEAD": 12, "DROP": 122 },
-      "bbox": { "minLat": 45.108, "minLon": -76.351, "maxLat": 45.621, "maxLon": -75.299 },
-      "grid_squares": [ "…same grid square objects as the regional API…" ]
-    }
-  ],
-  "region_count": 214,
-  "regions_skipped": 249
-}
-</code></pre>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>global</code></td>
-<td>boolean</td>
-<td>Always <code>true</code> for a global-key response.</td>
-</tr>
-<tr>
-<td><code>regions</code></td>
-<td>array</td>
-<td>One section per region with coverage data, in region-code order.</td>
-</tr>
-<tr>
-<td><code>region_count</code></td>
-<td>integer</td>
-<td>Number of sections in <code>regions</code>. Note this field arrives <strong>after</strong> the <code>regions</code> array — use a standard JSON parser rather than assuming key order.</td>
-</tr>
-<tr>
-<td><code>regions_skipped</code></td>
-<td>integer</td>
-<td>Regions omitted because they have no coverage data yet.</td>
-</tr>
-</tbody>
-</table>
-<p><code>?include=repeaters</code> works exactly as for regional keys, adding a <code>repeaters</code> array to each section. Sections do not carry <code>radio_configs</code> or <code>filters</code>. <code>radio_configs</code> belongs to single-region, group and multi-region responses; <code>filters</code> only to filtered single-region and group responses.</p>
-<h3 id="response-size-and-pagination">Response Size and Pagination<a class="headerlink" href="#response-size-and-pagination" title="Permanent link">¶</a></h3>
-<p>Expect a download in the <strong>single-digit megabytes</strong> (gzipped); decoded, the JSON can run to tens or low hundreds of megabytes. Size scales with the number of ~300 m grid cells that have coverage — not with raw ping counts — so growth over time is gradual.</p>
-<p>There is <strong>no pagination or cursor</strong>, by design: the response is served as a single pre-built cached file, which is what keeps it fast and cheap for everyone. The per-region sections are the natural chunks instead:</p>
-<ul>
-<li><strong>Stream-parse rather than loading the whole document.</strong> Sections arrive one complete region at a time, in order, so an incremental JSON parser (e.g. <code>ijson</code> in Python) lets you process and discard each region as it arrives — peak memory stays at one region, not the whole world.</li>
-<li><strong>Poll with <code>If-None-Match</code>.</strong> On days where nothing changed you get a <code>304 Not Modified</code> and transfer nothing (see below).</li>
-<li><strong>Need finer-grained fetching?</strong> Regional keys <em>are</em> the paginated form of this API — one independently cached, independently ETagged response per region. If your integration outgrows the single global document, ask about switching to per-region keys instead of requesting pagination here.</li>
-</ul>
-<h3 id="caching-and-timeouts">Caching and Timeouts<a class="headerlink" href="#caching-and-timeouts" title="Permanent link">¶</a></h3>
-<p>The global response aggregates the entire fleet, so it is cached more aggressively than regional responses:</p>
-<ul>
-<li>The server cache lasts <strong>6 hours</strong>. HTTP responses use <code>Cache-Control: private, no-store</code>. Polling more often returns identical data; <strong>once or twice a day is the intended usage</strong>.</li>
-<li>A request that arrives after the cache has expired triggers a rebuild. The response <strong>streams region-by-region while it builds</strong> — data starts flowing immediately, but the complete download can take a minute. Configure a generous <em>total</em> timeout in your HTTP client (the connection is never idle, so per-read timeouts are fine at their defaults). All other requests are served instantly from cache.</li>
-<li><code>ETag</code> / <code>If-None-Match</code> conditional requests work exactly as for regional keys, and a <code>304 Not Modified</code> is by far the cheapest way to poll. The response that triggers a rebuild carries no <code>ETag</code>; the next (cached) response does.</li>
-</ul>
-<h3 id="differences-from-regional-keys">Differences from Regional Keys<a class="headerlink" href="#differences-from-regional-keys" title="Permanent link">¶</a></h3>
-<table>
-<thead>
-<tr>
-<th>Behaviour</th>
-<th>Result</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>fresh=1</code></td>
-<td>HTTP 400, <code>fresh_not_supported</code> — global rebuilds are cache-driven only.</td>
-</tr>
-<tr>
-<td><code>f_*</code> filter parameters</td>
-<td>HTTP 400, <code>filters_not_supported</code>.</td>
-</tr>
-<tr>
-<td>Rebuild already in progress elsewhere</td>
-<td>Served the previous cached copy; if no cached copy exists yet, HTTP 503 with <code>error: rebuilding</code> and <code>Retry-After: 300</code> — retry after the indicated delay.</td>
-</tr>
-</tbody>
-</table>
+<p>Coverage is not available on GLOBAL keys or <a href="../api-keys/#country-keys">country keys</a>: a request with one returns HTTP 403 <code>api_not_allowed</code>. Building every region's grid in one request took longer than the server allows, so the global feed is switched off. A GLOBAL key called from an address that is not registered for it gets HTTP 403 <code>ip_not_allowed</code> instead.</p>
+<p>For coverage across many regions, use one key per region or group, or a <a href="#multi-region-keys">multi-region key</a> for up to 6 adjacent regions. Each region's response is cached and has its own <code>ETag</code>, so polling many of them with <code>If-None-Match</code> stays cheap.</p>
 
 
 

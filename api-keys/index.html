@@ -2889,7 +2889,7 @@
 <tr>
 <td><a href="../coverage-api/">Coverage</a>, <code>coverage.php</code></td>
 <td>Integration key in <code>X-API-Key</code> or legacy <code>?key=</code></td>
-<td>Assigned region, group, selected regions or GLOBAL (not <a href="#country-keys">country keys</a>)</td>
+<td>Assigned region, group or selected regions (not GLOBAL or <a href="#country-keys">country keys</a>)</td>
 </tr>
 <tr>
 <td><a href="../zones-api/">Region directory</a>, <code>get_zones.php</code></td>
@@ -2968,6 +2968,11 @@
 <td>403</td>
 <td><code>no_region</code>, <code>region_not_allowed</code></td>
 <td>Check the key's region/group assignment.</td>
+</tr>
+<tr>
+<td>403</td>
+<td><code>ip_not_allowed</code></td>
+<td>GLOBAL keys only: the call came from an address that is not registered for the key.</td>
 </tr>
 <tr>
 <td>503</td>
