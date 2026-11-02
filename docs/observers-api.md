@@ -58,11 +58,11 @@ GET https://meshmapper.net/get_observers.php?region=YOW&pubkey=1A2B3C
 | `status` | The map's label: `online` when its last status message arrived in the last 24 hours, `stale` in the last 7 days, `offline` when older. |
 | `mqtt_status` | The status the observer last reported over MQTT, usually `online`. `offline` means the broker reported that the observer's connection dropped. `null` when not known. |
 | `last_status` | When its last status message arrived, as a Unix timestamp in seconds. `null` when none has arrived. |
-| `last_packet` | For each broker, when that broker last passed on a packet this observer heard, as a Unix timestamp in seconds. `{}` when none has. |
+| `last_packet` | For each broker, when that broker last passed on anything from this observer (a packet it heard, or its status message), as a Unix timestamp in seconds. A broker that stopped carrying it keeps its old time. `{}` when none has. |
 | `firmware` | The firmware version it reports, or `null`. |
 | `radio` | The radio preset it reports, as `frequency,bandwidth,spreading factor` (MHz, kHz, SF), or `null`. |
 
-MeshMapper records an observer's status messages and packets at most once every 10 minutes, so a time up to about 10 minutes old is normal. An observer that hears no traffic gets no new `last_packet`, so on a quiet mesh go by `last_status`.
+MeshMapper records an observer's status messages and packets at most once every 10 minutes, so a time up to about 10 minutes old is normal.
 
 Observers that are also hidden repeaters (🚫 at the start or end of the name) are never listed, just as on the map.
 
