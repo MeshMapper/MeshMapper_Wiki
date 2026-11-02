@@ -68,7 +68,7 @@ tools/release_notes.py add --product app --version v1.4.1 \
 tools/release_notes.py add --product server --version v1.5.100 \
     --date 2026-11-01 --covers v1.5.10..v1.5.100 --notes-file /tmp/notes.md
 
-# Build the whole site in strict mode into a throwaway folder
+# Build the whole site in strict mode (same gate as the deploy)
 tools/release_notes.py check
 ```
 
@@ -77,8 +77,11 @@ tools/release_notes.py check
 - `--covers` is for Server pages only.
 - To fix a published page, run `add` again with `--replace`. It rewrites the
   page and leaves the existing menu line alone.
-- `check` runs `${MKDOCS:-~/.venvs/mkdocs/bin/mkdocs} build --strict -q` and
-  returns its exit code. Run it before every push.
+- `check` runs `${MKDOCS:-~/.venvs/mkdocs/bin/mkdocs} build --strict` into a
+  throwaway folder and returns its exit code. It prints mkdocs' output only
+  when the build fails. It never passes `-q`: that hides warnings from strict
+  mode, so a broken link would pass here and then block the deploy. Run it
+  before every push.
 
 The notes file is only the body, starting at the first `## ` section:
 

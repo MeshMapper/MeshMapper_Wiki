@@ -13,7 +13,8 @@ into the Release Notes block of mkdocs.yml. The menu is edited as text, never
 parsed and re-dumped: mkdocs.yml holds YAML the stdlib cannot read safely and
 is edited by hand elsewhere.
 
-`check` runs `mkdocs build --strict` into a throwaway directory.
+`check` runs `mkdocs build --strict` (the wiki deploy's own gate) into a
+throwaway directory.
 """
 from __future__ import annotations
 
@@ -248,17 +249,27 @@ def _cmd_add(args: argparse.Namespace) -> int:
 
 
 def _cmd_check(_args: argparse.Namespace) -> int:
+    """Run `mkdocs build --strict`, the same gate the wiki deploy uses.
+
+    No `-q`: it lifts mkdocs' log level to ERROR, so warnings (broken links, a
+    menu entry for a missing page) never reach the strict-mode counter and the
+    build would pass here but fail the public deploy.
+    """
     mkdocs = os.path.expanduser(os.environ.get('MKDOCS') or DEFAULT_MKDOCS)
     env = dict(os.environ)
     env.setdefault('NO_MKDOCS_2_WARNING', '1')
     with tempfile.TemporaryDirectory() as out:
         try:
             proc = subprocess.run(
-                [mkdocs, 'build', '--strict', '-q', '-d', out],
-                cwd=str(ROOT), env=env)
+                [mkdocs, 'build', '--strict', '-d', out],
+                cwd=str(ROOT), env=env, stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE, universal_newlines=True)
         except OSError as exc:
             print('error: cannot run %s: %s' % (mkdocs, exc), file=sys.stderr)
             return 127
+    if proc.returncode != 0:
+        sys.stdout.write(proc.stdout or '')
+        sys.stderr.write(proc.stderr or '')
     return proc.returncode
 
 

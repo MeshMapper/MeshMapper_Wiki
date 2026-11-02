@@ -7,6 +7,7 @@ from __future__ import annotations
 import contextlib
 import io
 import os
+import shutil
 import tempfile
 import unittest
 from datetime import date
@@ -292,21 +293,116 @@ class CliTests(unittest.TestCase):
                          '--date', '2026-11-01', '--notes-file',
                          str(self.root / 'missing.md'))[0], 0)
 
-    def test_check_runs_mkdocs_strict_and_returns_its_code(self) -> None:
+    def run_cli_both(self, *argv: str) -> tuple[int, str, str]:
+        out, err = io.StringIO(), io.StringIO()
+        with contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
+            code = rn.main(list(argv))
+        return code, out.getvalue(), err.getvalue()
+
+    def fake_mkdocs(self, returncode: int, stdout: str = '',
+                    stderr: str = '') -> tuple[dict, object]:
         seen: dict = {}
 
         def fake_run(cmd, **kwargs):
             seen['cmd'] = cmd
             seen['cwd'] = kwargs.get('cwd')
-            return mock.Mock(returncode=3)
+            seen['kwargs'] = kwargs
+            return mock.Mock(returncode=returncode, stdout=stdout,
+                             stderr=stderr)
 
+        return seen, fake_run
+
+    def test_check_runs_mkdocs_strict_without_quiet(self) -> None:
+        seen, fake_run = self.fake_mkdocs(3, 'BUILD OUT', 'BUILD ERR')
         with mock.patch.dict(os.environ, {'MKDOCS': '/x/mkdocs'}), \
                 mock.patch.object(rn.subprocess, 'run', fake_run):
-            code, _ = self.run_cli('check')
+            code, out, err = self.run_cli_both('check')
         self.assertEqual(code, 3)
-        self.assertEqual(seen['cmd'][:4], ['/x/mkdocs', 'build', '--strict', '-q'])
-        self.assertEqual(seen['cmd'][4], '-d')
+        # -q would hide warnings from strict mode, so it must not be passed.
+        self.assertEqual(seen['cmd'][:3], ['/x/mkdocs', 'build', '--strict'])
+        self.assertNotIn('-q', seen['cmd'])
+        self.assertNotIn('--quiet', seen['cmd'])
+        self.assertEqual(seen['cmd'][3], '-d')
+        self.assertEqual(len(seen['cmd']), 5)
         self.assertEqual(seen['cwd'], str(self.root))
+        # A failing build shows what mkdocs said.
+        self.assertIn('BUILD OUT', out)
+        self.assertIn('BUILD ERR', err)
+
+    def test_check_is_silent_when_the_build_passes(self) -> None:
+        _, fake_run = self.fake_mkdocs(0, 'noisy info lines', 'warning banner')
+        with mock.patch.dict(os.environ, {'MKDOCS': '/x/mkdocs'}), \
+                mock.patch.object(rn.subprocess, 'run', fake_run):
+            code, out, err = self.run_cli_both('check')
+        self.assertEqual(code, 0)
+        self.assertEqual(out, '')
+        self.assertEqual(err, '')
+
+    def test_check_reports_a_missing_mkdocs(self) -> None:
+        with mock.patch.dict(os.environ, {'MKDOCS': '/nonexistent/mkdocs'}):
+            code, _, err = self.run_cli_both('check')
+        self.assertEqual(code, 127)
+        self.assertIn('cannot run', err)
+
+
+REAL_ROOT = Path(__file__).resolve().parents[2]
+REAL_MKDOCS = Path(os.path.expanduser(
+    os.environ.get('MKDOCS') or rn.DEFAULT_MKDOCS))
+
+
+@unittest.skipUnless(
+    REAL_MKDOCS.exists(),
+    'mkdocs not found at %s (set MKDOCS or create ~/.venvs/mkdocs)'
+    % REAL_MKDOCS)
+class CheckRunsRealMkdocsTests(unittest.TestCase):
+    """No mocking of mkdocs: `check` must fail on what `--strict` fails on."""
+
+    def setUp(self) -> None:
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        self.root = Path(tmp.name) / 'wiki'
+        shutil.copytree(
+            REAL_ROOT, self.root,
+            ignore=shutil.ignore_patterns('.git', '__pycache__', 'site',
+                                          '.DS_Store'))
+        patcher = mock.patch.object(rn, 'ROOT', self.root)
+        patcher.start()
+        self.addCleanup(patcher.stop)
+
+    def run_check(self) -> tuple[int, str, str]:
+        out, err = io.StringIO(), io.StringIO()
+        with contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
+            code = rn.main(['check'])
+        return code, out.getvalue(), err.getvalue()
+
+    def add_page(self, body: str) -> None:
+        notes = self.root / 'notes.md'
+        notes.write_text(body, encoding='utf-8')
+        with contextlib.redirect_stdout(io.StringIO()):
+            code = rn.main(['add', '--product', 'app', '--version', 'v9.9.9',
+                            '--date', '2026-11-01',
+                            '--notes-file', str(notes)])
+        self.assertEqual(code, 0)
+
+    def test_clean_tree_passes(self) -> None:
+        self.add_page('## ✨ New\n- **Fine:** nothing wrong here.\n')
+        code, out, err = self.run_check()
+        self.assertEqual(code, 0, out + err)
+
+    def test_broken_link_fails_the_check(self) -> None:
+        self.add_page('## ✨ New\n- **Bad:** see [this](nope.md).\n')
+        code, out, err = self.run_check()
+        self.assertNotEqual(code, 0)
+        self.assertIn('nope.md', out + err)
+
+    def test_nav_entry_for_a_missing_page_fails_the_check(self) -> None:
+        yml_path = self.root / 'mkdocs.yml'
+        yml = yml_path.read_text(encoding='utf-8')
+        yml_path.write_text(rn.insert_nav(yml, 'app', 'v9.9.8'),
+                            encoding='utf-8')
+        code, out, err = self.run_check()
+        self.assertNotEqual(code, 0)
+        self.assertIn('v9.9.8', out + err)
 
 
 if __name__ == '__main__':
