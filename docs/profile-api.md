@@ -32,7 +32,7 @@ Profiles work for any companion, wherever it wardrives.
   "unattributed_points": 0,
   "region_points": [
     {"region": "SWE", "all_time_points": 18338, "weekly_points": 410, "grid_squares": 2209,
-     "pioneer_squares": 844, "generated_at": 1761939600,
+     "pioneer_squares": 844, "generated_at": 1761955200,
      "zones": [{"region": "STO", "all_time_points": 16120, "weekly_points": 380, "grid_squares": 1950,
                 "pioneer_squares": 760, "generated_at": 1761917580}]},
     {"region": "HB", "all_time_points": 4, "weekly_points": 2, "grid_squares": 1,
