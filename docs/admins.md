@@ -231,6 +231,7 @@ The **Settings** tab is split into blocks: **Public Display**, **Repeaters, Neig
 
 ### Public Display
 
+  - **Region Name:** The name people see on the map, the main site and the leaderboards, for example "South Shore NS". Only the part before the country changes: the country (", CA"), your region code and your web address stay the same. Up to 60 characters of letters, numbers, spaces and `. , - ( ) & /`. Each rename is recorded in **History**, and the global map and leaderboards pick it up within the hour.
   - **Region Message:** Shown to map visitors when they open **Region Info**. Use it to point people to your Discord server or website. Plain text up to 500 characters; links become clickable. Not shown on regions that are part of a group.
   - **Social Media Links:** Any number of social media or website links, shown in **Region Info**.
 
@@ -504,10 +505,11 @@ A group panel splits settings between the group and its member regions.
   - Disable Detailed Statistics
   - Disable Duplicate ID Detection Logic
 
-The group panel also has **Wardriving → Radio Channels** (Slots are totals for the whole group), **Public Display** and **Group MQTT Brokers**.
+The group panel also has **Wardriving → Radio Channels** (Slots are totals for the whole group), **Public Display** (with **Group Name**, the name people see for the whole group) and **Group MQTT Brokers**.
 
 **Per region**, in each member region's card on the group panel:
 
+  - Region Name
   - New Repeaters Enter Pending State
   - Public Channels
   - Wardriving Scope

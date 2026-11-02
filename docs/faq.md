@@ -127,7 +127,7 @@
 ### Region setup and access
 
 ??? question "How do I rename my region?"
-    Ask a global administrator to change its display name. The region editor in the global admin panel controls the name; the region's own settings panel does not.
+    In your region's admin panel, open **Settings → Public Display**, change **Region Name** and click **Save All Settings**. Only the name people see changes: your region code, web address and data stay the same. The country at the end of the name (", CA") can't be changed there; ask a global administrator for that or for a new region code. In a multiregion group, the group admin can rename the group and each member region from the group's Settings tab. See [Public Display](admins.md#public-display).
 
 ??? question "What if my region's administrator is inactive?"
     Contact a Moderator through the [administrator contact guide](administratorlist.md). A global administrator can grant region access to another verified MeshMapper account, so an inactive administrator does not have to issue the invite.
