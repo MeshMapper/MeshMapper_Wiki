@@ -68,6 +68,8 @@ nav:
 
   - Release Notes:
     - Overview: release-notes/index.md
+    - App:
+      - v1.4.1: release-notes/app/v1.4.1.md
 
   - Frequently Asked Questions: faq.md
   - Privacy Policy: privacy.md
