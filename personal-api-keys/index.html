@@ -1756,6 +1756,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../observers-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Observers API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../dataupload/" class="md-nav__link">
         
   
@@ -2185,7 +2213,7 @@
 
 
 <h1 id="personal-api-keys">Personal API keys<a class="headerlink" href="#personal-api-keys" title="Permanent link">¶</a></h1>
-<p>A personal API key is for your own scripts: chart your points, or watch how close you are to the top of your region's leaderboard. Every portal account can make one. Send it in the <code>X-API-Key</code> header and your script gets a proper, documented way in instead of being flagged as automated traffic.</p>
+<p>A personal API key is for your own scripts: chart your points, watch how close you are to the top of your region's leaderboard, or check that your MQTT observer is still reporting. Every portal account can make one. Send it in the <code>X-API-Key</code> header and your script gets a proper, documented way in instead of being flagged as automated traffic.</p>
 <h2 id="get-a-key">Get a key<a class="headerlink" href="#get-a-key" title="Permanent link">¶</a></h2>
 <ol>
 <li>Sign in at <a href="https://portal.meshmapper.net">portal.meshmapper.net</a>.</li>
@@ -2217,9 +2245,14 @@
 <td>A region's or superregion's six top 10 boards</td>
 <td>Your regions and their superregions (below)</td>
 </tr>
+<tr>
+<td><a href="../observers-api/">Observers API</a>, <code>get_observers.php</code></td>
+<td>A region's or superregion's MQTT observers and when each was last heard</td>
+<td>Your regions and their superregions (below)</td>
+</tr>
 </tbody>
 </table>
-<p><strong>Your regions</strong> are the regions your linked companions have pinged in, plus every superregion that contains one of them. The API key card lists them under <strong>Leaderboards</strong>. The list updates about once an hour, so a region you wardrive for the first time unlocks shortly after. With no linked companion there are no boards yet, but profiles still work. <a href="../portal/">Link a companion</a> first.</p>
+<p><strong>Your regions</strong> are the regions your linked companions have pinged in, plus every superregion that contains one of them. The API key card lists them under <strong>Leaderboards</strong>. The list updates about once an hour, so a region you wardrive for the first time unlocks shortly after. With no linked companion there are no boards or observers yet, but profiles still work. <a href="../portal/">Link a companion</a> first.</p>
 <p>The MeshMapper admins can add other APIs to one key, for example the <a href="../repeaters-api/">Repeaters API</a>. Ask in <a href="https://discord.gg/tyXbecdxgr">Discord</a> if you need one. Those APIs follow the same region rule: on a superregion that contains one of your regions, they answer for the whole superregion. A member region you haven't pinged in is read through its superregion (for example <code>swe.meshmapper.net</code>), not on its own page, even when the Region directory lists it.</p>
 <h2 id="use-it">Use it<a class="headerlink" href="#use-it" title="Permanent link">¶</a></h2>
 <pre><code class="language-bash">export MESHMAPPER_API_KEY='your key'
@@ -2229,11 +2262,14 @@ curl --fail-with-body --compressed -H "X-API-Key: $MESHMAPPER_API_KEY" \
 
 curl --fail-with-body -H "X-API-Key: $MESHMAPPER_API_KEY" \
   'https://meshmapper.net/get_profile.php?hex_id=&lt;your companion public key&gt;'
+
+curl --fail-with-body --compressed -H "X-API-Key: $MESHMAPPER_API_KEY" \
+  'https://meshmapper.net/get_observers.php?region=YOW&amp;pubkey=&lt;your observer public key&gt;'
 </code></pre>
 <p>Keep the key out of anything you publish: source control, shared notebooks, web pages. If it leaks, regenerate it.</p>
 <h2 id="limits">Limits<a class="headerlink" href="#limits" title="Permanent link">¶</a></h2>
 <p>By default a personal key gets <strong>100 calls per UTC day and 10 per minute</strong>, shared by every API the key can call. (If an admin grants your key Coverage, Coverage keeps its own daily count.) The day resets at midnight UTC. Your card shows how many calls you have used today.</p>
-<p>When the limit is reached the answer is <code>503 key_rate_limited</code> with a <code>Retry-After</code> header: wait at least that many seconds. Leaderboards and profile points are rebuilt about once a day, so polling more often than once an hour gains nothing.</p>
+<p>When the limit is reached the answer is <code>503 key_rate_limited</code> with a <code>Retry-After</code> header: wait at least that many seconds. Leaderboards and profile points are rebuilt about once a day, so polling them more often than once an hour gains nothing. Observers are read fresh on every call: checking every 30 minutes is 48 calls a day.</p>
 <h2 id="errors">Errors<a class="headerlink" href="#errors" title="Permanent link">¶</a></h2>
 <table>
 <thead>
@@ -2265,9 +2301,19 @@ curl --fail-with-body -H "X-API-Key: $MESHMAPPER_API_KEY" \
 <td>Use a region or superregion code such as <code>SWE</code> or <code>YOW</code>.</td>
 </tr>
 <tr>
+<td>400</td>
+<td><code>invalid_pubkey</code></td>
+<td>Observers: give the observer's public key, or at least its first 6 characters.</td>
+</tr>
+<tr>
 <td>503</td>
 <td><code>board_unavailable</code></td>
 <td>That board hasn't been built yet. Try again after <code>Retry-After</code>.</td>
+</tr>
+<tr>
+<td>503</td>
+<td><code>observers_unavailable</code></td>
+<td>A temporary problem reading the observers list. Try again after <code>Retry-After</code>.</td>
 </tr>
 <tr>
 <td>503</td>
