@@ -30,7 +30,7 @@ Each board shows the top 10.
 
 The top three places show their rank in **gold**, **silver** and **bronze**.
 
-Wardrivers are listed by device, or by their **My MeshMapper** account if they've linked one (all of an account's devices are combined into one row, with a 🔗 badge). Wardrivers without a name show as **Anonymous** and aren't ranked. Click **Profiles** to look up a wardriver's stats and [awards](awards.md).
+Wardrivers are listed by device, or by their **My MeshMapper** account if they've linked one (all of an account's devices are combined into one row, with a 🔗 badge). Points from a newly linked radio move onto the account the next time the leaderboard updates, which can take up to 24 hours; unlinking works the same way. Wardrivers without a name show as **Anonymous** and aren't ranked. Click **Profiles** to look up a wardriver's stats and [awards](awards.md).
 
 ### Top Airtime Savers
 

@@ -77,6 +77,7 @@ Device linking uses the Web Serial / Web Bluetooth APIs, which are only availabl
 - Your radio should be running reasonably recent MeshCore firmware that supports signing.
 - A device can only ever be linked to **one** account. If your device shows as already linked and you believe that's wrong, contact a Moderator on Discord.
 - You can link multiple devices to one account, and unlink a device at any time.
+- Points from a newly linked radio move onto your account the next time the leaderboard updates, which can take up to 24 hours. Unlinking works the same way.
 
 !!! tip "Bluetooth linking fails on Mac or Windows?"
     Some users have run into pairing issues when linking over Bluetooth on Mac and Windows. The fix: **forget/remove the device from your computer's system Bluetooth menu first**, then return to the portal and re-pair the companion during the linking process.

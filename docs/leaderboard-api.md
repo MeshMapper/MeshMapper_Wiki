@@ -24,7 +24,7 @@ GET https://meshmapper.net/get_leaderboard.php?region=SWE
   "boards": {
     "all_time": [
       {"rank": 1, "user": "Anna", "points": 20511, "hex": "1A2B...", "account": 1},
-      {"rank": 2, "user": "louie", "points": 18342, "hex": "077F...", "account": 1}
+      {"rank": 2, "user": "louie", "points": 18338, "hex": "077F...", "account": 1}
     ],
     "weekly": [],
     "pioneers": [],
@@ -62,6 +62,10 @@ GET https://meshmapper.net/get_leaderboard.php?region=SWE
 | `account` | `1` when the row is a portal account (all its linked devices together), `0` for a single device. |
 
 Boards are rebuilt about once a day, so `generated_at` usually changes once a day. Asking more than once an hour gains nothing.
+
+### Matching a profile
+
+A row's `points` equal the `region_points` line for this region in the [profile](profile-api.md#matching-the-leaderboard) of the row's `hex`, with the same `generated_at`.
 
 ## Example: how far am I from first place?
 
