@@ -1,6 +1,6 @@
 # Personal API keys
 
-A personal API key is for your own scripts: chart your points, or watch how close you are to the top of your region's leaderboard. Every portal account can make one. Send it in the `X-API-Key` header and your script gets a proper, documented way in instead of being flagged as automated traffic.
+A personal API key is for your own scripts: chart your points, watch how close you are to the top of your region's leaderboard, or check that your MQTT observer is still reporting. Every portal account can make one. Send it in the `X-API-Key` header and your script gets a proper, documented way in instead of being flagged as automated traffic.
 
 ## Get a key
 
@@ -19,8 +19,9 @@ Each account has one key.
 | --- | --- | --- |
 | [Profile API](profile-api.md), `get_profile.php` | The same profile the site shows for a companion: points, squares, awards, regions | Any companion, anywhere |
 | [Leaderboard API](leaderboard-api.md), `get_leaderboard.php` | A region's or superregion's six top 10 boards | Your regions and their superregions (below) |
+| [Observers API](observers-api.md), `get_observers.php` | A region's or superregion's MQTT observers and when each was last heard | Your regions and their superregions (below) |
 
-**Your regions** are the regions your linked companions have pinged in, plus every superregion that contains one of them. The API key card lists them under **Leaderboards**. The list updates about once an hour, so a region you wardrive for the first time unlocks shortly after. With no linked companion there are no boards yet, but profiles still work. [Link a companion](portal.md) first.
+**Your regions** are the regions your linked companions have pinged in, plus every superregion that contains one of them. The API key card lists them under **Leaderboards**. The list updates about once an hour, so a region you wardrive for the first time unlocks shortly after. With no linked companion there are no boards or observers yet, but profiles still work. [Link a companion](portal.md) first.
 
 The MeshMapper admins can add other APIs to one key, for example the [Repeaters API](repeaters-api.md). Ask in [Discord](https://discord.gg/tyXbecdxgr) if you need one. Those APIs follow the same region rule: on a superregion that contains one of your regions, they answer for the whole superregion. A member region you haven't pinged in is read through its superregion (for example `swe.meshmapper.net`), not on its own page, even when the Region directory lists it.
 
@@ -34,6 +35,9 @@ curl --fail-with-body --compressed -H "X-API-Key: $MESHMAPPER_API_KEY" \
 
 curl --fail-with-body -H "X-API-Key: $MESHMAPPER_API_KEY" \
   'https://meshmapper.net/get_profile.php?hex_id=<your companion public key>'
+
+curl --fail-with-body --compressed -H "X-API-Key: $MESHMAPPER_API_KEY" \
+  'https://meshmapper.net/get_observers.php?region=YOW&pubkey=<your observer public key>'
 ```
 
 Keep the key out of anything you publish: source control, shared notebooks, web pages. If it leaks, regenerate it.
@@ -42,7 +46,7 @@ Keep the key out of anything you publish: source control, shared notebooks, web 
 
 By default a personal key gets **100 calls per UTC day and 10 per minute**, shared by every API the key can call. (If an admin grants your key Coverage, Coverage keeps its own daily count.) The day resets at midnight UTC. Your card shows how many calls you have used today.
 
-When the limit is reached the answer is `503 key_rate_limited` with a `Retry-After` header: wait at least that many seconds. Leaderboards and profile points are rebuilt about once a day, so polling more often than once an hour gains nothing.
+When the limit is reached the answer is `503 key_rate_limited` with a `Retry-After` header: wait at least that many seconds. Leaderboards and profile points are rebuilt about once a day, so polling them more often than once an hour gains nothing. Observers are read fresh on every call: checking every 30 minutes is 48 calls a day.
 
 ## Errors
 
@@ -52,7 +56,9 @@ When the limit is reached the answer is `503 key_rate_limited` with a `Retry-Aft
 | 403 | `api_not_allowed` | Your key can't call this API. Ask the admins if you need it. |
 | 403 | `region_not_allowed` | That region isn't one of yours. The answer's `message` explains the rule. |
 | 400 | `invalid_region` | Use a region or superregion code such as `SWE` or `YOW`. |
+| 400 | `invalid_pubkey` | Observers: give the observer's public key, or at least its first 6 characters. |
 | 503 | `board_unavailable` | That board hasn't been built yet. Try again after `Retry-After`. |
+| 503 | `observers_unavailable` | A temporary problem reading the observers list. Try again after `Retry-After`. |
 | 503 | `key_rate_limited` | You've used today's or this minute's calls. Wait for `Retry-After`. |
 | 503 | `auth_unavailable` | A temporary server problem. Wait for `Retry-After`. |
 

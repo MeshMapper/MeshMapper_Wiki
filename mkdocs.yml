@@ -57,6 +57,7 @@ nav:
     - Personal API Keys: personal-api-keys.md
     - Profile API: profile-api.md
     - Leaderboard API: leaderboard-api.md
+    - Observers API: observers-api.md
     - Data Upload: dataupload.md
   
   - Support:
