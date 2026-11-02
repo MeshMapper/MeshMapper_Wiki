@@ -1,6 +1,6 @@
 # Privacy Notice
 
-**Last Updated:** October 30, 2026
+**Last Updated:** November 2, 2026
 
 MeshMapper ("we", "us", or "our") operates the MeshMapper platform at meshmapper.net and its associated regional subdomains. This Privacy Notice explains how we collect, use, and protect your information when you use our services.
 
@@ -94,7 +94,8 @@ MeshMapper integrates with the following third-party services:
 ## Data Retention
 
 - Coverage and session data is retained indefinitely to maintain historical map accuracy. Regions may remove pings whose repeaters have moved or disappeared.
-- Repeaters not heard for 30 days are marked inactive. Records of other mesh devices heard on the air are removed after about 30 days, and some repeater metadata expires after 90–180 days.
+- Repeaters not heard for 30 days are marked inactive. Records of other mesh devices heard on the air (node name, public key and when they were last heard) are kept, and some repeater metadata expires after 90–180 days.
+- Adverts your devices broadcast on the mesh (node name, public key and position) are public, so we don't delete them on request, and a device that keeps advertising would show up again anyway. Your wardriving pings, sessions and account are different: they reach us through the app and the portal, and you can have them deleted.
 - You can view your sessions and delete some or all of your contributed pings (and the leaderboard credit from them) through the [My MeshMapper portal](portal.md) after verifying ownership of your device.
 - Deleted data may remain in routine database backups until those backups are overwritten.
 - To delete your account or remaining session records, contact us at admin@meshmapper.net.
