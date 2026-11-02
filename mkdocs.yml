@@ -66,33 +66,7 @@ nav:
     - Bot Commands: botcommands.md
 
   - Release Notes:
-    - June 30, 2026: release-notes/260630.md
-    - April 19, 2026: release-notes/260419.md
-    - April 9, 2026: release-notes/260409.md
-    - March 31, 2026: release-notes/260331.md
-    - March 25, 2026: release-notes/260325.md
-    - March 20, 2026: release-notes/260320.md
-    - March 17, 2026: release-notes/260317.md
-    - March 8, 2026: release-notes/260308.md
-    - March 6, 2026: release-notes/260306.md
-    - March 4, 2026: release-notes/260304.md
-    - February 27, 2026: release-notes/260227.md
-    - February 26, 2026: release-notes/260226.md
-    - February 25, 2026: release-notes/260225.md
-    - February 20, 2026: release-notes/260220.md
-    - February 19, 2026: release-notes/260219.md
-    - February 12, 2026: release-notes/260212.md
-    - February 9, 2026: release-notes/260209.md
-    - February 7, 2026: release-notes/260207.md
-    - February 5, 2026: release-notes/260205_2.md
-    - February 5, 2026: release-notes/260205.md
-    - February 4, 2026: release-notes/260204.md
-    - February 3, 2026: release-notes/260203_2.md
-    - February 3, 2026: release-notes/260203.md
-    - January 31, 2026: release-notes/260131_2.md
-    - January 31, 2026: release-notes/260131.md
-    - January 30, 2026: release-notes/260130.md
-    - January 29, 2026: release-notes/260129.md
+    - Overview: release-notes/index.md
 
   - Frequently Asked Questions: faq.md
   - Privacy Policy: privacy.md
