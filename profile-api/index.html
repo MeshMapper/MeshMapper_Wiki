@@ -1669,6 +1669,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#matching-the-leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Matching the leaderboard
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#errors" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2819,6 +2830,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#matching-the-leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Matching the leaderboard
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#errors" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2873,7 +2895,7 @@
   "avatar_path": null,
   "avatar_url": "https://cdn.discordapp.com/avatars/...",
   "bio": null,
-  "regions": "SWE,STO",
+  "regions": "SWE,STO,HB",
   "primary_region": "SWE",
   "user_group_name": "louie",
   "all_time_points": 18342,
@@ -2881,6 +2903,14 @@
   "grid_squares": 2210,
   "pioneer_squares": 845,
   "unattributed_points": 0,
+  "region_points": [
+    {"region": "SWE", "all_time_points": 18338, "weekly_points": 410, "grid_squares": 2209,
+     "pioneer_squares": 844, "generated_at": 1761955200,
+     "zones": [{"region": "STO", "all_time_points": 16120, "weekly_points": 380, "grid_squares": 1950,
+                "pioneer_squares": 760, "generated_at": 1761917580}]},
+    {"region": "HB", "all_time_points": 4, "weekly_points": 2, "grid_squares": 1,
+     "pioneer_squares": 1, "generated_at": 1761938520, "zones": []}
+  ],
   "first_seen": 1754000000,
   "last_heard": 1761950000,
   "awards": [],
@@ -2940,6 +2970,10 @@
 <td>Part of the account's points earned with no radio key attached.</td>
 </tr>
 <tr>
+<td><code>region_points</code></td>
+<td>One line per region board this companion (or account) is on, highest <code>all_time_points</code> first. Each line has the board's <code>region</code>, <code>all_time_points</code>, <code>weekly_points</code>, <code>grid_squares</code>, <code>pioneer_squares</code>, its <code>generated_at</code>, and <code>zones</code>. See <a href="#matching-the-leaderboard">Matching the leaderboard</a>. Missing on older data.</td>
+</tr>
+<tr>
 <td><code>first_seen</code>, <code>last_heard</code></td>
 <td>Unix timestamps in seconds, or <code>null</code>.</td>
 </tr>
@@ -2953,7 +2987,14 @@
 </tr>
 </tbody>
 </table>
-<p>Points are rebuilt about once a day, so there's no need to ask more than once an hour.</p>
+<h2 id="matching-the-leaderboard">Matching the leaderboard<a class="headerlink" href="#matching-the-leaderboard" title="Permanent link">¶</a></h2>
+<p>The profile's numbers come from the region leaderboards as they stand right now, so the two APIs agree when you pull both.</p>
+<ul>
+<li>Each <code>region_points</code> line equals this companion's row in <a href="../leaderboard-api/"><code>get_leaderboard.php?region=&lt;region&gt;</code></a>, and its <code>generated_at</code> equals that response's <code>generated_at</code>. A superregion counts as one board.</li>
+<li><code>all_time_points</code>, <code>weekly_points</code>, <code>grid_squares</code> and <code>pioneer_squares</code> at the top are the sum of the lines. If you drive in several regions, the total matches no single board (in the example, SWE 18,338 + HB 4 = 18,342). That's expected.</li>
+<li><code>zones</code> lists a superregion's member regions, each matching that member's own board. They're already inside the superregion's line, so they aren't added to the total.</li>
+</ul>
+<p>Each board updates about once a day, so the numbers follow the boards and asking more than once an hour gains nothing. After you link or unlink a radio, its points move onto or off your account the next time each board updates, which can take up to 24 hours.</p>
 <h2 id="errors">Errors<a class="headerlink" href="#errors" title="Permanent link">¶</a></h2>
 <p>A companion that can't be found is answered with HTTP 200 and an <code>error</code> field, as the site's own profile card expects:</p>
 <table>
@@ -2974,6 +3015,7 @@
 </tr>
 </tbody>
 </table>
+<p>A companion on its first day may be on a board before its profile is built. Ask with its full 64-character hex to find it; a shorter prefix won't match it until the next day.</p>
 <p>Key and limit errors (401, 403, 503) are listed on <a href="../personal-api-keys/#errors">Personal API keys</a> and <a href="../api-keys/#read-api-errors">API keys and access</a>.</p>
 
 

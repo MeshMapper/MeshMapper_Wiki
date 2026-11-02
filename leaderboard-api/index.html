@@ -1708,6 +1708,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#matching-a-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Matching a profile
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2858,6 +2869,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#matching-a-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Matching a profile
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2933,7 +2955,7 @@
   "boards": {
     "all_time": [
       {"rank": 1, "user": "Anna", "points": 20511, "hex": "1A2B...", "account": 1},
-      {"rank": 2, "user": "louie", "points": 18342, "hex": "077F...", "account": 1}
+      {"rank": 2, "user": "louie", "points": 18338, "hex": "077F...", "account": 1}
     ],
     "weekly": [],
     "pioneers": [],
@@ -3035,6 +3057,8 @@
 </tbody>
 </table>
 <p>Boards are rebuilt about once a day, so <code>generated_at</code> usually changes once a day. Asking more than once an hour gains nothing.</p>
+<h3 id="matching-a-profile">Matching a profile<a class="headerlink" href="#matching-a-profile" title="Permanent link">¶</a></h3>
+<p>A row's <code>points</code> equal the <code>region_points</code> line for this region in the <a href="../profile-api/#matching-the-leaderboard">profile</a> of the row's <code>hex</code>, with the same <code>generated_at</code>.</p>
 <h2 id="example-how-far-am-i-from-first-place">Example: how far am I from first place?<a class="headerlink" href="#example-how-far-am-i-from-first-place" title="Permanent link">¶</a></h2>
 <pre><code class="language-python">import os
 import requests
