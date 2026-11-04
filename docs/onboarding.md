@@ -14,6 +14,18 @@ The MeshMapper team uses these guidelines when reviewing a new region or a bound
   4. **Exceptions**: Legacy regions and unusually large, remote mesh networks may be handled differently.
   5. **Community, not just an airport**: Having an airport isn't enough reason for a separate region. How the local MeshCore community is organized, and which observers are available, matter too.
 
+### Safety and Operational Capacity
+
+MeshMapper is a community project with limited operational resources. The team may decline or defer a new region, or suspend an existing region, when:
+
+- Armed conflict creates significant risk from collecting or publishing location, activity, or communications infrastructure data.
+- Credible legal, sanctions, or hosting compliance concerns remain unresolved.
+- The security assessment, monitoring, or moderation needed exceeds the team's capacity.
+
+Restrictions may cover an entire country when the team cannot reliably assess or contain the risks locally. These guidelines apply to both new and existing regions; approval is not permanent.
+
+These decisions are not a judgment on residents, and approving a region does not endorse its government. The team may reconsider restrictions when circumstances or capacity permit.
+
 ## Before You Start
 
   - **No existing region**: Your area must not already be substantially covered by another region. Regions within regions are not allowed.
