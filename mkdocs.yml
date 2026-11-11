@@ -69,6 +69,7 @@ nav:
   - Release Notes:
     - Overview: release-notes/index.md
     - App:
+      - v1.4.2: release-notes/app/v1.4.2.md
       - v1.4.1: release-notes/app/v1.4.1.md
     - Server:
       - v1.5.171: release-notes/server/v1.5.171.md
