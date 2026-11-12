@@ -2675,7 +2675,8 @@
       },
       "properties": {
         "code": "YOW", "name": "Ottawa, CA", "short_name": "Ottawa", "country": "CA",
-        "center": [-75.6972, 45.4215], "radius_km": 42, "has_boundary": true,
+        "center": [-75.6972, 45.4215], "bbox": [-75.9124, 45.1987, -75.3987, 45.6124],
+        "has_boundary": true,
         "url": "https://yow.meshmapper.net/"
       }
     }
@@ -2685,8 +2686,10 @@
 <ul>
 <li>Coordinates are <code>[longitude, latitude]</code>, as GeoJSON requires, rounded to 6 decimals (about 10 cm). The outline is never simplified.</li>
 <li>The geometry is always a single <code>Polygon</code>.</li>
-<li>A region with no drawn boundary has <code>"geometry": null</code> and <code>has_boundary: false</code>. MeshMapper doesn't draw a circle in its place, but <code>center</code> and <code>radius_km</code> are there if you want one.</li>
-<li><code>center</code> is <code>[longitude, latitude]</code> too. <code>radius_km</code> can be <code>null</code>.</li>
+<li>A region with no drawn boundary has <code>"geometry": null</code> and <code>has_boundary: false</code>. MeshMapper doesn't draw anything in its place; <code>center</code> is still there, and <code>bbox</code> is <code>null</code>.</li>
+<li><code>center</code> is <code>[longitude, latitude]</code> too.</li>
+<li><code>bbox</code> is the boundary's bounding box, <code>[west, south, east, north]</code> in degrees, rounded outward to 4 decimals so it always holds the whole outline. A region that crosses the 180° line has <code>west</code> greater than <code>east</code>. It is <code>null</code> when the region has no usable boundary.</li>
+<li><code>radius_km</code> is no longer sent (removed November 2026). A region is its boundary, not a circle; use <code>bbox</code> or the geometry.</li>
 <li>If the server hits a problem mid-stream, the JSON is deliberately left unclosed, so you get a truncated, unparseable body, not a clean JSON error. Retry after a parse error; the retry counts against your key's budget like any other request (see <a href="#call-limits">Call limits</a>).</li>
 </ul>
 <h2 id="call-limits">Call limits<a class="headerlink" href="#call-limits" title="Permanent link">¶</a></h2>
