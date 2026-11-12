@@ -484,7 +484,6 @@ Where your region is and what counts as inside it. See [Defining a Region's Boun
 
   - **Center of Region:** A pin you can drag.
   - **Country:** The two-letter country code.
-  - **Region Radius:** Worked out from the boundary. You can't edit it.
   - **Auto Boundary:** Loads real borders from OpenStreetMap (or geoBoundaries). Drag the pin, pick **State/Prov**, **County** or **Local**, click the areas you want, then click **Use selected**.
   - **Draw Boundary** (under Advanced Mapping): Draw or edit the boundary by hand.
   - **Import GeoJSON:** Paste a `Polygon`, `MultiPolygon`, `Feature` or `FeatureCollection`. Only use custom GeoJSON in special cases.

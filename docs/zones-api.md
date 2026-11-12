@@ -103,7 +103,8 @@ Returns a GeoJSON `FeatureCollection` ([RFC 7946](https://datatracker.ietf.org/d
       },
       "properties": {
         "code": "YOW", "name": "Ottawa, CA", "short_name": "Ottawa", "country": "CA",
-        "center": [-75.6972, 45.4215], "radius_km": 42, "has_boundary": true,
+        "center": [-75.6972, 45.4215], "bbox": [-75.9124, 45.1987, -75.3987, 45.6124],
+        "has_boundary": true,
         "url": "https://yow.meshmapper.net/"
       }
     }
@@ -113,8 +114,10 @@ Returns a GeoJSON `FeatureCollection` ([RFC 7946](https://datatracker.ietf.org/d
 
 - Coordinates are `[longitude, latitude]`, as GeoJSON requires, rounded to 6 decimals (about 10 cm). The outline is never simplified.
 - The geometry is always a single `Polygon`.
-- A region with no drawn boundary has `"geometry": null` and `has_boundary: false`. MeshMapper doesn't draw a circle in its place, but `center` and `radius_km` are there if you want one.
-- `center` is `[longitude, latitude]` too. `radius_km` can be `null`.
+- A region with no drawn boundary has `"geometry": null` and `has_boundary: false`. MeshMapper doesn't draw anything in its place; `center` is still there, and `bbox` is `null`.
+- `center` is `[longitude, latitude]` too.
+- `bbox` is the boundary's bounding box, `[west, south, east, north]` in degrees, rounded outward to 4 decimals so it always holds the whole outline. A region that crosses the 180° line has `west` greater than `east`. It is `null` when the region has no usable boundary.
+- `radius_km` is no longer sent (removed November 2026). A region is its boundary, not a circle; use `bbox` or the geometry.
 - If the server hits a problem mid-stream, the JSON is deliberately left unclosed, so you get a truncated, unparseable body, not a clean JSON error. Retry after a parse error; the retry counts against your key's budget like any other request (see [Call limits](#call-limits)).
 
 ## Call limits
