@@ -161,15 +161,30 @@ Click a repeater chip to see its details. The rest of the coverage dims so its o
 
   - **Status**: Repeater Online, Backbone Site, New Repeater, Stale Repeater, Ambiguous (with the other repeaters sharing its ID), Inactive or Disabled.
   - **Clock warning**: "Repeater time is not set correctly" if its clock was more than 120 seconds off when last checked in the past week.
-  - **Details**: ID and advertised ID width (**Advert Bytes**), power, **First Heard**, **Last Heard**, **Max Range**, and any hardware, antenna, height, power source and site notes the admins have added.
+  - **Details**: ID and advertised ID width (**Advert Bytes**), power, **First Heard**, **Last Heard**, and any hardware, antenna, height, power source and site notes the admins have added.
   - **Freq**: the radio presets it has been heard on.
   - **Mesh Scopes**: the scopes it carries. See [Repeater Scopes](layers.md#repeater-scopes).
   - **Traffic rank**: where it ranks for traffic in the region, and its share.
-  - **Stats**: ping counts by type and a signal-vs-distance chart.
+  - **Signal vs distance**: the repeater's max range, its ping counts by type and a chart of signal against distance. See [Signal vs Distance](#signal-vs-distance).
   - **Neighbours**: repeaters it links to, marked **I** (inferred), **R** (reported) or **U** (uploaded), with direction, signal each way, packet count and last seen. Click one to draw that link.
   - **Recent Adverts** (sidebar): its adverts from the last 7 days.
   - **Add Another** (sidebar): compare several repeaters' coverage side by side.
   - The **link icon** copies a direct link to the repeater.
+
+### Signal vs Distance
+
+Every ping that reached this repeater, placed by how far away it was (left to right) and how strong the signal was (bottom to top). It shows how the repeater's signal holds up with distance.
+
+![The Signal vs distance chart with Trend and By antenna turned on: faint dots for each ping, a solid line for external antennas and a dashed line for internal ones.](assets/signal-vs-distance.png)
+
+  - **Max range**: the farthest ping that reached the repeater, shown beside the title.
+  - **Ping types**: the row of counts (BIDIR, TX, RX, DISC, DEAD) is also a row of switches. They all start on. Click one to take that type off the chart, and click it again to bring it back. For example, turn RX off to see only the pings that got a reply. A type with a count of 0 can't be clicked. TX pings often have no signal reading, so they can be counted without appearing on the chart.
+  - **Dots / Density**: **Dots** draws one small dot per ping. **Density** counts the pings into squares instead, coloured by the most common type and stronger where there are more. Hover or tap a square to see its distance and signal range, how many pings are in it and which types. Density is easier to read on a very busy repeater.
+  - **Trend**: draws one line per ping type showing the typical (median) signal at each distance. A line has a gap wherever fewer than 5 pings were recorded, so it never guesses across a stretch nobody drove. Hover a line to see the distance range, the median and the ping count.
+  - **By antenna**: splits each trend line in two, solid for pings sent with an external antenna and dashed for an internal one. It needs **Trend** on.
+
+!!! note
+    Switching a ping type off only changes the chart, and every repeater opens with all of them on. Dots or Density, Trend and By antenna are remembered in your browser.
 
 ## Private Repeaters
 
