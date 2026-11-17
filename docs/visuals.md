@@ -175,16 +175,17 @@ Click a repeater chip to see its details. The rest of the coverage dims so its o
 
 Every ping that reached this repeater, placed by how far away it was (left to right) and how strong the signal was (bottom to top). It shows how the repeater's signal holds up with distance.
 
-![The Signal vs distance chart with Trend and By antenna turned on: faint dots for each ping, a solid line for external antennas and a dashed line for internal ones.](assets/signal-vs-distance.png)
+![The Signal vs distance chart on its log distance scale with Trend and Antenna turned on: faint dots for each ping, the near pings spread out from 0.1 km to 30 km, a solid line for external antennas and a dashed line for internal ones.](assets/signal-vs-distance.png)
 
   - **Max range**: the farthest ping that reached the repeater, shown beside the title.
   - **Ping types**: the row of counts (BIDIR, TX, RX, DISC, DEAD) is also a row of switches. They all start on. Click one to take that type off the chart, and click it again to bring it back. For example, turn RX off to see only the pings that got a reply. A type with a count of 0 can't be clicked. TX pings often have no signal reading, so they can be counted without appearing on the chart.
-  - **Dots / Density**: **Dots** draws one small dot per ping. **Density** counts the pings into squares instead, coloured by the most common type and stronger where there are more. Hover or tap a square to see its distance and signal range, how many pings are in it and which types. Density is easier to read on a very busy repeater.
+  - **Dots / Density / Line**: **Dots** draws one small dot per ping. **Density** counts the pings into squares instead, coloured by the most common type and stronger where there are more. Hover or tap a square to see its distance and signal range, how many pings are in it and which types. Density is easier to read on a very busy repeater. **Line** shows the trend lines alone, with no dots or squares, so **Trend** stays on while you're in it.
+  - **Log**: the distance scale. It starts on, which spreads out the pings close to the repeater, so a few very long pings no longer squash everything else against the left edge. The distances along the bottom grow by multiples instead of even steps (for example 0.1, 0.3, 1, 3, 10 km). Click **Log** to switch to an even scale starting at 0. Pings closer than the left edge of the log scale are drawn on that edge, and hovering one still shows its real distance.
   - **Trend**: draws one line per ping type showing the typical (median) signal at each distance. A line has a gap wherever fewer than 5 pings were recorded, so it never guesses across a stretch nobody drove. Hover a line to see the distance range, the median and the ping count.
-  - **By antenna**: splits each trend line in two, solid for pings sent with an external antenna and dashed for an internal one. It needs **Trend** on.
+  - **Antenna**: splits each trend line in two, solid for pings sent with an external antenna and dashed for an internal one. It needs **Trend** on.
 
 !!! note
-    Switching a ping type off only changes the chart, and every repeater opens with all of them on. Dots or Density, Trend and By antenna are remembered in your browser.
+    Switching a ping type off only changes the chart, and every repeater opens with all of them on. Dots, Density or Line, Log, Trend and Antenna are remembered in your browser.
 
 ## Private Repeaters
 
