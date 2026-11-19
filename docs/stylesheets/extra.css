@@ -82,5 +82,21 @@
     transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 .md-typeset a.kofi-btn:hover { background: #e94b48; color: #fff; box-shadow: 0 0 10px rgba(255,94,91,0.5); }
-.md-footer-meta.md-typeset .md-social__link[href*="ko-fi.com"] { color: #FF5E5B; }
-.md-footer-meta.md-typeset .md-social__link[href*="ko-fi.com"]:hover { color: #ff8a88; }
+
+/* Ko-fi button in the footer, above the "Made with" line */
+.md-footer-meta.md-typeset a.kofi-footer-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0.4rem 0 0.6rem;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: #FF5E5B;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-decoration: none;
+}
+.md-footer-meta.md-typeset a.kofi-footer-btn:hover { background: #e94b48; color: #fff; }
+.kofi-footer-icon svg { width: 20px; height: 20px; fill: currentColor; display: block; }
+.md-copyright { display: flex; flex-direction: column; align-items: flex-start; }

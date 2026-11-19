@@ -81,6 +81,7 @@ nav:
 # Theme Configuration
 theme:
   name:  material
+  custom_dir: overrides
   logo: assets/wardrive.png
   favicon: assets/wardrive.png
   palette:
@@ -105,12 +106,6 @@ plugins:
   - macros
   - glightbox:
       touchNavigation: true
-
-extra:
-  social:
-    - icon: fontawesome/solid/mug-hot
-      link: https://ko-fi.com/mralders0n
-      name: Support MeshMapper on Ko-fi
 
 extra_css:
   - stylesheets/extra.css

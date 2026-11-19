@@ -1,0 +1,18 @@
+{#- Theme copyright partial with a Ko-fi button above the "Made with" line. -#}
+<div class="md-copyright">
+  <a class="kofi-footer-btn" href="https://ko-fi.com/mralders0n" target="_blank" rel="noopener">
+    <span class="kofi-footer-icon">{% include ".icons/simple/kofi.svg" %}</span>
+    Support on Ko-fi
+  </a>
+  {% if config.copyright %}
+    <div class="md-copyright__highlight">
+      {{ config.copyright }}
+    </div>
+  {% endif %}
+  {% if not config.extra.generator == false %}
+    <span>Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a></span>
+  {% endif %}
+</div>
