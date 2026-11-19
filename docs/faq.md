@@ -220,7 +220,7 @@
     Try the [MeshMapper Wiki](https://wiki.meshmapper.net) first. If you still need help, post in the MeshMapper Discord server. You can also tag the @MeshMapper AI bot directly and it will do its best to answer based on the wiki and its training.
 
 ??? question "I would like to contribute!"
-    Thank you!  Feature requests can be submitted through the MeshMapper AI bot, website, or mobile app (see above).  If you would like to help support the costs of development, servers, hosting, etc., [you're welcome to do so via BuyMeACoffee](https://buymeacoffee.com/meshmapper).  Thank you!
+    Thank you!  Feature requests can be submitted through the MeshMapper AI bot, website, or mobile app (see above).  If you would like to help support the costs of development, servers, hosting, etc., [you're welcome to do so via Ko-fi](https://ko-fi.com/mralders0n).  Thank you!
 
 ---
 

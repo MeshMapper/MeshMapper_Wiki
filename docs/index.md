@@ -58,4 +58,4 @@ Every wardriver helps fill in the picture for their local mesh. You can see your
 
 ## Developers
 
-MeshMapper is developed by **MrAlders0n** of the Greater Ottawa Mesh Radio Enthusiasts. The backend was started together with **CSP-Tom**, who has since moved on, and MrAlders0n continues that work. While MeshMapper is 100% free to use, your support helps cover the backend resources and development time needed to keep up with the rapid global growth. If MeshMapper has helped you, [feel free to buy us a coffee](https://buymeacoffee.com/meshmapper)!
+MeshMapper is developed by **MrAlders0n** of the Greater Ottawa Mesh Radio Enthusiasts. The backend was started together with **CSP-Tom**, who has since moved on, and MrAlders0n continues that work. While MeshMapper is 100% free to use, your support helps cover the backend resources and development time needed to keep up with the rapid global growth. If MeshMapper has helped you, [feel free to buy us a coffee](https://ko-fi.com/mralders0n)!
