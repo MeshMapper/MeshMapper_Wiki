@@ -66,3 +66,21 @@
         padding: 4px 10px;
     }
 }
+/* Ko-fi button on the Support MeshMapper page (Ko-fi coral) */
+.kofi-cta { margin: 1.2em 0 1.6em; }
+.md-typeset a.kofi-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #FF5E5B;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.md-typeset a.kofi-btn:hover { background: #e94b48; color: #fff; box-shadow: 0 0 10px rgba(255,94,91,0.5); }
+.md-footer-meta.md-typeset .md-social__link[href*="ko-fi.com"] { color: #FF5E5B; }
+.md-footer-meta.md-typeset .md-social__link[href*="ko-fi.com"]:hover { color: #ff8a88; }

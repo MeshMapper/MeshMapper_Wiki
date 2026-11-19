@@ -213,6 +213,9 @@
 ??? question "How do I report a bug?"
     You can report bugs by tagging the MeshMapper bot on Discord with `!bug` followed by a description, or through the MeshMapper website and mobile app. See [Report Bugs & Features](reportbugs.md) for more info.
 
+??? question "How can I support MeshMapper?"
+    MeshMapper is free, and tips on [Ko-fi](https://ko-fi.com/mralders0n) help pay for the servers and development time. You can also help by wardriving, setting up an observer or bringing your region on board. See [Support MeshMapper](support.md).
+
 ??? question "How do I request a feature?"
     Tag the MeshMapper bot on Discord with `!feature` followed by your idea, or through the MeshMapper website or mobile app. See [Report Bugs & Features](reportbugs.md) for more info.
 
@@ -220,7 +223,7 @@
     Try the [MeshMapper Wiki](https://wiki.meshmapper.net) first. If you still need help, post in the MeshMapper Discord server. You can also tag the @MeshMapper AI bot directly and it will do its best to answer based on the wiki and its training.
 
 ??? question "I would like to contribute!"
-    Thank you!  Feature requests can be submitted through the MeshMapper AI bot, website, or mobile app (see above).  If you would like to help support the costs of development, servers, hosting, etc., [you're welcome to do so via Ko-fi](https://ko-fi.com/mralders0n).  Thank you!
+    Thank you!  Feature requests can be submitted through the MeshMapper AI bot, website, or mobile app (see above).  If you would like to help support the costs of development, servers, hosting, etc., [you're welcome to do so via Ko-fi](https://ko-fi.com/mralders0n). See [Support MeshMapper](support.md) for other ways to help.  Thank you!
 
 ---
 

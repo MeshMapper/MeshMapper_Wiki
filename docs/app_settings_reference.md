@@ -1,6 +1,6 @@
 # Settings Reference
 
-Complete reference for every setting in MeshMapper. The Settings tab is a list of folders, and each folder opens its own page. On Android, a Close App button sits at the bottom of the tab. The headings below follow the app: one section per folder, then the groups you see inside it.
+Complete reference for every setting in MeshMapper. The Settings tab is a list of folders, and each folder opens its own page. On Android, a Support MeshMapper on Ko-fi link sits above About & Support, and a Close App button sits at the bottom of the tab. The headings below follow the app: one section per folder, then the groups you see inside it.
 
 !!! warning
     Some settings are locked while auto-ping is running. An amber "Some settings locked during auto-ping" banner appears at the top of Settings and on the folder pages that have locked settings. Stop auto-ping to change them.
@@ -470,7 +470,6 @@ This folder appears once an Apple Watch has been paired with your phone, and sta
 - **GitHub**: View issues and source code
 - **Discord**: Join the community chat
 - **Community**: Built with contributions from the Greater Ottawa Mesh Radio Enthusiasts community
-- **Buy us a coffee**: Support MeshMapper development (not shown on iOS)
 
 ### Support
 
